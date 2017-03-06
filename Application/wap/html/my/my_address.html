@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <style type="text/css">
+    body {
+        background-color: #f4f4f4;
+        height: 100%;
+    }
+    .aui-content {
+        background: #ffffff;
+        padding-top: 46px ;
+        margin-bottom: 55px;
+    }
+    .aui-iconfont {
+        font-size: 1.5em;
+    }
+    p {
+        font-size: 0.75em;
+    }
+    .choose {
+        color: #ccc !important;
+    }
+    .active .choose {
+        color: #f1c40f !important;
+    }
+    /**/
+    .aui-bar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #df3031;
+        color: #fff;
+    }
+    .aui-bar .aui-iconfont{
+        color: #fff;
+    }
+    .aui-nav {
+        line-height: 55px;
+        position: fixed;
+        bottom:0;
+        left: 0;
+        width: 100%;
+    }
+    .aui-bg-light {
+        background: #f4f4f4;
+    }
+    .aui-bg-light i{
+        font-size: 1rem;
+    }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-info" id="aui-header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">收货地址</div>
+    </header>
+    <footer class="aui-nav aui-text-center aui-bg-light aui-text-info" id="aui-footer" tapmode onclick="openWin('my_address_add');">
+        <i class="aui-iconfont aui-icon-plus-circle"></i> 新增地址
+    </footer>
+    <section class="aui-content" id="list">
+         <ul class="aui-list-view aui-in">
+            <li class="aui-list-view-cell" >
+               <div class="aui-flex-col aui-flex-middle">
+                   <!--  <div class="aui-flex-item-1">
+                       <span class="aui-iconfont aui-icon-roundcheckfill choose"></span>
+                    </div> -->
+                    <div class="aui-flex-item-8">
+                        <div> 张三 15553617131</div>
+                        <p>北京市海淀区</p>
+                        <p>中关村</p>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                       <div class="aui-iconfont aui-icon-pencil aui-text-info"></div>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                        <div class="aui-iconfont aui-icon-trash aui-text-danger"></div>
+                  </div>
+                </div>
+            </li>
+            <li class="aui-list-view-cell" >
+               <div class="aui-flex-col aui-flex-middle">
+                   <!--  <div class="aui-flex-item-1">
+                       <span class="aui-iconfont aui-icon-roundcheckfill choose"></span>
+                    </div> -->
+                    <div class="aui-flex-item-8">
+                        <div> 李四 18766171791</div>
+                        <p>北京市海淀区</p>
+                        <p>中关村中科大厦</p>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                       <div class="aui-iconfont aui-icon-pencil aui-text-info"></div>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                        <div class="aui-iconfont aui-icon-trash aui-text-danger"></div>
+                  </div>
+                </div>
+            </li>
+            <li class="aui-list-view-cell" >
+               <div class="aui-flex-col aui-flex-middle">
+                   <!--  <div class="aui-flex-item-1">
+                       <span class="aui-iconfont aui-icon-roundcheckfill choose"></span>
+                    </div> -->
+                    <div class="aui-flex-item-8">
+                        <div> 李磊 15512345678</div>
+                        <p>北京市海淀区</p>
+                        <p>中关村</p>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                       <div class="aui-iconfont aui-icon-pencil aui-text-info"></div>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                        <div class="aui-iconfont aui-icon-trash aui-text-danger"></div>
+                  </div>
+                </div>
+            </li>
+            <li class="aui-list-view-cell" >
+               <div class="aui-flex-col aui-flex-middle">
+                   <!--  <div class="aui-flex-item-1">
+                       <span class="aui-iconfont aui-icon-roundcheckfill choose"></span>
+                    </div> -->
+                    <div class="aui-flex-item-8">
+                        <div> 刘洋 15553617131</div>
+                        <p>北京市海淀区</p>
+                        <p>中关村中科大厦</p>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                       <div class="aui-iconfont aui-icon-pencil aui-text-info"></div>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                        <div class="aui-iconfont aui-icon-trash aui-text-danger"></div>
+                  </div>
+                </div>
+            </li>
+
+        </ul>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tap.js"></script>
+<!-- <script type="text/javascript" src="../../script/aui-loading.js"></script> -->
+<script type="text/javascript">
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+    function openWin(name){
+        window.location.href=name+'.html'; 
+
+    }
+</script>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        html,body{
+            background-color: #fff;
+        }
+        .aui-list .aui-list-item{
+            padding: 0.5rem 0;
+        }
+        label{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .aui-content{
+            margin: 1rem;
+        }
+        .btnbox{
+            width: 100%;
+            text-align: center;
+        }
+        .aui-btn{
+            background-color:#df3031;
+            color: #fff;
+            width: 100%;
+            line-height: 1.5rem;
+        }
+        .bottombox .aui-flex-item-3{
+            font-size: 0.7rem;
+            color: #666;
+            padding: 0.5rem;
+        }
+        /**/
+        .aui-radio:checked,
+        .aui-radio.aui-checked,
+        .aui-checkbox:checked,
+        .aui-checkbox.aui-checked {
+            background-color: #df3031;
+            border: solid 1px #df3031;
+            text-align: center;
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+    </style>
+</head>
+<body>
+      <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">举报</div>
+        <a class="aui-pull-right">
+            <span class="aui-iconfont aui-icon-more2"></span>
+        </a>
+    </header>
+    <section class="aui-content aui-border">
+        <ul class="aui-list">
+            <li class="aui-list-item aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-2 aui-text-center">
+                    <input class="aui-radio" type="radio" name="reason" id="reason1">
+                </div>
+                <label class="aui-flex-item-10" for="reason1">
+                    包含广告，或其他商业宣城性质的内容
+                </label>
+            </li>
+            <li class="aui-list-item aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-2 aui-text-center">
+                    <input class="aui-radio" type="radio" name="reason" id="reason2">
+                </div>
+                <label class="aui-flex-item-10" for="reason2">
+                    内容有错误,或涉嫌失实、欺诈与谣言等
+                </label>
+            </li>
+            <li class="aui-list-item aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-2 aui-text-center">
+                    <input class="aui-radio" type="radio" name="reason" id="reason3">
+                </div>
+                <label class="aui-flex-item-10" for="reason3">
+                    内容侵犯你或他人名誉权、肖像权等人身权利，或侵犯个人隐私
+                </label>
+            </li>
+            <li class="aui-list-item aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-2 aui-text-center">
+                    <input class="aui-radio" type="radio" name="reason" id="reason4">
+                </div>
+                <label class="aui-flex-item-10" for="reason4">
+                    该内容侵犯你或他人的著作权等知识产权
+                </label>
+            </li>
+            <li class="aui-list-item aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-2 aui-text-center">
+                    <input class="aui-radio" type="radio" name="reason" id="reason5">
+                </div>
+                <label class="aui-flex-item-10" for="reason5">
+                    其他
+                </label>
+            </li>
+        </ul>
+    </section>
+    <section class="aui-content bottombox aui-border">
+         <ul class="aui-list">
+            <li class="aui-list-item aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-3">详细说明</div>
+                <div class="aui-flex-item-9">
+                    <input type="text" name="" placeholder="(选填)">
+                </div>
+            </li>
+            <li class="aui-list-item aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-3">联系方式</div>
+                <div class="aui-flex-item-9">
+                    <input type="text" name="" placeholder="邮箱/QQ/手机号码">
+                </div>
+            </li>
+        </ul> 
+    </section>
+    <section class="aui-content">
+        <div class="btnbox">
+            <div class="aui-btn">提交</div>
+        </div>
+    </section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    apiready = function () {
+        api.parseTapmode();
+    };
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+    function openWin(name){
+        var delay = 0;
+        if(api.systemType != 'ios'){
+            delay = 300;
+        }
+        api.openWin({
+            name: name,
+            url: name+'.html',
+            bounces: false,
+            delay:delay
+            // pageParam: {key : 'value'}
+        })
+    }
+</script>
+</body>
+</html>

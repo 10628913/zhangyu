@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <style type="text/css">
+    body {
+        background-color: #f4f4f4;
+        height: 100%;
+    }
+    .aui-bar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #df3031;
+        color: #fff;
+    }
+    .aui-bar +*{
+        padding-top: 2.5rem !important;
+    }
+    html,body{
+        overflow-x: hidden;
+        overflow-y:auto;
+    }
+    .aui-content {
+        background: #ffffff;
+        margin-bottom: 2.75rem;
+    }
+    .aui-iconfont {
+        font-size: 1.5em;
+    }
+    p {
+        font-size: 0.75em;
+    }
+    .choose {
+        color: #ccc !important;
+    }
+    .active .choose {
+        color: #f1c40f !important;
+    }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-info" id="aui-header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">选择地址</div>
+    </header>
+    <section class="aui-content" id="list">
+         <ul class="aui-list-view aui-in">
+            <li class="aui-list-view-cell" >
+               <div class="aui-flex-col aui-flex-middle">
+                   <!--  <div class="aui-flex-item-1">
+                       <span class="aui-iconfont aui-icon-roundcheckfill choose"></span>
+                    </div> -->
+                    <div class="aui-flex-item-8">
+                        <div> 张三 15553617131</div>
+                        <p>北京市海淀区</p>
+                        <p>中关村</p>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                       <div class="aui-iconfont aui-icon-pencil aui-text-info"></div>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                        <div class="aui-iconfont aui-icon-trash aui-text-danger"></div>
+                  </div>
+                </div>
+            </li>
+            <li class="aui-list-view-cell" >
+               <div class="aui-flex-col aui-flex-middle">
+                   <!--  <div class="aui-flex-item-1">
+                       <span class="aui-iconfont aui-icon-roundcheckfill choose"></span>
+                    </div> -->
+                    <div class="aui-flex-item-8">
+                        <div> 李四 18766171791</div>
+                        <p>北京市海淀区</p>
+                        <p>中关村中科大厦</p>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                       <div class="aui-iconfont aui-icon-pencil aui-text-info"></div>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                        <div class="aui-iconfont aui-icon-trash aui-text-danger"></div>
+                  </div>
+                </div>
+            </li>
+            <li class="aui-list-view-cell" >
+               <div class="aui-flex-col aui-flex-middle">
+                   <!--  <div class="aui-flex-item-1">
+                       <span class="aui-iconfont aui-icon-roundcheckfill choose"></span>
+                    </div> -->
+                    <div class="aui-flex-item-8">
+                        <div> 李磊 15512345678</div>
+                        <p>北京市海淀区</p>
+                        <p>中关村</p>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                       <div class="aui-iconfont aui-icon-pencil aui-text-info"></div>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                        <div class="aui-iconfont aui-icon-trash aui-text-danger"></div>
+                  </div>
+                </div>
+            </li>
+            <li class="aui-list-view-cell" >
+               <div class="aui-flex-col aui-flex-middle">
+                   <!--  <div class="aui-flex-item-1">
+                       <span class="aui-iconfont aui-icon-roundcheckfill choose"></span>
+                    </div> -->
+                    <div class="aui-flex-item-8">
+                        <div> 刘洋 15553617131</div>
+                        <p>北京市海淀区</p>
+                        <p>中关村中科大厦</p>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                       <div class="aui-iconfont aui-icon-pencil aui-text-info"></div>
+                    </div>
+                    <div class="aui-flex-item-2 aui-text-center">
+                        <div class="aui-iconfont aui-icon-trash aui-text-danger"></div>
+                  </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <footer class="aui-nav aui-flex-center aui-bg-light aui-text-info aui-flex-col aui-flex-middle" id="aui-footer" tapmode onclick="openMallAddressAdd()">
+        <i class="aui-iconfont aui-icon-plus-circle"></i> 新增地址
+    </footer>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tap.js"></script>
+<!-- <script type="text/javascript" src="../../script/aui-loading.js"></script> -->
+<script type="text/javascript">
+    // var siteUrl = "http://peisong.apithink.com/?s=";
+    // var loading = new auiLoading({
+    // });
+    // var source;//来源，用于判断商城订单页选择地址
+
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+     function openMallAddressAdd(){
+        window.location.href='mall_address_add.html'; 
+    }
+
+</script>
+</html>

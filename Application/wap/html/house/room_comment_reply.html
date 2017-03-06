@@ -1,0 +1,443 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css">
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+		.aui-slide-page-active {
+		    background: #df3031;
+		}
+		.aui-content {
+			background: #ffffff;
+		}
+		.comment-list .aui-list .aui-list-item-title {
+			font-size: 0.7rem;
+		}
+		.comment-list .aui-list .aui-list-item-text {
+			font-size: 0.6rem;
+		}
+		.comment-list .aui-list p {
+			margin-top: 0.5rem;
+			font-size: 0.8rem;
+			color: #333;
+		}
+		.comment-list .aui-iconfont {
+			font-size: 0.8rem !important;
+		}
+
+
+		.aui-list .aui-list-item-media img {
+			max-width: 6.5rem;
+		}
+		.aui-list .aui-list-item-text {
+			margin-top: 0.25rem;
+			font-size: 0.6rem;
+		}
+		.aui-text-warning {
+            color: #ff6600 !important;
+        }
+		.price {
+			font-size: 0.7rem !important;
+			color: #ff6600 !important;
+		}
+        .aui-content{
+            margin-bottom: 0;
+        }
+        .reply{
+            padding: 0 0.75rem 2.75rem;
+            background-color: #fff;
+        }
+        .reply .aui-list{
+            background-color: #f2f2f2;
+        }
+        .reply .aui-list .aui-list-item-media img.aui-list-img-sm {
+            width: 2rem;
+            height: 2rem;
+        }
+        .reply .aui-list .aui-list-item-title {
+            font-size: 0.7rem;
+        }
+        .title{
+            color: #333;
+            padding: 0.5rem;
+            background-color: #f2f2f2;
+        }
+        .reply p{
+            color: #666;
+            margin-top: 0.4rem;
+        }
+        .aui-list .aui-list-item:after{
+            height: 0px;
+        }
+        .aui-list:after{
+            height: 0;
+        }
+               .footer-bar {
+            width: 100%;
+            background: #f4f5f7;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2.25rem;
+            line-height: 2.25rem;
+        }
+        .footer-bar .aui-iconfont {
+            color: #333;
+            font-size: 1rem !important;
+        }
+        .footer-bar .input-bar {
+            width: 90%;
+            margin-top: 0.3rem;
+            margin-left: 0.75rem;
+            min-height: 1.6rem !important;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            font-size: 0.6rem;
+            padding-left: 0.5rem;
+            color: #bbb;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid #eee;
+            background: #ffffff;
+        }
+        /*.footer-bar .input-bar.aui-border:after {
+            border-radius: 1.5rem;
+        }*/
+        .footer-bar .input-bar .aui-iconfont {
+            color: #bbb;
+            font-size: 0.6rem !important;
+            line-height: 1.5rem;
+            margin-right: 0.25rem;
+        }
+        .footer-bar .aui-iconfont {
+            font-size: 1rem;
+        }
+        /*点赞*/
+        #good-click .iconfont{
+            opacity: 1;
+            -webkit-transition-duration: 300ms;
+            transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+         #good-click .iconfontimg.ing{
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: scale(2);
+                    transform: scale(2);
+        }
+        #good-click .iconfontimg.end{
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+        }
+        #good-click img{
+            width: 1rem;
+            position: relative;
+            top: 0.15rem;
+        }
+
+
+        .comment-box {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+            display: none;
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 80%, 0) scale(1);
+                  transform: translate3d(0, 80%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">评论详情</div>
+    </header>
+    <section id="comment-data"></section>
+    <div class="footer-bar aui-flex-col aui-border-t" id="footer">
+        <div class="aui-flex-item-12" tapmode onclick="openCommentAdd()">
+            <div class="input-bar">
+                <i class="aui-iconfont aui-icon-pencil"></i>我要回复
+            </div>
+        </div>
+        <!-- <div class="aui-flex-item-3 aui-text-center">
+            <div class="aui-flex-item-12 aui-text-center" tapmode onclick="goodClick()" id="good-click">
+                <img src="../../image/zan.png" class="iconfontimg">
+            </div>
+        </div> -->
+    </div>
+     <section class="comment-box" id="comment-box">
+        <div class="comment-nav">
+            <div class="comment-btn" tapmode onclick="closeAdd()">取消</div>
+            <div class="comment-title">回复</div>
+            <div class="comment-btn disabled" onclick="commentPost()">发送</div>
+        </div>
+        <div class="comment-wrap">
+            <textarea class="aui-border comment-textarea" id="content" rows="4"></textarea>
+        </div>
+    </section>
+</body>
+<script id="comment-data-tpl" type="text/x-dot-template">
+       <section class="aui-content relation comment-list">
+           <ul class="aui-list aui-media-list">
+               <li class="aui-list-item">
+                   <div class="aui-list-item-media">
+                       <img src="{{=it.avatar}}" class="aui-list-img-round aui-list-img-sm">
+                   </div>
+                   <div class="aui-list-item-inner aui-list-item-middle">
+                       <div class="aui-list-item-title-row">
+                           <div class="aui-list-item-title aui-text-info">{{=it.nickname}}</div>
+                           <div class="aui-list-item-right">
+                               <i class="aui-iconfont aui-icon-laud"></i>
+                               <span id="laud-count" onclick="commentLaud()">{{=it.thumbs_count}}</span>
+                           </div>
+                       </div>
+                       <div class="aui-list-item-text">{{? it.city}}{{=it.city}}{{?}} {{=it.comment_time}}</div>
+                       <p>{{=it.comment_content}}</p>
+                   </div>
+               </li>
+           </ul>
+       </section>
+       {{? it.child}}
+       <section class="aui-content relation reply">
+           <div class="title">
+               全部回复
+           </div>
+           <ul class="aui-list aui-media-list">
+               {{for(var i in it.child){ }}
+               <li class="aui-list-item">
+                   <div class="aui-list-item-media">
+                       <img src="{{=it.child[i].avatar}}" class="aui-list-img-round aui-list-img-sm">
+                   </div>
+                   <div class="aui-list-item-inner aui-list-item-middle">
+                       <div class="aui-list-item-title-row">
+                           <div class="aui-list-item-title aui-text-info">{{=it.child[i].nickname}}</div>
+                       </div>
+                       <div class="aui-list-item-text">{{? it.child[i].city}}{{=it.child[i].city}}{{?}} {{=it.child[i].comment_time}}</div>
+                       <p>{{=it.child[i].comment_content}}</p>
+                   </div>
+               </li>
+               {{ } }}
+           </ul>
+       </section>
+       {{?}}
+   </script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript">
+    //提示
+    var a={};
+    a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+    a.time = 2;
+    // var building_id = $.getUrlParam("building_id");
+    var house_id = $.getUrlParam("house_id");
+    var comment_id = $.getUrlParam("comment_id");
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    $(function($) {
+        getCommentData();
+    });
+
+    function getCommentData(){
+        var token = $api.getStorage("token");
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getCommentDetail',
+           data: "comment_id="+comment_id,
+           success: function(ret){
+               if(ret.code == '1'){
+                   var tpl = document.getElementById("comment-data-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("comment-data").innerHTML = tempFn(ret.data);
+               }
+           }
+        });
+    }
+    function commentLaud(){
+        var userid = $api.getStorage("userid");
+        var token = $api.getStorage("token");
+        if(!userid || !token){
+            logout();
+            return;
+        }
+        var laudCount = parseInt(document.getElementById("laud-count").textContent);
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/thumbsUp',
+           data: "token="+token+"&comment_id="+comment_id,
+           success: function(ret){
+               if(ret.code == 1){
+                   document.getElementById("laud-count").textContent = laudCount+1;
+               }else if(ret.code == 2){
+                   document.getElementById("laud-count").textContent = laudCount-1;
+               }else if(ret.code == 0){
+                  a.content = ret.msg;
+                  layer.open(a);
+                   setTimeout(function(){
+                       logout();
+                   }, 2000)
+                   return;
+               }else{
+                   a.content = ret.msg;
+                   layer.open(a);
+                   return;
+               }
+           }
+        });
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.setStorage("loginFrom","house/room_comment_reply.html?house_id="+house_id+"&comment_id="+comment_id);
+        window.location.href = "../login.html";
+    }
+    function commentPost(){
+        var token = $api.getStorage('token');
+        var comment_content = document.getElementById("content").value;
+        if(!comment_content){
+            a.content = "请输入评论内容";
+            layer.open(a);
+            return;
+        }
+        var param = "token="+token+"&house_id="+house_id+"&comment_id="+comment_id+"&comment_content="+comment_content;
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/addComment',
+           data: param,
+           success: function(ret){
+               a.content = ret.msg;
+               layer.open(a);
+               if(ret.code == 1){
+                   page = 1;
+                   getCommentData();
+                   setTimeout(function(){
+                       closeAdd();
+                   }, 1500)
+               }else if(ret.code==0){
+                   setTimeout(function(){
+                       logout();
+                   }, 1000)
+                   return;
+               }else{
+                   return;
+               }
+           }
+        });
+    }
+
+    function openCommentAdd () {
+        document.getElementById("comment-box").classList.remove("comment-box-out");
+        document.getElementById("comment-box").classList.add("comment-box-in");
+    }
+    function closeAdd(){
+        document.getElementById("comment-box").classList.add("comment-box-out");
+        setTimeout(function(){
+            document.getElementById("comment-box").classList.remove("comment-box-in");
+        }, 300)
+    }
+    function closeWin(){
+        window.history.go(-1);
+    }
+    function goodClick(){
+        var goodClick = document.getElementById('good-click');
+        var goodli = goodClick.querySelector('.iconfontimg');
+        var goodend = goodClick.querySelector('.iconfontimg.end');
+        if (goodend){
+            goodli.classList.remove('end');
+            goodli.src='../../image/zan.png'
+        }else {
+            setTimeout(function(){
+                goodli.classList.add("ing");
+                goodli.src='../../image/zan1.png';
+            }, 100)
+            setTimeout(function(){
+                goodli.classList.remove("ing");
+                goodli.classList.add("end");
+            }, 800)
+        }
+    }
+</script>
+</html>

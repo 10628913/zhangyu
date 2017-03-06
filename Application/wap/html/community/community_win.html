@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar .aui-iconfont span{
+            width: 20px;
+        }
+        .aui-bar .aui-iconfont{
+            color: #fff !important;
+        }
+        nav{
+            background-color: #fff;
+            color: #666;
+        }
+        .aui-tab li{
+            border-bottom: 1px solid #fff;
+        }
+        .aui-tab li.active{
+            border-bottom:1px solid #df3031;
+            color: #df3031;
+        }
+        .frm-conment{
+            overflow:hidden;
+            overflow-x:hidden;
+            overflow-y:hidden;
+            height:100%;
+            width:100%;
+            position:absolute;
+            top:0px;
+            left:0px;
+            right:0px;
+            bottom:0px;
+            padding-top:90px; 
+            z-index: -2;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar header">
+    <span class="aui-pull-left" tapmode="" onclick="closeWin()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </span>
+    <span class="aui-pull-right" tapmode="" onclick="openWin('community_search_win')">
+        <span class="aui-iconfont aui-icon-search1"></span>
+    </span>
+    <div class="aui-title">社区</div>
+</header>
+<nav class="aui-content">
+    <ul class="aui-tab">
+        <li class=" aui-tab-item" tapmode onclick="openFrm(this,1)">话题</li>
+        <li class="aui-tab-item active" tapmode onclick="openFrm(this,2)">精选</li>
+        <li class="aui-tab-item" tapmode onclick="openFrm(this,3)">好友圈</li>
+    </ul>
+</nav>
+<iframe src="community_frm_chosen.html"; frameborder="0" style="" height="100%" width="100% ;" class="frm-conment " style="display:none"></iframe>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script>
+    function openFrm(obj,index){
+        var iframe = document.querySelector('iframe');
+        var url = '';
+          switch(index){
+            case 1:
+               url = 'community_frm_topic.html';
+            break;
+            case 2:
+               url = 'community_frm_chosen.html';
+            break;
+            case 3:
+               url = 'community_frm_circle.html';
+            break;
+        }
+        document.querySelector("iframe").setAttribute("src",url);
+        // 导航栏添加颜色
+        document.querySelector("li.active").classList.remove("active");
+        obj.classList.add("active");
+
+    }
+    function closeWin(){
+      window.location.href='../main.html'; 
+    }
+</script>
+</body>
+</html>

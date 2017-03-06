@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+        .aui-content {
+            background: #ffffff;
+        }
+        img {
+            width: 100%;
+        }
+        .stars-item {
+            position: relative;
+            margin-bottom: 0.5rem;
+            margin-left: 0.75rem;
+            box-sizing: border-box;
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+        }
+        .stars-title,
+        .stars-score {
+            display: block;
+            float: left;
+            color: #666;
+            font-size: 0.7rem;
+        }
+        .stars-score {
+            font-size: 0.7rem;
+        }
+        .stars-score strong {
+            font-size: 0.8rem;
+            color: #ff6600;
+        }
+        .stars-inner {
+            /*padding: 0 0.5rem;*/
+            display: block;
+            float: left;
+        }
+        .stars-inner .aui-iconfont {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+        .impression-title {
+            width: 100%;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999999;
+        }
+        .impression-inner {
+            padding-top: 0.75rem;
+        }
+        .impression-inner > div {
+            padding: 0 0.125rem;
+        }
+        .impression-item {
+            width: 96%;
+            padding: 0.4rem 0;
+            display: block;
+            float: left;
+            font-size: 0.7rem;
+            margin-bottom: 0.25rem;
+            background: #ffffff;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .impression-custrom {
+            border-color: #ff9900;
+            color: #ff9900;
+        }
+        textarea {
+            background: #f4f4f4;
+            border-radius: 0.3rem;
+            padding: 0.25rem;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">房源点评</div>
+    </header>
+    <section class="aui-content aui-padded-15">
+        <div class="aui-col-xs-4">
+            <img src="../../image/b2.jpg" />
+        </div>
+        <div class="aui-col-xs-8">
+            <div class="stars-item">
+                <div class="stars-title">价格</div>
+                <div class="stars-inner">
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                </div>
+                <div class="stars-score">
+                    <strong>5</strong>分
+                </div>
+            </div>
+            <div class="stars-item">
+                <div class="stars-title">地段</div>
+                <div class="stars-inner">
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                </div>
+                <div class="stars-score">
+                    <strong>5</strong>分
+                </div>
+            </div>
+            <div class="stars-item">
+                <div class="stars-title">交通</div>
+                <div class="stars-inner">
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                </div>
+                <div class="stars-score">
+                    <strong>5</strong>分
+                </div>
+            </div>
+            <div class="stars-item">
+                <div class="stars-title">配套</div>
+                <div class="stars-inner">
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                </div>
+                <div class="stars-score">
+                    <strong>5</strong>分
+                </div>
+            </div>
+            <div class="stars-item">
+                <div class="stars-title">环境</div>
+                <div class="stars-inner">
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                    <i class="aui-iconfont aui-icon-star"></i>
+                </div>
+                <div class="stars-score">
+                    <strong>5</strong>分
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="aui-content aui-padded-15">
+        <div class="impression-title">给我的印象</div>
+        <div class="impression-inner">
+            <div class="aui-col-xs-3">
+                <div class="impression-item">非常舒服</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item">交通便利</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item">设施齐全</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item">环境优雅</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item">地道物业</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item impression-custrom">自定义</div>
+            </div>
+        </div>
+    </section>
+    <section class="aui-content aui-padded-15">
+        <textarea rows="3" placeholder="说点什么吧"></textarea>
+    </section>
+    <section class="aui-content aui-padded-15">
+        <div class="aui-btn aui-btn-block aui-btn-sm aui-btn-danger">提交点评</div>
+    </section>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+    	api.parseTapmode();
+    };
+</script>
+</html>

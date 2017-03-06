@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            margin-top: 2.25rem !important;
+        }
+        .aui-list-view {
+            overflow: hidden;
+            background: none;
+        }
+        .aui-list-view:after {
+            border: none;
+        }
+        .aui-list-view li {
+            margin-bottom: 15px;
+            background: #ffffff;
+        }
+        p {
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        img.thumb {
+            width: 100%;
+            display: inherit;
+        }
+        .user-info {
+            padding: 10px 15px;
+            line-height: 32px;
+            font-size: 12px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .user-info span {
+            float: left;
+        }
+        img.avatar {
+            width: 32px !important;
+            height: 32px;
+            border-radius: 50%;
+            float: left;
+            margin-right: 10px;
+        }
+        .user-info .nickname {
+            line-height: 32px;
+            color: #666;
+        }
+        .user-info .time {
+            color: #999;
+        }
+        .msg-info {
+            width: 100%;
+            padding: 0 15px 15px;
+            font-size: 14px;
+            color: #333333;
+            overflow: hidden;
+        }
+        .aui-label {
+            float: left;
+            margin-right: 5px;
+        }
+        .address span {
+            float: left;
+        }
+        .list-footer {
+            padding: 15px;
+            color: #666;
+            background: #f8f8f8;
+        }
+        .list-footer .aui-btn {
+            font-size: 14px;
+            padding: 4px 8px;
+            background-color: #ffffff;
+        }
+        .list-footer .aui-iconfont{
+            font-size: 11px;
+        }
+        .list-footer .read-status {
+            font-size: 12px;
+            line-height: 28px;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="window.history.go(-1)">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">消息详情</div>
+    </header>
+    <section class="aui-content">
+        <ul class="aui-list-view" id="list">
+            <li>
+                <div class="user-info">
+                    <div class="aui-pull-left">
+                        <img src="../../image/noavatar.gif" class="avatar" id="avatar"/>
+                        <span class="nickname" id="nickname"></span>
+                    </div>
+                    <div class="aui-pull-right time" id="time">
+                    </div>
+                </div>
+                <div class="msg-info" id="letter_content"></div>
+                <div class="list-footer">
+                    <div class="aui-btn aui-btn-outlined" tapmode onclick="letterReply()"><span class="aui-iconfont aui-icon-comment"></span>回复</div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/aui-slide.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+    <script type="text/javascript" src="../../script/layer.js"></script>
+    <script type="text/javascript" src="../../script/aui-dialog.js"></script>
+    <script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script>
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var letter_id = $.getUrlParam("letter_id"),userid;
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+    var dialog = new auiDialog();
+
+    $(function(){
+        getLetterInfo();
+    })
+    function getLetterInfo(){
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/User/getLetterInfo',
+           data: "token="+token+"&letter_id="+letter_id,
+           success: function(ret){
+               if(ret.code == 1){
+                   userid = ret.data.userid;
+                   if(ret.data.avatar){
+                       document.getElementById("avatar").setAttribute("src",ret.data.avatar);
+                   }
+                   document.getElementById("nickname").textContent = ret.data.nickname;
+                   document.getElementById("letter_content").textContent = ret.data.letter_content;
+                   document.getElementById("time").textContent = ret.data.time;
+               }else{
+                   if(ret.code == 0){
+                       a.content = ret.msg;
+                       layer.open(a);
+                       setTimeout(function(){logout();},1000);
+                   }
+               }
+           }
+        });
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.rmStorage("signature");
+        $api.setStorage("loginFrom","my/my_msg_detail.html");
+        window.location.href = "../login.html";
+    }
+
+    // 消息回复
+    function letterReply(){
+        var token = $api.getStorage('token');
+        dialog.prompt({
+            title:"请输入回复内容",
+            buttons:['取消','确定']
+        },function(ret){
+            if(ret.buttonIndex == 2){
+                var text = ret.text;
+                if(!text){
+                    a.content = "请输入回复内容";
+                    layer.open(a);
+                    return;
+                }
+                $.ajax({
+                   type: "POST",
+                   url: siteUrl+'/App/User/sendLetter',
+                   data: "token="+token+"&userid="+userid+"&letter_content="+text+"&letter_id="+letter_id,
+                   success: function(ret){
+                       a.content = ret.msg;
+                       layer.open(a);
+                       switch(ret.code){
+                         case 1:
+                         break;
+                         case 0:
+                           setTimeout(function(){
+                             logout();
+                           },1000)
+                         break;
+                       }
+                   }
+                });
+            }
+        })
+    }
+</script>
+</body>
+</html>

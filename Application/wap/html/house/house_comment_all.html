@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css"/>
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+		h1 {
+			font-size: 1.2rem;
+		}
+		.aui-content {
+			background-color: #ffffff;
+		}
+		h2.title {
+			color: #df3031;
+			border-left:2px solid #df3031;
+			padding-left: 0.5rem;
+			font-size: 0.7rem;
+			margin: 0 0.75rem;
+			margin-bottom: 0.5rem;
+		}
+		.more {
+			padding: 0.75rem 0 2.5rem;
+			font-size: 0.6rem;
+			text-align: center;
+			color: #999;
+		}
+		.comment-list .aui-list .aui-list-item-title {
+			font-size: 0.7rem;
+		}
+		.comment-list .aui-list .aui-list-item-text {
+			font-size: 0.6rem;
+		}
+		.comment-list .aui-list p {
+			margin-top: 0.5rem;
+			font-size: 0.8rem;
+			color: #333;
+		}
+		.comment-list .aui-iconfont {
+			font-size: 0.8rem !important;
+		}
+
+
+        /**/
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+        .footer-bar {
+            width: 100%;
+            background: #f4f5f7;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            z-index: 999;
+        }
+        .footer-bar .aui-iconfont {
+            color: #333;
+            font-size: 1rem !important;
+        }
+        .footer-bar .input-bar {
+            /*width: 90%;*/
+            margin-top: 0.3rem;
+            margin-left: 0.75rem;
+            margin-right: 0.75rem;
+            min-height: 1.6rem !important;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            font-size: 0.6rem;
+            padding-left: 0.5rem;
+            background: #ffffff;
+            color: #bbb;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid #eee;
+        }
+        /*.footer-bar .input-bar.aui-border:after {
+            border-radius: 1.5rem;
+        }*/
+        .footer-bar .input-bar .aui-iconfont {
+            color: #bbb;
+            font-size: 0.6rem !important;
+            line-height: 1.5rem;
+            margin-right: 0.25rem;
+        }
+        .footer-bar .aui-iconfont {
+            font-size: 1rem;
+        }
+
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+
+                .comment-box {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+            display: none;
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 80%, 0) scale(1);
+                  transform: translate3d(0, 80%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">全部评论</div>
+    </header>
+    <div class="aui-content relation comment-list" style="margin-bottom:3rem;">
+        <ul class="aui-list aui-media-list" id="comment-list"></ul>
+    </div>
+    <div class="footer-bar aui-flex-col aui-border-t" id="footer">
+        <div class="aui-flex-item-12">
+            <div class="input-bar" tapmode onclick="openCommentAdd()">
+                <i class="aui-iconfont aui-icon-pencil"></i>我要评论
+            </div>
+        </div>
+    </div>
+    <section class="comment-box" id="comment-box">
+        <div class="comment-nav">
+            <div class="comment-btn" tapmode onclick="closeAdd()">取消</div>
+            <div class="comment-title">回复</div>
+            <div class="comment-btn disabled" onclick="commentPost()">发送</div>
+        </div>
+        <div class="comment-wrap">
+            <textarea class="aui-border comment-textarea" id="content" rows="4"></textarea>
+        </div>
+    </section>
+</body>
+<script id="comment-list-tpl" type="text/x-dot-template">
+        {{ for(var i in it) { }}
+        <li class="aui-list-item" tapmode onclick="openCommentReply({{=it[i].comment_id}})">
+            <div class="aui-list-item-media">
+                <img src="{{=it[i].avatar}}" class="aui-list-img-round aui-list-img-sm">
+            </div>
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title-row">
+                    <div class="aui-list-item-title aui-text-info">{{=it[i].nickname}}</div>
+                    <div class="aui-list-item-right">
+                        <i class="aui-iconfont aui-icon-laud"></i> {{=it[i].thumbs_count}}
+                    </div>
+                </div>
+                <div class="aui-list-item-text">{{? it.city}}{{=it.city}}{{?}} {{=it[i].comment_time}}</div>
+                <p>{{=it[i].comment_content}}</p>
+                {{? it[i].child}}
+                <div class="aui-list-item-text comment-info">
+                    {{=it[i].childCount}}条回复
+                    <span class="aui-iconfont aui-icon-right"></span>
+                </div>
+                <div class="aui-list-item-text comment-content"  tapmode onclick="openCommentReply({{=it[i].comment_id}})">
+                    {{ for (var ii in it[i].child){}}
+                    <div class="comment-item">
+                        <span>{{=it[i].child[ii].nickname}}:</span>
+                        <span>{{=it[i].child[ii].comment_content}}</span>
+                    </div>
+                    {{} }}
+                </div>
+                {{?}}
+            </div>
+        </li>
+        {{ } }}
+    </script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script type="text/javascript">
+    //提示
+    var a={};
+    a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+    a.time = 2;
+    //滚动到底部
+    var scrollStatus = true;
+    var scroll = new auiScroll({
+        listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+        distance:200 //判断到达底部的距离，isToBottom为true
+    },function(ret){
+       if(ret.isToBottom){
+           if(scrollStatus){
+              getCommentListData();
+           }
+       }
+    });
+    var page = 1;
+    var building_id = $.getUrlParam("building_id");
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    $(function($) {
+        getCommentListData();
+    });
+
+    // 获取评论列表
+    function getCommentListData(){
+        var token = $api.getStorage("token");
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getCommentList',
+           data: "building_id="+building_id+"&pageNum="+page,
+           success: function(ret){
+               if(ret.code == '1'){
+                   scrollStatus = true;
+                   if(page == 1){
+                       document.getElementById("comment-list").innerHTML = '';
+                   }
+                   var tpl = document.getElementById("comment-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("comment-list").insertAdjacentHTML('beforeend', tempFn(ret.data));
+                   page++;
+               }else {
+                   scrollStatus = false;
+                   if(page == 1){
+                       document.getElementById("comment-list").innerHTML = '';
+                   }
+               }
+           }
+        });
+    }
+    function commentPost(){
+        var token = $api.getStorage('token');
+        var comment_content = document.getElementById("content").value;
+        if(!comment_content){
+            a.content = "请输入评论内容";
+            layer.open(a);
+            return;
+        }
+        var param = "token="+token+"&building_id="+building_id+"&comment_content="+comment_content;
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/addComment',
+           data: param,
+           success: function(ret){
+               a.content = ret.msg;
+               layer.open(a);
+               if(ret.code == 1){
+                   page = 1;
+                   getCommentListData();
+                   setTimeout(function(){
+                       closeAdd();
+                   }, 1500)
+               }else if(ret.code==0){
+                   setTimeout(function(){
+                       logout();
+                   }, 1000)
+                   return;
+               }else{
+                   return;
+               }
+           }
+        });
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.setStorage("loginFrom","house/house_comment_all.html?building_id="+building_id);
+        window.location.href = "../login.html";
+    }
+    function openCommentReply(comment_id){
+        window.location.href='house_comment_reply.html?building_id='+building_id+'&comment_id='+comment_id;
+    }
+
+    function openCommentAdd () {
+        document.getElementById("comment-box").classList.remove("comment-box-out");
+        document.getElementById("comment-box").classList.add("comment-box-in");
+    }
+    function closeAdd(){
+        document.getElementById("comment-box").classList.add("comment-box-out");
+
+        setTimeout(function(){
+            document.getElementById("comment-box").classList.remove("comment-box-in");
+        }, 300)
+    }
+    function closeWin(){
+        window.history.go(-1);
+    }
+</script>
+</html>

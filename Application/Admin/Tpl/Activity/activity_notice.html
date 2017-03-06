@@ -1,0 +1,60 @@
+<link rel="stylesheet" type="text/css" href="{:C('ADMIN_PLUGIN_PATH')}/webuploader/webuploader.css" />
+<link rel="stylesheet" type="text/css" href="{:C('ADMIN_PLUGIN_PATH')}/webuploader/style.css" />
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="paddingTLR-md">
+			<a href="#" class="btn btn-xs">活动报名须知</a>
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<form class="form-horizontal no-margin form-border" method="post" id="form">
+					<div class="form-group">
+						<div class="col-md-10">
+							<textarea id="content" name="content">{$content}</textarea>
+							<php>echo $editor->editor('content',300);</php>
+						</div>
+					</div>
+
+					<div class="text-center m-top-md">
+						<button type="submit" class="btn btn-info">提交保存</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{:C('ADMIN_JS_PATH')}/jquery.validate.min.js" type="text/javascript"></script>
+<script src="{:C('ADMIN_JS_PATH')}/ajaxupload.js" type="text/javascript"></script>
+<script type="text/javascript" src="{:C('ADMIN_PLUGIN_PATH')}/webuploader/webuploader.js"></script>
+<script type="text/javascript">
+	var map,marker;
+	$(function(){
+        $("#form").validate({
+	        submitHandler:function(form){
+	            save();
+	        }
+	    });
+	});
+	//处理CKEDITOR的值
+    function CKupdate(){
+        for (instance in CKEDITOR.instances){
+            CKEDITOR.instances[instance].updateElement();
+        }
+    }
+	function save() {
+		CKupdate();
+		DMS.ajaxPost("__CONTROLLER__/activityNoticeSave",$('#form').serialize(),function(ret){
+			if(ret.status==1){
+            	DMS.success(ret.info,0,function(){
+					if(ret.url){
+            			window.location.href = ret.url;
+            		}else{
+            			window.location.href = window.location.href;
+            		}
+				});
+            }else{
+            	DMS.error(''+ret.info+'',0);
+            }
+		})
+    }
+</script>

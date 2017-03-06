@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+         .aui-bar .aui-iconfont{
+            color: #fff ;
+        }
+        .aui-title{
+            height: 45px;
+        }
+        .tt{
+            width: 60%;
+            margin-left: 20%;
+            border-radius: 1rem;
+            border:1px solid #fff;
+            background-color: #fff;
+            height: 1.7rem;
+            line-height:1.7rem;
+            overflow: hidden;
+        }
+        .tt div{
+            line-height: 1.7rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            text-align: center;
+            color: #fff;
+            height: 1.7rem;
+        }
+        .tt span{
+            display: inline-block;
+            width: 50%;
+            font-size: 1rem;
+            background-color: #df3031;
+            color: #fff;
+            padding:0 0.1rem;
+        }
+        .tt span.active{
+            background-color: #fff;
+            color: #df3031;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left aui-flex-col aui-flex-middle" tapmode onclick="closeWin()">
+        <!-- <a class="aui-pull-left" tapmode onclick="openSlide()"> -->
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title aui-flex-middle aui-flex-col">
+            <div class="tt">
+                <div class="aui-flex-middle aui-flex-middle">
+                    <span class="active btn1" tapmode onclick="changeFrm('my_activity_frm',this,0)">看楼</span><span class="btn2" tapmode onclick="changeFrm('my_activity_frm_groupbuy',this,1)">团购</span>
+                </div>
+            </div>
+        </div>
+         <a class="aui-pull-right aui-flex-col aui-flex-middle change end" tapmode onclick="changeEditor()">
+            编辑
+        </a>
+    </header>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    apiready = function () {
+        api.parseTapmode();
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        header_h = $api.offset(header).h;
+        var body_h = $api.offset($api.dom('header')).h;
+        api.addEventListener({
+            name:'viewappear'
+        }, function(ret, err){
+            api.openFrameGroup ({
+                name: 'my_activitygroup',
+                background: '#fff',
+                scrollEnabled: true,
+                rect: {
+                     x: 0,
+                     y: header_h,
+                     w: 'auto',
+                     h: 'auto'
+                },
+
+                index: 0,
+                frames: [{
+                    name: 'my_activity_frm',
+                    url: 'my_activity_frm.html',
+                    bgColor: '#fff',
+                    hScrollBarEnabled:false,
+                    vScrollBarEnabled:false
+                },{
+                    name: 'my_activity_frm_groupbuy',
+                    url: 'my_activity_frm_groupbuy.html',
+                    bgColor: '#fff',
+                    hScrollBarEnabled:false,
+                    vScrollBarEnabled:false
+                }]
+            }, function(ret, err){
+                var index = ret.index;
+                var btn1 = $api.dom('.btn1');
+                var btn2 = $api.dom('.btn2');
+                if (index == 0) {
+                    btn1.classList.add('active');
+                    btn2.classList.remove('active');
+                }
+                if (index == 1) {
+                    btn2.classList.add('active');
+                    btn1.classList.remove('active');
+                }
+            });
+        });
+
+	};
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+
+     function openWin(name){
+        var delay = 0;
+        if(api.systemType != 'ios'){
+            delay = 300;
+        }
+        api.openWin({
+            name: name,
+            url: name+'.html',
+            bounces: false,
+            delay:delay
+            // pageParam: {key : 'value'}
+            })
+    }
+
+    function changeEditor(){
+        var editor = $api.dom('.change');
+        var editorend =$api.dom('.change.end');
+        if (editorend) {
+            editor.classList.remove('end');
+            editor.innerHTML = "完成";
+        }else{
+            editor.classList.add('end');
+            editor.innerHTML = "编辑";
+        }
+        api.sendEvent({
+            name: 'changeEditor',
+        });
+    }
+    function changeFrm(name,obj,index){
+        var header = $api.dom('header');
+        header_h = $api.offset(header).h;
+        var body_h = $api.offset($api.dom('header')).h;
+        var body_w = $api.offset($api.dom('header')).w;
+        var activebtn = $api.dom('span.active');
+        if (activebtn) {
+            $api.removeCls(activebtn,'active')
+            $api.addCls(obj,'active')
+        }
+        api.setFrameGroupIndex({
+            name : 'my_activitygroup',
+            index : index
+        });
+    }
+</script>
+</body>
+</html>

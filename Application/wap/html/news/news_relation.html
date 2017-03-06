@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css" />
+	<style>
+		.aui-bar{
+	        position: fixed;
+	        top: 0;
+	        left: 0;
+	        width: 100%;
+	        background-color: #df3031;
+	        color: #fff;
+	        z-index: 9999;
+	    }
+	    .aui-bar +*{
+	        padding-top: 2.5rem !important;
+	    }
+	    html,body{
+	        background-color: #fff;
+	        overflow-x: hidden;
+	        overflow-y:auto;
+	    }
+		.aui-slide-page-active {
+		    background: #df3031;
+		}
+		.slide-title {
+			background-color: rgba(0,0,0,0.7);
+			height: 2.2rem;
+			line-height: 2.2rem;
+			padding: 0 0.4rem;
+			color: #ffffff;
+			font-size: 0.8rem;
+			position: absolute;
+			left: 0;
+			top: 7rem;
+			z-index: 999999;
+			display: inline-block;
+		}
+		.slide-desc {
+			background-color: rgba(0,0,0,0.7);
+			color: #ffffff;
+			font-size: 0.6rem;
+			position: absolute;
+			left: 0;
+			top: 7.2rem;
+			display: inline-block;
+			padding: 0.2rem 0.4rem;
+		}
+		.aui-content {
+			background-color: #ffffff;
+		}
+		#news-list {
+			position: relative;
+			display: box;
+    		display: -webkit-box;
+    		display: inline-block;
+		    display: -webkit-flex;
+
+		    display: flex;
+		    -webkit-flex-wrap: wrap;
+            		flex-wrap: wrap;
+            overflow-x: hidden;
+		}
+		#news-list:after {
+			width: 1px;
+		    height: 100%;
+		    background-color: #eeeeee;
+		    display: block;
+		    content: '';
+		    position: absolute;
+		    z-index: 2;
+		    top: auto;
+		    right: auto;
+		    bottom: 0;
+		    left: 50%;
+		    -webkit-transform-origin: 100% 50%;
+		            transform-origin: 100% 50%;
+		    maller-events: none;
+		}
+		#news-list .news-item {
+			width: 50%;
+			float: left;
+			position: relative;
+			padding: 0.5rem;
+			padding-bottom: 2rem;
+			min-height: 13rem;
+		}
+		#news-list .news-item:after {
+			width: 100%;
+		    height: 1px;
+		    background-color: #eeeeee;
+		    display: block;
+		    content: '';
+		    position: absolute;
+		    z-index: 1;
+		    top: 0;
+		    right: auto;
+		    bottom: auto;
+		    left: 0;
+		    -webkit-transform-origin: 50% 100%;
+		            transform-origin: 50% 100%;
+		}
+		#news-list .news-img img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		#news-list .news-img {
+			margin-bottom: 0.5rem;
+		}
+		#news-list .news-title {
+			font-size: 0.8rem;
+			color: #373737;
+		}
+		#news-list .news-desc {
+			margin-top: 0.5rem;
+			width: 100%;
+			font-size: 0.7rem;
+			color: #666666;
+		}
+		#news-list .news-info {
+			position: absolute;
+			bottom: 0.5rem;
+			width: auto;
+			padding-right: 1rem;
+			margin-top: 0.5rem;
+			width: 100%;
+			font-size: 0.6rem;
+			color: #999999;
+		}
+		#news-list .news-tag {
+			/*margin-top: 0.15rem;*/
+			padding: 0.05rem  0.15rem;
+			display: inline-block;
+			font-size: 0.5rem;
+			box-sizing: border-box;
+            display: box;
+		    display: -webkit-box;
+		    display: -webkit-flex;
+		    display: flex;
+		    -webkit-align-items: center;
+		            align-items: center;
+		}
+		#news-list .news-tag span {
+			margin-top: -0.05rem;
+			margin-bottom: -0.05rem;
+			margin-left: -0.2rem;
+			display: block;
+			float: left;
+			padding: 0.05rem 0.25rem;
+		}
+		#news-list .news-tag span .aui-iconfont {
+			font-size: 0.5rem;
+		}
+		#news-list .news-tag.aui-tag-info {
+			color: #5b9cf5;
+		}
+		#news-list .news-tag.aui-tag-info span {
+			background: #ffffff;
+		}
+		.aui-border.aui-tag-info:after {
+		    border:1px solid #5b9cf5;
+		     border-radius: 0.2rem;
+		}
+		#news-list .news-tag.aui-tag-danger {
+			color: #e74c3c;
+		}
+		.aui-border.aui-tag-danger:after {
+		    border:1px solid #e74c3c;
+		    border-radius: 0.2rem;
+		}
+		#news-list .news-tag.aui-tag-danger span {
+			background: #ffffff;
+		}
+
+		#news-list .news-tag.aui-tag-warning {
+			color: #ff9800;
+		}
+		.aui-border.aui-tag-warning:after {
+		    border:1px solid #ff9800;
+		}
+		#news-list .news-tag.aui-tag-warning span {
+			background: #ff9800;
+		}
+		#news-list .news-tag.aui-tag-success {
+			color: #2ecc71;
+		}
+		.aui-border.aui-tag-success:after {
+		    border:1px solid #2ecc71;
+		}
+		#news-list .news-tag.aui-tag-success span {
+			background: #2ecc71;
+		}
+        .aui-ellipsis{
+            display: -webkit-box;
+        	overflow: hidden;
+        	text-overflow: ellipsis;
+        	word-wrap: break-word;
+        	white-space: normal !important;
+        	-webkit-line-clamp: 5;
+        	-webkit-box-orient: vertical;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">相关推荐</div>
+    </header>
+    <section class="aui-content" id="news-list" style="margin-bottom:0;">
+
+	</section>
+    <script id="news-relation-tpl" type="text/x-dot-template">
+        {{ for(var i in it) { }}
+        <div class="news-item" tapmode onclick="openNewsDetail('{{=it[i].news_id}}','{{=it[i].type_id}}')">
+        	{{? it[i].news_thumb}}
+			<div class="news-img">
+				<img src="../../image/image_loading_1.png" data-echo="{{=it[i].news_thumb}}" />
+			</div>
+			{{?}}
+			<div class="news-title">{{=it[i].news_title}}</div>
+			{{? !it[i].news_thumb}}
+                {{? it[i].news_description}}
+        			<div class="news-desc aui-ellipsis">
+        				{{=it[i].news_description}}
+        			</div>
+                {{?}}
+			{{?}}
+			<div class="news-info">
+				{{=it[i].news_source}} <time>{{=it[i].news_pub_time}}</time>
+				{{? it[i].type_id == 1}}
+                <div class="news-tag aui-border aui-tag-danger aui-pull-right">
+					<span><i class="aui-iconfont aui-icon-edit"></i></span> 文章
+				</div>
+                {{?? it[i].type_id == 2}}
+                <div class="news-tag aui-border aui-tag-danger aui-pull-right">
+					<span><i class="aui-iconfont aui-icon-edit"></i></span> 图集
+				</div>
+                {{?? it[i].type_id == 3}}
+                <div class="news-tag aui-border aui-tag-danger aui-pull-right">
+					<span><i class="aui-iconfont aui-icon-video"></i></span> 视频
+				</div>
+                {{?? it[i].type_id == 4}}
+                <div class="news-tag aui-border aui-tag-danger aui-pull-right">推广</div>
+                {{??}}
+                <div class="news-tag aui-border aui-tag-danger aui-pull-right">
+					<span><i class="aui-iconfont aui-icon-edit"></i></span> 文章
+				</div>
+                {{?}}
+			</div>
+		</div>
+        {{ } }}
+    </script>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var classify_id = $.getUrlParam("classify_id");
+    var news_id = $.getUrlParam("news_id");
+    var keywords = $.getUrlParam("keywords");
+    $(function($) {
+        getNewsRelationData();
+    });
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+    function getNewsRelationData(){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/News/getNewsList',
+           data: "keywords="+keywords+"&news_id="+news_id,
+           success: function(ret){
+               if(ret.code == '1'){
+                   var tpl = document.getElementById("news-relation-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("news-list").insertAdjacentHTML('beforeend', tempFn(ret.data));
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250,
+                       unload: false
+                   });
+               }else{
+                   a.content = ret.msg;
+                   layer.open(a);
+               }
+           }
+        });
+    }
+	function openNewsDetail(news_id,type_id){
+        switch (type_id) {
+        	case "1":
+                var url = "news_detail.html?news_id="+news_id;
+        		break;
+        	case "2":
+                var url = "news_album_detail.html?news_id="+news_id;
+                break;
+        	case "3":
+                var url = "news_video_detail.html?news_id="+news_id;
+        		break;
+        	case "4":
+                var url = "news_detail.html?news_id="+news_id;
+        		break;
+        	default:
+                var url = "news_detail.html?news_id="+news_id;
+        		break;
+        }
+        window.location.href = url;
+	}
+    function closeWin(){
+        window.history.go(-1);
+    }
+</script>
+</html>

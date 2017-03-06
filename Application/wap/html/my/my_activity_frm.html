@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+        li{
+            background-color: #fff;
+        }
+        .comment li{
+            padding: 0.6rem 0;
+        }
+        .activity-title{
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .activity-info{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .aui-list .aui-list-item-media img {
+            max-width: 6.5rem;
+        }
+        .aui-list .aui-list-item-text {
+            margin-top: 0.25rem;
+            font-size: 0.6rem;
+        }
+        .aui-text-warning {
+            color: #ff6600 !important;
+        }
+        .price {
+            font-size: 0.7rem !important;
+            color: #ff6600 !important;
+        }
+        .house-tag {
+            padding: 0.1rem  0.3rem;
+            display: inline-block;
+            font-size: 0.6rem;
+            margin-bottom: 0.2rem;
+        }
+        .house-tag.aui-tag-info {
+            color: #9ccc65;
+        }
+        .aui-border.aui-tag-info:after {
+            border:1px solid #9ccc65;
+            border-radius: 0.2rem;
+        }
+        .house{
+            padding: 0.5rem 0;
+        }
+
+        .aui-flex-item-6.hrmsg >div{
+            margin-bottom: 0.8rem;
+        }
+        .aui-list:after{
+            height: 0;
+        }
+        .house .title .aui-pull-right .aui-iconfont{
+            color: #666;
+        }
+        .activity{
+            background-color: #fff;
+        }
+        .activity-title{
+            font-size: 0.7rem;
+            color: #333;
+        }
+        .aui-flex-item-1{
+            display: flex;
+        }
+        .aui-flex-item-1.hid{
+            display: none;
+        }
+        /**/
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+         .aui-bar .aui-iconfont{
+            color: #fff ;
+        }
+        .aui-title{
+            height: 45px;
+
+        }
+        .tt{
+            width: 60%;
+            margin-left: 20%;
+            border-radius: 1rem;
+            border:1px solid #fff;
+            background-color: #fff;
+            height: 1.4rem;
+            line-height:1.4rem;
+            overflow: hidden;
+        }
+        .tt div{
+            line-height: 1.4rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            text-align: center;
+            color: #fff;
+            height: 1.4rem;
+        }
+        .tt span{
+            display: inline-block;
+            width: 50%;
+            font-size: 0.8rem;
+            background-color: #df3031;
+            color: #fff;
+            padding:0 0.1rem;
+        }
+        .tt span.active{
+            background-color: #fff;
+            color: #df3031;
+        }
+        /**/
+        .aui-col-xs-1{
+            line-height: 3.75rem;
+        }
+        .aui-col-xs-11{
+            padding-left: 0.5rem;
+        }
+        .activity .aui-col-xs-1{
+            display: none;
+        }
+        .activity .aui-col-xs-1.active{
+            display: block;
+        }
+        input[type='checkbox']{
+            display: block;
+           /* margin-top: 1rem;*/
+        }
+        .aui-radio:checked,
+        .aui-radio.aui-checked,
+        .aui-checkbox:checked,
+        .aui-checkbox.aui-checked {
+            background-color: #df3031;
+            border: solid 1px #df3031;
+            text-align: center;
+        }
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left aui-flex-col aui-flex-middle" tapmode onclick="closeWin()">
+        <!-- <a class="aui-pull-left" tapmode onclick="openSlide()"> -->
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title aui-flex-middle aui-flex-col">
+            <div class="tt">
+                <div class="aui-flex-middle aui-flex-middle">
+                    <span class="active btn1" tapmode onclick="openWin('my_activity_frm',this,0)">看楼</span><span class="btn2" tapmode onclick="openWin('my_activity_frm_groupbuy',this,1)">团购</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="activityList">
+
+    </section>
+
+    <script id="activeityTemplate" type="text/doTtemplate">
+        {{for(var i in it){}}
+            <div class="activity aui-flex-col aui-border-b" id="data-{{=it[i].activity_id}}">
+                <div class="aui-flex-item-1 hid aui-flex-col aui-flex-middle aui-flex-right active-item" tapmode onclick="delActivity({{=it[i].status}},{{=it[i].activity_id}})">
+                    <span class="aui-iconfont aui-icon-trash"></span>
+                </div>
+                <div class=" aui-list aui-media-list aui-flex-item-12 activitylist active-item" tapmode onclick="openDetail({{=it[i].activity_id}})">
+                    <div class="aui-list-item">
+                        <div class="aui-list-item-media">
+                            <img src="../../image/blank.gif" data-echo="{{=it[i].activity_thumb}}">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-flex-col aui-flex-middle">
+                                <div class="aui-text-left activity-title aui-ellipsis-2">{{=it[i].activity_title}}</div>
+                            </div>
+                            <div class="aui-list-item-text aui-ellipsis-2">
+                                <span style="color:#ff6600 ">{{=it[i].status_content}}</span>
+                            </div>
+                             <div class="aui-list-item-text">
+                                <span>{{=it[i].activity_set_time}}</span>
+                                <span>{{=it[i].activity_set_address}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{}}}
+    </script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/aui-dialog.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script>
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var pageNum=0,scrollStatus=true;
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+    $(function(){
+        addEvent();
+        getActivityList();
+    });
+    function addEvent(){
+        //上拉加载
+        var scroll = new auiScroll({
+            listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+            distance:200 //判断到达底部的距离，isToBottom为true
+        },function(ret){
+           if(ret.isToBottom){
+               if(scrollStatus){
+                   getActivityList();
+               }
+           }
+        });
+    }
+    function getActivityList(){
+        pageNum ++;
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Activity/getOrderActivity',
+           data: "activity_type=1&token="+token+"&pageNum="+pageNum+"&pageSize=10",
+           success: function(ret){
+               if(ret.code == 1){
+                   scrollStatus = true;
+                   var activeityTemplate = doT.template(document.getElementById("activeityTemplate").innerHTML);
+                   document.getElementById("activityList").insertAdjacentHTML('beforeend', activeityTemplate(ret.data));
+                   Echo.init({offset: 0,throttle: 0});
+               }else{
+                   scrollStatus = false;
+                   if(ret.code == 0){
+                       a.content = ret.msg;
+                       layer.open(a);
+                       setTimeout(function(){logout();},1000);
+                   }
+               }
+           }
+        });
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.rmStorage("signature");
+        $api.setStorage("loginFrom","my/my_msg.html");
+        window.location.href = "../login.html";
+    }
+    function openDetail(activity_id){
+        window.location.href= "../activity/activity_detail.html?activity_id="+activity_id;
+    }
+    function closeWin(){
+        // window.history.go(-1);
+        window.location.href='my.html';
+    }
+
+    function openWin(name){
+        window.location.href=name+'.html';
+
+    }
+</script>
+</body>
+</html>

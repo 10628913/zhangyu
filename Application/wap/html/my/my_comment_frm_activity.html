@@ -1,0 +1,346 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+        li{
+            background-color: #fff;
+        }
+        .comment li{
+            padding: 0.6rem 0;
+        }
+        .activity-title{
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.1rem;
+            width: 100%;
+        }
+        .activity-info{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .aui-list .aui-list-item-media img {
+            max-width: 6.5rem;
+        }
+        .aui-list .aui-list-item-text {
+            margin-top: 0.25rem;
+        }
+        .aui-text-warning {
+            color: #ff6600 !important;
+        }
+        .price {
+            font-size: 0.7rem !important;
+            color: #ff6600 !important;
+        }
+        .house-tag {
+            padding: 0.1rem  0.3rem;
+            display: inline-block;
+            font-size: 0.6rem;
+            margin-bottom: 0.2rem;
+        }
+        .house-tag.aui-tag-info {
+            color: #9ccc65;
+        }
+        .aui-border.aui-tag-info:after {
+            border:1px solid #9ccc65;
+            border-radius: 0.2rem;
+        }
+        .house{
+            padding: 0.5rem 0;
+        }
+
+        .aui-flex-item-6.hrmsg >div{
+            margin-bottom: 0.8rem;
+        }
+        .aui-list:after{
+            height: 0;
+        }
+        .house .title .aui-pull-right .aui-iconfont{
+            color: #666;
+        }
+        .activity{
+            background-color: #fff;
+        }
+        .activity-title{
+            font-size: 0.7rem;
+            color: #333;
+        }
+        .aui-flex-item-1{
+            display: flex;
+        }
+        .aui-flex-item-1.hid{
+            display: none;
+        }
+        .aui-list-item-media img{
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            min-height: 2rem;
+        }
+        .btnbox{
+            padding: 0.4rem 0;
+        }
+        .btnbox .btn{
+            padding: 0.25rem;
+            color: #66CCFF;
+            font-size: 0.6rem;
+        }
+        .btn.aui-border:after{
+            border-color: #66CCFF;
+        }
+        .nonebox{
+            padding: 0.5rem 0;
+            text-align: center;
+            background-color: #fff;
+        }
+        .nonebox .none{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .star img{
+            width: 3.2rem;
+        }
+        .aui-flex-item-1{
+            padding-top:1rem;
+        }
+        .time{
+            padding: 0.5rem 0.75rem;
+            color: #666;
+        }
+        .news-info{
+            background-color: #f2f2f2;
+            font-size: 0.7rem;
+            color: #333;
+        }
+        .news-info .aui-flex-item-2 img{
+            display: block;
+            width: 2.2rem;
+            height: 2.2rem;
+        }
+        .news-info .aui-flex-item-10{
+            font-size: 0.8rem;
+            color: #333;
+            padding-left: 0.2rem;
+        }
+        .comment{
+            padding:0.5rem 0.75rem 0.2rem;
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .hide{
+            display: none;
+        }
+        .loading-data,
+        .no-data {
+            width: 100%;
+            margin-top: 30px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .loading-data img,
+        .no-data img {
+            width: 60%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <section class="aui-content no-data" id="list" style="margin-bottom:0;">
+        <div class="loading-data">
+            <img src="../../image/loading.png" />
+        </div>
+    </section>
+
+    <!-- <div class="activity aui-flex-col aui-border-b">
+       <div class="aui-flex-col aui-flex-middle aui-flex-item-12 time">
+            <div class="aui-flex-item-6 aui-text-left">2010.03.25</div>
+            <div class="aui-flex-item-6 aui-text-right" tapmode onclick="deletethis()">
+                <span class="aui-iconfont aui-icon-more2"></span>
+            </div>
+        </div>
+        <div class=" aui-list aui-media-list aui-flex-item-12 activitylist active-item">
+            <div class="aui-list-item">
+                <div class="aui-list-item-media aui-flex-col aui-flex-middle">
+                    <img src="../../image/u4.png">
+                </div>
+                <div class="aui-list-item-inner">
+                <div>
+                    <div class="aui-flex-col aui-flex-middle">
+                        <div class="aui-text-left activity-title aui-flex-col aui-flex-middle">
+                            <span class="aui-flex-item-6">流浪的猫找不到家</span>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-text">
+                        很不错的户型,地理位置比较好,周边也不错
+                    </div>
+                    </div>
+                    <div class="aui-list-item-text aui-flex-col aui-flex-middle news-info">
+                        <div class="aui-flex-item-2">
+                            <img src="../../image/1.png" width="100%">
+                        </div>
+                        <div class="aui-flex-item-10 aui-ellipsis-1">
+                            均价不到5千元越秀可逸豪苑元越秀可逸豪苑元越秀可逸豪苑
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="nonebox aui-border-t hide">
+        <div class="none">暂无更多</div>
+    </div>
+    <script id="listTemplate" type="text/doTtemplate">
+        {{for(var i in it){}}
+        <div class="activity aui-flex-col aui-border-b" id="data-{{=it[i].comment_id}}">
+           <div class="aui-flex-col aui-flex-middle aui-flex-item-12 time">
+                <div class="aui-flex-item-6 aui-text-left">{{=it[i].time}}</div>
+                <div class="aui-flex-item-6 aui-text-right" tapmode onclick="delComment({{=it[i].comment_id}})">
+                    <span class="aui-iconfont aui-icon-trash"></span>
+                </div>
+            </div>
+            <div class=" aui-list aui-media-list aui-flex-item-12 activitylist active-item">
+                <div class="aui-list-item">
+                    <div class="aui-list-item-media aui-flex-col aui-flex-middle">
+                        <img src="../../image/blank.gif" data-echo="{{=it[i].avatar}}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div tapmode onclick="openCommentDetail({{=it[i].activity_id}},{{=it[i].comment_id}})">
+                            <div class="aui-flex-col aui-flex-middle">
+                                <div class="aui-text-left activity-title aui-flex-col aui-flex-middle">
+                                    <span class="aui-flex-item-6">{{=it[i].nickname}}</span>
+                                </div>
+                            </div>
+                            <div class="aui-list-item-text">
+                                {{=it[i].comment_content}}
+                            </div>
+                        </div>
+                        <div class="aui-list-item-text aui-flex-col aui-flex-middle news-info" tapmode onclick="openItemDetail({{=it[i].activity_id}},{{=it[i].activity_type}})">
+                            <div class="aui-flex-item-2">
+                                <img src="../../image/blank.gif" data-echo="{{=it[i].activity_thumb}}" width="100%">
+                            </div>
+                            <div class="aui-flex-item-10 aui-ellipsis-1">
+                                {{=it[i].activity_title}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{}}}
+
+    </script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/aui-dialog.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script>
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var pageNum=0,scrollStatus=true;
+    var dialog = new auiDialog();
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+
+    $(function(){
+        addEvent();
+        getList();
+    });
+    function addEvent(){
+        //上拉加载
+        var scroll = new auiScroll({
+            listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+            distance:200 //判断到达底部的距离，isToBottom为true
+        },function(ret){
+           if(ret.isToBottom){
+               if(scrollStatus){
+                   getList();
+               }
+           }
+        });
+    }
+    function getList(){
+        pageNum ++;
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Activity/getUserCommentList',
+           data: "token="+token+"&pageNum="+pageNum+"&pageSize=10",
+           success: function(ret){
+               if(ret.code == 1){
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '';
+                   }
+                   if(document.querySelector("#list.no-data")){
+                      document.querySelector("#list.no-data").classList.remove("no-data");
+                   }
+                   scrollStatus = true;
+                   var data = ret.data;
+                   for(var i in data){
+                       data[i].avatar = $api.getStorage('avatar');
+                       data[i].nickname = $api.getStorage('nickname');
+
+                   }
+                   var listTemplate = doT.template(document.getElementById("listTemplate").innerHTML);
+                   document.getElementById("list").insertAdjacentHTML('beforeend', listTemplate(data));
+                   Echo.init({offset: 0,throttle: 0});
+               }else{
+                   scrollStatus = false;
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '<div class="no-data"><img src="../../image/no_comment_data.png" /></div>';
+                       document.getElementById("list").classList.add("no-data");
+                   }
+                   if(pageNum > 2){
+                       document.querySelector(".nonebox").classList.remove("hide");
+                   }
+               }
+           }
+        });
+    }
+    function delComment(id){
+        dialog.alert({
+           title:"提示",
+           msg:'确认删除该条评论',
+           buttons:['取消','确定']
+       },function(ret){
+           if(ret.buttonIndex == 2){
+               var token = $api.getStorage('token');
+               $.ajax({
+                   type: "POST",
+                   url: siteUrl+'App/Activity/delUserComment',
+                   data: "token="+token+"&comment_id="+id,
+                   success: function(ret){
+                       if(ret.code == 1){
+                           var el = document.getElementById("data-"+id);
+                           el.parentNode.removeChild(el);
+                       }else{
+                           a.content = ret.msg;
+                           layer.open(a);
+                       }
+                   }
+                });
+           }
+       })
+    }
+    function openCommentDetail(id,comment_id){
+        window.top.location.href = "../activity/activity_comment_reply.html?activity_id="+id+"&comment_id="+comment_id;
+    }
+    function openItemDetail(id,activity_type){
+        if(activity_type == 1){
+            window.top.location.href = "../activity/activity_detail.html?activity_id="+id;
+        }else{
+            window.top.location.href = "../activity/activity_detail_groupbuy.html?activity_id="+id;
+        }
+    }
+</script>
+</body>
+</html>

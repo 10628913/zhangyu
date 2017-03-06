@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui-flex.css"/>
+    <style>
+   .aui-bar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #df3031;
+        color: #fff;
+    }
+    .aui-bar +*{
+        padding-top: 2.3rem;
+    }
+    html,body{
+        background-color: #fff;
+        overflow: hidden;
+    }
+    .btnbox1{
+        margin-top: 10%;
+    }
+    .btnbox1,.btnbox2{
+        width: 100%;
+        text-align: center;
+    }
+    .aui-btn{
+        width: 90%;
+        border-radius: 0.2rem;
+        margin-top: 1rem;
+        line-height: 1.7rem;
+        font-size: 0.9rem;
+    }
+    .btnbox1 .aui-btn{
+        background-color: #df3031;
+        color: #fff;
+        border: 1px solid #df3031;
+    }
+    .btnbox2 .aui-btn{
+        background-color: #fff;
+        color: #df3031;
+        border: 1px solid #df3031;
+    }
+    .title{
+        line-height: 1.5rem;
+        margin-top: 15%;
+        text-align: center;
+        background-color: #fff;
+    }
+    .title div{
+        background-color: #fff;
+        position: relative;
+        z-index: 999;
+        width: 40%;
+        margin-left: 30%;
+    }
+    .aui-border-b:after{
+        bottom: 0;
+        z-index: 1;
+    }
+    .aui-flex-col {
+        margin-top: 2rem;
+    }
+    .aui-flex-item-4 img{
+        width: 40%;
+    }
+    </style>
+</head>
+<body>
+    <header class="aui-bar" id="header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">登录</div>
+    </header>
+    <section>
+        <img src="../image/my-bg.png" width="100%">
+        <div class="btnbox1">
+            <div class="aui-btn" tapmode onclick="openWin('login_entry')">立即登录</div>
+        </div>
+        <div class="btnbox2">
+            <div class="aui-btn" tapmode onclick="openWin('register_one')">注册账号</div>
+        </div>
+        <!-- <div class="title aui-border-b">
+            <div class="">其它方式登录</div>
+        </div>
+        <div class="aui-flex-col">
+            <div class="aui-flex-item-4 aui-text-center">
+                <img src="../image/qqlogo.png" >
+                <p>QQ登录</p>
+            </div>
+            <div class="aui-flex-item-4 aui-text-center">
+                <img src="../image/wxlogo.png" >
+                <p>微信登录</p>
+            </div>
+            <div class="aui-flex-item-4 aui-text-center">
+                <img src="../image/xllogo.png" >
+                <p>微博登录</p>
+            </div>
+        </div> -->
+    </section>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-slide.js"></script>
+<script>
+    function closeWin(){
+        window.history.go(-1);
+    }
+    function openWin(name){
+        window.location.href=name+'.html';
+    }
+</script>
+</body>
+</html>

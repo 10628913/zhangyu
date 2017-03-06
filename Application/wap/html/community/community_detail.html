@@ -1,0 +1,722 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        section{
+            background-color: #fff;
+        }
+        section >.aui-flex-col{
+            padding: 0.6rem 0.75rem;
+        }
+        .aui-flex-item-2 img{
+            width: 70%;
+            border-radius: 50%;
+        }
+        .aui-flex-item-10 div{
+            font-size: 0.7rem;
+        }
+        .aui-flex-item-10 div:first-child{
+            color: #03A9F4;
+        }
+        .aui-flex-item-10 div:last-child{
+            color: #999;
+            font-size: 0.6rem;
+        }
+        .content{
+            padding: 0.6rem 0.75rem;
+            font-size: 0.8rem;
+            color: #333;
+        }
+        .sourcebox{
+            background-color: #f3f3f3;
+            padding:0.75rem 0;
+        }
+        .sourcebox ul li div{
+            color: #666;
+        }
+        .source{
+            background-color: #fff;
+            font-size: 0.7rem;
+            color: #666;
+            padding: 0.5rem 0.75rem;
+        }
+        .clicklike .aui-flex-item-10 img{
+            border-radius: 50%;
+        }
+        .clicklike .aui-flex-item-2{
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .comment{
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .comment >.aui-flex-col:first-child{
+            margin-bottom: 0.4rem;
+        }
+        .reward-box{
+            background-color: #f080a2;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            color: #fff;
+            position: relative;
+            line-height: 3rem;
+        }
+        .reward-box .aui-iconfont{
+            font-size: 1.5rem;
+        }
+        .reward-btn{
+            color: #f080a2;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+        }
+        .reward-total{
+            color: #999;
+            font-size: 0.6rem;
+            margin:0.3rem 0;
+        }
+        .more-box{
+            text-align: center;
+            font-size: 0.8rem;
+            color: #999;
+            padding: 0.5rem;
+        }
+        .clicklike .aui-flex-item-2 img{
+            width: 75%;
+        }
+        .clicklike >div:last-child span{
+          color: #666;
+        }
+        .aui-iconfont.aui-icon-laud{
+            font-size: 1rem;
+        }
+        .comment >.aui-flex-col >.aui-flex-item-10{
+            color: #333;
+        }
+        .aui-toast{
+            height: 5rem;
+        }
+        .aui-toast .aui-iconfont{
+            font-size: 2.5rem;
+        }
+        /**/
+        header{
+            background-color: #fff;
+            padding: 0.5rem 0.75rem;
+            position: fixed;
+        }
+        .header-fix{
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 999;
+        }
+        .aui-flex-item-2 img{
+            width:70%;
+            border-radius: 50%;
+        }
+        .aui-flex-item-10{
+          padding-left: 0.2rem;
+        }
+        .nickname{
+            color: #03A9F4;
+            font-size: 0.9em;
+        }
+        .time{
+            color: #999;
+            font-size: 0.6rem;
+        }
+        .aui-flex-item-2{
+            font-size: 0.6rem;
+            color: #999;
+        }
+        footer{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0;
+            background-color: #fff;
+            line-height: 2.25rem;
+            z-index: 3;
+        }
+        footer >.aui-flex-col{
+            padding:0.2rem 0.8rem;
+        }
+        footer .aui-iconfont{
+            color: #666;
+            font-size: 1.2rem;
+        }
+        .conment-t{
+          margin-top: 60px;
+        }
+        /*输入框*/
+          .comment-box {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+            display: none;        
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;     
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 80%, 0) scale(1);
+                  transform: translate3d(0, 80%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+        /*share*/
+        .share-box {
+            background: #ffffff;
+            padding: 0.75rem 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                    transform: translate3d(0, 30%, 0) scale(1);
+            display: none;        
+        }
+        .share-box.share-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;        
+        }
+        .share-box.share-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                  transform: translate3d(0, 30%, 0) scale(1);
+        }
+        .share-box p {
+            font-size: 0.6rem;
+            color: #666;
+        }
+        .share-box .aui-iconfont {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .share-box .share-inner {
+            width: 100%;
+            overflow: hidden;
+        }
+        .share-box .share-close {
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .share-box .share-close .aui-iconfont {
+            font-size: 1rem;
+            color: #999;
+            padding: 0.5rem;
+            background-color: #f4f4f4;
+            border-radius: 50%;
+        }
+        .share-inner img{
+            width:40%;
+        }
+        .share-inner p{
+            margin-bottom: 0.5rem;
+        }
+        @-webkit-keyframes fadeInDown {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -50%, 0);
+                        transform: translate3d(0, -50%, 0);
+            }
+            to {
+                bottom: 0;
+                opacity: 1;
+                -webkit-transform: none;
+                        transform: none;
+            }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -50%, 0);
+                        transform: translate3d(0, -50%, 0);
+            }
+            to {
+                opacity: 1;
+                -webkit-transform: none;
+                        transform: none;
+            }
+        }
+        .aui-popover-top-right{
+            top:2.75rem;
+            position: fixed;
+            z-index: 99999;
+            display: none;
+        }
+        .aui-popover-top-right.show{
+            display: block;
+        }
+        .aui-mask {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .aui-mask {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            z-index: 998;        
+        }
+        .aui-mask.mask-in {
+            visibility: visible;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .aui-mask.mask-out {
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        /*更多*/
+        .share-box-more {
+            background: #ffffff;
+            padding: 1.5rem 0;
+            position: fixed;
+            bottom:0;
+            left: 0;
+            width: 100%;
+            z-index: 99999;
+            -webkit-animation: fadeInUp .3s ease both;
+                          animation: fadeInUp .3s ease both;
+          }
+          .share-box-more p {
+            font-size: 0.6rem;
+            color: #666;
+          }
+          .share-box-more .aui-iconfont {
+            font-size: 1.5rem;
+            color: #333;
+          }
+              .share-box-more .share-inner {
+                  width: 100%;
+                  overflow: hidden;
+              }
+          .share-box-more .share-close {
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+          }
+          .share-box-more .share-close .aui-iconfont {
+            font-size: 1rem;
+            color: #999;
+            padding: 0.5rem;
+            background-color: #f4f4f4;
+            border-radius: 50%;
+          }
+           @-webkit-keyframes fadeOutDown {
+            from {
+              opacity: 1;
+            }
+            to {
+              opacity: 0;
+              -webkit-transform: translate3d(0, -50%, 0);
+              transform: translate3d(0, -50%, 0);
+            }
+          }
+
+          @keyframes fadeOutDown {
+            from {
+              opacity: 1;
+            }
+            to {
+              opacity: 0;
+              -webkit-transform: translate3d(0, -50%, 0);
+              transform: translate3d(0,-50%, 0);
+            }
+          }
+          .share-box-more {
+            background: #ffffff;
+            padding: 0.75rem 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                    transform: translate3d(0, 30%, 0) scale(1);
+            display: none;        
+          }
+          .share-box-more.share-box-in {
+              opacity: 1;
+               -webkit-transition-duration: 300ms;
+                      transition-duration: 300ms;
+              -webkit-transform: translate3d(0, 0, 0) scale(1);
+                      transform: translate3d(0, 0, 0) scale(1);
+              display: block;        
+          }
+          .share-box-more.share-box-out {
+            opacity: 0;
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                    transform: translate3d(0, 30%, 0) scale(1);
+          }
+    </style>
+</head>
+<body>
+    <header class="header-fix aui-border-b">
+        <div class="aui-flex-col">
+            <div class="aui-flex-item-10 aui-flex-col aui-flex-middle" tapmode onclick="openWin('../my/my_personalspace')">
+                <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                    <img src="../../image/u3.png">
+                </div>
+                <div class="aui-flex-item-10 aui-flex-row aui-flex-middle">
+                    <div class="nickname">流浪的小猫咪</div>
+                    <div class="time">20分钟前</div>
+                </div>
+                </div>
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right" tapmode onclick="openMore()">
+                <span class="aui-iconfont aui-icon-more2"></span>
+            </div>
+       </div>
+    </header>
+    <div class="aui-toast" style="display:none" id="default">
+        <i class="aui-iconfont aui-icon-correct"></i>
+        <div class="aui-toast-content">打赏成功</div>
+    </div>
+   <section class="conment-t">
+        <div class="content">
+           根据中国指数研究院数据测算，多数热点城市的套均面积已突破百平，且呈现出继续增加的趋势，大户型正在占据存量房越来越多的比重。相反的是，库存高企城市的存量房平均户型正在进一步趋小，套均面积仅86平的威海出清周期已达到20年。
+        </div>
+        <div>
+           <img src="../../image/2.png" width="100%" style="display: block;">
+        </div>
+       
+        <div class="aui-flex-col reward aui-border-b">
+
+            <div class="aui-flex-item-6 aui-flex-row aui-flex-center aui-flex-middle" tapmode onclick="showDefault()">
+                <div class="reward-box  aui-text-center">
+                    <span class="aui-iconfont aui-icon-money-box2"></span>
+                </div>
+                <div class="reward-btn aui-text-center">打赏10分</div>
+            </div>
+            <div class="aui-flex-item-6 aui-flex-row aui-flex-center aui-flex-middle">
+                <div class="reward-box aui-text-center">
+                    <span class="aui-iconfont aui-icon-money-box2"></span>
+                </div>
+                <div class="reward-btn aui-text-center">打赏15分</div>
+            </div>
+            <div class="aui-text-center" style="width:100%">
+                <div class="reward-total">您当前有40分,给楼主打赏一下吧</div>
+            </div>
+        </div>
+         <div class="sourcebox">
+            <ul class="aui-flex-col source" tapmode onclick="openWin('community_topic_list')">
+                <li class="aui-flex-item-11 aui-flex-col aui-flex-middle">
+                    来自: 房产网
+                </li>
+                <div class="aui-flex-item-1 aui-flex-col aui-flex-middle">
+                    <span class="aui-iconfont aui-icon-plus"></span>
+                </div>
+            </ul>
+        </div>
+       <div class="aui-flex-col clicklike aui-flex-middle aui-border-b">
+           <div class="aui-flex-item-8 aui-flex-col aui-flex-middle">
+               <div class="aui-flex-item-2">
+                   <img src="../../image/u1.png">
+               </div>
+                <div class="aui-flex-item-2">
+                   <img src="../../image/u2.png">
+               </div>
+                <div class="aui-flex-item-2">
+                   <img src="../../image/u3.png">
+               </div>
+                <div class="aui-flex-item-2">
+                   <img src="../../image/u4.png">
+               </div>
+                <div class="aui-flex-item-2">
+                   <img src="../../image/u1.png">
+               </div>
+                <div class="aui-flex-item-2">
+                   <img src="../../image/u2.png">
+               </div>
+           </div>
+           <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-center aui-border-r">
+               <span style="color: #999">88</span>
+           </div>
+           <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-center">
+                <div class="aui-iconfont aui-icon-laud"></div>
+           </div>
+       </div>
+       <div class="commentlist ">
+            <div class="comment aui-border-b">
+                <div class="aui-flex-col">
+                   <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                       <img src="../../image/u4.png">
+                   </div>
+                   <div class="aui-flex-item-10 aui-flex-row aui-flex-middle">
+                       <div>流浪的小猫咪</div>
+                       <div>
+                           <span>1楼</span>
+                           <span>1小时前</span>
+                       </div>
+                   </div>
+               </div>
+               <div class="aui-flex-col aui-flex-right">
+                   <div class="aui-flex-col aui-flex-item-10">
+                       全国住宅市场两极分化严重，三四线城市库存压力较为严重，根据戴德梁行数据，三四线城市出清周期已上升至31个月左右。其中，威海出清周期最高，达到了240个月，呼和浩特则为69个月、东营为61个月。
+                       在这些库存高企城市如威海、东营、大同、呼和浩特、西安等7城中，除威海外，其余城市商品住宅库存套均面积均超过了100平米。与热点一二线城市不同的是，多数高库存城市的存量房户型面积出现了下降。该7城市中的5城：东营、大同、呼和浩特、江阴、南平的存量房套均面积与2015年相比出现了约1-3平米的回落，库存平均户型正在进一步趋小。
+                   </div>
+               </div>
+            </div>
+            <div class="comment aui-border-b">
+                <div class="aui-flex-col">
+                   <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                       <img src="../../image/u3.png">
+                   </div>
+                   <div class="aui-flex-item-10 aui-flex-row aui-flex-middle">
+                       <div>流浪的小猫咪</div>
+                       <div>
+                            <span>2楼</span>
+                            <span>20分钟前</span>
+                       </div>
+                   </div>
+               </div>
+               <div class="aui-flex-col aui-flex-right">
+                   <div class="aui-flex-col aui-flex-item-10">
+                       全国住宅市场两极分化严重，三四线城市库存压力较为严重，根据戴德梁行数据，三四线城市出清周期已上升至31个月左右。其中，威海出清周期最高，达到了240个月，呼和浩特则为69个月、东营为61个月。
+                       在这些库存高企城市如威海、东营、大同、呼和浩特、西安等7城中，除威海外，其余城市商品住宅库存套均面积均超过了100平米。与热点一二线城市不同的是，多数高库存城市的存量房户型面积出现了下降。该7城市中的5城：东营、大同、呼和浩特、江阴、南平的存量房套均面积与2015年相比出现了约1-3平米的回落，库存平均户型正在进一步趋小。
+                   </div>
+               </div>
+            </div>
+       </div>
+       <div class="more-box aui-border-t">
+           <div>暂无更多</div>
+       </div>
+   </section>
+   <footer class="aui-footer">
+        <div class="aui-flex-col aui-border-t">
+            <div class="aui-flex-item-4 aui-flex-col aui-flex-middle aui-flex-left" tapmode onclick="closeWin()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+             <div class="aui-flex-item-4 aui-flex-col aui-flex-middle aui-flex-center" tapmode onclick="openCommentAdd()">
+                <span class="aui-iconfont aui-icon-comment"></span>
+            </div>
+             <div class="aui-flex-item-4 aui-flex-col aui-flex-middle aui-flex-right" tapmode onclick="openShare()">
+                <span class="aui-iconfont aui-icon-share"></span>
+            </div>
+        </div>
+    </footer>
+    <div class="aui-mask "></div>
+    <section class="comment-box" id="comment-box">
+        <div class="comment-nav">
+            <div class="comment-btn" tapmode onclick="closeAdd()">取消</div>
+            <div class="comment-title">回复</div>
+            <div class="comment-btn disabled">发送</div>
+        </div>
+        <div class="comment-wrap">
+            <textarea class="aui-border comment-textarea" id="content" rows="4"></textarea>
+        </div>
+    </section>
+
+    <section class="share-box aui-text-center" id="share-box" style="margin-bottom:0">
+        <div class="share-inner">
+            <div class="aui-col-xs-5">
+                <img src="../../image/pengyouquan.png">
+                <p>朋友圈</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/weixin.png">
+                <p>微信</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/qq.png">
+                <p>QQ</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/weibo.png">
+                <p>微博</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/friends.png">
+                <p>好友</p>
+            </div>
+        </div>
+        <div class="share-close aui-border-t">
+            <i class="aui-iconfont aui-icon-close" tapmode onclick="closeShare()"></i>
+        </div>
+    </section>
+    <section class="share-box-more aui-text-center" id="share-box-more">
+        <div class="share-inner">
+          <div class="aui-col-xs-4">
+            <i class="aui-iconfont aui-icon-my"></i>
+            <p>只看楼主</p>
+          </div>
+          <div class="aui-col-xs-4">
+            <i class="aui-iconfont aui-icon-down"></i>
+            <p>倒序查看</p>
+          </div>
+            <div class="aui-col-xs-4">
+                <i class="aui-iconfont aui-icon-edit"></i>
+                <p>申请上新闻</p>
+            </div>
+          <div class="aui-col-xs-4 " style="margin-top: 0.75rem;">
+            <i class="aui-iconfont aui-icon-refresh"></i>
+            <p>刷新</p>
+          </div>
+          <div class="aui-col-xs-4" style="margin-top: 0.75rem;" tapmode onclick="openWin('community_report')">
+            <i class="aui-iconfont aui-icon-info"></i>
+            <p>举报</p>
+          </div>
+        </div>
+        <div class="share-close aui-border-t">
+            <i class="aui-iconfont aui-icon-close" tapmode onclick="closeFrmMore()"></i>
+        </div>
+    </section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script>
+// 打赏提示
+    function showDefault(){
+        $api.css($api.byId("default"),"display:block");
+        setTimeout(function(){
+            $api.css($api.byId("default"),"display:none");
+        },2000)
+    }
+
+    
+    function closeWin(){
+        window.history.go(-1); 
+    }
+     function openWin(name){
+        window.location.href=name+'.html'; 
+    }
+    // 输入框弹出
+   
+    function openCommentAdd () {
+        document.getElementById("comment-box").classList.remove("comment-box-out");
+        document.getElementById("comment-box").classList.add("comment-box-in");
+        var mask = document.querySelector('.aui-mask');
+            mask.classList.add('mask-in');
+    }
+    function closeAdd(){
+        document.getElementById("comment-box").classList.add("comment-box-out");
+        setTimeout(function(){
+            document.getElementById("comment-box").classList.remove("comment-box-in");
+        }, 300)
+        var mask = document.querySelector('.aui-mask');
+        mask.classList.remove('mask-in');
+        mask.classList.add('mask-out');
+        setTimeout(function(){
+          mask.classList.remove('mask-out'); 
+        }, 100)
+    }
+    // 分享
+    function openShare(){
+        document.getElementById("share-box").classList.remove("share-box-out");
+        document.getElementById("share-box").classList.add("share-box-in");
+        var mask = document.querySelector('.aui-mask');
+            mask.classList.add('mask-in');
+    }
+    function closeShare(){
+        document.getElementById("share-box").classList.add("share-box-out");
+
+        setTimeout(function(){
+            document.getElementById("share-box").classList.remove("share-box-in");
+        }, 300)
+        var mask = document.querySelector('.aui-mask');
+        mask.classList.remove('mask-in');
+        mask.classList.add('mask-out');
+        setTimeout(function(){
+          mask.classList.remove('mask-out'); 
+        }, 100)
+    }
+    // more
+    function closeFrmMore(){
+        document.getElementById("share-box-more").classList.add("share-box-out");
+        setTimeout(function(){
+            document.getElementById("share-box-more").classList.remove("share-box-in");
+        }, 300)
+        var mask = document.querySelector('.aui-mask');
+        mask.classList.remove('mask-in');
+        mask.classList.add('mask-out');
+        setTimeout(function(){
+          mask.classList.remove('mask-out'); 
+        }, 100)
+    }
+    function openMore(){
+        var share_box_more = document.getElementById("share-box-more");
+        // share_box_more.classList.remove("share-box-out");
+        // share_box_more.classList.add("share-box-in");
+        var mask = document.querySelector('.aui-mask');
+            mask.classList.add('mask-in');
+            closeShare();
+        if (!document.querySelector("#share-box-more.share-box-in")) {
+            share_box_more.classList.remove("share-box-out");
+            share_box_more.classList.add("share-box-in");
+        }else{
+            share_box_more.classList.add("share-box-out");
+            share_box_more.classList.remove("share-box-in");
+        }
+    }
+</script>
+</body>
+</html>

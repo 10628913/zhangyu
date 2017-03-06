@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>test</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css">
+	<link rel="stylesheet" type="text/css" href="../../css/aui-flex.css">
+	<style type="text/css">
+		.order {
+			background: #ffffff;
+		}
+		.order-info  {
+			font-size: 0.8rem;
+			width: 100%;
+		}
+		.order-info span {
+			color: #333;
+			margin-right: 0.25rem;
+		}
+		.order-info time {
+			color: #999999;
+			font-size: 0.7rem;
+		}
+		.order-info i.aui-iconfont {
+			color: #999;
+			font-size: 0.8rem;
+		}
+		.order-icon img {
+			width: 80%;
+			border-radius: 0.25rem;
+		}
+		.order-title {
+			font-size: 0.9em;
+			color: #333;
+			padding-bottom: 0.5rem;
+		}
+		.aui-line-x{
+			margin-bottom: 0.5rem;
+		}
+		.order-title > i.aui-iconfont {
+			font-size: 0.8rem;
+			color: #999999;
+		}
+		p.goods-list {
+			font-size: 0.7em;
+			color: #999;
+			margin-bottom: 0.4rem;
+		}
+		p.count-info {
+			font-size: 0.7rem;
+			color: #999;
+			padding-bottom: 0.25rem;
+		}
+		p.count-info span {
+			margin: 0 0.15rem;
+		}
+		p.count-info strong {
+			color: #df3031;
+			font-size: 0.8rem;
+			font-weight: 700;
+		}
+		.btn {
+			/*margin: 5px;*/
+		}
+		.btn .aui-btn {
+			font-size: 0.75em;
+		}
+		.btn .aui-btn:first-child {
+			margin-right: 0.5rem;
+		}
+		.aui-border-b:after {
+			border-color: #ddd;
+		}
+		.aui-btn-pay{
+			border-color: #df3031;
+			color: #fff;
+			background-color: #df3031;
+		}
+		/**/
+		.aui-bar .aui-iconfont span{
+            width: 1rem;
+        }
+        .aui-bar .aui-iconfont{
+            color: #fff !important;
+        }
+        .aui-tab li.active{
+            border-bottom-color: #df3031;
+            color: #df3031;
+        }
+        .aui-bar{
+	        position: fixed;
+	        top: 0;
+	        left: 0;
+	        width: 100%;
+	        background-color: #df3031;
+	        color: #fff;
+	        z-index: 999;
+	    }
+	    .conment-top{
+	    	padding-top: 46px;
+	    }
+	</style>
+</head>
+<body >
+	<header class="aui-bar" id="header">
+	    <span class="aui-pull-left" tapmode onclick="closeWin()">
+	        <span class="aui-iconfont aui-icon-left"></span>
+	    </span>
+	    <div class="aui-title">我的订单</div>
+	</header>
+	<nav class="conment-top"> 
+	    <ul class="aui-tab">
+	        <li class="aui-tab-item active">全部</li>
+	        <li class="aui-tab-item ">未支付</li>
+	        <li class="aui-tab-item ">已支付</li>
+	        <li class="aui-tab-item ">已发货</li>
+	        <li class="aui-tab-item ">已收货</li>
+	        
+	    </ul>
+	</nav>
+	<section class="aui-content order">
+		<div class="aui-flex-col order-info aui-padded-10">
+			<div class="aui-flex-item-12">
+				<span>订单未支付</span>
+				<time>2016-04-12 12:00:00</time>
+				<i class="aui-iconfont aui-icon-trash aui-pull-right"></i>
+			</div>
+		</div>
+		<div class="aui-flex-col">
+			<div class="aui-flex-item-2 order-icon aui-text-right">
+				<img src="../../image/jf01.jpg" />
+			</div>
+			<div class="aui-flex-item-10 aui-padded-0-15">
+				<p class="order-title">积分商品 <i class="aui-iconfont aui-icon-right"></i></p>
+				<div class="aui-line-x"></div>
+				<p class="goods-list">
+					商品2
+					<em class="aui-pull-right">× 1</em>
+				</p>
+				<p class="aui-text-right count-info">
+					共<span>1</span>份，实付<strong>900.00积分</strong>
+				</p>
+				<div class="aui-line-x"></div>
+			</div>
+		</div>
+		<div class="aui-flex-col aui-padded-15 btn">
+			<div class="aui-flex-item-12 aui-text-right">
+				<div class="aui-btn aui-btn-outlined aui-btn-pay">去支付</div>
+				<div class="aui-btn aui-btn-outlined aui-btn-warning">取消订单</div>
+			</div>
+		</div>
+	</section>
+	<section class="aui-content order">
+		<div class="aui-flex-col order-info aui-padded-10">
+			<div class="aui-flex-item-12">
+				<span>订单已完成</span>
+				<time>2016-04-12 12:00:00</time>
+				<i class="aui-iconfont aui-icon-trash aui-pull-right"></i>
+			</div>
+		</div>
+		<div class="aui-flex-col">
+			<div class="aui-flex-item-2 order-icon aui-text-right">
+				<img src="../../image/jf02.jpg" />
+			</div>
+			<div class="aui-flex-item-10 aui-padded-0-15">
+				<p class="order-title">积分商品 <i class="aui-iconfont aui-icon-right"></i></p>
+				<div class="aui-line-x"></div>
+				<p class="goods-list">
+					商品1
+					<em class="aui-pull-right">× 1</em>
+				</p>
+				<p class="goods-list">
+					商品2
+					<em class="aui-pull-right">× 1</em>
+				</p>
+				<p class="aui-text-right count-info">
+					共<span>2</span>份，实付<strong>1600.00积分</strong>
+				</p>
+				<div class="aui-line-x"></div>
+			</div>
+		</div>
+		<div class="aui-flex-col aui-padded-15 btn">
+			<div class="aui-flex-item-12 aui-text-right">
+				<div class="aui-btn aui-btn-outlined aui-btn-info">再次兑换</div>
+				<div class="aui-btn aui-btn-outlined aui-btn-warning">去评价</div>
+			</div>
+		</div>
+	</section>
+	<section class="aui-content order">
+		<div class="aui-flex-col order-info aui-padded-10">
+			<div class="aui-flex-item-12">
+				<span>订单已完成</span>
+				<time>2016-04-12 12:00:00</time>
+				<i class="aui-iconfont aui-icon-trash aui-pull-right"></i>
+			</div>
+		</div>
+		<div class="aui-flex-col">
+			<div class="aui-flex-item-2 order-icon aui-text-right">
+				<img src="../../image/jf03.jpg" />
+			</div>
+			<div class="aui-flex-item-10 aui-padded-0-15">
+				<p class="order-title">积分商品 <i class="aui-iconfont aui-icon-right"></i></p>
+				<div class="aui-line-x"></div>
+				<p class="goods-list">
+					商品1
+					<em class="aui-pull-right">× 1</em>
+				</p>
+				<p class="aui-text-right count-info">
+					共<span>1</span>份，实付<strong>700.00积分</strong>
+				</p>
+				<div class="aui-line-x"></div>
+			</div>
+		</div>
+		<div class="aui-flex-col aui-padded-15 btn">
+			<div class="aui-flex-item-12 aui-text-right">
+				<div class="aui-btn aui-btn-outlined aui-btn-info">再次兑换</div>
+				<div class="aui-btn aui-btn-outlined aui-btn-warning">去评价</div>
+			</div>
+		</div>
+	</section>
+<body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function closeWin(){
+        window.history.go(-1); 
+    }
+</script>
+</html>

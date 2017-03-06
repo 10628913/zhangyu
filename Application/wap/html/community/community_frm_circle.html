@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        section{
+            margin-bottom: 0.5rem;
+            background-color: #fff;
+        }
+        section >.aui-flex-col{
+            padding: 0.6rem 0.75rem;
+        }
+        .aui-flex-item-2 img{
+            width: 80%;
+            border-radius: 50%;
+        }
+        .aui-flex-item-10{
+          padding-left: 0.2rem;
+
+        }
+        .aui-flex-item-10 div{
+            font-size: 0.7rem;
+
+        }
+        .aui-flex-item-10 div:first-child{
+            color: #03A9F4;
+        }
+        .aui-flex-item-10 div:last-child{
+            color: #999;
+            font-size: 0.6rem;
+        }
+        .aui-flex-item-2{
+            font-size: 0.6rem;
+            color: #999;
+           /* line-height: 2rem;*/
+        }
+        .content{
+            padding: 0.6rem 0.75rem;
+            font-size: 0.8rem;
+            color: #333;
+        }
+        .aui-border:after{
+          border-radius: 0.5rem;
+        }
+        .bottombox span{
+          margin-left: 0.6rem;
+          color: #666;
+        }
+        .aui-iconfont.aui-icon-plus{
+            font-size: 0.7rem;
+        }
+        .bottom-list{
+          color: #666;
+          font-size: 0.6rem;
+        }
+        .photo{
+            padding: 0 !important;
+        }
+        .photo >.aui-flex-item-6 img{
+            width: 98%;
+        }
+        .photo >.aui-flex-item-4 img{
+            width: 98%;
+        }
+        /**/
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar .aui-iconfont span{
+            width: 20px;
+        }
+        .aui-bar .aui-iconfont{
+            color: #fff !important;
+        }
+        nav{
+            background-color: #fff;
+            color: #666;
+        }
+        .aui-tab li{
+            border-bottom: 1px solid #fff;
+        }
+        .aui-tab li.active{
+            border-bottom:1px solid #df3031;
+            color: #df3031;
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+            z-index: 339;
+        }
+        .aui-content-nav{
+            position: fixed;
+            top: 2.3rem;
+            left: 0;
+            width: 100%;
+            z-index: 334;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar header">
+        <span class="aui-pull-left" tapmode="" onclick="openWin('../main')">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <span class="aui-pull-right" tapmode="" onclick="openWin('community_search_win')">
+            <span class="aui-iconfont aui-icon-search1"></span>
+        </span>
+        <div class="aui-title">社区</div>
+    </header>
+    <nav class="aui-content-nav">
+        <ul class="aui-tab">
+            <li class=" aui-tab-item " tapmode onclick="openWin('community_frm_topic')">话题</li>
+            <li class="aui-tab-item  " tapmode onclick="openWin('community_frm_chosen')">精选</li>
+            <li class="aui-tab-item active" tapmode onclick="openWin('community_frm_circle')">好友圈</li>
+        </ul>
+    </nav>
+   <section style="margin-top:4.5rem;">
+       <div class="aui-flex-col">
+            <div class="aui-flex-item-10 aui-flex-col aui-flex-middle" tapmode onclick="openWin('../my/my_personalspace')">
+                <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                   <img src="../../image/u1.png">
+               </div>
+               <div class="aui-flex-item-10 aui-flex-row aui-flex-middle">
+                   <div>流浪的小猫咪</div>
+                   <div>20分钟前</div>
+               </div>
+            </div>
+           <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right" tapmode onclick="openWin('community_topic_list')">
+              <div class="aui-flex-col aui-flex-middle">
+                #扎堆
+              </div>
+           </div>
+       </div>
+       <div class="content">
+           根据中国指数研究院数据测算，多数热点城市的套均面积已突破百平，且呈现出继续增加的趋势，大户型正在占据存量房越来越多的比重。相反的是，库存高企城市的存量房平均户型正在进一步趋小，套均面积仅86平的威海出清周期已达到20年。
+       </div>
+       <div class="aui-flex-col aui-flex-middle aui-flex-center photo">
+            <div class="aui-flex-item-4 aui-text-left">
+                <img src="../../image/d04.jpg">
+            </div>
+            <div class="aui-flex-item-4 aui-text-center">
+                <img src="../../image/d05.jpg">
+            </div>
+            <div class="aui-flex-item-4 aui-text-right">
+                <img src="../../image/d01.jpg" >
+            </div>
+       </div>
+       <div class="aui-flex-col bottom-list">
+           <div class="aui-flex-item-4 aui-text-center aui-border-r">
+               <span class="aui-iconfont aui-icon-display"></span>
+               <span>888</span>
+           </div>
+           <div class="aui-flex-item-4 aui-text-center aui-border-r">
+               <span class="aui-iconfont aui-icon-comment"></span>
+               <span>75</span>
+           </div>
+           <div class="aui-flex-item-4 aui-text-center">
+               <span class="aui-iconfont aui-icon-laud"></span>
+               <span>99</span>
+           </div>
+       </div>
+   </section>
+   <section>
+       <div class="aui-flex-col">
+            <div class="aui-flex-item-10 aui-flex-col aui-flex-middle" tapmode onclick="openWin('../my/my_personalspace')">
+                <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                   <img src="../../image/u4.png">
+               </div>
+               <div class="aui-flex-item-10 aui-flex-row aui-flex-middle">
+                   <div>流浪的小猫咪</div>
+                   <div>20分钟前</div>
+               </div>
+            </div>
+           <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right" tapmode onclick="openWin('community_topic_list')">
+              <div class="aui-flex-col aui-flex-middle aui-flex-center">
+                #本地
+              </div>
+           </div>
+       </div>
+       <div class="content">
+           根据中国指数研究院数据测算，多数热点城市的套均面积已突破百平，且呈现出继续增加的趋势，大户型正在占据存量房越来越多的比重。相反的是，库存高企城市的存量房平均户型正在进一步趋小，套均面积仅86平的威海出清周期已达到20年。
+       </div>
+        <div class="aui-flex-col aui-flex-middle aui-flex-center photo">
+          <div class="aui-flex-item-6 aui-text-left">
+            <img src="../../image/d02.jpg">
+          </div>
+          <div class="aui-flex-item-6 aui-text-right">
+            <img src="../../image/d03.jpg">
+          </div>
+        </div>
+       <div class="aui-flex-col bottom-list">
+           <div class="aui-flex-item-4 aui-text-center aui-border-r">
+               <span class="aui-iconfont aui-icon-display"></span>
+               <span>888</span>
+           </div>
+           <div class="aui-flex-item-4 aui-text-center aui-border-r">
+               <span class="aui-iconfont aui-icon-comment"></span>
+               <span>75</span>
+           </div>
+           <div class="aui-flex-item-4 aui-text-center">
+               <span class="aui-iconfont aui-icon-laud"></span>
+               <span>99</span>
+           </div>
+       </div>
+   </section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    function openNewWin(name){
+        window.top.location.href=name+'.html'; 
+
+    }
+    function openWin(name){
+        window.location.href=name+'.html'; 
+    }
+</script>
+</body>
+</html>

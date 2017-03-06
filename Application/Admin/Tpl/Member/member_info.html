@@ -1,0 +1,50 @@
+<div class="row user-profile-wrapper text-left">
+	<div class="col-md-3 user-profile-sidebar m-bottom-md">
+		<div class="row">
+			<div class="col-sm-4 col-md-12">
+				<div class="user-profile-pic">
+					<img src="{$avatar}" alt="">
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-12">
+				<div class="user-name m-top-sm">{$nickname}</div>
+			</div>
+		</div><!-- ./row -->
+	</div><!-- ./col -->
+	<div class="col-md-9">
+		<div class="smart-widget">
+			<div class="smart-widget-inner">
+				<div class="smart-widget-header">
+	                其他信息
+				</div>
+				<div class="smart-widget-body">
+					<p>昵称：{$nickname}</p>
+					<p>当前状态：
+						<if condition="$islock eq 1"><span class="text-danger">锁定</span>
+						<else /><span class="text-success">正常</span>
+						</if>
+					</p>
+					<p>
+						身份：
+						<if condition="$vip eq 1">会员<else />普通用户</if>
+					</p>
+
+					<p>手机：{$mobile}</p>
+					<p>用户组：{$group_name}</p>
+					<p class="m-top-xs">
+						性别：
+						<if condition="$sex eq 1">
+						<span class="text-success">男</span>
+						<else />
+						<span class="text-danger">女</span>
+						</if>
+					</p>
+					<p>经验：<strong class="text-danger">{$empiric}</strong></p>
+					<p>积分：<strong class="text-danger">{$point}</strong></p>
+					<p>生日：{$birthday}</p>
+					<p>签名：{$sign}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,59 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="paddingTLR-md">
+			<a href="#" class="btn btn-xs btn-info">标签管理</a>
+			<a href="javascript:buildingTagsAdd()" class="btn btn-xs">新增标签</a>
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<form action="" method="post">
+				<table class="table table-striped table-hover table-bordered" id="dataTable">
+					<thead>
+						<tr>
+							<th width="80">ID</th>
+							<th>排序</th>
+							<th>名称</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+						<tr id="data-{$v['tags_id']}">
+							<td>{$v['tags_id']}</td>
+							<td>{$v['tags_sort']}</td>
+							<td>{$v['tags_name']}</td>
+							<td class="manager">
+								<a href="javascript:buildingTagsEdit({$v['tags_id']})" class="text-primary">编辑</a>
+								<a href="javascript:buildingTagsDelete({$v['tags_id']})" class="text-danger">删除</a>
+							</td>
+						</tr>
+
+						</foreach>
+					</tbody>
+				</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function buildingTagsAdd(){
+		DMS.ajaxShow("新增标签","__CONTROLLER__/buildingTagsAdd");
+	}
+	function buildingTagsEdit(id){
+		DMS.ajaxShow("编辑标签","__CONTROLLER__/buildingTagsEdit/tags_id/"+id);
+	}
+	function buildingTagsDelete(id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/buildingTagsDelete",{tags_id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

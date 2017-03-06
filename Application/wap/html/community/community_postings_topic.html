@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        .aui-content{
+            background-color: #fff;
+            padding: 0.5rem 0.75rem;
+            margin-top: 2.3rem;
+        }
+        input[type='text']{
+            font-size: 0.7rem;
+        }
+        .aui-flex-item-10{
+            padding-left: 0.5rem;
+            font-size: 0.7rem;
+            color: #666;
+        }
+        /**/
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">选择标签</div>
+        <span class="aui-pull-right" ">
+            确定
+        </span>
+    </header>
+    <section class="aui-content" style="margin-bottom:0">
+        <div class="">
+            <input type="text" name="" placeholder="#自定义标签#">
+        </div>
+    </section>
+    <section class="aui-list">
+        <div class="aui-list-header">热门标签</div>
+        <div class="aui-list-item">
+            <div class="aui-list-item-inner aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-2">
+                    <img src="../../image/u2.png" width="90%">
+                </div>
+                <span class="aui-flex-item-10">#懂小姐#</span>
+            </div>
+
+        </div>
+        <div class="aui-list-item">
+            <div class="aui-list-item-inner aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-2">
+                    <img src="../../image/u3.png" width="90%">
+                </div>
+                <span class="aui-flex-item-10">#观影报告#</span>
+            </div>
+            
+        </div>
+    </section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+    function openWin(name){
+        window.location.href=name+'.html'; 
+
+    }
+</script>
+</body>
+</html>

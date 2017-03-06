@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>提现</title>
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui-flex.css" />
+    <style type="text/css">
+    body {
+        background: transparent;
+    }
+    .aui-content {
+        background: #f4f4f4;
+    }
+    .aui-content.info {
+        min-height: 80px;
+        color: #999999;
+    }
+    .info {
+        margin-bottom: 0;
+    }
+    .info small,
+    .info big {
+        margin-right: 5px;
+    }
+    .info small {
+        font-size: 0.75em;
+    }
+    .info big {
+        font-size: 1.5em;
+    }
+    .info big.aui-text-info {
+        font-size: 1.2em;
+    }
+    </style>
+</head>
+<body>
+    <section class="aui-content aui-flex-col aui-flex-middle aui-text-center info aui-border-b">
+        <div class="aui-flex-item-6">
+            <small>余额</small>
+            <big class="aui-text-danger" id="amount">{$amount}</big>元
+        </div>
+        <div class="aui-flex-item-6">
+            <small>冻结余额</small>
+            <big class="aui-text-info" id="forzen_amount">{$forzen_amount}</big>元
+        </div>
+    </section>
+    <section class="aui-content aui-flex-col">
+        <p class="aui-padded-15">请在下方输入您要提现的金额</p>
+        <div class="aui-form">
+            <div class="aui-input-row">
+                <label class="aui-input-addon">提现金额</label>
+                <input type="number" class="aui-input" placeholder="请输入提现金额" id="withdraw-amount" />
+                <div class="aui-input-addon">
+                    <if condition="$amount gt 1">
+                    <div class=" aui-btn aui-btn-info aui-btn-outlined" id="withdraw-btn" status="0" onclick="withdraw()">确认提现</div>
+                    <else />
+                    <div class=" aui-btn aui-btn-danger aui-btn-outlined">余额不足</div>
+                    </if>
+                </div>
+            </div>
+        </div>
+    </section>
+    <p class="aui-text-center">提现记录(默认显示前20条记录)</p>
+    <section class="aui-content" id="list">
+        <ul class="aui-list-view">
+            <if condition="$list">
+            <foreach name="list" item="v">
+            <li class="aui-list-view-cell">
+                交易号：{$v['trade_sn']}
+                <p>提现金额：<span class="aui-text-danger">{$v['amount']}</span> 元</p>
+                <if condition="$v['status'] eq 1">
+                <span class="aui-badge aui-badge-info aui-pull-right">待处理</span>
+                <elseif condition="$v['status'] eq 2" />
+                <span class="aui-badge aui-badge-warning aui-pull-right">处理中</span>
+                <elseif condition="$v['status'] eq 3" />
+                <span class="aui-badge aui-badge-warning aui-pull-right">已处理</span>
+                <elseif condition="$v['status'] eq 99" />
+                <span class="aui-badge aui-badge-success aui-pull-right">提现成功</span>
+                <elseif condition="$v['status'] eq '-1'" />
+                <span class="aui-badge aui-badge-danger aui-pull-right">失败</span>
+                </if>
+            </li>
+            </foreach>
+            </if>
+        </ul>
+    </section>
+</body>
+<script type="text/javascript" src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="{:C('JS_PATH')}/aui/aui-loading.js"></script>
+<script type="text/javascript" src="{:C('JS_PATH')}/doT.min.js"></script>
+<script type="text/javascript">
+// var siteUrl = "http://localhost:8887/";
+var siteUrl = "http://nixiangyuan.apithink.com/";
+function withdraw(){
+    var myAmount = parseFloat($("#amount").val());
+    var withdrawAmount = parseFloat($("#withdraw-amount").val());
+    if(!withdrawAmount){
+        alert("请输入提现金额");
+        return;
+    }
+    if(withdrawAmount > myAmount){
+        alert("余额不足");
+        return;
+    }
+    $.ajax({
+        type : "POST",
+        url: siteUrl+"?s=Wx/Member/withdraw",
+        data : {
+            withdrawAmount:withdrawAmount
+        },
+        dataType: 'json',
+        cache: false,
+        success : function(ret, status) {
+            if(ret.status == 1){
+                alert(ret.info);
+                window.location.href=window.location.href;
+            }else{
+                alert(ret.info);
+            }
+        },
+        error: function(){
+            alert("操作失败");
+        }
+    });
+}
+</script>
+</html>

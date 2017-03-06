@@ -1,0 +1,129 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>活动</title>
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+    <style type="text/css">
+        .aui-bar {
+            background-color: #998e78;
+            position: fixed;
+        }
+        .activity-list {
+            position: relative;
+            /*top: 45px;*/
+        }
+        .activity-list .aui-list-view {
+            overflow: hidden;
+            background: none;
+        }
+        .activity-list .aui-list-view:after {
+            border: none;
+        }
+        .activity-list .aui-list-view li {
+            margin-bottom: 15px;
+            background: #ffffff;
+        }
+        .activity-img {
+            position: relative;
+        }
+        img.thumb {
+            width: 100%;
+            height: 220px;
+            background: url('{:C('IMAGE_PATH')}/loading.gif') no-repeat center center;
+            background-color: #f4f4f4;
+            background-size: 48px auto;
+            display: inherit;
+        }
+        .price {
+            position: absolute;
+            right: 0;
+            bottom: 20px;
+            background: rgba(0,0,0,0.6);
+            color: #ffffff;
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+        .price strong {
+            font-size: 16px;
+        }
+        .title-box {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin-top: -20px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 24px;
+            text-shadow: #000000 0px 1px 5px;
+        }
+        .activity-info {
+            background: #ffffff;
+            padding: 15px;
+            font-size: 16px;
+            color: #666666;
+            overflow: hidden;
+        }
+        .activity-info p {
+            font-size: 12px;
+        }
+        .aui-content > .aui-list-view:last-child {
+            margin-bottom: 0;
+        }
+        img.nodata {
+            width: 50%;
+            display: block;
+            margin: 30px auto 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="aui-bar aui-bar-nav " id="aui-header">活动</div> -->
+    <section class="aui-content activity-list" id="list">
+        <if condition="$list">
+        <ul class="aui-list-view">
+        <foreach name="list" item="v">
+            <li onclick="openShow({$v['id']});">
+                <div class="activity-img">
+                    <div class="title-box">
+                        {$v['subtitle']}
+                    </div>
+                    <img class="thumb" src="{$v['thumb']}">
+                    <if condition="$v['min_price']">
+                    <div class="price">¥ <strong class="aui-text-warning">{$v['min_price']}</strong> 起</div>
+                    </if>
+                </div>
+                <div class="activity-info aui-col-xs-12">
+                    {$v['title']}
+                    <p>
+                        活动时间：{$v['scheduleData']['start_time']}
+                        <span class="aui-pull-right">活动人数：<strong class="aui-text-danger">{$v['scheduleData']['limit_num']}</strong> 人</span>
+                    </p>
+                </div>
+            </li>
+        </foreach>
+        </ul>
+        <else />
+        <img src="{:C('IMAGE_PATH')}/nodata.png" class="nodata" />
+        <p class="aui-text-center">暂无相关活动 T.T</p>
+        </if>
+    </section>
+</body>
+<script type="text/javascript" src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="{:C('JS_PATH')}/echo.js"></script>
+<script type="text/javascript">
+var siteUrl = "http://nixiangyuan.apithink.com/";
+$(function(){
+    echo.init({
+        offset: 0,
+        throttle: 300
+    });
+})
+function openShow(id){
+    window.location.href = siteUrl+"?s=Wx/Activity/show/id/"+id;
+}
+</script>
+</html>

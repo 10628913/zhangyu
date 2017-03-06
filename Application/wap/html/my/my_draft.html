@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        body,html{
+            background-color: #fff;
+        }
+        .aui-iconfont{
+            font-size: 0.9rem;
+        }
+        .aui-content{
+            padding: 0.5rem 0.75rem;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: #666;
+        }
+        .btn{
+            border:1px solid #ebebeb;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            border-radius: 0.5rem;
+        }
+        .class{
+            padding: 0.4rem 0;
+        }
+        .class >span:last-child{
+            color: #ff6600;
+        }
+        input[type="text"],
+        input[type="number"]{
+            border: none;
+            margin-bottom: 0;
+            padding: 0.3rem 0.75rem;
+            width: 100%;
+        }
+        textarea{
+            border:none;
+            font-size: 0.8rem;
+        }
+
+        .photo{
+            margin-left: 1rem;
+            height: 4rem;
+            width:4rem;
+            border: 1px solid #ddd;
+            color: #666;
+            background-color: #f2f2f2;
+            margin-bottom: 0.75rem;
+        }
+        .photo .aui-iconfont{
+            font-size: 1.8rem;
+            color: #ccc;
+        }
+        .address{
+           color: #5b9cf5;
+           padding-left:0.75rem;
+        }
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar" id="header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <span class="aui-pull-right">
+            提交
+        </span>
+        <div class="aui-title">我要投稿</div>
+    </header>
+    <section class="aui-content">
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-6 class">
+                <span>当前分类:</span>
+                <span>头条</span>                
+            </div>
+            <div class="aui-flex-item-6 aui-text-right">
+                <span class="btn">重新选择</span>
+            </div>
+        </div>
+    </section>
+    <div class="aui-line-x"></div>
+    <section class="aui-content">
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-2">标题</div>
+            <div class="aui-flex-item-10">
+                <input type="text" placeholder="请输入标题" />
+            </div>
+        </div>
+    </section>
+    <div class="aui-line-x"></div>
+    <section>
+        <textarea placeholder="请输入投稿内容" rows="10"></textarea>
+        <div class="photo aui-flex-col aui-flex-middle aui-flex-center">
+            <span class="aui-iconfont aui-icon-plus"></span>
+        </div>
+    </section>
+    <div class="aui-line-x"></div>
+    <section class="aui-content">
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-1 aui-flex-col aui-flex-center">
+                <span class="aui-iconfont aui-icon-phone"></span>
+            </div>
+            <div class="aui-flex-item-11">
+                <input type="number" placeholder="联系电话(可不填,仅工作人员可见)" />
+            </div>
+        </div>
+    </section>
+    <div class="aui-line-x"></div>
+    <section class="aui-content" style="padding: 0.8rem 0.75rem;">
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-1 aui-flex-col aui-flex-center">
+                <span class="aui-iconfont aui-icon-location"></span>
+            </div>
+            <div class="aui-flex-item-10 address">
+                所在位置
+            </div>
+            <div class="aui-flex-item-1">
+                <span class="aui-iconfont aui-icon-right"></span>
+            </div>
+    </section>
+    <div class="aui-line-x"></div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    function closeWin(){
+        window.history.go(-1); 
+    }
+</script>
+</body>
+</html>

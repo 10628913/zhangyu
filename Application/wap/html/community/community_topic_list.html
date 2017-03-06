@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        section{
+            margin-bottom: 0.5rem;
+            background-color: #fff;
+        }
+        section >.aui-flex-col{
+            padding: 0.6rem 0.75rem;
+        }
+        span{
+          color: #666;
+        }
+        .aui-flex-item-2 img{
+            width: 80%;
+            border-radius: 50%;
+        }
+        .aui-flex-item-8{
+          padding-left: 0.2rem;
+        }
+        .aui-flex-item-8 div{
+            font-size: 0.7rem;
+        }
+        .aui-flex-item-8 div:first-child{
+            color: #03A9F4;
+        }
+        .aui-flex-item-8 div:last-child{
+            color: #999;
+            font-size: 0.6rem;
+        }
+        .aui-flex-item-2{
+            font-size: 0.6rem;
+            color: #999;
+        }
+        .content{
+            padding: 0.6rem 0.75rem;
+            font-size: 0.8rem;
+            color: #333;
+        }
+        .stick{
+            color: #df3031;
+            padding:0.1rem 0.3rem;
+        }
+        .stick.aui-border:after{
+            border-color: #df3031;
+        }
+        .bottom-list{
+          color: #666;
+          font-size: 0.6rem;
+        }
+        img{
+            display:inline-block; 
+        }
+        .photo{
+            padding: 0 !important;
+        }
+        .photo >.aui-flex-item-6 img{
+            width: 98%;
+        }
+        .photo >.aui-flex-item-4 img{
+            width: 98%;
+        }
+        .link{
+            background-color: #f2f2f2;
+        }
+        .link .aui-flex-item-9{
+            color: #666;
+            font-size: 0.7rem;
+            padding-left: 0.3rem;
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .conmetn-t{
+          padding-top: 46px;
+        }
+        /**/
+        .box{
+            border-radius: 50%;
+            background-color: #df3031;
+            text-align: center;
+            color: #fff;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            position: fixed;
+            right: 0.75rem;
+            bottom: 4rem;
+            z-index: 998;
+            opacity: 0.8;
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+          .box .aui-iconfont{
+            color: #fff;
+          }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">话题列表</div>
+        <a class="aui-pull-right">
+            <span class="aui-iconfont aui-icon-more2" tapmode onclick="deletethis()"></span>
+        </a>
+    </header>
+    <div class="conmetn-t">
+      <section tapmode onclick="openWin('community_detail')">
+           <div class="aui-flex-col">
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                   <img src="../../image/u2.png">
+               </div>
+               <div class="aui-flex-item-8 aui-flex-row aui-flex-middle">
+                   <div>流浪的小猫咪</div>
+                   <div>20分钟前</div>
+               </div>
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right">
+                   <div class="stick aui-border">置顶</div>
+               </div>
+           </div>
+           <div class="content">
+               根据中国指数研究院数据测算，多数热点城市的套均面积已突破百平，且呈现出继续增加的趋势，大户型正在占据存量房越来越多的比重。相反的是，库存高企城市的存量房平均户型正在进一步趋小，套均面积仅86平的威海出清周期已达到20年。
+           </div>
+           <div class="aui-flex-col aui-flex-middle aui-flex-center photo">
+              <div class="aui-flex-item-12">
+                <img src="../../image/d01.jpg" width="100%">
+              </div>
+           </div>
+           <div class="aui-flex-col bottom-list">
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-display"></span>
+                   <span>888</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-comment"></span>
+                   <span>75</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center">
+                   <span class="aui-iconfont aui-icon-laud"></span>
+                   <span>99</span>
+               </div>
+           </div>
+       </section>
+          <section tapmode onclick="openWin('community_detail')">
+           <div class="aui-flex-col">
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle ">
+                   <img src="../../image/u1.png">
+               </div>
+               <div class="aui-flex-item-8 aui-flex-row aui-flex-middle ">
+                   <div>流浪的小猫咪</div>
+                   <div>20分钟前</div>
+               </div>
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right">
+                   #本地
+               </div>
+           </div>
+           <div class="content">
+               根据中国指数研究院数据测算，多数热点城市的套均面积已突破百平，且呈现出继续增加的趋势，大户型正在占据存量房越来越多的比重。相反的是，库存高企城市的存量房平均户型正在进一步趋小，套均面积仅86平的威海出清周期已达到20年。
+           </div>
+           <div class="aui-flex-col aui-flex-middle aui-flex-center photo">
+              <div class="aui-flex-item-6 aui-text-left">
+                <img src="../../image/d02.jpg">
+              </div>
+              <div class="aui-flex-item-6 aui-text-right">
+                <img src="../../image/d03.jpg">
+              </div>
+           </div>
+           <div class="aui-flex-col bottom-list">
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-display"></span>
+                   <span>888</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-comment"></span>
+                   <span>75</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center">
+                   <span class="aui-iconfont aui-icon-laud"></span>
+                   <span>99</span>
+               </div>
+           </div>
+       </section>
+        <section tapmode onclick="openWin('community_detail')">
+           <div class="aui-flex-col">
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                   <img src="../../image/u3.png">
+               </div>
+               <div class="aui-flex-item-8 aui-flex-row aui-flex-middle">
+                   <div>流浪的小猫咪</div>
+                   <div>20分钟前</div>
+               </div>
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right">
+                   #房产圈
+               </div>
+           </div>
+           <div class="content">
+               根据中国指数研究院数据测算，多数热点城市的套均面积已突破百平，且呈现出继续增加的趋势，大户型正在占据存量房越来越多的比重。相反的是，库存高企城市的存量房平均户型正在进一步趋小，套均面积仅86平的威海出清周期已达到20年。
+           </div>
+           <div class="aui-flex-col aui-flex-middle aui-flex-center photo">
+                <div class="aui-flex-item-4 aui-text-left">
+                    <img src="../../image/d04.jpg">
+                </div>
+                <div class="aui-flex-item-4 aui-text-center">
+                    <img src="../../image/d05.jpg">
+                </div>
+                <div class="aui-flex-item-4 aui-text-right">
+                    <img src="../../image/d01.jpg" >
+                </div>
+           </div>
+           <div class="aui-flex-col bottom-list">
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-display"></span>
+                   <span>888</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-comment"></span>
+                   <span>75</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center">
+                   <span class="aui-iconfont aui-icon-laud"></span>
+                   <span>99</span>
+               </div>
+           </div>
+       </section>
+        <section tapmode onclick="openWin('community_detail')">
+           <div class="aui-flex-col">
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                   <img src="../../image/u3.png">
+               </div>
+               <div class="aui-flex-item-8 aui-flex-row aui-flex-middle">
+                   <div>流浪的小猫咪</div>
+                   <div>20分钟前</div>
+               </div>
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right">
+                   #房产圈
+               </div>
+           </div>
+           <div class="content">
+               根据中国指数研究院数据测算，多数热点城市的套均面积已突破百平，且呈现出继续增加的趋势，大户型正在占据存量房越来越多的比重。相反的是，库存高企城市的存量房平均户型正在进一步趋小，套均面积仅86平的威海出清周期已达到20年。
+           </div>
+           <div class="aui-flex-col bottom-list">
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-display"></span>
+                   <span>888</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-comment"></span>
+                   <span>75</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center">
+                   <span class="aui-iconfont aui-icon-laud"></span>
+                   <span>99</span>
+               </div>
+           </div>
+       </section>
+          <section tapmode onclick="openWin('community_detail')">
+           <div class="aui-flex-col">
+               <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                   <img src="../../image/u3.png">
+               </div>
+               <div class="aui-flex-item-8 aui-flex-row aui-flex-middle">
+                   <div>流浪的小猫咪</div>
+                   <div>20分钟前</div>
+               </div>
+           </div>
+           <div class="content">
+               根据中国指数研究院数据测算，多数热点城市的套均面积已突破百平，且呈现出继续增加的趋势，大户型正在占据存量房越来越多的比重。相反的是，库存高企城市的存量房平均户型正在进一步趋小，套均面积仅86平的威海出清周期已达到20年。
+           </div>
+           <div class="aui-flex-col aui-flex-middle aui-flex-left link">
+                <div class="aui-flex-item-3 aui-text-center">
+                    <img src="../../image/b3.jpg" width="100%">
+                </div>
+                <div class="aui-flex-item-9">
+                    <div class="aui-ellipsis-1">根据中国指数研究院数据测算，多数热点城市的套均</div>
+                </div>
+           </div>
+           <div class="aui-flex-col bottom-list">
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-display"></span>
+                   <span>888</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center aui-border-r">
+                   <span class="aui-iconfont aui-icon-comment"></span>
+                   <span>75</span>
+               </div>
+               <div class="aui-flex-item-4 aui-text-center">
+                   <span class="aui-iconfont aui-icon-laud"></span>
+                   <span>99</span>
+               </div>
+           </div>
+       </section>
+    </div>
+    <div class="box" tapmode onclick="openWin('community_postings')">
+        <span class="aui-iconfont aui-icon-pencil"></span>
+    </div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+    function openWin(name){
+        window.location.href=name+'.html'; 
+
+    }
+</script>
+</body>
+</html>

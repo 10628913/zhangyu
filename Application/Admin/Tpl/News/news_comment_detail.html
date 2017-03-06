@@ -1,0 +1,18 @@
+<div class="smart-widget-inner">
+	<div class="smart-widget-body">
+		<p>用户昵称：{$user_nickname}</p>
+		<p>新闻：{$news_title}</p>
+		<p>点评内容：{$reserve_content}</p>
+		<p>点评时间：{$addtime||date="Y-m-d H:i:s",###}</p>
+	</div>
+</div>
+<script src="{:C('ADMIN_JS_PATH')}/jquery.validate.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+        $("#form").validate({
+	        submitHandler:function(form){
+	            save();
+	        }
+	    });
+    })
+</script>

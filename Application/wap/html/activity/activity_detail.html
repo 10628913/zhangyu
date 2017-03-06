@@ -1,0 +1,1107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+        body{
+            overflow-x: hidden;
+        }
+        li{
+            background-color: #fff;
+        }
+        .comment li{
+            padding: 0.6rem 0;
+        }
+        .aui-content{
+            background-color: #fff;
+        }
+        section{
+            background-color: #fff;
+            padding: 0.6rem 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .activity-title{
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .activity-info{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .aui-list .aui-list-item-media img {
+            max-width: 6.5rem;
+        }
+        .aui-list .aui-list-item-text {
+            margin-top: 0.25rem;
+            font-size: 0.6rem;
+        }
+        .aui-text-warning {
+            color: #ff6600 !important;
+        }
+        .price {
+            font-size: 0.7rem !important;
+            color: #ff6600 !important;
+        }
+        .house-tag {
+            padding: 0.1rem  0.3rem;
+            display: inline-block;
+            font-size: 0.6rem;
+            margin-bottom: 0.2rem;
+        }
+        .house-tag.aui-tag-info {
+            color: #9ccc65;
+        }
+        .aui-border.aui-tag-info:after {
+            border:1px solid #9ccc65;
+            border-radius: 0.2rem;
+        }
+        .house{
+            padding: 0.5rem 0;
+        }
+
+        .hr-info{
+            padding-top: 0.5rem;
+        }
+        .hx{
+            margin: 0.4rem 0.2rem;
+            color: #333;
+            font-size: 0.7rem;
+        }
+        .hx +div{
+            color: #999;
+            font-size: 0.6rem;
+        }
+        .hx +div{
+            color: #999;
+            font-size: 0.6rem;
+        }
+        .comment-list{
+            padding: 0.5rem 0;
+        }
+        .comment-list .aui-list .aui-list-item-title {
+            font-size: 0.7rem;
+        }
+        .comment-list .aui-list .aui-list-item-text {
+            font-size: 0.6rem;
+        }
+        .comment-list .aui-list p {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #333;
+        }
+        .comment-list .aui-iconfont {
+            font-size: 0.8rem !important;
+        }
+        .aui-flex-item-6.hrmsg >div{
+            margin-bottom: 0.8rem;
+        }
+        /**/
+        .house-nav {
+            padding: 0.75rem 0;
+        }
+        .house-nav .aui-iconfont {
+            width: 2.2rem;
+            height: 2.2rem;
+            color: #ffffff;
+            /*padding: 0.5rem;*/
+            display: block;
+            margin: 0 auto;
+            line-height: 2.2rem;
+            border-radius: 50%;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .house-nav p {
+            font-size: 0.6rem;
+            color: #666;
+        }
+        h2.title {
+            color: #d43d3d;
+            /*border-left:2px solid #df3031;*/
+            /*padding-left: 0.5rem;*/
+            font-size: 0.7rem;
+            margin: 0 0.75rem;
+            margin-bottom: 0.5rem;
+            box-sizing: border-box;
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+        }
+        .title-left {
+            display: inherit;
+            -webkit-align-items: center;
+                    align-items: center;
+        }
+        h2.title i.aui-iconfont {
+            font-size: 0.9rem !important;
+            margin-right: 0.3rem;
+        }
+        h2.title .title-right .aui-iconfont {
+            color: #999999;
+        }
+        .bg-1 {
+            background-color: #f080a2;
+        }
+        .bg-2 {
+            background-color: #78909c;
+        }
+        .bg-3 {
+            background-color: #9ccc65;
+        }
+        .bg-4 {
+            background-color: #29b6f6;
+        }
+        .bg-5 {
+            background-color: #ab47bc;
+        }
+        .aui-list:after{
+            height: 0;
+        }
+        .house .title .aui-pull-right .aui-iconfont{
+            color: #666;
+        }
+        .house a{
+            color: #f080a2;
+            width: 1.2rem;
+            display: inline-block;
+            background-color: #f2f2f2;
+            text-align: center;
+            border-radius: 50%;
+            height: 1.2rem;
+            line-height: 1.2rem;
+            margin-right: 0.3rem;
+        }
+        .more {
+            padding-top: 0.75rem;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #999;
+        }
+        .detail{
+            padding: 0.5rem 0;
+        }
+        .activitytext.hid{
+            display: none;
+        }
+        .activitytext{
+            display: block;
+        }
+        .btnbox{
+            text-align: center;
+        }
+        .btnbox .btn{
+            color: #666;
+            font-size: 0.8rem;
+        }
+        .topbox{
+            position: relative;
+            background-color: #fff;
+            margin-bottom: 0.75rem;
+        }
+        .topbox >div{
+            margin-bottom: 0.3rem;
+        }
+        .topbox > div:first-child >div:nth-child(2){
+            color: #333;
+            font-size: 1rem;
+            padding: 0.5rem 0.75rem;
+        }
+        .topbox >.aui-flex-col{
+            color: #666;
+            font-size: 0.7rem;
+        }
+        .activity-msg{
+            padding:0.5rem 0.75rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .content-t{
+            margin-top: 46px;
+        }
+        .btn-conment{
+            position: absolute;
+            right: 0;
+            top: 2.5rem;
+            display: none;
+
+        }
+        /**/
+        .aui-mask {
+            -webkit-animation: fadeIn .3s ease both;
+                    animation: fadeIn .3s ease both;
+            z-index: 1;
+        }
+        .aui-popover {
+            -webkit-animation: fadeInDown .3s ease both;
+                        animation: fadeInDown .3s ease both;
+            z-index: 9999;
+        }
+         /*收藏成功*/
+        .aui-mask {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            z-index: 998;
+        }
+        .aui-mask.mask-in {
+            visibility: visible;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .aui-mask.mask-out {
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        .aui-mask1 {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            z-index: 998;
+        }
+        .aui-mask1.mask-in {
+            visibility: visible;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .aui-mask1.mask-out {
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        .collection-success {
+            position: fixed;
+            left: 50%;
+            top: 25%;
+            width: 13rem;
+            z-index: 999;
+            margin-left: -7.5rem;
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100%, 0) scale(1) rotate(-45deg);
+                    transform: translate3d(0, -100%, 0) scale(1) rotate(-45deg);
+            /*-webkit-transform:rotate(-45deg);*/
+                    /*transform:rotate(-45deg);*/
+        }
+        .collection-success-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+        }
+        .collection-success-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 100%, 0) scale(0.5) rotate(45deg);
+                  transform: translate3d(0, 100%, 0) scale(0.5) rotate(45deg);
+        }
+        .collection-success img {
+            width: 100%;
+        }
+
+       #goodclick-btn .aui-iconfont.end{
+            color: #df3031 !important;
+        }
+
+        /*底部对话框*/
+        .comment-box {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+            display: none;
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 80%, 0) scale(1);
+                  transform: translate3d(0, 80%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+
+
+
+
+        /*share*/
+        .share-box {
+            background: #ffffff;
+            padding: 0.75rem 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                    transform: translate3d(0, 30%, 0) scale(1);
+            display: none;
+        }
+        .share-box.share-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .share-box.share-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                  transform: translate3d(0, 30%, 0) scale(1);
+        }
+        .share-box p {
+            font-size: 0.6rem;
+            color: #666;
+        }
+        .share-box .aui-iconfont {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .share-box .share-inner {
+            width: 100%;
+            overflow: hidden;
+        }
+        .share-box .share-close {
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .share-box .share-close .aui-iconfont {
+            font-size: 1rem;
+            color: #999;
+            padding: 0.5rem;
+            background-color: #f4f4f4;
+            border-radius: 50%;
+        }
+        .share-inner img{
+            width:40%;
+        }
+        .share-inner p{
+            margin-bottom: 0.5rem;
+        }
+        @-webkit-keyframes fadeInDown {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -50%, 0);
+                        transform: translate3d(0, -50%, 0);
+            }
+            to {
+                bottom: 0;
+                opacity: 1;
+                -webkit-transform: none;
+                        transform: none;
+            }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -50%, 0);
+                        transform: translate3d(0, -50%, 0);
+            }
+            to {
+                opacity: 1;
+                -webkit-transform: none;
+                        transform: none;
+            }
+        }
+        .aui-popover-top-right{
+            top:2.75rem;
+            position: fixed;
+            z-index: 99999;
+            display: none;
+        }
+        .aui-popover-top-right.show{
+            display: block;
+        }
+        .aui-mask1 {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+        .no-comment-data {
+            width: 100%;
+            text-align: center;
+        }
+        .no-comment-data img {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar header" id="header">
+        <span class="aui-pull-left" tapmode="" onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <span class="aui-pull-right">
+            <span class="aui-iconfont aui-icon-more2" tapmode onclick="openHousePopover()"></span>
+        </span>
+        <div class="aui-title">活动详情</div>
+    </header>
+    <!-- 轮播图s -->
+    <div id="aui-slide">
+        <div class="aui-slide-wrap">
+        </div>
+        <div class="aui-slide-page-wrap"><!--分页容器--></div>
+    </div>
+    <!-- 轮播图e -->
+     <section class="topbox" >
+        <div>
+            <div id="activity_title"></div>
+        </div>
+        <div class="aui-line-x"></div>
+        <div class="aui-flex-col">
+            <div class="aui-flex-item-12">
+                <span>最高优惠:</span>
+                <span style="color: #df3031" id="activity_preferential"></span>
+            </div>
+        </div>
+        <div class="aui-flex-col">
+            <div class="aui-flex-item-12">
+                <span>集合时间:</span>
+                <span id="activity_set_time"></span>
+            </div>
+        </div>
+        <div class="aui-flex-col">
+            <div class="aui-flex-item-12">
+                <span>集合地点:</span>
+                <span style="color: #FFAD33" id="activity_set_address"></span>
+            </div>
+        </div>
+    </section>
+    <section class="aui-content house-nav">
+        <div class="aui-flex-col aui-text-center aui-flex-between">
+            <div class="aui-flex-item-3" tapmode>
+                <i class="aui-iconfont aui-icon-flag bg-2"></i>
+                <p>活动咨询</p>
+            </div>
+            <div class="aui-flex-item-3" tapmode>
+                <i class="aui-iconfont aui-icon-phone bg-3"></i>
+                <p>立即报名</p>
+            </div>
+            <div class="aui-flex-item-3" tapmode>
+                <i class="aui-iconfont aui-icon-map bg-5"></i>
+                <p>位置周边</p>
+            </div>
+            <div class="aui-flex-item-3" tapmode>
+                <i class="aui-iconfont aui-icon-comment bg-1"></i>
+                <p>我要点评</p>
+            </div>
+        </div>
+    </section>
+    <section class="house">
+        <h2 class="title">
+            <div class="title-left">
+                <i class="aui-iconfont aui-icon-house"></i>行程安排
+            </div>
+        </h2>
+        <div class="aui-list aui-list-in">
+            <!-- <div class="aui-list-item aui-list-item-middle ">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><a>1</a><span>海宁公馆</span></div>
+                    <div class="price aui-list-item-right">53000</div>
+                </div>
+            </div>
+            <div class="aui-list-item aui-list-item-middle">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><a>2</a>万科郦城3期</div>
+                    <div class="price aui-list-item-right">52000</div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <section class="detail">
+        <h2 class="title">
+            <div class="title-left">
+                <i class="aui-iconfont aui-icon-flag"></i>活动详情
+            </div>
+        </h2>
+        <div class="aui-list aui-media-list">
+            <div style="padding:0.5rem 0.75rem;" style="width:100%">
+                <div id="activity_content" style="width:100%">
+                    <!-- <img src = "C:\Users\Liwenlin\Desktop\201516161333154.jpg"> -->
+                </div>
+                 <div class="btnbox hide" id="lookAll">
+                      <div class="btn">查看全部</div>
+                    </div>
+            </div>
+        </div>
+    </section>
+    <div class="aui-content relation comment-list">
+        <h2 class="title">
+            <div class="title-left">
+                <i class="aui-iconfont aui-icon-comment"></i>热门点评
+            </div>
+        </h2>
+        <ul class="aui-list aui-media-list" id="commentList">
+            <div class="no-comment-data">
+                <img src="../../image/no_comment_data.png" />
+            </div>
+        </ul>
+        <div class="more hide" tapmode ></div>
+    </div>
+    <div class="aui-mask"></div>
+   <div class="aui-popover aui-popover-top-right">
+       <div class="aui-popover-arrow"></div>
+       <div class="aui-popover-content">
+           <ul class="aui-list aui-list-noborder popover-list">
+               <li class="aui-list-item" tapmode data-type="collect"  status="-1" id="collection-btn" onclick="collectActivity()">
+                   <div class="aui-list-item-media aui-list-item-middle">
+                       <i class="aui-iconfont aui-icon-star aui-text-warning"></i>
+                   </div>
+                   <div class="aui-list-item-inner aui-list-item-middle">
+                       收藏
+                   </div>
+               </li>
+               <li class="aui-list-item" tapmode data-type="follow" status="-1" id="like-btn" onclick="attentionActivity()">
+                   <div class="aui-list-item-media aui-list-item-middle">
+                       <i class="aui-iconfont aui-icon-like aui-text-danger"></i>
+                   </div>
+                   <div class="aui-list-item-inner">
+                       关注
+                   </div>
+               </li>
+           </ul>
+       </div>
+   </div>
+    <script id="sliderTemplate" type="text/doT-template">
+        {{for(var i=0;i<it.length;i++){}}
+            <div class="aui-slide-node">
+                <ul class="">
+                    <li class="">
+                        <img src="../../image/image_loading_2.png" data-echo="{{=it[i]}}">
+                    </li>
+                </ul>
+            </div>
+        {{}}}
+    </script>
+    <script id="sourceTemplate" type="text/doT-template">
+
+        {{for(var i=0;i<it.length;i++){}}
+            <div class="aui-list-item aui-list-item-middle ">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><a>{{=i+1}}</a><span>{{=it[i].building_name}}</span></div>
+                    <div class="price aui-list-item-right">{{=it[i].building_price}}</div>
+                </div>
+            </div>
+        {{}}}
+    </script>
+    <script id="commentTemplate" type="text/doT-template">
+
+        {{for(var i=0;i<it.length;i++){}}
+            <li class="aui-list-item" tapmode onclick="openDetail({{=it[i].comment_id}})">
+                <div class="aui-list-item-media">
+                    {{? it[i].avatar}}
+                    <img src="{{=it[i].avatar}}" class="aui-list-img-round aui-list-img-sm">
+                    {{??}}
+                    <img src="../../image/u1.png" class="aui-list-img-round aui-list-img-sm">
+                    {{?}}
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title-row">
+                        <div class="aui-list-item-title aui-text-info">{{=it[i].nickname}}</div>
+                    </div>
+                    <div class="aui-list-item-text">{{=it[i].comment_time}}</div>
+                    <p>{{=it[i].comment_content}}</p>
+                    {{? it[i].childCount > 0}}
+                        <div class="aui-list-item-text comment-info">
+                            {{=it[i].childCount}}条回复
+                            <span class="aui-iconfont aui-icon-right"></span>
+                        </div>
+                        {{for (var j=0;j<it[i].child.length;j++){}}
+                            <div class="aui-list-item-text comment-content">
+                                <div class="comment-item">
+                                    <span>{{=it[i].child[j].nickname}}:</span>
+                                    <span>{{=it[i].child[j].comment_content}}</span>
+                                </div>
+                            </div>
+                        {{}}}
+                    {{?}}
+
+                </div>
+            </li>
+        {{}}}
+    </script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+
+<script>
+    var activity_id = $.getUrlParam("activity_id"),
+        siteUrl="http://fangshi.apithink.com/index.php?s=";
+    var contentHeight = 0;
+    var activity_title,activity_preferential,share_thumb;
+
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+
+    $(function(){
+        getActivityDetail();
+        getCommentList();
+    });
+    //点击查看全部及收回
+    var btn = document.getElementById("lookAll");
+    btn.addEventListener('click',function(){
+        var btnChild = btn.querySelector(".btn");
+        if (btnChild.textContent == "查看全部") {
+            // console.log(contentHeight);
+            document.getElementById("activity_content").style.height = contentHeight+"px";
+            document.getElementById("activity_content").style.overflowY = "auto";
+            btnChild.textContent = "点击收回";
+        }else{
+            document.getElementById("activity_content").style.height  = 200+"px";
+            document.getElementById("activity_content").style.overflow = "hidden";
+            btnChild.textContent = "查看全部";
+        }
+   },false);
+
+   function getActivityDetail(){
+       $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Activity/getActivityDetail',
+           data: "activity_id="+activity_id,
+           success: function(ret){
+               if(ret.code == 1){
+                   var data = ret.data;
+                   //分享参数组装
+                   activity_preferential = data.activity_preferential;
+                   activity_title = data.activity_title;
+                   //轮播
+                   var sliderTemplate = doT.template(document.getElementById("sliderTemplate").innerHTML);
+                   document.querySelector(".aui-slide-wrap").innerHTML = sliderTemplate(data.activity_photos);
+                   var slide = new auiSlide({
+                       container:document.getElementById("aui-slide"),
+                       // "width":300,
+                       "height":200,
+                       "speed":300,
+                       "pageShow":true,
+                       "pageStyle":'dot',
+                       "loop":true,
+                       'dotPosition':'right'
+                   })
+                   document.getElementById("activity_title").textContent = data.activity_title;
+                   //行程
+                   var sourceTemplate = doT.template(document.getElementById("sourceTemplate").innerHTML);
+                   document.querySelector(".aui-list-in").innerHTML = sourceTemplate(data.activity_look_line);
+                   // document.getElementById("activity_description").textContent = data.activity_description;
+                   document.getElementById("activity_preferential").textContent = data.activity_preferential;
+                   document.getElementById("activity_set_address").textContent = data.activity_set_address;
+                   document.getElementById("activity_set_time").textContent = data.activity_set_time;
+                   //活动详情
+                   var activity_content = data.activity_content;
+                   contentEl = document.getElementById("activity_content");
+                   contentEl.innerHTML = data.activity_content;
+                   //活动详情图片处理
+                   imgEl = contentEl.querySelectorAll("img");
+                   if(imgEl){
+                       for(var i=0;i<imgEl.length;i++){
+                           imgUrl = imgEl[i].getAttribute("src");
+                           imgEl[i].setAttribute("data-echo",imgUrl);
+                           imgEl[i].setAttribute("src","../../image/image_loading_2.png");
+                       }
+                   }
+                   Echo.init({offset: 0,throttle: 0});
+                   contentHeight = contentEl.offsetHeight;
+                   if(contentHeight > 200){
+                       document.getElementById("lookAll").classList.remove("hide");
+                       contentEl.style.height = 200+"px";
+                       contentEl.style.overflow = "hidden";
+                   }
+                   //页中操作
+                   var el = document.querySelectorAll(".aui-flex-between .aui-flex-item-3");
+                   if(ret.data.activity_consult_phone){
+                       el[0].setAttribute("href","tel:"+ret.data.activity_consult_phone);
+                   }else{
+                       el[0].onclick = function(){
+                           a.content = "当前房源暂不提供电话咨询";
+                           layer.open(a);
+                           return;
+                       }
+                   }
+                   el[1].onclick = function(){
+                       var token = $api.getStorage('token');
+                       if(!token){
+                           openLogin();
+                           return;
+                       }
+                       window.location.href = "activity_enroll.html?activity_id="+activity_id+"&activity_type="+data.activity_type;
+                   }
+                   el[2].onclick = function(){
+                       a.content = "请下载房客APP进行体验";
+                       layer.open(a);
+                   }
+                   el[3].onclick = function(){
+                       var token = $api.getStorage('token');
+                       if(!token){
+                           openLogin();
+                           return;
+                       }
+                       window.location.href = "activity_comment_all.html?activity_id="+activity_id;
+                   }
+               }
+           }
+        });
+   }
+   function openLogin(){
+        $api.setStorage("loginFrom","activity/activity_detail.html?activity_id="+activity_id);
+        window.location.href = "../login.html";
+    }
+    function getCommentList(){
+        var token = $api.getStorage('token');
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Activity/getCommentList',
+           data: "activity_id="+activity_id+"&token="+token+"&pageSize=3",
+           success: function(ret){
+                if(ret.code == 1){
+                    var commentTemplate = doT.template(document.getElementById("commentTemplate").innerHTML);
+                    document.getElementById("commentList").innerHTML = commentTemplate(ret.data);
+                    if(ret.commentCount > 3){
+                        var el = document.querySelector(".more");
+                        el.classList.remove("hide");
+                        el.textContent = "查看更多（"+ret.commentCount+"）";
+                        el.onclick = function(){
+                            window.location.href = "activity_comment_all.html?activity_id="+activity_id;
+                        }
+                    }
+                }else{
+                    if(ret.code == -1){
+                    }
+                }
+           }
+        });
+    }
+    function openDetail(comment_id){
+        window.location.href = "activity_comment_reply.html?activity_id="+activity_id+"&comment_id="+comment_id;
+    }
+    //顶部菜单栏
+    function openHousePopover(){
+        var mask = document.querySelector('.aui-mask');
+        var popover = document.querySelector('.aui-popover');
+        var maskin = document.querySelector('.aui-mask.mask-in');
+        var maskout = document.querySelector('.aui-mask.mask-out');
+        if (maskin) {
+            mask.classList.remove('mask-in');
+            mask.classList.add('mask-out');
+            popover.classList.remove('show');
+            setTimeout(function(){
+                  mask.classList.remove('mask-out');
+                }, 100)
+        }else{
+            mask.classList.add('mask-in');
+            popover.classList.add('show');
+            if (maskout) {
+                mask.classList.remove('.mask-out');
+            }
+        }
+    }
+    function openActivityCommentAll(){
+        window.location.href='activity_comment_all.html';
+    }
+    function openActivityCommentReply(){
+        window.location.href='activity_comment_reply.html';
+    }
+    function openActivityEnroll(){
+        window.location.href='activity_enroll.html';
+    }
+
+
+    //收藏成功动画
+    function collectionSuccess(){
+        if(!document.querySelector(".aui-mask1")){
+            var html = '<div id="alert">'+
+                        '<div class="aui-mask1">'+
+                        '</div>'+
+                        '<div class="collection-success">'+
+                        '<img src="../../image/collection_success.png" />'+
+                        '</div>'+
+                        '</div>';
+            document.querySelector("body").insertAdjacentHTML('beforeend', html);
+            document.querySelector(".aui-mask1").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            document.querySelector(".collection-success").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            setTimeout(function(){
+                document.querySelector(".aui-mask1").classList.add("mask-in");
+                document.querySelector(".collection-success").classList.add("collection-success-in");
+            }, 100)
+            setTimeout(function(){
+                document.querySelector(".aui-mask1").classList.remove("mask-in");
+                document.querySelector(".aui-mask1").classList.add("mask-out");
+                document.querySelector(".collection-success").classList.remove("collection-success-in");
+                document.querySelector(".collection-success").classList.add("collection-success-out");
+
+                setTimeout(function(){
+                    document.getElementById("alert").parentNode.removeChild(document.getElementById("alert"));
+                    document.querySelector(".aui-mask").classList.remove("mask-out");
+
+                }, 300)
+            }, 1600)
+        }
+    }
+    // 关注成功动画
+      function likeSuccess(){
+        if(!document.querySelector(".aui-mask1")){
+            var html = '<div id="alert">'+
+                        '<div class="aui-mask1">'+
+                        '</div>'+
+                        '<div class="collection-success">'+
+                        '<img src="../../image/likesuc.png" />'+
+                        '</div>'+
+                        '</div>';
+            document.querySelector("body").insertAdjacentHTML('beforeend', html);
+            document.querySelector(".aui-mask1").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            document.querySelector(".collection-success").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            setTimeout(function(){
+                document.querySelector(".aui-mask1").classList.add("mask-in");
+                document.querySelector(".collection-success").classList.add("collection-success-in");
+            }, 100)
+            setTimeout(function(){
+                document.querySelector(".aui-mask1").classList.remove("mask-in");
+                document.querySelector(".aui-mask1").classList.add("mask-out");
+                document.querySelector(".collection-success").classList.remove("collection-success-in");
+                document.querySelector(".collection-success").classList.add("collection-success-out");
+                setTimeout(function(){
+                    document.getElementById("alert").parentNode.removeChild(document.getElementById("alert"));
+                    document.querySelector(".aui-mask").classList.remove("mask-out");
+
+                }, 300)
+            }, 1600)
+        }
+    }
+
+        // collection
+    /*
+    * @param status -1 未收藏，0 动画正在进行，1=已经收藏
+    *
+    */
+    //关闭分享页面
+    function closeShare(){
+        document.getElementById("share-box").classList.add("share-box-out");
+
+        setTimeout(function(){
+            document.getElementById("share-box").classList.remove("share-box-in");
+        }, 300)
+        var mask = document.querySelector('.aui-mask');
+        var popover = document.querySelector('.aui-popover');
+        mask.classList.remove('mask-in');
+        mask.classList.add('mask-out');
+        popover.classList.remove('show');
+        setTimeout(function(){
+          mask.classList.remove('mask-out');
+        }, 100)
+    }
+
+
+    //关闭对话框
+    function closeAdd(){
+        document.getElementById("comment-box").classList.add("comment-box-out");
+
+        setTimeout(function(){
+            document.getElementById("comment-box").classList.remove("comment-box-in");
+        }, 300)
+    }
+    function openShare(){
+        document.getElementById("share-box").classList.remove("share-box-out");
+        document.getElementById("share-box").classList.add("share-box-in");
+        var popover = document.querySelector('.aui-popover');
+            popover.classList.remove('show');
+
+
+        // 关闭顶部按钮列表
+        // var mask = document.querySelector('.aui-mask');
+        // var popover = document.querySelector('.aui-popover');
+        // var maskin = document.querySelector('.aui-mask.mask-in');
+        // var maskout = document.querySelector('.aui-mask.mask-out');
+        // if (maskin) {
+        //     mask.classList.remove('mask-in');
+        //     mask.classList.add('mask-out');
+        //     popover.classList.remove('show');
+        //     setTimeout(function(){
+        //           mask.classList.remove('mask-out');
+        //         }, 100)
+        // }else{
+        //     mask.classList.add('mask-in');
+        //     popover.classList.add('show');
+        //     if (maskout) {
+        //         mask.classList.remove('.mask-out');
+        //     }
+        // }
+
+    }
+    function collectActivity(){
+        openHousePopover();
+        var token = $api.getStorage('token');
+        if(!token){
+            openLogin();
+            return;
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Activity/collectActivity',
+           data: "token="+token+"&activity_id="+activity_id,
+           success: function(ret){
+               if(ret.code == 1){
+
+                   collectionSuccess();
+               }else{
+                   a.content = ret.msg;
+                   layer.open(a);
+               }
+           }
+        });
+    }
+    function attentionActivity(){
+        openHousePopover();
+        var token = $api.getStorage('token');
+        if(!token){
+            openLogin();
+            return;
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Activity/addAttention',
+           data: "token="+token+"&activity_id="+activity_id,
+           success: function(ret){
+               if(ret.code == 1){
+                   likeSuccess();
+               }else{
+                   a.content = ret.msg;
+                   layer.open(a);
+               }
+           }
+        });
+    }
+    // 打开输入框
+    function openCommentAdd () {
+        document.getElementById("comment-box").classList.remove("comment-box-out");
+        document.getElementById("comment-box").classList.add("comment-box-in");
+    }
+
+    document.querySelector(".aui-mask").addEventListener('touchstart', function(){
+        openHousePopover();
+    })
+    function closeWin(){
+        window.history.go(-1);
+    }
+
+
+    // function openBtn(){
+    //     var slid=document.getElementById('btn');
+    //     if (slid.style.display=="block"){
+    //         slid.style.display="none";
+    //     } else {
+    //         slid.style.display="block";
+    //     }
+    // }
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+	<style>
+    .aui-bar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #df3031;
+        color: #fff;
+    }
+    .aui-bar +*{
+        padding-top: 2.5rem !important;
+    }
+    html,body{
+        background-color: #fff;
+        overflow-x: hidden;
+        overflow-y:auto;
+    }
+    .aui-content.room-list {
+        padding: 0.25rem;
+    }
+    .room-list .room-list-item {
+        background: #ffffff;
+        margin: 0.25rem;
+    }
+    .room-info {
+        padding: 0.5rem;
+    }
+    .room-list img {
+        width: 100%;
+        height: 6.5rem;
+    }
+    .room-title {
+        width: 100%;
+        font-size: 0.8rem;
+        color: #333;
+    }
+    .room-desc {
+        margin-top: 0.5rem;
+        font-size: 0.6rem;
+    }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">户型</div>
+    </header>
+	<section class="aui-content room-list" id="room-list"></section>
+</body>
+<script id="room-list-tpl" type="text/x-dot-template">
+        {{ for(var i in it) { }}
+        <div class="aui-col-xs-6" tapmode onclick="openRoomDetail({{=it[i].house_id}})">
+            <div class="room-list-item">
+                <img src="../../image/image_loading_3.png" data-echo="{{=it[i].house_thumb}}">
+                <div class="room-info">
+                    <div class="room-title">{{=it[i].house_name}}</div>
+                    <p class="room-desc">{{? it[i].house_style_name}}{{=it[i].house_style_name}}{{?}} {{=it[i].house_acreage}}㎡</p>
+                </div>
+            </div>
+        </div>
+        {{ } }}
+    </script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var building_id = $.getUrlParam("building_id");
+    getRoomList();
+    function closeWin(){
+        window.history.go(-1);
+    }
+    function getRoomList(){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getHouse',
+           data: "building_id="+building_id,
+           success: function(ret){
+               if(ret.code == 1){
+                   var tpl = document.getElementById("room-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("room-list").innerHTML = tempFn(ret.data);
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250
+                   });
+               }else {
+                   document.getElementById("room-list").innerHTML = '';
+               }
+           }
+        });
+    }
+     function openRoomDetail(house_id){
+        window.location.href='room_detail.html?building_id='+building_id+"&house_id="+house_id;
+    }
+</script>
+</html>

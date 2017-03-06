@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui-flex.css"/>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 3rem !important;
+        }
+        .aui-content {
+            margin-bottom: 0;
+        }
+        textarea {
+            margin-bottom: 0;
+            border: none;
+            font-size: 0.875em;
+        }
+        .aui-btn-block {
+            padding: 10px 0;
+        }
+        .aui-input-row img {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            border-radius: 50%;
+        }
+        .aui-input-row {
+            padding: 0;
+        }
+        .aui-input-row .aui-input-addon {
+            padding: 15px;
+            min-width: 90px;
+        }
+        input[type="text"] {
+            line-height: 24px;
+        }
+        input[disabled] {
+            line-height: 24px;
+            background: #f4f4f4;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar header" id="header">
+        <span class="aui-pull-left" tapmode="" onclick="window.history.go(-1)">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">注册</div>
+    </header>
+    <section class="aui-content">
+        <ul class="aui-form">
+            <div class="aui-input-row aui-text-center" style="width:100%; padding:15px 0;">
+                <img src="../image/noavatar.gif" id="avatarImg"/>
+                <input type="hidden" id="avatar">
+                <!-- <input type="file" accept="image/*;capture=camera" class="input" id="avatar" onchange="getPicture(this)"> -->
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon aui-border-r">昵称</span>
+                <input type="text" id="nickname" class="aui-input" placeholder="昵称" value="" />
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon aui-border-r">密码</span>
+                <input type="password" id="password" class="aui-input" placeholder="请输入密码"/>
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon aui-border-r">确认密码</span>
+                <input type="password" id="password1" class="aui-input" placeholder="请再次输入密码" />
+            </div>
+            <div class="aui-btn-row">
+                <div class="aui-btn aui-btn-danger" tapmode onclick="register()">提交注册</div>
+            </div>
+            <!--<div class="aui-input-row">
+                <span class="aui-input-addon">性别</span>
+                <div class="aui-pull-right">
+                    <input class="aui-radio aui-radio-warning" type="radio" name="sex" value="man"><div class="aui-radio-name">男</div>
+                    <input class="aui-radio aui-radio-warning" type="radio" name="sex" value="woman"><div class="aui-radio-name">女</div>
+                </div>
+            </div>-->
+        </ul>
+    </section>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../script/ajaxupload.js"></script>
+<script type="text/javascript" src="../script/layer.js"></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script>
+    var a={};
+    a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+    a.time = 2;
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var mobile = $.getUrlParam("mobile");
+    var toast = new auiToast();
+    $(function(){
+        if(!mobile){
+            window.location.href = "register_one.html";return;
+        }
+    })
+
+    function closeWin(){
+        window.history.go(-1);
+    }
+    var uploadOption =
+    {
+        action: siteUrl+'Attachment/Index/appUpload',    // 提交目标
+        name: "file",            // 服务端接收的名称
+        autoSubmit: true,        // 是否自动提交
+
+        // 选择文件之后…
+        onChange: function (file, extension)
+        {
+            if (!(extension && /^(jpg|JPG|png|PNG|gif|GIF)$/.test(extension))) {
+                a.content = "您上传的图片格式不对，请重新选择!";
+                layer.open(a);
+                return false;
+            }
+        },
+
+        // 开始上传文件
+        onSubmit: function (file, extension)
+        {
+            toast.loading({
+                title:"头像上传中",
+                duration:2000
+            },function(ret){
+            });
+        },
+
+        // 上传完成之后
+        onComplete: function (file, response)
+        {
+            var ret = response.replace(/<[^>]+>/g,"");
+            ret = JSON.parse(ret);
+            toast.hide();
+            $api.val($api.byId('avatar'),ret.thumb);
+            $api.attr($api.byId('avatarImg'),'src',ret.thumb);
+        }
+    }
+    var au = new AjaxUpload(document.getElementById("avatarImg"), uploadOption);
+    function getPicture(){
+        au.submit();
+    }
+    function register(){
+        var avatar = document.getElementById("avatar").value;
+        var nickname = document.getElementById("nickname").value;
+        var password = document.getElementById("password").value;
+        var password1 = document.getElementById("password1").value;
+        if(!avatar){
+            a.content = "请上传头像";
+            layer.open(a);
+            return;
+        }
+        if(!nickname){
+            a.content = "请输入昵称";
+            layer.open(a);
+            return;
+        }
+        if(!password){
+            a.content = "请输入密码";
+            layer.open(a);
+            return;
+        }
+        if(!password.match(/^[\w]{6,12}$/)){
+            a.content = "密码6至12位数字或字母组成";
+            layer.open(a);
+            return;
+        }
+        if(!password1){
+            a.content = "请输入确认密码";
+            layer.open(a);
+            return;
+        }
+        if(password!=password1){
+            a.content = "密码不一致";
+            layer.open(a);
+            return;
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+"App/User/register",
+           data: "avatar="+avatar+"&nickname="+nickname+"&mobile="+mobile+"&password="+password,
+           success: function(ret){
+               var code = ret.code;
+               if(code == 1){
+                   var data = ret.data;
+                   a.content = "注册成功";
+                   layer.open(a);
+                   var elList = document.querySelectorAll("input");
+                   for(var i in elList){
+                    elList[i].value = "";
+                   }
+                   $api.setStorage("userid",ret.data.userid);
+                   $api.setStorage("mobile",ret.data.mobile);
+                   $api.setStorage("nickname",ret.data.nickname);
+                   $api.setStorage("avatar",ret.data.avatar);
+                   $api.setStorage("token",ret.data.token);
+                   $api.setStorage("sex",ret.data.sex);
+                   $api.setStorage("signature",ret.data.signature);
+                   setTimeout(function(){
+                      window.location.href = "main.html";
+                   }, 1500)
+               }else{
+                   a.content = ret.msg;
+                   layer.open(a);
+               }
+           }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-indexed-list.css" />
+    <style type="text/css">
+	.aui-bar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #df3031;
+        color: #fff;
+        z-index: 99;
+    }
+    html,body{
+        background-color: #fff;
+        overflow-x: hidden;
+        overflow-y:auto;
+    }
+    </style>
+</head>
+<body>
+ 	<header class="aui-bar aui-bar-nav " id="aui-header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">索引列表</div>
+    </header>
+	<div class="aui-searchbar-wrap fixed" id="group-search">
+        <div class="aui-searchbar aui-border-radius">
+            <i class="aui-iconfont aui-icon-search"></i>
+            <div class="aui-searchbar-text">输入首字母</div>
+            <div class="aui-searchbar-input">
+            	<form action="javascript:search();">
+            	<input type="text" placeholder="输入首字母" id="aui-searchbar-input">
+            	</form>
+            </div>
+            <i class="aui-iconfont aui-icon-roundclosefill" id="aui-searchbar-clear"></i>
+        </div>
+        <div class="aui-searchbar-cancel aui-text-info" id="aui-searchbar-cancel">取消</div>
+    </div>
+    <div class="aui-indexed-list">
+		<div class="aui-cote"
+	    <ul class="aui-list-view aui-indexed-list-view aui-in" id="group-*" data-group="*">
+	    	<li class="aui-list-view-cell aui-indexed-list-view-group">
+	    		<span class="aui-iconfont aui-icon-location" data-value="*"></span>热门城市
+	    	</li>
+            <li class="aui-list-view-cell city-item" city-name="北京">北京</li>
+            <li class="aui-list-view-cell city-item" city-name="上海">上海</li>
+            <li class="aui-list-view-cell city-item" city-name="广州">广州</li>
+            <li class="aui-list-view-cell city-item" city-name="深圳">深圳</li>
+            <li class="aui-list-view-cell city-item" city-name="成都">成都</li>
+            <li class="aui-list-view-cell city-item" city-name="青岛">青岛</li>
+		</ul>
+	</div>
+	<div class="aui-indexed-list-toast"></div>
+	<div class="aui-indexed-list-bar">
+		<a>
+			<i class="aui-iconfont aui-icon-search" data-value="search"></i>
+		</a>
+		<a>
+			<i class="aui-iconfont aui-icon-favorfill" data-value="*"></i>
+		</a>
+		<a data-value="A">A</a>
+		<a data-value="B">B</a>
+		<a data-value="C">C</a>
+		<a data-value="D">D</a>
+		<a data-value="E">E</a>
+		<a data-value="F">F</a>
+		<a data-value="G">G</a>
+		<a data-value="H">H</a>
+		<a data-value="I">I</a>
+		<a data-value="J">J</a>
+		<a data-value="K">K</a>
+		<a data-value="L">L</a>
+		<a data-value="M">M</a>
+		<a data-value="N">N</a>
+		<a data-value="O">O</a>
+		<a data-value="P">P</a>
+		<a data-value="Q">Q</a>
+		<a data-value="R">R</a>
+		<a data-value="S">S</a>
+		<a data-value="T">T</a>
+		<a data-value="U">U</a>
+		<a data-value="V">V</a>
+		<a data-value="W">W</a>
+		<a data-value="X">X</a>
+		<a data-value="Y">Y</a>
+		<a data-value="Z">Z</a>
+		<a data-value="#">#</a>
+	</div>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script type="text/javascript" src="../../script/aui-tap.js" ></script>
+	<script type="text/javascript" src="../../script/aui-indexed-list.js" ></script>
+	<script type="text/javascript" src="../../script/jquery-1.11.1.min.js" ></script>
+	<script type="text/javascript">
+		var indexedList = new auiIndexedList();
+		$(function($) {
+			getAreaData();
+		});
+	    function closeWin(){
+	        window.history.go(-1);
+	    }
+		function getAreaData(){
+			$.getJSON("../../script/area.json", function(data){
+				var html = '';
+				// data = data;
+				for(var i in data){
+					html += '<li class="aui-list-view-cell aui-indexed-list-view-group" id="group-'+i+'" data-group="'+i+'">'+i+'</li>';
+					for(var ii in data[i]){
+						html += '<li class="aui-list-view-cell city-item" city-name="'+data[i][ii].name+'">'+data[i][ii].name+'</li>';
+					}
+				}
+				document.getElementById("group-*").insertAdjacentHTML('beforeend', html);
+				var cityLists = document.querySelectorAll("li.city-item");
+				for(var i = 0; i<cityLists.length; i++){
+					cityLists[i].onclick = function(){
+						window.location.href = "http://fangshi.apithink.com/Application/wap/html/house/house_index.html?building_area_name="+escape(this.getAttribute("city-name"));
+					}
+				}
+			});
+		}
+
+	</script>
+</body>
+</html>

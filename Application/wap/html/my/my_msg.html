@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            margin-top: 2.25rem !important;
+        }
+        .aui-list-view {
+            overflow: hidden;
+            background: none;
+        }
+        .aui-list-view:after {
+            border: none;
+        }
+        .aui-list-view li {
+            margin-bottom: 15px;
+            background: #ffffff;
+        }
+        p {
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        img.thumb {
+            width: 100%;
+            display: inherit;
+        }
+        .user-info {
+            padding: 10px 15px;
+            line-height: 32px;
+            font-size: 12px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .user-info span {
+            float: left;
+        }
+        img.avatar {
+            width: 32px !important;
+            height: 32px;
+            border-radius: 50%;
+            float: left;
+            margin-right: 10px;
+        }
+        .user-info .nickname {
+            line-height: 32px;
+            color: #666;
+        }
+        .user-info .time {
+            color: #999;
+        }
+        .msg-info {
+            width: 100%;
+            padding: 0 15px 15px;
+            font-size: 14px;
+            color: #333333;
+            overflow: hidden;
+        }
+        .aui-label {
+            float: left;
+            margin-right: 5px;
+        }
+        .address span {
+            float: left;
+        }
+        .list-footer {
+            padding: 15px;
+            color: #666;
+            background: #f8f8f8;
+        }
+        .list-footer .aui-btn {
+            font-size: 14px;
+            padding: 4px 8px;
+            background-color: #ffffff;
+        }
+        .list-footer .aui-iconfont{
+            font-size: 11px;
+        }
+        .list-footer .read-status {
+            font-size: 12px;
+            line-height: 28px;
+        }
+        .hide {
+            display: none;
+        }
+        .more {
+            width: 100%;
+            background-color: #ffffff;
+            text-align: center;
+            color: #666;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        .loading-data,
+        .no-data {
+            width: 100%;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .loading-data img,
+        .no-data img {
+            width: 60%;
+            margin: 2rem auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="back()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">我的消息</div>
+    </header>
+    <section class="aui-content">
+        <ul class="aui-list-view" id="list">
+            <div class="loading-data">
+                <img src="../../image/loading.png" />
+            </div>
+        </ul>
+    </section>
+    <div class="more hide">
+        <div>暂无更多</div>
+    </div>
+<script id="listTemplate" type="text/x-dot-template">
+    {{ for(var i in it) { }}
+        <li tapmode onclick="openDetail({{=it[i].letter_id}})" id="letter-{{=it[i].letter_id}}" class="aui-border-b">
+            <div class="user-info">
+                <div class="aui-pull-left">
+                    <span class="nickname">
+                        {{? it[i].userid == 0}}
+                            <span class="aui-text-danger">[系统消息]</span>
+                        {{??}}
+                            <span class="aui-text-info">[用户]</span>&nbsp;{{=it[i].nickname}}
+                        {{?}}
+                    </span>
+                </div>
+                <div class="aui-pull-right time">{{=it[i].time}}</div>
+            </div>
+            <div class="msg-info">{{=it[i].letter_content}}</div>
+            <div class="list-footer">
+                <div class="aui-btn aui-btn-outlined" tapmode onclick="letterReply({{=it[i].letter_id}},{{=it[i].userid}})"><span class="aui-iconfont aui-icon-comment"></span>回复</div>
+                <div class="aui-btn aui-btn-outlined" tapmode onclick="letterDelete({{=it[i].letter_id}})"><span class="aui-iconfont aui-icon-trash"></span>删除</div>
+                {{? it[i].letter_status == 1}}
+                <div class="aui-text-info aui-pull-right read-status" id="read-{{=it[i].letter_id}}">已读</div>
+                {{??}}
+                <div class="aui-btn aui-btn-outlined" id="readbtn-{{=it[i].letter_id}}" tapmode onclick="readLetter({{=it[i].letter_id}})"><span class="aui-iconfont aui-icon-edit" ></span>标记已读</div>
+                <div class="aui-text-danger aui-pull-right read-status" id="read-{{=it[i].letter_id}}">未读</div>
+                {{?}}
+            </div>
+        </li>
+
+    {{ } }}
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/aui-dialog.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script>
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var pageNum=0,scrollStatus=true;
+    $(function(){
+        addEvent();
+        getLetter();
+    });
+    var dialog = new auiDialog();
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+
+    function back(){
+        window.history.go(-1);
+    }
+    // 消息回复
+    function letterReply(letter_id,userid){
+        event.stopPropagation();
+        var token = $api.getStorage('token');
+        dialog.prompt({
+            title:"请输入回复内容",
+            buttons:['取消', '确定']
+        },function(ret){
+            if(ret.buttonIndex == 2){
+                var text = ret.text;
+                if(!text){
+                    a.content = "请输入回复内容";
+                    layer.open(a);
+                    return;
+                }
+                $.ajax({
+                   type: "POST",
+                   url: siteUrl+'/App/User/sendLetter',
+                   data: "token="+token+"&userid="+userid+"&letter_content="+text+"&letter_id="+letter_id,
+                   success: function(ret){
+                       a.content = ret.msg;
+                       layer.open(a);
+                       switch(ret.code){
+                         case 1:
+                         break;
+                         case 0:
+                           setTimeout(function(){
+                             logout();
+                           },1000)
+                         break;
+                       }
+                   }
+                });
+            }
+        });
+    }
+    //标记已读
+    function readLetter(letter_id){
+        event.stopPropagation();
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/User/readLetterInfo',
+           data: "token="+token+"&letter_id="+letter_id,
+           success: function(ret){
+               if(ret.code == 1){
+                   document.getElementById("read-"+letter_id).textContent = "已读";
+                   document.getElementById("read-"+letter_id).classList.remove("aui-text-danger");
+                   document.getElementById("read-"+letter_id).classList.add("aui-text-info");
+                   document.getElementById("readbtn-"+letter_id).classList.add("hide");
+               }else{
+                   if(ret.code == 0){
+                       setTimeout(function(){
+                           logout();
+                         },1000)
+                   }
+               }
+           }
+        });
+    }
+    // 消息删除
+    function letterDelete(letter_id){
+        event.stopPropagation();
+        dialog.alert({
+            title:"提示",
+            msg:'确定要删除当前消息吗',
+            buttons:['确定', '取消']
+        },function(ret){
+            if(ret){
+                if(ret.buttonIndex==1){
+                    var token = $api.getStorage('token');
+                    $.ajax({
+                       type: "POST",
+                       url: siteUrl+'/App/User/delLetter',
+                       data: "token="+token+"&letter_id="+letter_id,
+                       success: function(ret){
+                           if(ret.code == 1){
+                                var e = document.getElementById("letter-"+letter_id);
+                                e.parentNode.removeChild(e);
+                           }else{
+                                a.content = ret.msg;
+                                layer.open(a);
+                                if(ret.code == 0){
+                                    setTimeout(function(){logout();},1000);
+                                }
+                           }
+                       }
+                    });
+                }
+            }
+        })
+    }
+    function addEvent(){
+        //上拉加载
+        var scroll = new auiScroll({
+            listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+            distance:200 //判断到达底部的距离，isToBottom为true
+        },function(ret){
+           if(ret.isToBottom){
+               if(scrollStatus){
+                   getCommentListData();
+               }else{
+                   if(pageNum > 1){
+                       document.querySelector(".more").classList.remove("hide");
+                   }
+               }
+           }
+        });
+    }
+
+    function getLetter(){
+        var token = $api.getStorage('token');
+        pageNum ++;
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/User/getLetterList',
+           data: "token="+token+"&pageNum="+pageNum,
+           success: function(ret){
+               if(ret.code == 1){
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '';
+                   }
+                   if(document.querySelector("#list.no-data")){
+                      document.querySelector("#list.no-data").classList.remove("no-data");
+                   }
+                   var listTemplate = doT.template(document.getElementById("listTemplate").innerHTML);
+                   document.getElementById("list").insertAdjacentHTML('beforeend', listTemplate(ret.data));
+               }else{
+                   scrollStatus = false;
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '<div class="no-data"><img src="../../image/no_letter.png" /></div>';
+                       document.getElementById("list").classList.add("no-data");
+                   }
+                   if(ret.code == 0){
+                       a.content = ret.msg;
+                       layer.open(a);
+                       setTimeout(function(){logout();},1000);
+                   }
+               }
+           }
+        });
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.rmStorage("signature");
+        $api.setStorage("loginFrom","my/my_msg.html");
+        window.location.href = "../login.html";
+    }
+    //私信详情
+    function openDetail(letter_id){
+        window.location.href = "my_msg_detail.html?letter_id="+letter_id;
+    }
+</script>
+</body>
+</html>

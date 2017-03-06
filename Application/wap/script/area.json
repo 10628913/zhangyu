@@ -1,0 +1,1366 @@
+{
+  "A": [
+    {
+      "name": "阿拉善盟",
+      "initial": "A"
+    },
+    {
+      "name": "鞍山市",
+      "initial": "A"
+    },
+    {
+      "name": "安庆市",
+      "initial": "A"
+    },
+    {
+      "name": "安阳市",
+      "initial": "A"
+    },
+    {
+      "name": "阿坝州",
+      "initial": "A"
+    },
+    {
+      "name": "安顺市",
+      "initial": "A"
+    },
+    {
+      "name": "阿里",
+      "initial": "A"
+    },
+    {
+      "name": "安康市",
+      "initial": "A"
+    },
+    {
+      "name": "阿克苏地区",
+      "initial": "A"
+    },
+    {
+      "name": "阿勒泰地区",
+      "initial": "A"
+    }
+  ],
+  "B": [
+    {
+      "name": "保定市",
+      "initial": "B"
+    },
+    {
+      "name": "包头市",
+      "initial": "B"
+    },
+    {
+      "name": "巴彦淖尔市",
+      "initial": "B"
+    },
+    {
+      "name": "本溪市",
+      "initial": "B"
+    },
+    {
+      "name": "白山市",
+      "initial": "B"
+    },
+    {
+      "name": "白城市",
+      "initial": "B"
+    },
+    {
+      "name": "蚌埠市",
+      "initial": "B"
+    },
+    {
+      "name": "滨州市",
+      "initial": "B"
+    },
+    {
+      "name": "北海市",
+      "initial": "B"
+    },
+    {
+      "name": "百色市",
+      "initial": "B"
+    },
+    {
+      "name": "巴中市",
+      "initial": "B"
+    },
+    {
+      "name": "毕节地区",
+      "initial": "B"
+    },
+    {
+      "name": "保山市",
+      "initial": "B"
+    },
+    {
+      "name": "宝鸡市",
+      "initial": "B"
+    },
+    {
+      "name": "白银市",
+      "initial": "B"
+    },
+    {
+      "name": "博尔州",
+      "initial": "B"
+    },
+    {
+      "name": "巴音郭楞州",
+      "initial": "B"
+    }
+  ],
+  "C": [
+    {
+      "name": "承德市",
+      "initial": "C"
+    },
+    {
+      "name": "沧州市",
+      "initial": "C"
+    },
+    {
+      "name": "长治市",
+      "initial": "C"
+    },
+    {
+      "name": "赤峰市",
+      "initial": "C"
+    },
+    {
+      "name": "朝阳市",
+      "initial": "C"
+    },
+    {
+      "name": "长春市",
+      "initial": "C"
+    },
+    {
+      "name": "常州市",
+      "initial": "C"
+    },
+    {
+      "name": "滁州市",
+      "initial": "C"
+    },
+    {
+      "name": "巢湖市",
+      "initial": "C"
+    },
+    {
+      "name": "池州市",
+      "initial": "C"
+    },
+    {
+      "name": "长沙市",
+      "initial": "C"
+    },
+    {
+      "name": "常德市",
+      "initial": "C"
+    },
+    {
+      "name": "郴州市",
+      "initial": "C"
+    },
+    {
+      "name": "潮州市",
+      "initial": "C"
+    },
+    {
+      "name": "崇左市",
+      "initial": "C"
+    },
+    {
+      "name": "成都市",
+      "initial": "C"
+    },
+    {
+      "name": "楚雄州",
+      "initial": "C"
+    },
+    {
+      "name": "昌都",
+      "initial": "C"
+    },
+    {
+      "name": "昌吉州",
+      "initial": "C"
+    }
+  ],
+  "D": [
+    {
+      "name": "大同市",
+      "initial": "D"
+    },
+    {
+      "name": "大连市",
+      "initial": "D"
+    },
+    {
+      "name": "丹东市",
+      "initial": "D"
+    },
+    {
+      "name": "大庆市",
+      "initial": "D"
+    },
+    {
+      "name": "大兴安岭地区",
+      "initial": "D"
+    },
+    {
+      "name": "东营市",
+      "initial": "D"
+    },
+    {
+      "name": "德州市",
+      "initial": "D"
+    },
+    {
+      "name": "德阳市",
+      "initial": "D"
+    },
+    {
+      "name": "达州市",
+      "initial": "D"
+    },
+    {
+      "name": "大理",
+      "initial": "D"
+    },
+    {
+      "name": "德宏",
+      "initial": "D"
+    },
+    {
+      "name": "迪庆",
+      "initial": "D"
+    },
+    {
+      "name": "定西市",
+      "initial": "D"
+    }
+  ],
+  "E": [
+    {
+      "name": "鄂尔多斯市",
+      "initial": "E"
+    },
+    {
+      "name": "鄂州市",
+      "initial": "E"
+    },
+    {
+      "name": "恩施土家族苗族自治州",
+      "initial": "E"
+    }
+  ],
+  "F": [
+    {
+      "name": "抚顺市",
+      "initial": "F"
+    },
+    {
+      "name": "阜新市",
+      "initial": "F"
+    },
+    {
+      "name": "阜阳市",
+      "initial": "F"
+    },
+    {
+      "name": "福州市",
+      "initial": "F"
+    },
+    {
+      "name": "抚州市",
+      "initial": "F"
+    },
+    {
+      "name": "佛山市",
+      "initial": "F"
+    },
+    {
+      "name": "防城港市",
+      "initial": "F"
+    }
+  ],
+  "G": [
+    {
+      "name": "赣州市",
+      "initial": "G"
+    },
+    {
+      "name": "广州市",
+      "initial": "G"
+    },
+    {
+      "name": "桂林市",
+      "initial": "G"
+    },
+    {
+      "name": "贵港市",
+      "initial": "G"
+    },
+    {
+      "name": "广元市",
+      "initial": "G"
+    },
+    {
+      "name": "广安市",
+      "initial": "G"
+    },
+    {
+      "name": "甘孜州",
+      "initial": "G"
+    },
+    {
+      "name": "贵阳市",
+      "initial": "G"
+    },
+    {
+      "name": "甘州",
+      "initial": "G"
+    },
+    {
+      "name": "果洛州",
+      "initial": "G"
+    },
+    {
+      "name": "固原市",
+      "initial": "G"
+    }
+  ],
+  "H": [
+    {
+      "name": "邯郸市",
+      "initial": "H"
+    },
+    {
+      "name": "衡水市",
+      "initial": "H"
+    },
+    {
+      "name": "呼和浩特市",
+      "initial": "H"
+    },
+    {
+      "name": "呼伦贝尔市",
+      "initial": "H"
+    },
+    {
+      "name": "葫芦岛市",
+      "initial": "H"
+    },
+    {
+      "name": "哈尔滨市",
+      "initial": "H"
+    },
+    {
+      "name": "鹤岗市",
+      "initial": "H"
+    },
+    {
+      "name": "黑河市",
+      "initial": "H"
+    },
+    {
+      "name": "淮安市",
+      "initial": "H"
+    },
+    {
+      "name": "杭州市",
+      "initial": "H"
+    },
+    {
+      "name": "湖州市",
+      "initial": "H"
+    },
+    {
+      "name": "合肥市",
+      "initial": "H"
+    },
+    {
+      "name": "淮南市",
+      "initial": "H"
+    },
+    {
+      "name": "淮北市",
+      "initial": "H"
+    },
+    {
+      "name": "黄山市",
+      "initial": "H"
+    },
+    {
+      "name": "荷泽市",
+      "initial": "H"
+    },
+    {
+      "name": "鹤壁市",
+      "initial": "H"
+    },
+    {
+      "name": "漯河市",
+      "initial": "H"
+    },
+    {
+      "name": "黄石市",
+      "initial": "H"
+    },
+    {
+      "name": "黄冈市",
+      "initial": "H"
+    },
+    {
+      "name": "衡阳市",
+      "initial": "H"
+    },
+    {
+      "name": "怀化市",
+      "initial": "H"
+    },
+    {
+      "name": "惠州市",
+      "initial": "H"
+    },
+    {
+      "name": "河源市",
+      "initial": "H"
+    },
+    {
+      "name": "贺州市",
+      "initial": "H"
+    },
+    {
+      "name": "河池市",
+      "initial": "H"
+    },
+    {
+      "name": "海口市",
+      "initial": "H"
+    },
+    {
+      "name": "红河州",
+      "initial": "H"
+    },
+    {
+      "name": "汉中市",
+      "initial": "H"
+    },
+    {
+      "name": "海东地区",
+      "initial": "H"
+    },
+    {
+      "name": "海州",
+      "initial": "H"
+    },
+    {
+      "name": "黄南州",
+      "initial": "H"
+    },
+    {
+      "name": "海南州",
+      "initial": "H"
+    },
+    {
+      "name": "海西州",
+      "initial": "H"
+    },
+    {
+      "name": "哈密地区",
+      "initial": "H"
+    },
+    {
+      "name": "和田地区",
+      "initial": "H"
+    }
+  ],
+  "I": [],
+  "J": [
+    {
+      "name": "晋城市",
+      "initial": "J"
+    },
+    {
+      "name": "晋中市",
+      "initial": "J"
+    },
+    {
+      "name": "锦州市",
+      "initial": "J"
+    },
+    {
+      "name": "吉林市",
+      "initial": "J"
+    },
+    {
+      "name": "鸡西市",
+      "initial": "J"
+    },
+    {
+      "name": "佳木斯市",
+      "initial": "J"
+    },
+    {
+      "name": "嘉兴市",
+      "initial": "J"
+    },
+    {
+      "name": "金华市",
+      "initial": "J"
+    },
+    {
+      "name": "景德镇市",
+      "initial": "J"
+    },
+    {
+      "name": "九江市",
+      "initial": "J"
+    },
+    {
+      "name": "吉安市",
+      "initial": "J"
+    },
+    {
+      "name": "济南市",
+      "initial": "J"
+    },
+    {
+      "name": "济宁市",
+      "initial": "J"
+    },
+    {
+      "name": "焦作市",
+      "initial": "J"
+    },
+    {
+      "name": "荆门市",
+      "initial": "J"
+    },
+    {
+      "name": "荆州市",
+      "initial": "J"
+    },
+    {
+      "name": "江门市",
+      "initial": "J"
+    },
+    {
+      "name": "揭阳市",
+      "initial": "J"
+    },
+    {
+      "name": "金昌市",
+      "initial": "J"
+    },
+    {
+      "name": "酒泉市",
+      "initial": "J"
+    }
+  ],
+  "K": [
+    {
+      "name": "开封市",
+      "initial": "K"
+    },
+    {
+      "name": "昆明市",
+      "initial": "K"
+    },
+    {
+      "name": "克拉玛依市",
+      "initial": "K"
+    },
+    {
+      "name": "克孜勒苏柯尔克孜自治州",
+      "initial": "K"
+    },
+    {
+      "name": "喀什地区",
+      "initial": "K"
+    }
+  ],
+  "L": [
+    {
+      "name": "廊坊市",
+      "initial": "L"
+    },
+    {
+      "name": "临汾市",
+      "initial": "L"
+    },
+    {
+      "name": "吕梁市",
+      "initial": "L"
+    },
+    {
+      "name": "辽阳市",
+      "initial": "L"
+    },
+    {
+      "name": "辽源市",
+      "initial": "L"
+    },
+    {
+      "name": "连云港市",
+      "initial": "L"
+    },
+    {
+      "name": "丽水市",
+      "initial": "L"
+    },
+    {
+      "name": "六安市",
+      "initial": "L"
+    },
+    {
+      "name": "龙岩市",
+      "initial": "L"
+    },
+    {
+      "name": "莱芜市",
+      "initial": "L"
+    },
+    {
+      "name": "临沂市",
+      "initial": "L"
+    },
+    {
+      "name": "聊城市",
+      "initial": "L"
+    },
+    {
+      "name": "洛阳市",
+      "initial": "L"
+    },
+    {
+      "name": "娄底市",
+      "initial": "L"
+    },
+    {
+      "name": "柳州市",
+      "initial": "L"
+    },
+    {
+      "name": "来宾市",
+      "initial": "L"
+    },
+    {
+      "name": "乐山市",
+      "initial": "L"
+    },
+    {
+      "name": "凉山州",
+      "initial": "L"
+    },
+    {
+      "name": "六盘水市",
+      "initial": "L"
+    },
+    {
+      "name": "丽江市",
+      "initial": "L"
+    },
+    {
+      "name": "临沧市",
+      "initial": "L"
+    },
+    {
+      "name": "拉萨市",
+      "initial": "L"
+    },
+    {
+      "name": "林芝",
+      "initial": "L"
+    },
+    {
+      "name": "兰州市",
+      "initial": "L"
+    },
+    {
+      "name": "陇南市",
+      "initial": "L"
+    },
+    {
+      "name": "临夏州",
+      "initial": "L"
+    }
+  ],
+  "M": [
+    {
+      "name": "牡丹江市",
+      "initial": "M"
+    },
+    {
+      "name": "马鞍山市",
+      "initial": "M"
+    },
+    {
+      "name": "茂名市",
+      "initial": "M"
+    },
+    {
+      "name": "梅州市",
+      "initial": "M"
+    },
+    {
+      "name": "绵阳市",
+      "initial": "M"
+    },
+    {
+      "name": "眉山市",
+      "initial": "M"
+    }
+  ],
+  "N": [
+    {
+      "name": "南京市",
+      "initial": "N"
+    },
+    {
+      "name": "南通市",
+      "initial": "N"
+    },
+    {
+      "name": "宁波市",
+      "initial": "N"
+    },
+    {
+      "name": "南平市",
+      "initial": "N"
+    },
+    {
+      "name": "宁德市",
+      "initial": "N"
+    },
+    {
+      "name": "南昌市",
+      "initial": "N"
+    },
+    {
+      "name": "南阳市",
+      "initial": "N"
+    },
+    {
+      "name": "南宁市",
+      "initial": "N"
+    },
+    {
+      "name": "内江市",
+      "initial": "N"
+    },
+    {
+      "name": "南充市",
+      "initial": "N"
+    },
+    {
+      "name": "怒江",
+      "initial": "N"
+    },
+    {
+      "name": "那曲",
+      "initial": "N"
+    }
+  ],
+  "O": [],
+  "P": [
+    {
+      "name": "盘锦市",
+      "initial": "P"
+    },
+    {
+      "name": "莆田市",
+      "initial": "P"
+    },
+    {
+      "name": "萍乡市",
+      "initial": "P"
+    },
+    {
+      "name": "平顶山市",
+      "initial": "P"
+    },
+    {
+      "name": "攀枝花市",
+      "initial": "P"
+    },
+    {
+      "name": "平凉市",
+      "initial": "P"
+    }
+  ],
+  "Q": [
+    {
+      "name": "秦皇岛市",
+      "initial": "Q"
+    },
+    {
+      "name": "齐齐哈尔市",
+      "initial": "Q"
+    },
+    {
+      "name": "七台河市",
+      "initial": "Q"
+    },
+    {
+      "name": "泉州市",
+      "initial": "Q"
+    },
+    {
+      "name": "青岛市",
+      "initial": "Q"
+    },
+    {
+      "name": "清远市",
+      "initial": "Q"
+    },
+    {
+      "name": "钦州市",
+      "initial": "Q"
+    },
+    {
+      "name": "黔西南州",
+      "initial": "Q"
+    },
+    {
+      "name": "黔东南州",
+      "initial": "Q"
+    },
+    {
+      "name": "黔南州",
+      "initial": "Q"
+    },
+    {
+      "name": "曲靖市",
+      "initial": "Q"
+    },
+    {
+      "name": "庆阳市",
+      "initial": "Q"
+    }
+  ],
+  "R": [
+    {
+      "name": "日照市",
+      "initial": "R"
+    },
+    {
+      "name": "日喀则",
+      "initial": "R"
+    }
+  ],
+  "S": [
+    {
+      "name": "石家庄市",
+      "initial": "S"
+    },
+    {
+      "name": "朔州市",
+      "initial": "S"
+    },
+    {
+      "name": "沈阳市",
+      "initial": "S"
+    },
+    {
+      "name": "四平市",
+      "initial": "S"
+    },
+    {
+      "name": "松原市",
+      "initial": "S"
+    },
+    {
+      "name": "双鸭山市",
+      "initial": "S"
+    },
+    {
+      "name": "绥化市",
+      "initial": "S"
+    },
+    {
+      "name": "苏州市",
+      "initial": "S"
+    },
+    {
+      "name": "宿迁市",
+      "initial": "S"
+    },
+    {
+      "name": "绍兴市",
+      "initial": "S"
+    },
+    {
+      "name": "宿州市",
+      "initial": "S"
+    },
+    {
+      "name": "三明市",
+      "initial": "S"
+    },
+    {
+      "name": "上饶市",
+      "initial": "S"
+    },
+    {
+      "name": "三门峡市",
+      "initial": "S"
+    },
+    {
+      "name": "商丘市",
+      "initial": "S"
+    },
+    {
+      "name": "十堰市",
+      "initial": "S"
+    },
+    {
+      "name": "随州市",
+      "initial": "S"
+    },
+    {
+      "name": "邵阳市",
+      "initial": "S"
+    },
+    {
+      "name": "韶关市",
+      "initial": "S"
+    },
+    {
+      "name": "深圳市",
+      "initial": "S"
+    },
+    {
+      "name": "汕头市",
+      "initial": "S"
+    },
+    {
+      "name": "汕尾市",
+      "initial": "S"
+    },
+    {
+      "name": "遂宁市",
+      "initial": "S"
+    },
+    {
+      "name": "思茅市",
+      "initial": "S"
+    },
+    {
+      "name": "山南",
+      "initial": "S"
+    },
+    {
+      "name": "商洛市",
+      "initial": "S"
+    },
+    {
+      "name": "石嘴山市",
+      "initial": "S"
+    }
+  ],
+  "T": [
+    {
+      "name": "唐山市",
+      "initial": "T"
+    },
+    {
+      "name": "太原市",
+      "initial": "T"
+    },
+    {
+      "name": "通辽市",
+      "initial": "T"
+    },
+    {
+      "name": "铁岭市",
+      "initial": "T"
+    },
+    {
+      "name": "通化市",
+      "initial": "T"
+    },
+    {
+      "name": "泰州市",
+      "initial": "T"
+    },
+    {
+      "name": "台州市",
+      "initial": "T"
+    },
+    {
+      "name": "铜陵市",
+      "initial": "T"
+    },
+    {
+      "name": "泰安市",
+      "initial": "T"
+    },
+    {
+      "name": "铜仁地区",
+      "initial": "T"
+    },
+    {
+      "name": "铜川市",
+      "initial": "T"
+    },
+    {
+      "name": "天水市",
+      "initial": "T"
+    },
+    {
+      "name": "吐鲁番地区",
+      "initial": "T"
+    },
+    {
+      "name": "塔城地区",
+      "initial": "T"
+    }
+  ],
+  "U": [],
+  "V": [],
+  "W": [
+    {
+      "name": "乌海市",
+      "initial": "W"
+    },
+    {
+      "name": "乌兰察布市",
+      "initial": "W"
+    },
+    {
+      "name": "无锡市",
+      "initial": "W"
+    },
+    {
+      "name": "温州市",
+      "initial": "W"
+    },
+    {
+      "name": "芜湖市",
+      "initial": "W"
+    },
+    {
+      "name": "潍坊市",
+      "initial": "W"
+    },
+    {
+      "name": "威海市",
+      "initial": "W"
+    },
+    {
+      "name": "武汉市",
+      "initial": "W"
+    },
+    {
+      "name": "梧州市",
+      "initial": "W"
+    },
+    {
+      "name": "文山州",
+      "initial": "W"
+    },
+    {
+      "name": "渭南市",
+      "initial": "W"
+    },
+    {
+      "name": "武威市",
+      "initial": "W"
+    },
+    {
+      "name": "吴忠市",
+      "initial": "W"
+    },
+    {
+      "name": "乌鲁木齐市",
+      "initial": "W"
+    }
+  ],
+  "X": [
+    {
+      "name": "邢台市",
+      "initial": "X"
+    },
+    {
+      "name": "忻州市",
+      "initial": "X"
+    },
+    {
+      "name": "兴安盟",
+      "initial": "X"
+    },
+    {
+      "name": "锡林郭勒盟",
+      "initial": "X"
+    },
+    {
+      "name": "徐州市",
+      "initial": "X"
+    },
+    {
+      "name": "宣城市",
+      "initial": "X"
+    },
+    {
+      "name": "厦门市",
+      "initial": "X"
+    },
+    {
+      "name": "新余市",
+      "initial": "X"
+    },
+    {
+      "name": "新乡市",
+      "initial": "X"
+    },
+    {
+      "name": "许昌市",
+      "initial": "X"
+    },
+    {
+      "name": "信阳市",
+      "initial": "X"
+    },
+    {
+      "name": "襄樊市",
+      "initial": "X"
+    },
+    {
+      "name": "孝感市",
+      "initial": "X"
+    },
+    {
+      "name": "咸宁市",
+      "initial": "X"
+    },
+    {
+      "name": "湘潭市",
+      "initial": "X"
+    },
+    {
+      "name": "湘西土家族苗族自治州",
+      "initial": "X"
+    },
+    {
+      "name": "西双版纳",
+      "initial": "X"
+    },
+    {
+      "name": "西安市",
+      "initial": "X"
+    },
+    {
+      "name": "咸阳市",
+      "initial": "X"
+    },
+    {
+      "name": "西宁市",
+      "initial": "X"
+    }
+  ],
+  "Y": [
+    {
+      "name": "阳泉市",
+      "initial": "Y"
+    },
+    {
+      "name": "运城市",
+      "initial": "Y"
+    },
+    {
+      "name": "营口市",
+      "initial": "Y"
+    },
+    {
+      "name": "延边",
+      "initial": "Y"
+    },
+    {
+      "name": "伊春市",
+      "initial": "Y"
+    },
+    {
+      "name": "盐城市",
+      "initial": "Y"
+    },
+    {
+      "name": "扬州市",
+      "initial": "Y"
+    },
+    {
+      "name": "鹰潭市",
+      "initial": "Y"
+    },
+    {
+      "name": "宜春市",
+      "initial": "Y"
+    },
+    {
+      "name": "烟台市",
+      "initial": "Y"
+    },
+    {
+      "name": "濮阳市",
+      "initial": "Y"
+    },
+    {
+      "name": "宜昌市",
+      "initial": "Y"
+    },
+    {
+      "name": "岳阳市",
+      "initial": "Y"
+    },
+    {
+      "name": "益阳市",
+      "initial": "Y"
+    },
+    {
+      "name": "永州市",
+      "initial": "Y"
+    },
+    {
+      "name": "阳江市",
+      "initial": "Y"
+    },
+    {
+      "name": "云浮市",
+      "initial": "Y"
+    },
+    {
+      "name": "玉林市",
+      "initial": "Y"
+    },
+    {
+      "name": "宜宾市",
+      "initial": "Y"
+    },
+    {
+      "name": "雅安市",
+      "initial": "Y"
+    },
+    {
+      "name": "玉溪市",
+      "initial": "Y"
+    },
+    {
+      "name": "延安市",
+      "initial": "Y"
+    },
+    {
+      "name": "榆林市",
+      "initial": "Y"
+    },
+    {
+      "name": "玉树州",
+      "initial": "Y"
+    },
+    {
+      "name": "银川市",
+      "initial": "Y"
+    },
+    {
+      "name": "伊犁州",
+      "initial": "Y"
+    }
+  ],
+  "Z": [
+    {
+      "name": "张家口市",
+      "initial": "Z"
+    },
+    {
+      "name": "镇江市",
+      "initial": "Z"
+    },
+    {
+      "name": "衢州市",
+      "initial": "Z"
+    },
+    {
+      "name": "舟山市",
+      "initial": "Z"
+    },
+    {
+      "name": "亳州市",
+      "initial": "Z"
+    },
+    {
+      "name": "漳州市",
+      "initial": "Z"
+    },
+    {
+      "name": "淄博市",
+      "initial": "Z"
+    },
+    {
+      "name": "枣庄市",
+      "initial": "Z"
+    },
+    {
+      "name": "郑州市",
+      "initial": "Z"
+    },
+    {
+      "name": "周口市",
+      "initial": "Z"
+    },
+    {
+      "name": "驻马店市",
+      "initial": "Z"
+    },
+    {
+      "name": "株洲市",
+      "initial": "Z"
+    },
+    {
+      "name": "张家界市",
+      "initial": "Z"
+    },
+    {
+      "name": "珠海市",
+      "initial": "Z"
+    },
+    {
+      "name": "湛江市",
+      "initial": "Z"
+    },
+    {
+      "name": "肇庆市",
+      "initial": "Z"
+    },
+    {
+      "name": "自贡市",
+      "initial": "Z"
+    },
+    {
+      "name": "泸州市",
+      "initial": "Z"
+    },
+    {
+      "name": "资阳市",
+      "initial": "Z"
+    },
+    {
+      "name": "遵义市",
+      "initial": "Z"
+    },
+    {
+      "name": "昭通市",
+      "initial": "Z"
+    },
+    {
+      "name": "张掖市",
+      "initial": "Z"
+    },
+    {
+      "name": "中卫市",
+      "initial": "Z"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui-flex.css"/>
+    <style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem;
+        }
+        html,body{
+            background-color: #fff;
+            overflow: hidden;
+        }
+        section{
+            margin-top: 1rem;
+        }
+
+        section >div{
+            font-size: 0.9rem;
+            color:#666;
+            padding: 0.8rem 0.75rem;
+        }
+        input[type="text"],
+        input[type='number'],
+        input[type='password']{
+            border:none;
+            height: 1rem;
+            line-height: 1rem;
+            margin-bottom: 0;
+            background-color: transparent;
+        }
+        section{
+            padding:0 0.75rem 1rem;
+        }
+        .aui-btn{
+            margin:0 0.5rem;
+            background-color: #df3031;
+            border:1px solid #df3031;
+            border-radius: 0.3rem;
+            padding:0.2rem 0.3rem;
+            color: #fff;
+            line-height: 1.5rem;
+        }
+       .aui-flex-item-9{
+            padding: 0.5rem 0;
+        }
+        .aui-btn.left{
+            background-color: #fff;
+            border:1px solid #df3031;
+            color: #df3031;
+        }
+        .btnbox .aui-btn{
+            background-color: #df3031;
+            border:1px solid #df3031;
+            border-radius: 0.3rem;
+            padding:0.2rem 0.3rem;
+            color: #fff;
+            width: 100%;
+            line-height: 2rem;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .btnbox{
+            text-align: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar header" id="header">
+        <span class="aui-pull-left" tapmode="" onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">注册</div>
+    </header>
+    <section>
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-3">
+                <span>手机号</span>
+            </div>
+            <div class="aui-flex-item-9 aui-flex-col aui-flex-middle aui-border-b">
+                <input class="aui-input" type="text" placeholder="请输入手机号" id="mobile"/>
+            </div>
+        </div>
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-3">
+                <span>验证码</span>
+            </div>
+             <div class="aui-flex-item-9 aui-flex-col aui-flex-middle aui-border-b">
+                <div class="aui-flex-item-6">
+                    <input type="text" placeholder="验证码" id="code"/>
+                </div>
+                <div class="aui-flex-item-6">
+                    <div class="aui-btn" id="sendBtn" onclick="getSmsCode()">获取验证码</div>
+                </div>
+            </div>
+        </div>
+        <div class="btnbox">
+            <div class="aui-btn" tapmode onclick="next()">下一步</div>
+        </div>
+    </section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script>
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+
+    function getSmsCode(){
+        if(sendStatus){
+            if(checkMobile()){
+                sendStatus = false;
+                $.ajax({
+                   type: "POST",
+                   url: siteUrl+'App/User/sendSms',
+                   data: "mobile="+mobile,
+                   success: function(ret){
+                       var code = ret.code;
+                       if(code == "000000"){
+                           a.conyent = "验证码已发送,请注意接收";
+                           layer.open(a);
+                           document.getElementById("mobile").setAttribute("readonly",true);
+                       }else{
+                           a.content = ret.msg;
+                           layer.open(a);
+                       }
+                   }
+                });
+                sendSMS();
+            }
+        }
+    }
+    var wait = 60;
+    function sendSMS() {
+        var sendBtn = document.getElementById("sendBtn");
+        if (wait == 0) {
+            sendStatus = true;
+            sendBtn.style.borderColor = "#df3031"
+            sendBtn.style.backgroundColor = "#df3031";
+            sendBtn.textContent = "获取验证码";
+            wait = 60;
+        } else {
+            sendBtn.style.backgroundColor = "#808080";
+            sendBtn.style.borderColor = "#808080"
+            sendBtn.textContent = wait+"S";
+            wait--;
+            setTimeout(function() {
+                sendSMS()
+            }, 1000);
+        }
+    }
+    var mobile;
+    function checkMobile(){
+        mobile = document.getElementById("mobile").value;
+        var phoneRule = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+        if (mobile.length == 0) {
+            a.content = "手机号码不能为空!";
+            layer.open(a);
+            return false;
+        } else if (!phoneRule.test(mobile)) {
+            a.content = "请输入正确的手机号码!";
+            layer.open(a);
+            return false;
+        }
+        return true;
+    }
+
+    function next(){
+        var code = document.getElementById("code").value;
+        if(checkMobile()){
+            if(code.length != 4){
+                a.content = "验证码错误!";
+                layer.open(a);
+            }else{
+                $.ajax({
+                   type: "POST",
+                   url: siteUrl+'App/User/checkSmsCode',
+                   data: "mobile="+mobile+"&code="+code,
+                   success: function(ret){
+                       if(ret.code == 1){
+                           api.sendEvent({
+                                name: 'nextstep',
+                                extra:{
+                                   mobile:mobile
+                                }
+                            });
+                       }else{
+                           a.content = ret.msg;
+                           layer.open(a);
+                       }
+                   }
+                });
+            }
+        }
+    }
+    function closeWin(){
+        window.history.go(-1);
+    }
+</script>
+</body>
+</html>

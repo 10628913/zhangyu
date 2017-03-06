@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style type="text/css">
+	body {
+        background-color: #ffffff;
+    }
+    .aui-nav {
+        line-height: 55px;
+    }
+    .aui-searchbar-wrap {
+        height: 42px;
+    }
+    .aui-bar{
+        background-color: #df3031;
+    }
+    </style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav aui-bar-info" id="aui-header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">位置周边</div>
+    </header>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	function closeWin(){
+        api.sendEvent({
+            name: 'mapUserMapShowEvent',
+            extra: {status:'success'}
+        });
+        api.sendEvent({
+            name:'myUserAddressAddMapHideEvent',
+            extra: {status:'success'}
+        })
+		api.closeWin();
+	}
+    // function openSearch () {
+    //     var delay = 0;
+    //     if(api.systemType != 'ios'){
+    //         delay = 300;
+    //     }
+    //     api.openWin({
+    //         name: 'house_mapsearch_win',
+    //         url: 'house_mapsearch_win.html',
+    //         bounces: false,
+    //         delay:delay
+    //     });
+    // }
+    apiready = function(){
+		api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        api.openFrame({
+            name: 'house_map_frm',
+            url: 'house_map_frm.html',
+            bounces: false,
+            vScrollBarEnabled:false,
+            hScrollBarEnabled:false,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: body_h/3
+            }
+        });
+        api.openFrame({
+            name: 'house_mapinfo_frm',
+            url: 'house_mapinfo_frm.html',
+            bounces: false,
+            vScrollBarEnabled:false,
+            hScrollBarEnabled:true,
+            rect: {
+                x: 0,
+                y: headerPos.h+body_h/3,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+        api.openFrame({
+            name: 'house_mapmark_frm',
+            url: 'house_mapmark_frm.html',
+            bounces: false,
+            vScrollBarEnabled:false,
+            hScrollBarEnabled:false,
+            rect: {
+                x: (api.winWidth/2)-9,
+                y: (body_h/3)/2+headerPos.h-28,
+                w: '18',
+                h: '28'
+            }
+        });
+
+
+    };
+</script>
+</html>

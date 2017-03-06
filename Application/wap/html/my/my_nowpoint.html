@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+	<style>
+        .aui-card{
+            margin-top:3rem; 
+        }
+        .aui-flex-col{
+            padding:0.5rem 0.2rem;
+        }
+        .aui-flex-item-4{
+            font-size: 0.7rem;
+        }
+        .aui-flex-item-5{
+            font-size: 1rem;
+            color: #df3031;
+        }
+        .aui-btn{
+            background-color: #df3031;
+            color: #fff;
+            /*width: 90%;*/
+        }
+        .rules{
+            padding: 0.5rem 0.75rem;
+        }
+        .title{
+            font-size: 0.7rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar" id="header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">当前积分</div>
+    </header>
+    <section class="aui-card">
+        <div class="aui-flex-col">
+            <div class="aui-flex-item-4 aui-flex-col aui-flex-middle">
+                您的当前积分为:
+            </div>
+            <div class="aui-flex-item-5 aui-flex-col aui-flex-middle">
+                2000.00
+            </div>
+            <div class="aui-flex-item-3 aui-flex-col aui-flex-middle">
+                <div class="aui-btn" tapmode onclick="openWin('../mall/mall')">前往兑换</div>
+            </div>
+        </div>
+        <div class="aui-line-x"></div>
+        <div class="rules">
+            <div class="title">积分使用规则:</div>
+            <p>
+                凡持本会员卡在本集团旗下各公司消费，系统将自动记录你的消费金额并积分，同时我们将定期举办各式各样的积分活动，让您真正享受到您的每一份支持都将获得我们的真情回报。</br>
+                1、 积分规则：凡持本集团会员卡的用户，均可参加会员积分活动。会员持卡在本有限公司消费，每消费1元积1分。</br>
+                2、 查分方法：登陆本网站后，进入的“我的积分”或“积分商城”，即可以自助服务中查到自己的积分、积点情况，以及相关明细。</br>
+                3、 积分的使用：会员积分可在网站积分商城兑换相应的礼品、参加网站的会员积分系列活动，也可按照1000积分兑换3个积点的比例转化为积点进行消费。</br>
+                4、 本网站拥有对积分活动的最终解释权、暂停权、撤销权和对礼品的调整权，更多详情请参看“会员自助服务中心”的相关信息。
+            </p>
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+      function closeWin(){
+        window.history.go(-1); 
+    }
+    function openWin(name){
+        window.location.href=name+'.html'; 
+
+    }
+</script>
+</html>

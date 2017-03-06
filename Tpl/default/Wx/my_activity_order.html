@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+    <style type="text/css">
+    .aui-content {
+        overflow: hidden;
+        background: #ffffff;
+    }
+    .aui-label {
+        display: inline;
+    }
+    .aui-line-x {
+        margin: 5px 0;
+    }
+    p.order-time {
+        padding: 10px 0;
+    }
+    .aui-card {
+        padding: 10px;
+        margin-bottom: 0;
+    }
+    </style>
+</head>
+<body>
+    <foreach name="list" item="v">
+    <p class="order-time aui-text-center">{$v['addtime']}</p>
+    <div class="aui-card aui-noborder">
+        <div class="title">{$v['activityData']['title']}</div>
+        <div class="aui-line-x"></div>
+        <div class="order-info">
+            <p>出发时间：{$v['scheduleData']['start_time']||date="Y年m月d日",###}</p>
+            <p>预定数量：{$v['adult_num']+$v['children_num']} 人</p>
+            <p>价格：<span class="aui-text-danger">¥ {$v['pay_price']}</span></p>
+        </div>
+        <div class="aui-line-x"></div>
+        <if condition="$v['scheduleData']['start_time'] gt time()">
+        <label class="aui-label aui-label-default">活动未开始</label>
+        </if>
+        <if condition="$v['scheduleData']['start_time'] lt time() && $v['scheduleData']['start_time'] gt time()">
+        <label class="aui-label aui-label-success">活动进行中</label>
+        </if>
+        <if condition="$v['scheduleData']['end_time'] lt time()">
+        <label class="aui-label aui-label-danger">活动已结束</label>
+        </if>
+
+        <if condition="$v['status'] eq 1">
+        <label class="aui-label aui-label-danger">未支付</label>
+        <elseif condition="$v['status'] eq 2"/>
+        <label class="aui-label aui-label-success">已支付</label>
+        <elseif condition="$v['status'] eq 3"/>
+         <label class="aui-label aui-label-info">已确认</label>
+        <elseif condition="$v['status'] eq '-1'"/>
+         <label class="aui-label aui-label-warning">已关闭</label>
+        <elseif condition="$v['status'] eq '-2'"/>
+         <label class="aui-label aui-label-danger">已退款</label>
+        </if>
+    </div>
+    </foreach>
+</body>
+</html>

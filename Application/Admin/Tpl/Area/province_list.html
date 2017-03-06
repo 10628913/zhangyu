@@ -1,0 +1,98 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-header">
+            地区管理
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<div class="tree-view-menu-list font-16">
+					<ul class="font-16">
+						<!-- 省 -->
+						<foreach name="provinceList" item="v">
+						<li class="openable">
+							<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>{$v['name']}</a>
+							<!-- 市 -->
+							<if condition="$v['cityList']">
+							<ul class="subtree">
+								<foreach name="v['cityList']" item="r">
+								<li class="openable last-link">
+									<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>{$r['name']}</a>
+									<!-- 区 -->
+									<if condition="$r['districtList']">
+									<ul class="subtree last-subtree">
+										<foreach name="r['districtList']" item="k">
+										<li class="openable">
+											<a href="#"><i class="fa fa-file m-right-xs"></i>{$k['name']}</a>
+										</li>
+										</foreach>
+									</ul>
+									</if>
+								</li>
+								</foreach>
+							</ul>
+							</if>
+						</li>
+						</foreach>
+					</ul>
+				</div>
+				<!-- <table class="table table-striped" id="dataTable">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>名称</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="provinceList" item="v">
+						<tr id="data-{$v['id']}">
+							<td>{$v['id']}</td>
+							<td>{$v['name']}</td>
+							<td>
+								<a href="__CONTROLLER__/cityLists/provinceId/{$v['id']}" class="btn btn-warning btn-xs" >查看市</a>
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table> -->
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function()	{
+		$('.tree-view-menu-list .openable a').click(function()	{
+
+			var parentElm = $(this).parent();
+
+			parentElm.toggleClass('open');
+
+			parentElm.children('.subtree').slideToggle(200);
+
+			return false;
+		});
+	});
+	function menuDelete(id){
+		DMS.dialog("确定要删除当前菜单吗?",function(){
+			$.ajax({
+	            type : "POST",
+	            url:"__CONTROLLER__/menuDelete",
+	            data : {id:id},
+	            dataType: 'json',
+	            cache: false,
+	            success : function(ret, status) {
+	                if(ret.status==1){
+	                	DMS.success(ret.info,0,function(){
+	                		window.location.href = window.location.href;
+						});
+	                }else{
+	                	DMS.error(ret.info,0);
+	                }
+	            },
+	            error: function(){
+	            	DMS.error("操作失败",0);
+	            }
+	        });
+		});
+	}
+</script>

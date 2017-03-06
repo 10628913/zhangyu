@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        #search +*{
+            padding-top: 5.2rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+        #search{
+            position: fixed;
+            top: 2.3rem;
+            left: 0;
+            width: 100%;
+        }
+		.aui-slide-page-active {
+		    background: #df3031;
+		}
+		.aui-content {
+			background: #ffffff;
+		}
+		.price {
+			line-height: 1.2rem;
+			font-size: 0.7rem !important;
+			color: #ff6600 !important;
+		}
+		.house-address {
+			font-size: 0.6rem;
+			margin: 0.25rem 0;
+		}
+		.house-address .aui-iconfont {
+			font-size: 0.7rem;
+		}
+		.house-tags {
+			width: 100%;
+		}
+		.house-tag {
+			padding: 0.1rem  0.5rem;
+			display: inline-block;
+			font-size: 0.6rem;
+			margin-bottom: 0.2rem;
+		}
+		.house-tag.aui-tag-info {
+			color: #9ccc65;
+		}
+		.aui-border.aui-tag-info:after {
+		    border:1px solid #9ccc65;
+		    border-radius: 0.2rem;
+		}
+		.house-nav {
+			padding: 0.75rem 0;
+			overflow: hidden;
+			text-align: center;
+		}
+		.house-nav .aui-iconfont {
+			width: 2.2rem;
+			height: 2.2rem;
+			color: #ffffff;
+			/*padding: 0.5rem;*/
+			display: block;
+			margin: 0 auto;
+			line-height: 2.2rem;
+			border-radius: 50%;
+			font-size: 1.2rem;
+			margin-bottom: 0.5rem;
+		}
+		.house-nav p {
+			font-size: 0.6rem;
+			color: #666;
+		}
+		.aui-content.room,
+		.aui-content.relation {
+			padding: 0.75rem 0 0 0;
+		}
+		h2.title {
+			color: #d43d3d;
+			/*border-left:2px solid #df3031;*/
+			/*padding-left: 0.5rem;*/
+			font-size: 0.7rem;
+			margin: 0 0.75rem;
+			margin-bottom: 0.5rem;
+            box-sizing: border-box;
+		    display: -webkit-box;
+		    display: -webkit-flex;
+		    display: flex;
+		    -webkit-box-pack: justify;
+		    -webkit-justify-content: space-between;
+		            justify-content: space-between;
+		}
+		.title-left {
+			display: inherit;
+			-webkit-align-items: center;
+		            align-items: center;
+		}
+		h2.title i.aui-iconfont {
+			font-size: 0.9rem !important;
+			margin-right: 0.3rem;
+		}
+		h2.title .title-right .aui-iconfont {
+			color: #999999;
+		}
+        input[type="text"]{
+            padding: 0;
+            min-height:32px;
+        }
+        .no-data {
+            width: 100%;
+            margin-top: 30px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .no-data img {
+            width: 80%;
+            margin: 0 auto;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">房源搜索</div>
+    </header>
+    <section class="aui-searchbar-wrap demo" id="search">
+        <div class="aui-searchbar aui-border-radius" tapmode onclick="doSearch()">
+            <i class="aui-iconfont aui-icon-search"></i>
+            <div class="aui-searchbar-text">请输入搜索内容</div>
+            <div class="aui-searchbar-input">
+                <form action="javascript:search();">
+                <input type="text" placeholder="请输入搜索内容" id="search-input">
+                </form>
+            </div>
+            <i class="aui-iconfont aui-icon-roundclosefill" tapmode onclick="clearInpu()"></i>
+        </div>
+        <div class="aui-searchbar-cancel aui-text-info" tapmode onclick="cancelSearch()">取消</div>
+    </section>
+
+    <div class="aui-content">
+        <ul class="aui-list aui-media-list aui-list-noborder" id="building-list">
+        	<div class="no-data"><img src="../../image/no_building_data.png" /></div>
+        </ul>
+    </div>
+</body>
+<script id="building-list-tpl" type="text/x-dot-template">
+    {{ for(var i in it) { }}
+    <li class="aui-list-item" tapmode onclick="openHouseDetail({{=it[i].building_id}})">
+        <div class="aui-list-item-media">
+            <img src="../../image/image_loading_3.png" data-echo="{{=it[i].building_thumb}}">
+        </div>
+        <div class="aui-list-item-inner">
+            <div class="aui-list-item-title-row">
+                <div class="aui-list-item-title">{{=it[i].building_name}}</div>
+                {{? it[i].building_price_overall && it[i].building_price_overall > 0}}
+                <div class="aui-list-item-right price">{{=it[i].building_price_overall}}万元/套</div>
+                {{??}}
+                <div class="aui-list-item-right price">待定</div>
+                {{?}}
+            </div>
+            <div class="aui-list-item-text aui-ellipsis-2">
+                {{=it[i].building_area_name}}
+            </div>
+            {{? it[i].tags}}
+            <div class="aui-list-item-text">
+                {{for(var ii in it[i].tags){ }}
+                <div class="house-tag aui-border aui-tag-info">{{=it[i].tags[ii]}}</div>
+                {{ } }}
+            </div>
+            {{? }}
+            <div class="aui-list-item-text aui-text-warning aui-ellipsis-2">
+                {{=it[i].building_discount}}
+            </div>
+        </div>
+    </li>
+    {{ } }}
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript">
+    var a={};
+    a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+    a.time = 2;
+
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+
+    function closeWin(){
+        window.history.go(-1);
+    }
+
+    function openHouseDetail(building_id){
+        window.location.href='house_detail.html?building_id='+building_id;
+    }
+    function doSearch(){
+        $api.addCls($api.dom(".aui-searchbar-wrap"),"focus");
+        $api.dom('.aui-searchbar-input input').focus();
+    }
+    function cancelSearch(){
+        $api.removeCls($api.dom(".aui-searchbar-wrap.focus"),"focus");
+        $api.val($api.byId("search-input"),'');
+        $api.dom('.aui-searchbar-input input').blur();
+    }
+    function clearInput(){
+        $api.val($api.byId("search-input"),'');
+    }
+    function search(){
+        var content = $api.val($api.byId("search-input"));
+        if(!content){
+            a.content = "请输入搜索内容";
+            layer.open(a);
+            return;
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getBuilding',
+           data: "building_keywords="+content,
+           success: function(ret){
+               if(ret.code == '1'){
+                   var tpl = document.getElementById("building-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   for(var i =0;i<ret.data.length;i++){
+                       if(ret.data[i].tags){
+                           ret.data[i].tags = ret.data[i].tags.split(",");
+                       }
+                   }
+                   document.getElementById("building-list").innerHTML = tempFn(ret.data);
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250
+                   });
+               }else {
+                   document.getElementById("building-list").innerHTML = '<div class="no-data"><img src="../../image/no_building_data.png" /></div>';
+               }
+           }
+        });
+        cancelSearch();
+    }
+</script>
+</html>

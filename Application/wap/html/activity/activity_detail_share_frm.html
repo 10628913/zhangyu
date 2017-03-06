@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+        .share-box {
+            background: transparent;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: end;
+            -webkit-align-items: flex-end;
+                    align-items: flex-end;
+        }
+        .aui-mask {
+            -webkit-animation: fadeIn .3s ease both;
+                    animation: fadeIn .3s ease both;
+        }
+        .share-box {
+            background: #ffffff;
+            padding: 0.75rem 0;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            -webkit-animation: fadeInUp .3s ease both;
+                    animation: fadeInUp .3s ease both;
+        }
+        .share-box p {
+            font-size: 0.6rem;
+            color: #666;
+        }
+        .share-box .aui-iconfont {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .share-box .share-inner {
+            width: 100%;
+            overflow: hidden;
+        }
+        .share-box .share-close {
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .share-box .share-close .aui-iconfont {
+            font-size: 1rem;
+            color: #999;
+            padding: 0.5rem;
+            background-color: #f4f4f4;
+            border-radius: 50%;
+        }
+        @-webkit-keyframes fadeInUp {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 100%, 0);
+                        transform: translate3d(0, 100%, 0);
+            }
+            to {
+                bottom: 0;
+                opacity: 1;
+                -webkit-transform: none;
+                        transform: none;
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 100%, 0);
+                        transform: translate3d(0, 100%, 0);
+            }
+            to {
+                opacity: 1;
+                -webkit-transform: none;
+                        transform: none;
+            }
+        }
+        @-webkit-keyframes fadeOutDown {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 100%, 0);
+                transform: translate3d(0, 100%, 0);
+            }
+        }
+
+        @keyframes fadeOutDown {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 100%, 0);
+                transform: translate3d(0, 100%, 0);
+            }
+        }
+        .share-inner img{
+            width:40%;
+        }
+        .share-inner p{
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="share-box">
+        <div class="aui-mask" tapmode onclick="closeFrm()"></div>
+        <div class="share-box aui-text-center">
+           <div class="share-inner">
+                <div class="aui-col-xs-5">
+                    <img src="../../image/pengyouquan.png">
+                    <p>朋友圈</p>
+                </div>
+                <div class="aui-col-xs-5">
+                    <img src="../../image/weixin.png">
+                    <p>微信</p>
+                </div>
+                <div class="aui-col-xs-5">
+                    <img src="../../image/qq.png">
+                    <p>QQ</p>
+                </div>
+                <div class="aui-col-xs-5">
+                    <img src="../../image/kongjian.png">
+                    <p>QQ空间</p>
+                </div>
+                <div class="aui-col-xs-5">
+                    <img src="../../image/weibo.png">
+                    <p>微博</p>
+                </div>
+                <div class="aui-col-xs-5">
+                    <img src="../../image/duanxin.png">
+                    <p>短信分享</p>
+                </div>
+            </div>
+            <div class="share-close aui-border-t">
+                <i class="aui-iconfont aui-icon-close" tapmode onclick="closeFrm()"></i>
+            </div>
+        </div>
+    </section>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+    };
+    document.querySelector(".aui-mask").addEventListener("touchstart", function(event){
+        event.preventDefault();
+        closeFrm();
+    })
+    // close share
+    function closeFrm(){
+        document.querySelector(".aui-mask").style.webkitAnimation =
+        document.querySelector(".aui-mask").style.animation = 'fadeOut .3s ease both';
+        document.querySelector(".share-box").style.webkitAnimation =
+        document.querySelector(".share-box").style.animation = 'fadeOutDown .3s ease both';
+        setTimeout(function(){
+            api.closeFrame({
+            });
+        }, 300)
+    }
+</script>
+</html>

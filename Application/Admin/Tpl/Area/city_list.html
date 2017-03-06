@@ -1,0 +1,59 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-header">
+            <a href="javascript:history.go(-1)" class="btn btn-xs btn-success"><i class="fa fa-chevron-left"></i></a> 地区管理
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<div class="alert alert-success alert-custom alert-dismissible" role="alert">
+			    	当前城市:<strong class="text-danger">{$provinceData['name']}</strong>
+			    </div>
+				<table class="table table-striped" id="dataTable">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>名称</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="cityList" item="v">
+						<tr id="data-{$v['id']}">
+							<td>{$v['id']}</td>
+							<td>{$v['name']}</td>
+							<td>
+								<a href="__CONTROLLER__/districtLists/cityId/{$v['id']}" class="btn btn-warning btn-xs" >查看区</a>
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function menuDelete(id){
+		DMS.dialog("确定要删除当前菜单吗?",function(){
+			$.ajax({
+	            type : "POST",
+	            url:"__CONTROLLER__/menuDelete",
+	            data : {id:id},
+	            dataType: 'json',
+	            cache: false,
+	            success : function(ret, status) {
+	                if(ret.status==1){
+	                	DMS.success(ret.info,0,function(){
+	                		window.location.href = window.location.href;
+						});
+	                }else{
+	                	DMS.error(ret.info,0);
+	                }
+	            },
+	            error: function(){
+	            	DMS.error("操作失败",0);
+	            }
+	        });
+		});
+	}
+</script>

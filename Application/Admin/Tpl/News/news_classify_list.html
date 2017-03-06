@@ -1,0 +1,166 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="paddingTLR-md">
+			<a href="#" class="btn btn-xs btn-info">管理</a>
+			<a href="__CONTROLLER__/newsClassifyAdd" class="btn btn-xs">添加新闻分类</a>
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<table class="table table-striped table-hover table-bordered" id="dataTable">
+					<thead>
+						<tr>
+							<th>排序</th>
+							<th>ID</th>
+							<th>名称</th>
+							<th>描述</th>
+							<th>是否显示</th>
+							<!-- <th>推荐</th> -->
+							<!-- <th>审核后</th> -->
+							<!-- <th>评论</th>
+							<th>分享</th>
+							<th>点赞</th> -->
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+						<tr id="data-{$v['classify_id']}">
+							<td>{$v['classify_sort']}</td>
+							<td>{$v['classify_id']}</td>
+							<td>{$v['classify_name']}</td>
+							<td>{$v['classify_description']}</td>
+							<td>
+								<if condition="$v['is_display'] eq 1">
+								<span class="label label-success">是</span>
+								<else />
+								<span class="label label-danger">否</span>
+								</if>
+							</td>
+							<!-- <td>
+								<if condition="$v['is_recommend'] eq 1">
+								<span class="label label-success">是</span>
+								<else />
+								<span class="label label-danger">否</span>
+								</if>
+							</td> -->
+							<!-- <td>
+								<switch name="v.after_audit_operation" >
+									<case value="1" ><span class="label label-success">默认</span></case>
+									<case value="2" ><span class="label label-info">不能修改删除</span></case>
+									<case value="3" ><span class="label label-warning">修改后退回</span></case>
+									<case value="4" ><span class="label label-danger">修改后不变</span></case>
+								</switch>
+							</td> -->
+							<!-- <td>
+								<switch name="v.auth_comment" >
+									<case value="1" ><span class="label label-success">游客评论</span></case>
+									<case value="2" ><span class="label label-info">登陆评论</span></case>
+									<case value="3" ><span class="label label-danger">不可评论</span></case>
+								</switch>
+							</td>
+							<td>
+								<switch name="v.auth_share" >
+									<case value="1" ><span class="label label-success">允许</span></case>
+									<case value="0" ><span class="label label-danger">不允许</span></case>
+								</switch>
+							</td>
+							<td>
+								<switch name="v.auth_thumbs" >
+									<case value="1" ><span class="label label-success">允许</span></case>
+									<case value="0" ><span class="label label-danger">不允许</span></case>
+								</switch>
+							</td> -->
+							<td>
+								<a href="__CONTROLLER__/newsClassifyAdd/pid/{$v['classify_id']}"><i class="fa fa-plus m-right-xs"></i>添加子分类</a>&nbsp;|&nbsp;
+								<a href="__CONTROLLER__/newsClassifyEdit/id/{$v['classify_id']}" style="color: #23b7e5;"><i class="fa fa-pencil-square-o m-right-xs"></i>编辑</a>&nbsp;|&nbsp;
+								<a href="javascript:newsClassifyDelete({$v['classify_id']})" style="color: #f03939;"><i class="fa fa-trash-o m-right-xs"></i>删除</a>
+							</td>
+						</tr>
+						<php>if($v['children']){</php>
+							<foreach name="v['children']" item="r">
+								<tr id="data-{$r['classify_id']}">
+									<td>{$r['classify_sort']}</td>
+									<td>{$r['classify_id']}</td>
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├&nbsp;&nbsp;{$r['classify_name']}</td>
+									<td>{$r['classify_description']}</td>
+									<td>
+										<if condition="$v['is_display'] eq 1">
+										<span class="label label-success">是</span>
+										<else />
+										<span class="label label-danger">否</span>
+										</if>
+									</td>
+									<!-- <td>
+										<if condition="$r['is_recommend'] eq 1">
+										<span class="label label-success">是</span>
+										<else />
+										<span class="label label-danger">否</span>
+										</if>
+									</td> -->
+									<!-- <td>
+										<switch name="r.after_audit_operation" >
+											<case value="1" ><span class="label label-success">默认</span></case>
+											<case value="2" ><span class="label label-info">不能修改删除</span></case>
+											<case value="3" ><span class="label label-warning">修改后退回</span></case>
+											<case value="4" ><span class="label label-danger">修改后不变</span></case>
+										</switch>
+									</td>
+									<td>
+										<switch name="r.auth_comment" >
+											<case value="1" ><span class="label label-success">游客评论</span></case>
+											<case value="2" ><span class="label label-info">登陆评论</span></case>
+											<case value="3" ><span class="label label-danger">不可评论</span></case>
+										</switch>
+									</td>
+									<td>
+										<switch name="r.auth_share" >
+											<case value="1" ><span class="label label-success">允许</span></case>
+											<case value="0" ><span class="label label-danger">不允许</span></case>
+										</switch>
+									</td>
+									<td>
+										<switch name="r.auth_thumbs" >
+											<case value="1" ><span class="label label-success">允许</span></case>
+											<case value="0" ><span class="label label-danger">不允许</span></case>
+										</switch>
+									</td> -->
+									<td>
+										<a href="__CONTROLLER__/newsClassifyEdit/id/{$r['classify_id']}" style="color: #23b7e5;"><i class="fa fa-pencil-square-o m-right-xs"></i>编辑</a>&nbsp;|&nbsp;
+										<a href="javascript:newsClassifyDelete({$r['classify_id']})" style="color: #f03939;"><i class="fa fa-trash-o m-right-xs"></i>删除</a>
+									</td>
+								</tr>
+							</foreach>
+						<php>}</php>
+						</foreach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function menuAdd(pid){
+		if(pid){
+			DMS.ajaxShow("新增菜单","__CONTROLLER__/menuAdd/pid/"+pid);
+		}else{
+			DMS.ajaxShow("新增菜单","__CONTROLLER__/menuAdd");
+		}
+
+	}
+	function newsClassifyEdit(id){
+		DMS.ajaxShow("类型编辑","__CONTROLLER__/newsClassifyEdit/id/"+id);
+	}
+	function newsClassifyDelete(id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/newsClassifyDelete",{id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

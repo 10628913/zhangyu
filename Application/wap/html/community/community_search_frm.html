@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        html,body{
+            background-color: #fff;
+        }
+        .aui-flex-col img{
+            border-radius: 50%;
+            width: 80%;
+        }
+      .aui-flex-col .aui-flex-item-8 >div:last-child{
+            color: #999;
+            font-size: 0.6rem;
+        }
+        li.aui-flex-col{
+            padding: 0.6rem 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <ul class="aui-content">
+        <li class="aui-flex-col aui-border-b">
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                <img src="../../image/icon03.png">
+            </div>
+            <div class="aui-flex-item-8 aui-flex-row aui-flex-middle">
+                <div>房产圈</div>
+                <div>汇集房产界各路大神,群英荟萃</div>
+            </div>
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right">
+                <span class="aui-iconfont aui-icon-plus"></span>
+            </div>
+        </li> 
+        <li class="aui-flex-col aui-border-b">
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                <img src="../../image/icon04.png">
+            </div>
+            <div class="aui-flex-item-8 aui-flex-row aui-flex-middle">
+                <div>电影圈</div>
+                <div>汇集房产界各路大神,群英荟萃</div>
+            </div>
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right">
+                <span class="aui-iconfont aui-icon-plus"></span>
+            </div>
+        </li>   
+        <li class="aui-flex-col aui-border-b">
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                <img src="../../image/icon07.png">
+            </div>
+            <div class="aui-flex-item-8 aui-flex-row aui-flex-middle">
+                <div>二手房</div>
+                <div>汇集房产界各路大神,群英荟萃</div>
+            </div>
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right">
+                <span class="aui-iconfont aui-icon-plus"></span>
+            </div>
+        </li>   
+        <li class="aui-flex-col aui-border-b">
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle">
+                <img src="../../image/icon01.png">
+            </div>
+            <div class="aui-flex-item-8 aui-flex-row aui-flex-middle">
+                <div>最新楼市交流圈</div>
+                <div>汇集房产界各路大神,群英荟萃</div>
+            </div>
+            <div class="aui-flex-item-2 aui-flex-col aui-flex-middle aui-flex-right">
+                <span class="aui-iconfont aui-icon-plus"></span>
+            </div>
+        </li>
+        <div class="aui-line-x"></div>     
+    </ul>
+    
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+   
+    apiready = function () {
+        api.parseTapmode();
+    }
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+
+     function openWin(name){
+        var delay = 0;
+        if(api.systemType != 'ios'){
+            delay = 300;
+        }
+        api.openWin({
+            name: name,
+            url: name+'.html',
+            bounces: false,
+            delay:delay
+            // pageParam: {key : 'value'}
+            
+        })
+    }
+</script>
+</body>
+</html>

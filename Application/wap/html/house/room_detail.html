@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css" />
+	<style>
+    .aui-bar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #df3031;
+        color: #fff;
+    }
+    .aui-bar +*{
+        padding-top: 2.5rem !important;
+    }
+    .aui-content {
+            overflow: hidden;
+            background: #ffffff;
+        }
+        .room-info {
+            padding: 0.75rem 0;
+        }
+        .room-info .room-title {
+            line-height: 1.5rem;
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            padding: 0 0.75rem;
+        }
+        .room-info .room-title small {
+            font-size: 0.7rem;
+            color: #999999;
+        }
+        .room-info .room-param {
+            padding-top: 0.5rem;
+        }
+        .room-param-item {
+            height: 1.5rem;
+            line-height: 1.5rem;
+            font-size: 0.8rem;
+            padding: 0 0.75rem;
+            color: #666;
+        }
+        /**/
+        .aui-content.room-desc {
+            background: #ffffff;
+            padding: 0.75rem 0;
+        }
+
+        .room-desc-inner {
+            width: 100%;
+            position: relative;
+            padding-top: 0.5rem;
+        }
+        .room-desc-item {
+            height: 1.5rem;
+            line-height: 1.5rem;
+            padding: 0 0.75rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        /**/
+        .aui-content.room-nav {
+            background: #ffffff;
+            padding: 0.75rem 0;
+        }
+        .room-nav i.aui-iconfont {
+            width: 3rem;
+            height: 3rem;
+            line-height: 3rem;
+            text-align: center;
+            display: block;
+            border-radius: 1.5rem;
+            margin: 0 auto;
+            font-size: 1.4rem;
+            color: #ffffff;
+        }
+        .room-nav p {
+            margin-top: 0.25rem;
+            color: #666666;
+        }
+        /**/
+        .comment-list {
+            padding-top: 0.75rem;
+        }
+        .comment-list .aui-list .aui-list-item-title {
+            font-size: 0.7rem;
+        }
+        .comment-list .aui-list .aui-list-item-text {
+            font-size: 0.6rem;
+        }
+        .comment-list .aui-list p {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #333;
+        }
+        .comment-list .aui-iconfont {
+            font-size: 0.8rem !important;
+        }
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+        /**/
+        h2.title {
+            color: #df3031;
+            border-left:2px solid #df3031;
+            padding-left: 0.5rem;
+            font-size: 0.8rem;
+            margin: 0 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .more {
+            padding: 0.75rem 0;
+            font-size: 0.6rem;
+            text-align: center;
+            color: #999;
+        }
+        .bg-1 {
+            background-color: #f080a2;
+        }
+        .bg-2 {
+            background-color: #78909c;
+        }
+        .bg-3 {
+            background-color: #9ccc65;
+        }
+        .bg-4 {
+            background-color: #29b6f6;
+        }
+        .bg-5 {
+            background-color: #ab47bc;
+        }
+        .no-comment-data img {
+            max-width: 50%;
+            margin: 0 auto;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">户型详情</div>
+    </header>
+
+    <div class="room-detail" id="room-detail"></div>
+
+    <section class="aui-content room-nav">
+        <div class="aui-flex-col aui-text-center">
+            <div class="aui-flex-item-4" tapmode onclick="openReserve()">
+                <i class="aui-iconfont aui-icon-sofa bg-1"></i>
+                <p>预约看房</p>
+            </div>
+            <div class="aui-flex-item-4" tapmode onclick="openLoan()">
+                <i class="aui-iconfont aui-icon-calculator bg-3"></i>
+                <p>房贷计算</p>
+            </div>
+            <div class="aui-flex-item-4" tapmode onclick="openRoomDetailCommentAdd()">
+                <i class="aui-iconfont aui-icon-comment bg-4"></i>
+                <p>我来点评</p>
+            </div>
+        </div>
+    </section>
+    <script id="room-detail-tpl" type="text/x-dot-template">
+        {{? it.house_photos}}
+        <section id="aui-slide">
+            <div class="aui-slide-wrap" >
+                {{for(var i in it.house_photos){}}
+                <div class="aui-slide-node">
+                    <img src="../../image/image_loading_2.png" data-echo="{{=it.house_photos[i]}}" />
+                </div>
+                {{ } }}
+            </div>
+            <div class="aui-slide-page-wrap"><!--分页容器--></div>
+        </section>
+        {{?}}
+        <section class="aui-content room-info">
+            <div class="room-title">
+                {{=it.house_name}}
+                <small class="aui-pull-right">{{=it.house_style_name}}</small>
+            </div>
+            <div class="room-param aui-border-t">
+                <div class="aui-flex-col room-param-item">
+                    <div class="aui-flex-item-2">总价：</div>
+                    <div class="aui-flex-item-4 aui-text-danger">{{=it.house_price}}元/㎡{{?it.house_price_type}}{{??}}元/套{{?}}</div>
+                    <div class="aui-flex-item-2">朝向：</div>
+                    <div class="aui-flex-item-4">{{=it.house_direction}}</div>
+                </div>
+                <div class="aui-flex-col room-param-item">
+                    <div class="aui-flex-item-2">面积：</div>
+                    <div class="aui-flex-item-4">{{=it.house_acreage}}㎡</div>
+                    <div class="aui-flex-item-2">首付：</div>
+                    <div class="aui-flex-item-4">{{=it.house_down_pay}}</div>
+                </div>
+                <div class="aui-flex-col room-param-item">
+                    <div class="aui-flex-item-2">月供：</div>
+                    <div class="aui-flex-item-4">{{=it.house_month_pay}}</div>
+                </div>
+            </div>
+        </section>
+        <section class="aui-content room-desc">
+            <h2 class="title">户型描述</h2>
+            <div class="room-desc-inner aui-border-t" style="padding:0.75rem; color:#666666">
+            {{=it.house_description}}
+            </div>
+        </section>
+    </script>
+    <!-- 评论模板 -->
+    <script id="building-comment-tpl" type="text/x-dot-template">
+        {{for(var i in it){}}
+        <li class="aui-list-item" tapmode onclick="openCommentReply({{=it[i].comment_id}})">
+            <div class="aui-list-item-media" >
+                <img src="{{=it[i].avatar}}" class="aui-list-img-round aui-list-img-sm">
+            </div>
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title-row">
+                    <div class="aui-list-item-title aui-text-info">{{=it[i].nickname}}</div>
+                    <div class="aui-list-item-right">
+                        <i class="aui-iconfont aui-icon-laud"></i> {{=it[i].thumbs_count}}
+                    </div>
+                </div>
+                <div class="aui-list-item-text">{{? it.city}}{{=it.city}}{{?}} {{=it[i].comment_time}}</div>
+                <p>{{=it[i].comment_content}}</p>
+                {{? it[i].child}}
+                <div class="aui-list-item-text comment-info">
+                    {{=it[i].childCount}}条回复
+                    <span class="aui-iconfont aui-icon-right"></span>
+                </div>
+                <div class="aui-list-item-text comment-content">
+                    {{ for (var ii in it[i].child){}}
+                    <div class="comment-item">
+                        <span>{{=it[i].child[ii].nickname}}:</span>
+                        <span>{{=it[i].child[ii].comment_content}}</span>
+                    </div>
+                    {{} }}
+                </div>
+                {{?}}
+            </div>
+        </li>
+        {{ } }}
+    </script>
+    <!-- 评论列表 -->
+    <div class="aui-content relation comment-list">
+        <h2 class="title">热门点评</h2>
+        <ul class="aui-list aui-media-list" id="building-comment-list"></ul>
+        <div class="more" id="comment-more" tapmode onclick="openRoomCommentAll()">查看更多</div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var building_id = $.getUrlParam("building_id");
+    var house_id = $.getUrlParam("house_id");
+    $(function(){
+        getRoomData();
+        getRoomComment();
+    });
+    // 获取户型点评
+    function getRoomComment(){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getCommentList',
+           data: "building_id="+building_id+"&house_id="+house_id+"&pageSize=3",
+           success: function(ret){
+               if(ret.code == '1'){
+                   var tpl = document.getElementById("building-comment-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("building-comment-list").innerHTML = tempFn(ret.data);
+                   document.querySelector("#comment-more").classList.remove("aui-hide");
+                   document.querySelector("#comment-more").textContent = "查看更多 ("+ret.commentCount+")";
+               }else if(ret.code == '-1'){
+                   document.getElementById("building-comment-list").innerHTML = '<div class="aui-padded-15 aui-text-center no-comment-data"><img src="../../image/no_comment_data.png" /></div>'
+               }
+           }
+        });
+    }
+    // 获取户型详情
+    function getRoomData(){
+        var tpl = document.getElementById("room-detail-tpl").innerHTML;
+        var tempFn = doT.template(tpl);
+        if($api.getStorage("roomDetailData-"+house_id)){
+            var roomDetailData = $api.getStorage("roomDetailData-"+house_id);
+            document.getElementById("room-detail").innerHTML = tempFn(roomDetailData);
+            Echo.init({
+                offset: 0,
+                throttle: 250
+            });
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getHouseDetail',
+           data: "house_id="+house_id,
+           success: function(ret){
+               if(ret.code == '1'){
+                   $api.setStorage("roomDetailData-"+house_id,ret.data);
+                   document.getElementById("room-detail").innerHTML = tempFn(ret.data);
+                   var slide = new auiSlide({
+                       container:document.getElementById("aui-slide"),
+                       // "width":300,
+                       "height":200,
+                       "speed":300,
+                       "pageShow":true,
+                       "pageStyle":'dot',
+                       "loop":true,
+                       'dotPosition':'center'
+                   })
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250,
+                       unload: false
+                   });
+               }
+           }
+        });
+    }
+    function openReserve(){
+        var token = $api.getStorage("token");
+        if(!token){
+            openLogin();
+            return;
+        }
+        window.location.href='house_reserve.html?building_id='+building_id+"&house_id="+house_id;
+    }
+    function openLogin(){
+        $api.setStorage("loginFrom","house/room_detail.html?building_id="+building_id+"&house_id="+house_id);
+        window.location.href="../login.html";
+    }
+    //房贷计算
+    function openLoan(){
+        window.location.href='house_loan.html';
+    }
+    //添加评论
+    function openRoomDetailCommentAdd(){
+        window.location.href='room_detail_comment_add.html?building_id='+building_id+'&house_id='+house_id;
+    }
+    //评论详情
+    function openCommentReply(comment_id){
+        window.location.href='room_comment_reply.html?building_id='+building_id+'&house_id='+house_id+'&comment_id='+comment_id;
+    }
+    //更多评论
+    function openRoomCommentAll(){
+        window.location.href='room_comment_all.html?building_id='+building_id+'&house_id='+house_id;
+    }
+    function closeWin(){
+        window.history.go(-1);
+    }
+
+</script>
+</html>

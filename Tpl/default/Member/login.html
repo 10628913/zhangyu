@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>商城系统-点萌科技</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	    <link href="{:C('CSS_PATH')}/bootstrap.min.css" rel="stylesheet">
+	    <link href="{:C('CSS_PATH')}/common.css" rel="stylesheet">
+		<link href="{:C('CSS_PATH')}/font-awesome.min.css" rel="stylesheet">
+		<script src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+	    <script src="{:C('JS_PATH')}/bootstrap.min.js" type="text/javascript"></script>
+	    <style type="text/css">
+		img.logo {
+			max-height: 60px;
+		}
+		.login-wrap {
+			background-color: #e93854;
+		}
+		.login-wrap > .container {
+			margin: 0 auto;
+		}
+		.login-form {
+			padding: 20px;
+		}
+		.login-box {
+			background-color: #ffffff;
+			padding: 20px;
+			min-height: 360px;
+		}
+		img.banner {
+			max-height: 400px;
+			float: right;
+		}
+	    </style>
+    </head>
+    <body class="overflow-hidden">
+		<header class="container m-top-lg">
+			<div class="row">
+				<div class="col-md-6">
+					<img src="{:C('IMAGE_PATH')}/logo_common.png" class="logo" />
+					<font class="font-18">商城演示系统</font>
+				</div>
+			</div>
+		</header>
+		<section class="container-fluid login-wrap m-top-md">
+			<div class="container row">
+				<div class="col-md-7">
+					<img src="{:C('IMAGE_PATH')}/login_banner.png" class="banner" />
+				</div>
+				<div class="col-md-5 login-form">
+					<div class="login-box">
+						<h3 class="no-margin">会员登录</h3>
+						<form action="" method="post">
+							<div class="input-group m-top-md">
+							  	<span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+							  	<input type="text" name="username" class="form-control" placeholder="用户名/手机号/邮箱">
+							</div>
+							<div class="input-group m-top-md">
+							  	<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+							  	<input type="password" name="password" class="form-control" placeholder="密码" >
+							</div>
+							<div class="text-left m-top-md">
+								<button type="submit" class="btn btn-info btn-lg btn-danger btn-block">登录</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

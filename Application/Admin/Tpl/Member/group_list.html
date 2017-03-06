@@ -1,0 +1,60 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-header">
+            用户组
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<a href="javascript:groupAdd()" class="btn btn-sm btn-info">增加用户组</a>
+				<table class="table table-striped table-bordered m-top-sm" id="dataTable">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>名称</th>
+							<th class="hidden-xs">描述</th>
+							<th>用户数</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+						<tr id="data-{$v['id']}">
+							<td>{$v['id']}</td>
+							<td>{$v['title']}</td>
+							<td class="hidden-xs">{$v['description']}</td>
+							<td>{$v['member_count']}</td>
+							<td>
+								<a href="javascript:groupEdit({$v['id']},'{$v['title']}');" class="btn btn-manager btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="编辑"><i class="fa fa-pencil"></i></a>
+								<if condition="$v['id'] gt 3">
+								<a href="javascript:groupDelete({$v['id']});" class="btn btn-manager btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-trash-o"></i></a>
+								</if>
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function groupAdd(){
+		DMS.ajaxShow("增加用户组","__CONTROLLER__/groupAdd")
+	}
+	function groupEdit(id,title){
+		DMS.ajaxShow("编辑用户组 - "+title,"__CONTROLLER__/groupEdit/id/"+id);
+	}
+	function groupDelete(id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/groupDelete",{id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

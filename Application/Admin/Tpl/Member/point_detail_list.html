@@ -1,0 +1,62 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-header">
+            积分明细
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<table class="table table-striped table-bordered m-top-sm" id="dataTable">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>用户</th>
+							<th>名称</th>
+							<th>方法</th>
+							<th>类型</th>
+							<th>数量</th>
+							<th>时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+						<tr id="data-{$v['id']}">
+							<td>{$v['id']}</td>
+							<td>用户ID：{$v['userid']}&nbsp;-&nbsp;{$v['nickname']}</td>
+							<td>{$v['title']}</td>
+							<td>{$v['method']}</td>
+							<td>
+								<if condition="$v['type'] eq 1">
+								<span class="text-success">增加</span>
+								<elseif condition="$v['type'] eq 2" />
+								<span class="text-danger">减少</span>
+								</if>
+							</td>
+							<td>{$v['count']}</td>
+							<td>{$v['addtime']||date="Y-m-d H:i:s",###}</td>
+							<td>
+								<a href="javascript:detailDelete({$v['id']});" class="btn btn-manager btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-trash-o"></i></a>
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function detailDelete(id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/pointDetailDelete",{id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

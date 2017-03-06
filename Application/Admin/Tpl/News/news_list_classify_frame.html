@@ -1,0 +1,46 @@
+<style type="text/css">
+a.active {
+	color: #2baab1;
+}
+</style>
+<div class="smart-widget widget-dark-blue" style="height:100%;margin:0;">
+	<div class="smart-widget-header">新闻分类</div>
+	<div class="tree-view-menu-list font-16">
+		<ul class="font-14">
+			<foreach name="newsClassifyList" item="v">
+			<li class="openable">
+				<a href="#" data-url="__CONTROLLER__/newsList/classify_id/{$v['classify_id']}" <if condition="$v['children']">data-children="1"<else />data-children="0"</if>>
+					<if condition="$v['children']">
+					<i class="fa fa-plus m-right-xs"></i>
+					<else />
+					<i class="fa fa-circle-o m-right-xs"></i>
+					</if>
+					{$v['classify_name']}
+				</a>
+				<if condition="$v['children']">
+					<ul class="subtree">
+						<foreach name="v['children']" item="r">
+						<li><a href="#" data-url="__CONTROLLER__/newsList/classify_id/{$r['classify_id']}" data-children="0"><i class="fa fa-circle-o m-right-xs"></i>{$r['classify_name']}</a></li>
+						</foreach>
+					</ul>
+				</if>
+			</li>
+			</foreach>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('.tree-view-menu-list .openable a').click(function()	{
+			$("li > a.active").removeClass("active");
+			$(this).addClass("active");
+			var parentElm = $(this).parent();
+			parentElm.toggleClass('open');
+			parentElm.children('.subtree').slideToggle(200);
+			if($(this).attr("data-children") == 0){
+				window.parent.$("#rightMain").attr('src',$(this).attr("data-url"));
+			}
+			return false;
+		});
+	})
+</script>

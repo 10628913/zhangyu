@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.1.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+
+    <style>
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+         .aui-bar .aui-iconfont{
+            color: #fff ;
+        }
+        .aui-title{
+            height: 45px;
+        }
+        .aui-bar-btn-item{
+            color: #fff;
+        }
+        .aui-bar-btn-item.active{
+            color: #df3031 !important;
+        }
+        .frm-conment{
+            overflow:hidden;
+            overflow-x:hidden;
+            overflow-y:hidden;
+            height:100%;
+            width:100%;
+            position:absolute;
+            top:0px;
+            left:0px;
+            right:0px;
+            bottom:0px;
+            padding-top:46px; 
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+     <header class="aui-bar aui-bar-nav aui-margin-b-15" id="header">
+        <a class="aui-pull-left aui-flex-col aui-flex-middle" tapmode onclick="openWin('../main')">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">
+            <div class="aui-bar aui-bar-btn aui-bar-btn-round ">
+                <div class="aui-bar-btn-item active btn1" tapmode onclick="openFrm(this,1)">看楼</div>
+                <div class="aui-bar-btn-item btn2" tapmode onclick="openFrm(this,2)">团购</div>
+            </div>
+        </div>
+    </header>
+    <iframe src="activity_frm.html"; frameborder="0" style="" height="100%" width="100% ;" class="frm-conment " style="display:none"></iframe>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    
+    function openFrm(obj,index){
+        var iframe = document.querySelector('iframe');
+        var url = '';
+          switch(index){
+            case 1:
+                url = 'activity_frm.html';
+            break;
+            case 2:
+               url = 'activity_frm_groupbuy.html';
+            break;
+        }
+        document.querySelector("iframe").setAttribute("src",url);
+        // 导航栏添加颜色
+        document.querySelector(".aui-bar-btn-item.active").classList.remove("active");
+        obj.classList.add("active");
+
+    }
+    function closeWin(){
+        window.history.go(-1); 
+    }
+    function openWin(name){
+        window.location.href=name+'.html'; 
+
+    }
+</script>
+</body>
+</html>

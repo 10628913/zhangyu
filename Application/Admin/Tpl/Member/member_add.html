@@ -1,0 +1,200 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="paddingTLR-md">
+			<a href="__CONTROLLER__/index" class="btn btn-xs">管理</a>
+			<a href="#" class="btn btn-xs btn-info">新增会员</a>
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<form class="form-horizontal m-top-sm" method="post" id="form">
+					<!-- <div class="form-group">
+						<label class="control-label col-md-3">账号</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control input-sm" name="info[username]" placeholder="" required>
+						</div>
+					</div> -->
+					<div class="form-group">
+						<label class="control-label col-md-3">手机号</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control input-sm" name="info[mobile]" placeholder="" autocomplete="off" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-md-3">登录密码</label>
+						<div class="col-md-5">
+							<input type="password" class="form-control input-sm" name="password" placeholder="" autocomplete="off" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">昵称</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control input-sm" name="info[nickname]" value="" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">性别</label>
+						<div class="col-md-5">
+							<div class="radio inline-block">
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="sex1" name="info[sex]" value="1" checked="">
+									<label for="sex1"></label>
+								</div>
+								<div class="inline-block vertical-top">男</div>
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="sex2" name="info[sex]" value="2" >
+									<label for="sex2"></label>
+								</div>
+								<div class="inline-block vertical-top">女</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-md-3">头像</label>
+						<div class="col-md-5">
+							<button type="button" class="btn btn-success btn-sm" id="selector">选取图片</button>
+							<button type="button" class="btn btn-warning btn-sm hide" id="upload">上传</button>
+							<span id="filepath"></span>
+							<input type="hidden" name="info[avatar]" />
+							<p class="m-top-sm"><img src="{:C('ADMIN_IMAGE_PATH')}/noimg.png" width="20%" id="avatar"/></p>
+						</div>
+					</div>
+					<!-- <div class="form-group">
+						<label class="control-label col-md-3">E-mail</label>
+						<div class="col-md-5">
+							<input type="email" class="form-control input-sm" name="info[email]">
+						</div>
+					</div> -->
+					<!-- <div class="form-group">
+						<label class="control-label col-md-3">经验值</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control input-sm" name="info[empiric]" value="0">
+						</div>
+					</div> -->
+					<div class="form-group">
+						<label class="control-label col-md-3">积分</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control input-sm" name="info[point]" value="0">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-md-3">签名</label>
+						<div class="col-md-5">
+							<textarea type="text" class="form-control input-sm" name="info[signature]"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">生日</label>
+						<div class="col-md-5">
+							<input type="date" class="form-control input-sm" name="info[birthday]">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">状态</label>
+						<div class="col-md-5">
+							<div class="radio inline-block">
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="islock1" name="info[islock]" value="1" checked="">
+									<label for="islock1"></label>
+								</div>
+								<div class="inline-block vertical-top">正常</div>
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="islock2" name="info[islock]" value="0" >
+									<label for="islock2"></label>
+								</div>
+								<div class="inline-block vertical-top">锁定</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="form-group">
+						<label class="control-label col-md-3">VIP</label>
+						<div class="col-md-5">
+							<div class="radio inline-block">
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="vip1" name="info[vip]" value="1">
+									<label for="vip1"></label>
+								</div>
+								<div class="inline-block vertical-top">是</div>
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="vip2" name="info[vip]" value="0" checked >
+									<label for="vip2"></label>
+								</div>
+								<div class="inline-block vertical-top">否</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="text-center m-top-md">
+						<button type="submit" class="btn btn-info">提交</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{:C('ADMIN_JS_PATH')}/jquery.validate.min.js" type="text/javascript"></script>
+<script src="{:C('ADMIN_JS_PATH')}/ajaxupload.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+        $("#form").validate({
+	        submitHandler:function(form){
+	            memberAdd();
+	        }
+	    });
+        // 创建一个上传参数
+        var uploadOption = {
+            // 提交目标
+            action: "/index.php?m=Attachment&c=Index&a=adminUploadOne",
+			// 服务端接收的名称
+			name: "file",
+            // 自动提交
+            autoSubmit: true,
+            // 选择文件之后…
+            onChange: function (file, extension) {
+                if (new RegExp(/(jpg)|(jpeg)|(gif)|(png)/i).test(extension)) {
+                	$("#upload").removeClass("hide");
+                    $("#filepath").text(file);
+                } else {
+                    DMS.alert("只限上传图片文件，请重新选择！");
+                }
+            },
+            // 开始上传文件
+            onSubmit: function (file, extension) {
+                $("#upload").text("正在上传");
+            },
+            // 上传完成之后
+            onComplete: function (file, response) {
+            	var response = JSON.parse(jQuery(response).text());
+            	if(response.status == 'success'){
+            		$("#upload").text("上传完成");
+            		$("[name='info[avatar]']").val(response.path);
+            		$("#avatar").attr("src",response.path);
+            	}
+            }
+        }
+
+        // 初始化图片上传框
+        var oAjaxUpload = new AjaxUpload('#selector', uploadOption);
+        // 给上传按钮增加上传动作
+        $("#upload").click(function (){
+            oAjaxUpload.submit();
+        });
+    })
+
+	function memberAdd() {
+		DMS.ajaxPost("__CONTROLLER__/memberAdd",$('#form').serialize(),function(ret){
+			if(ret.status==1){
+            	DMS.success("提交成功",0,function(){
+					if(ret.url){
+            			window.location.href = ret.url;
+            		}else{
+            			window.location.href = window.location.href;
+            		}
+				});
+            }else{
+            	DMS.error(''+ret.info+'',0);
+            }
+		})
+    }
+</script>

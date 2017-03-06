@@ -1,0 +1,171 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>活动报名</title>
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui-flex.css" />
+    <style type="text/css">
+        .body-bg {
+            position: relative;
+            background: url('{:C('IMAGE_PATH')}/bg.png') no-repeat #ffffff;
+            background-position: bottom;
+            background-size: 100%;
+            padding-bottom: 120px;
+        }
+        .aui-bar {
+            background-color: #998e78;
+            position: fixed;
+        }
+        #data {
+            position: relative;
+            /*top: 45px;*/
+        }
+        .activity-info {
+            color: #998e78;
+            border: 2px solid #e3ddd2;
+            border-radius: 4px;
+        }
+        div.aui-content {
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+        .aui-input-row .aui-input-addon {
+            /*width: ;*/
+            padding-left: 15px;
+            padding-right: 15px;
+            min-width: 100px !important;
+        }
+        .aui-btn-row.price {
+            padding: 10px 0 0 0;
+            font-size: 16px;
+            color: #666;
+        }
+        .aui-btn-row.price strong {
+            font-size: 20px;
+        }
+        .aui-btn-block {
+            padding: 8px 10px;
+        }
+    </style>
+</head>
+<body class="body-bg">
+    <!-- <div class="aui-bar aui-bar-nav " id="aui-header">活动报名</div> -->
+    <section class="aui-content" id="data">
+        <div class="aui-content  aui-padded-10">
+            <div class="activity-info aui-padded-10">
+                {$activityData['title']}
+                <p>活动时间：{$scheduleData['start_time']}</p>
+                <p>
+                    成人价：<span class="aui-text-warning">{$scheduleData['adult_price']}</span> 元/位&nbsp;&nbsp;
+                    儿童价：<span class="aui-text-warning">{$scheduleData['children_price']}</span> 元/位
+                </p>
+            </div>
+        </div>
+        <div class="aui-card">
+            <div class="aui-form">
+                <div class="aui-input-row">
+                    <label class="aui-input-addon">联系人姓名</label>
+                    <input type="text" class="aui-input" id="contact_name" placeholder="请输入联系人姓名" />
+                </div>
+                <div class="aui-input-row">
+                    <label class="aui-input-addon">联系人电话</label>
+                    <input type="number" class="aui-input" id="contact_mobile" placeholder="请输入联系人电话"/>
+                </div>
+                <div class="aui-input-row">
+                    <label class="aui-input-addon">成人数量</label>
+                    <select class="aui-input" id="adult_num">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                </div>
+                <div class="aui-input-row">
+                    <label class="aui-input-addon">儿童数量</label>
+                    <select class="aui-input" id="children_num">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                </div>
+                <div class="aui-btn-row price">
+                    总价: ￥<strong class="aui-text-danger" id="price" adult-price="{$scheduleData['adult_price']}" children-price="{$scheduleData['children_price']}">{$scheduleData['adult_price']}</strong> 元
+                </div>
+                <div class="aui-btn-row">
+                    <div class="aui-btn aui-btn-block aui-btn-success" onclick="activityApply()">提交支付</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+// var siteUrl = "http://localhost:8887/";
+var siteUrl = "http://nixiangyuan.apithink.com/";
+$(function(){
+    $("select#adult_num").get(0).onchange = countPrice;
+    $("select#children_num").get(0).onchange = countPrice;
+
+})
+function countPrice(){
+    var adultPrice = parseFloat($("#price").attr("adult-price"));
+    var childrenPrice = parseFloat($("#price").attr("children-price"));
+    var price = parseFloat($("#price").text());
+    var adultNum = $("select#adult_num").val();
+    var childrenNum = $("select#children_num").val();
+    var totalPrice = adultPrice*adultNum+childrenPrice*childrenNum;
+    $("#price").text(totalPrice);
+}
+function activityApply(){
+    var contactName = $("#contact_name").val();
+    var contactMobile = $("#contact_mobile").val();
+    var adultNum = $("select#adult_num").val();
+    var childrenNum = $("select#children_num").val();
+    var price = parseFloat($("#price").text());
+    if(!contactName){
+        alert("请输入联系人姓名");
+        return;
+    }
+    if(!contactMobile){
+        alert("请输入联系人电话");
+        return;
+    }
+    $.ajax({
+        type : "POST",
+        url: siteUrl+"?s=Wx/Activity/activityApply",
+        data : {
+            activityId:"{$activityData['id']}",
+            scheduleId:"{$scheduleData['schedule_id']}",
+            price:price,
+            contactName:contactName,
+            contactMobile:contactMobile,
+            adultNum:adultNum,
+            childrenNum:childrenNum
+        },
+        dataType: 'json',
+        cache: false,
+        success : function(ret, status) {
+            if(ret && ret.status == 1){
+                window.location.href = ret.url;
+            }
+        },
+        error: function(err){
+            alert("报名失败");
+        }
+    });
+}
+</script>
+</html>

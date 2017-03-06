@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+	<style>
+    body {
+        background: transparent;
+    }
+    .aui-mask {
+        -webkit-animation: fadeIn .3s ease both;
+                animation: fadeIn .3s ease both;
+        z-index: 1; 
+    }
+    .aui-popover {
+        -webkit-animation: fadeInDown .3s ease both;
+                    animation: fadeInDown .3s ease both;
+        z-index: 9999;        
+    }
+    @-webkit-keyframes fadeInDown {
+        from {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -50%, 0);
+                    transform: translate3d(0, -50%, 0);
+        }
+        to {
+            bottom: 0;
+            opacity: 1;
+            -webkit-transform: none;
+                    transform: none;
+        }
+    }
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -50%, 0);
+                    transform: translate3d(0, -50%, 0);
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: none;
+                    transform: none;
+        }
+    }
+	</style>
+</head>
+<body>
+    <div class="aui-mask"></div>
+    <div class="aui-popover aui-popover-top-right">
+        <div class="aui-popover-arrow"></div>
+        <div class="aui-popover-content">
+            <ul class="aui-list aui-list-noborder popover-list">
+                <li class="aui-list-item" tapmode data-type="collect"  status="-1" id="collection-btn">
+                    <div class="aui-list-item-media aui-list-item-middle">
+                        <i class="aui-iconfont aui-icon-star aui-text-warning"></i>
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-middle">
+                        收藏
+                    </div>
+                </li>
+                <li class="aui-list-item" tapmode data-type="follow" status="-1" id="like-btn">
+                    <div class="aui-list-item-media aui-list-item-middle">
+                        <i class="aui-iconfont aui-icon-like aui-text-danger"></i>
+                    </div>
+                    <div class="aui-list-item-inner">
+                        关注
+                    </div>
+                </li>
+                <li class="aui-list-item" tapmode data-type="share">
+                    <div class="aui-list-item-media aui-list-item-middle">
+                        <i class="aui-iconfont aui-icon-share aui-text-success"></i>
+                    </div>
+                    <div class="aui-list-item-inner">
+                        我要分享
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+    	api.parseTapmode();
+        document.querySelector(".aui-mask").addEventListener('touchstart', function(){
+            closeFrm();
+        })
+        var popoverItems = document.querySelectorAll(".popover-list > .aui-list-item");
+        for(var i in popoverItems){
+            popoverItems[i].onclick = function(e){
+                closeFrm();
+                var _type = e.target.offsetParent.getAttribute("data-type");
+                switch (_type) {
+                    case "collect":
+                        collection();
+                        break;
+                    case "share":
+                        api.openFrame({
+                            name: 'activity_detail_share_frm',
+                            url: 'activity_detail_share_frm.html',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                w: 'auto',
+                                h: 'auto'
+                            },
+                            bounces: false,
+                            vScrollBarEnabled: false,
+                            hScrollBarEnabled: false,
+                            animation:{
+                                type:"fade"
+                            }
+                        });
+                        break;
+                    case "follow":
+                        like();
+                        break;   
+                    default:
+                        // statements_def
+                        break;
+                }
+            }
+        }
+    };
+    function closeFrm(){
+        api.closeFrame({
+            name: 'activity_detail_popover_frm',
+            animation:{
+                type:"fade"
+            }
+        });
+    }
+        // collection
+    /*
+    * @param status -1 未收藏，0 动画正在进行，1=已经收藏
+    *
+    */
+    function collection(){
+        var status = document.getElementById("collection-btn").getAttribute("status");
+        switch (status) {
+            case '-1':
+                document.getElementById("collection-btn").setAttribute("status", 0);
+                api.sendEvent({
+                    name: 'collectionSuc2',
+                    extra: {
+                    }
+                });
+                setTimeout(function(){
+                    document.getElementById("collection-btn").setAttribute("status", '-1');
+                }, 1700)
+                break;
+            case '0':
+                return;
+                break;
+            case '1':
+                // statements_1
+                break;
+        }
+    }
+     function like(){
+        var status = document.getElementById("like-btn").getAttribute("status");
+        switch (status) {
+            case '-1':
+                document.getElementById("like-btn").setAttribute("status", 0);
+                api.sendEvent({
+                    name: 'likeSuc2',
+                    extra: {
+                    }
+                });
+                setTimeout(function(){
+                    document.getElementById("like-btn").setAttribute("status", '-1');
+                }, 1700)
+                break;
+            case '0':
+                return;
+                break;
+            case '1':
+                // statements_1
+                break;
+        }
+    }
+</script>
+</html>

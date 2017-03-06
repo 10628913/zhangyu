@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>my_data</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+        li.aui-flex-col{
+            padding:0.5rem 0.75rem;
+            background-color: #fff;
+        }
+        .aui-flex-item-2 img{
+            width: 90%;
+            border-radius: 50%;
+        }
+        .nickname{
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .user-msg{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .aui-flex-item-3 .aui-btn{
+            background-color: #fff;
+            color: #78BFF7;
+            border-color: #78BFF7;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.7rem;
+        }
+        .aui-btn.end{
+            color: #ccc;
+            border-color: #ccc;
+        }
+        /**/
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-content{
+            padding-top: 46px;
+        }
+        .loading-data,
+        .no-data {
+            width: 100%;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .loading-data img,
+        .no-data img {
+            width: 60%;
+            margin: 2rem auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar" id="header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">我的粉丝</div>
+    </header>
+    <section class="aui-content" style="margin-bottom: 0;">
+       <ul class="" id="list">
+           <div class="loading-data">
+               <img src="../../image/loading.png" />
+           </div>
+       </ul>
+   </section>
+   <script id="listTemplate" type="text/x-dot-template">
+   {{ for(var i in it) { }}
+       <li class="aui-flex-col aui-flex-middle aui-border-b" id="data-{{=it[i].userid}}">
+           <div class="aui-flex-item-2">
+               <img src="../../image/noavatar.gif" data-echo="{{=it[i].avatar}}">
+           </div>
+           <div class="aui-flex-item-7">
+               <div class="nickname">{{=it[i].nickname}}</div>
+               <div class="user-msg aui-ellipsis-1">
+               {{? it[i].signature }}
+                   {{=it[i].signature}}
+               {{?}}
+               </div>
+           </div>
+
+           <div class="aui-flex-item-3 aui-text-right" tapmode onclick="cancelAttention({{=it[i].userid}})">
+               {{? it[i].attentionStatus}}
+               <div class="aui-btn end" id="btn-{{=it[i].userid}}">已关注</div>
+               {{??}}
+               <div class="aui-btn end" id="btn-{{=it[i].userid}}">关注</div>
+               {{?}}
+           </div>
+       </li>
+   {{ } }}
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/aui-dialog.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script>
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var pageNum=0,scrollStatus=true;
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+    $(function(){
+        addEvent();
+        getAttentionList();
+    })
+    function addEvent(){
+        //上拉加载
+        var scroll = new auiScroll({
+            listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+            distance:200 //判断到达底部的距离，isToBottom为true
+        },function(ret){
+           if(ret.isToBottom){
+               if(scrollStatus){
+                   getAttentionList();
+               }else{
+                   if(pageNum > 1){
+                       document.querySelector(".more").classList.remove("hide");
+                   }
+               }
+           }
+        });
+    }
+    function getAttentionList(){
+        var token = $api.getStorage('token');
+        pageNum ++;
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/User/getFansList',
+           data: "token="+token+"&pageNum="+pageNum,
+           success: function(ret){
+               if(ret.code == 1){
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '';
+                   }
+                   if(document.querySelector("#list.no-data")){
+                      document.querySelector("#list.no-data").classList.remove("no-data");
+                   }
+                   var listTemplate = doT.template(document.getElementById("listTemplate").innerHTML);
+                   document.getElementById("list").insertAdjacentHTML('beforeend', listTemplate(ret.data));
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250
+                   });
+               }else{
+                   scrollStatus = false;
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '<div class="no-data"><img src="../../image/no_fans.png" /></div>';
+                       document.getElementById("list").classList.add("no-data");
+                   }
+                   if(ret.code == 0){
+                       a.content = ret.msg;
+                       layer.open(a);
+                       setTimeout(function(){
+                           logout();
+                       },1000);
+                   }
+               }
+           }
+        });
+    }
+
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.rmStorage("signature");
+        $api.setStorage("loginFrom","my/my_fans.html");
+        window.location.href = "../login.html";
+    }
+        function cancelAttention(userid){
+            var token = $api.getStorage('token');
+            $.ajax({
+               type: "POST",
+               url: siteUrl+'/App/User/attentionFriend',
+               data: "token="+token+"&userid="+userid,
+               success: function(ret){
+                   var el = document.getElementById("btn-"+userid);
+                   switch(ret.code){
+                       case 1:
+                           el.classList.add("end");
+                           el.textContent = "已关注";
+
+                       break;
+                       case 2:
+                           el.classList.remove("end");
+                           el.textContent = "关注";
+                       break;
+                       case 0:
+                           a.content = ret.msg;
+                           layer.open(a);
+                            setTimeout(function(){
+                               logout();
+                            },1000)
+
+                       break;
+                   }
+               }
+            });
+        }
+        function closeWin(){
+            window.history.go(-1);
+        }
+</script>
+</body>
+</html>

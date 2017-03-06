@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        body,html{
+            background-color: #f2f2f2;
+        }
+        .title{
+            padding: 0.5rem 0.75rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f2f2f2;
+            z-index: 99;
+
+        }
+        ul{
+            padding: 2.25rem 1.5rem 0;
+
+        }
+        li{
+            padding: 0.7rem 0;
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="aui-content">
+        <div class="title aui-border-b">
+            <span>业主论坛</span>
+            <span class="aui-pull-right" tapmode onclick="closeWin()">
+                <span class="aui-iconfont aui-icon-close"></span>
+            </span>
+        </div>
+        <ul class="">
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                朝阳区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                顺义区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                海淀区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                丰台区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                房山区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                通州区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                昌平区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                房山区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                石景山区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                平谷区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                门头沟区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                怀柔区
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                延庆县
+            </li>
+            <li class="aui-flex-col aui-flex-middle aui-border-b">
+                密云县
+            </li>
+        </ul>
+    </section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    function closeWin(){
+        window.history.go(-1); 
+    }
+</script>
+</body>
+</html>

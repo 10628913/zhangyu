@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>my_data</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+            z-index: 9;
+        }
+        .aui-bar .aui-iconfont span{
+            width: 1rem;
+        }
+        .aui-bar .aui-iconfont{
+            color: #fff !important;
+        }
+        .aui-tab{
+            z-index: 9;
+        }
+        .aui-tab-item {
+            height: 45px;
+            line-height: 45px;
+            box-flex: 1;
+            -webkit-box-flex: 1;
+            box-sizing: border-box;
+            text-align: center;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            width: 100%;
+        }
+        .aui-tab-item.active {
+            color: #df3031;
+            border-bottom: 2px #df3031 solid;
+            /*-webkit-animation: fadeIn .5s ease both;
+                    animation: fadeIn .5s ease both;*/
+        }
+        .hide{
+            display: none;
+        }
+        .frm-conment{
+            overflow:hidden;
+            overflow-x:hidden;
+            overflow-y:hidden;
+            height:100%;
+            width:100%;
+            position:absolute;
+            top:0px;
+            left:0px;
+            right:0px;
+            bottom:0px;
+            padding-top:90px;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar" id="header">
+    <span class="aui-pull-left" tapmode onclick="openWin('my')">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </span>
+    <div class="aui-title">我的关注</div>
+</header>
+<nav>
+    <ul class="aui-tab menu">
+        <!-- <li class="aui-tab-item " tapmode onclick="openFrm(1,this)">新闻</li> -->
+        <li class="aui-tab-item active" tapmode onclick="openFrm(2,this)" >房源</li>
+        <li class="aui-tab-item " tapmode onclick="openFrm(3,this)">活动</li>
+    </ul>
+</nav>
+<iframe src="my_concern_frm_house.html"; frameborder="0" style="" height="100%" width="100% ;" class="frm-conment " style="display:none" id="inframe"></iframe>
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function openFrm(index,obj){
+        var iframe = document.querySelector('iframe');
+        var url = '';
+          switch(index){
+            // case 1:
+            //     url = 'my_concern_frm_news.html';
+            // break;
+            case 2:
+               url = 'my_concern_frm_house.html';
+            break;
+            case 3:
+                url = 'my_concern_frm_activity.html';
+            break;
+        }
+        document.querySelector("iframe").setAttribute("src",url);
+        // 导航栏添加颜色
+        document.querySelector("li.active").classList.remove("active");
+        obj.classList.add("active");
+
+    }
+
+    function changeConcernEditor(){
+        var editor = $api.dom('.change');
+        var editorend =$api.dom('.change.end');
+        if (editorend) {
+            editor.classList.remove('end');
+            editor.innerHTML = "完成";
+        }else{
+            editor.classList.add('end');
+            editor.innerHTML = "编辑";
+        }
+    }
+    function closeWin(){
+        window.history.go(-1);
+    }
+
+    function openWin(name){
+        window.location.href=name+'.html';
+
+    }
+</script>
+
+</body>
+</html>

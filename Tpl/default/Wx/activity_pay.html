@@ -1,0 +1,110 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>活动支付</title>
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui-flex.css" />
+    <style type="text/css">
+        body {
+            background: #ffffff;
+        }
+        .aui-btn-row {
+            overflow: hidden;
+        }
+        .aui-input-row {
+            padding: 0;
+        }
+        input[type="number"] {
+            line-height: auto;
+            padding: 18px 15px;
+        }
+        .aui-input-row .aui-input-addon {
+            padding: 20px 25px;
+        }
+        .aui-btn-block {
+            padding: 10px 0;
+        }
+        .aui-bg-light {
+            background-color: #f0f0f0;
+        }
+        .aui-input {
+            font-size: 26px !important;
+            font-weight: 700;
+            line-height: 48px;
+        }
+    </style>
+</head>
+<body>
+    <div class="aui-tips aui-tips-info">
+        <div class="aui-tips-content aui-ellipsis-1">
+            <i class="aui-iconfont aui-icon-warnfill"></i>
+            暂只支持使用微信支付
+        </div>
+    </div>
+    <div class="aui-form">
+        <div class="aui-input-row">
+            <span class="aui-input-addon aui-border-r">支付金额</span>
+            <div class="aui-input aui-text-center aui-text-danger" id="price" value="{$orderInfo['pay_price']}">{$orderInfo['pay_price']}</div>
+            <span class="aui-input-addon aui-border-r aui-bg-light">元</span>
+        </div>
+        <div class="aui-btn-row">
+            <div class="aui-btn aui-btn-block aui-btn-success" onclick="callpay()" id="pay-btn">立即支付</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+// var siteUrl = "http://localhost:8887/";
+var siteUrl = "http://nixiangyuan.apithink.com/";
+$(function(){
+
+
+})
+//调用微信JS api 支付
+function jsApiCall(){
+    WeixinJSBridge.invoke(
+        'getBrandWCPayRequest',
+        {
+            "appId":'{$wxConf->appId}',
+            "nonceStr":'{$wxConf->nonceStr}',
+            "package":'{$wxConf->package}',
+            "signType":'{$wxConf->signType}',
+            "timeStamp":'{$wxConf->timeStamp}',
+            "paySign":'{$wxConf->paySign}'
+        },
+        function(res){
+            WeixinJSBridge.log(res.err_msg);
+            if(res.err_msg == 'get_brand_wcpay_request:cancel') {
+                alert("您已取消了此次支付");
+                return;
+            } else if(res.err_msg == 'get_brand_wcpay_request:fail') {
+                alert("支付失败，请重新尝试");
+                return;
+            } else if(res.err_msg == 'get_brand_wcpay_request:ok') {
+                alert("支付成功！");
+                $("#pay-btn").text("支付成功").removeAttr("onclick");
+            } else {
+                alert("未知错误"+res.error_msg);
+                return;
+            }
+        }
+    );
+}
+
+function callpay(){
+    if (typeof WeixinJSBridge == "undefined"){
+        if( document.addEventListener ){
+            document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+        }else if (document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+            document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+        }
+    }else{
+        jsApiCall();
+    }
+}
+</script>
+</html>

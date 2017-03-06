@@ -1,0 +1,204 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+        li{
+            background-color: #fff;
+        }
+        .comment li{
+            padding: 0.6rem 0;
+        }
+        .activity-title{
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .activity-info{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .aui-list .aui-list-item-media img {
+            max-width: 6.5rem;
+        }
+        .aui-list .aui-list-item-text {
+            margin-top: 0.25rem;
+            font-size: 0.6rem;
+        }
+        .aui-text-warning {
+            color: #ff6600 !important;
+        }
+        .price {
+            font-size: 0.7rem !important;
+            color: #ff6600 !important;
+        }
+        .house-tag {
+            padding: 0.1rem  0.3rem;
+            display: inline-block;
+            font-size: 0.6rem;
+            margin-bottom: 0.2rem;
+        }
+        .house-tag.aui-tag-info {
+            color: #9ccc65;
+        }
+        .aui-border.aui-tag-info:after {
+            border:1px solid #9ccc65;
+            border-radius: 0.2rem;
+        }
+        .house{
+            padding: 0.5rem 0;
+        }
+
+        .aui-flex-item-6.hrmsg >div{
+            margin-bottom: 0.8rem;
+        }
+        .aui-list:after{
+            height: 0;
+        }
+        .house .title .aui-pull-right .aui-iconfont{
+            color: #666;
+        }
+        .activity{
+            background-color: #fff;
+        }
+        .activity-title{
+            font-size: 0.7rem;
+            color: #333;
+        }
+        .aui-flex-item-1{
+            display: flex;
+        }
+        .aui-flex-item-1.hid{
+            display: none;
+        }
+        input[type='checkbox']{
+            display: block;
+            margin-top: 1rem;
+        }
+        .aui-radio:checked,
+        .aui-radio.aui-checked,
+        .aui-checkbox:checked,
+        .aui-checkbox.aui-checked {
+            background-color: #df3031;
+            border: solid 1px #df3031;
+            text-align: center;
+        }
+        .loading-data,
+        .no-data {
+            width: 100%;
+            margin-top: 30px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .loading-data img,
+        .no-data img {
+            width: 60%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <section class="aui-content no-data" id="list" style="margin-bottom:0;">
+        <div class="loading-data">
+            <img src="../../image/loading.png" />
+        </div>
+    </section>
+    <script id="listTemplate" type="text/doTtemplate">
+        {{for(var i in it){}}
+            <div class="activity aui-flex-col aui-border-b" id="data-{{=it[i].activity_id}}">
+                <div class="aui-flex-item-1 hid aui-flex-col aui-flex-middle aui-flex-right active-item" tapmode onclick="delCollect({{=it[i].activity_id}})">
+                    <span class="aui-iconfont aui-icon-trash"></span>
+                </div>
+                <div class=" aui-list aui-media-list aui-flex-item-12 activitylist active-item" tapmode onclick="openDetail({{=it[i].activity_id}})">
+                    <div class="aui-list-item">
+                        <div class="aui-list-item-media">
+                            <img src="../../image/blank.gif" data-echo="{{=it[i].activity_thumb}}">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-flex-col aui-flex-middle">
+                                <div class="aui-text-left activity-title aui-ellipsis-2">{{=it[i].activity_title}}</div>
+                            </div>
+                            <div class="aui-list-item-text aui-ellipsis-2">
+                                <span style="color:#ff6600 ">{{=it[i].status_content}}</span>
+                            </div>
+                             <div class="aui-list-item-text">
+                                <span>{{=it[i].activity_set_time}}</span>
+                                <span>{{=it[i].activity_set_address}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{}}}
+    </script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/aui-dialog.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script>
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var pageNum=0,scrollStatus=true;
+    $(function(){
+        addEvent();
+        getCollectList();
+    })
+    function addEvent(){
+        //上拉加载
+        var scroll = new auiScroll({
+            listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+            distance:200 //判断到达底部的距离，isToBottom为true
+        },function(ret){
+           if(ret.isToBottom){
+               if(scrollStatus){
+                   getCollectList();
+               }
+           }
+        });
+    }
+    function getCollectList(){
+        pageNum ++;
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Activity/getUserCollection',
+           data: "token="+token+"&pageNum="+pageNum,
+           success: function(ret){
+               if(ret.code == 1){
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '';
+                   }
+                   if(document.querySelector("#list.no-data")){
+                      document.querySelector("#list.no-data").classList.remove("no-data");
+                   }
+
+                   scrollStatus = true;
+                   var data = ret.data;
+                   var listTemplate = doT.template(document.getElementById("listTemplate").innerHTML);
+                   document.getElementById("list").insertAdjacentHTML('beforeend', listTemplate(data));
+                   Echo.init({offset: 0,throttle: 0});
+               }else{
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '<div class="no-data"><img src="../../image/no_collection_data.png" /></div>';
+                       document.getElementById("list").classList.add("no-data");
+                   }
+                   scrollStatus = false;
+               }
+           }
+        });
+    }
+    function openDetail(activity_id){
+        window.top.location.href= "../activity/activity_detail.html?activity_id="+activity_id;
+    }
+</script>
+</body>
+</html>

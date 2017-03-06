@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+	<style>
+        .aui-content {
+            width: 100%;
+        }
+        h2 {
+            padding: 0.75rem;
+        }
+        .edit {
+            color: #d43d3d;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.7rem;
+        }
+        .edit.aui-border:after {
+            border: 1px solid #d43d3d;
+            border-radius: 1.5rem;
+            height: 2.2rem;
+        }
+        .column {
+            padding: 0 0.5rem;
+        }
+        .column > div {
+            padding: 0 0.125rem;
+        }
+        .column-item {
+            width: 100%;
+            padding: 0.4rem  0.5rem;
+            display: block;
+            float: left;
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+            background: #ffffff;
+            text-align: center;
+        }
+        .column-close {
+            position: absolute;
+            right: 0;
+            top: -0.3rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 0.6rem;
+            background: #d43d3d;
+            text-align: center;
+            line-height: 1.2rem;
+        }
+        .column-close .aui-iconfont {
+            color: #ffffff;
+            font-size: 0.6rem;
+            margin: 0 auto;
+        }
+	</style>
+</head>
+<body id="multi">
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-right" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-close"></span>
+        </a>
+    </header>
+    <div class="aui-content aui-flex-col aui-flex-middle">
+    <div class="aui-content aui-flex-col aui-flex-middle">
+        <h2>
+            我的频道
+            <div class="aui-pull-right edit aui-border aui-flex-col aui-flex-middle" tapmode id="edit">编辑</div>
+        </h2>
+        <div class="column" id="my-column">
+            <!-- <div class="aui-col-xs-3">
+                <div class="column-item aui-border" lock="1" data-id="hot-0-热点">热点</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="column-item aui-border" lock="1" data-id="city-0-本地">本地</div>
+            </div> -->
+        </div>
+    </div>
+    <div class="aui-content aui-clearfix">
+        <h2>
+            频道推荐
+        </h2>
+        <div class="column" id="recommend-column"></div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/dropsort.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    $(document).ready(function(){
+        getNewsColumn();
+    });
+
+    function getNewsColumn(){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/News/getNewsClassify',
+           // dataType: "jsonp",
+           // jsonp:"?",
+           success: function(ret){
+            if (ret) {
+                if(ret.code == '1'){
+                    var myColumnArray = $api.getStorage("myColumnArray");
+                    if(myColumnArray){
+                        var html = '';
+                        for(var i = 0; i < myColumnArray.length; i++){
+                            if(myColumnArray[i].split("-")[0]=='classify'){
+                                html += '<div class="aui-col-xs-3"><div class="column-item aui-border" data-id="classify-'+myColumnArray[i].split("-")[1]+'-'+myColumnArray[i].split("-")[2]+'" id="my-'+myColumnArray[i].split("-")[1]+'">'+myColumnArray[i].split("-")[2]+'</div></div>';
+                            }
+                        }
+                        document.getElementById("my-column").insertAdjacentHTML('beforeend', html);
+                    }else{
+
+                    }
+                    var recommendHtml = '';
+                    for(var ii = 0; ii < ret.data.length; ii++){
+                        if(!document.getElementById("my-"+ret.data[ii].classify_id) && ret.data[ii].classify_id > 2){
+                            recommendHtml += '<div class="aui-col-xs-3"><div class="column-item aui-border" data-id="classify-'+ret.data[ii].classify_id+'-'+ret.data[ii].classify_name+'" id="my-'+ret.data[ii].classify_name+'" tapmode>'+ret.data[ii].classify_name+'</div></div>';
+                        }
+                    }
+                    document.getElementById("recommend-column").insertAdjacentHTML('beforeend', recommendHtml);
+                    // api.parseTapmode();
+                    // // 获取第一个栏目ID广播
+                    // api.sendEvent({
+                    //     name: 'loadNewsClassifyEvent',
+                    //     extra: {
+                    //         classify_id: ret.data[0].classify_id,
+                    //         classify_name: ret.data[0].classify_name
+                    //     }
+                    // });
+                }
+            } else {
+                // api.toast({
+                //     msg: err.msg,
+                //     duration: 2000,
+                //     location: 'middle'
+                // });
+            }
+           },
+           error : function(err){
+            console.log(err);
+           }
+        });
+    }
+    // $api.rmStorage("myColumnArray");
+    var editStatus = false,sortable;
+    var editBtn = document.getElementById("edit");
+    editBtn.onclick = function(e){
+        var myColumn = document.getElementById('my-column');
+        if(!editStatus){
+            editStatus = true;
+            this.textContent = "完成";
+            var myColumnItems = document.querySelectorAll("#my-column .column-item");
+            if(myColumnItems.length){
+                var closeHtml = '<div class="column-close" tapmode><i class="aui-iconfont aui-icon-close"></i></div>';
+                for(var i=0;i<myColumnItems.length;i++){
+                    if(!myColumnItems[i].getAttribute("lock") || myColumnItems[i].getAttribute("lock") != 1){
+                        myColumnItems[i].insertAdjacentHTML('afterend', closeHtml);
+                    }
+                }
+                // api.parseTapmode();
+            }
+            columnAdd();
+            columnRemove();
+            sortable = Sortable.create(myColumn, {
+                group: "myClassifyGroup",
+                animation: 150,
+                // onEnd: function(evt){
+                    // console.log('onEnd.foo:', [evt.item, evt.from]);
+                // }
+            });
+        }else{
+            var classifyLists = document.querySelectorAll("#my-column .column-item");
+            if(classifyLists.length==0){
+                $api.setStorage("myColumnArray",'0');
+            }else{
+                var myColumnArray = new Array();
+                for(var i=0;i<classifyLists.length;i++){
+                    myColumnArray[i] = {};
+                    myColumnArray[i] = classifyLists[i].getAttribute("data-id");
+                }
+                $api.setStorage("myColumnArray",myColumnArray);
+            }
+
+            // api.sendEvent({
+            //     name: 'refreshGetNewsClassifyEvent'
+            // });
+            editStatus = false;
+            this.textContent = "编辑";
+            var closeItems = document.querySelectorAll("#my-column .column-close");
+            for(var i=0; i<closeItems.length; i++){
+                closeItems[i].parentNode.removeChild(closeItems[i]);
+            }
+            var state = sortable.option("disabled");
+            sortable.option("disabled", !state);
+            var recommendColumnItems = document.querySelectorAll(".column-item");
+            if(recommendColumnItems.length){
+                recommendColumnItems.length = recommendColumnItems.length+1;
+                for(var i=0;i<recommendColumnItems.length;i++){
+                    recommendColumnItems[i].onclick = function(e){
+                    }
+                }
+            }
+        }
+
+    }
+    function columnAdd(){
+        if(editStatus == true){
+            var closeHtml = '<div class="column-close" tapmode><i class="aui-iconfont aui-icon-close"></i></div>';
+            // 添加频道
+            var recommendColumnItems = document.querySelectorAll("#recommend-column .column-item");
+            if(recommendColumnItems.length){
+                for(var i=0;i<recommendColumnItems.length;i++){
+                    recommendColumnItems[i].onclick = function(e){
+                        myColumnItems_length = document.querySelectorAll("#my-column .column-item").length;
+                        this.parentNode.insertAdjacentHTML('beforeend', closeHtml);
+                        document.getElementById("my-column").appendChild(this.parentNode);
+                        columnRemove();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    function columnRemove(){
+        // 删除频道
+        if(editStatus == true){
+            var closeItems = document.getElementsByClassName("column-close");
+            if(closeItems.length){
+                for(var i=0; i<closeItems.length;i++){
+                    closeItems[i].onclick = function(e){
+                        document.getElementById("recommend-column").appendChild(this.parentNode);
+                        this.parentNode.removeChild(this);
+                        columnAdd();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    function closeWin(){
+        window.history.go(-1);
+    }
+</script>
+</html>

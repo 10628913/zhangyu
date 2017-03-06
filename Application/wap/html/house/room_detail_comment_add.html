@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css" />
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem !important;
+        }
+        .aui-content {
+            background: #ffffff;
+        }
+        img {
+            width: 100%;
+        }
+        .stars-item {
+            position: relative;
+            margin-bottom: 0.5rem;
+            margin-left: 0.75rem;
+            box-sizing: border-box;
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+        }
+        .stars-title,
+        .stars-score {
+            display: block;
+            float: left;
+            color: #666;
+            font-size: 0.7rem;
+        }
+        .stars-score {
+            font-size: 0.7rem;
+        }
+        .stars-score strong {
+            font-size: 0.8rem;
+            color: #ff6600;
+        }
+        .stars-inner {
+            /*padding: 0 0.5rem;*/
+            display: block;
+            float: left;
+        }
+        .stars-inner .aui-iconfont {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        .impression-title {
+            width: 100%;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999999;
+        }
+        .impression-inner {
+            padding-top: 0.75rem;
+        }
+        .impression-inner > div {
+            padding: 0 0.125rem;
+        }
+        .impression-item {
+            width: 100%;
+            padding: 0.4rem  0.5rem;
+            display: block;
+            float: left;
+            font-size: 0.7rem;
+            margin-bottom: 0.25rem;
+            background: #ffffff;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .impression-item.active {
+            border-color: #ff9900;
+            color: #ff9900;
+        }
+        .impression-custrom {
+            border-color: #ff9900;
+            color: #ff9900;
+        }
+        textarea {
+            background: #f4f4f4;
+            border-radius: 0.3rem;
+            padding: 0.25rem;
+        }
+        .aui-iconfont.active {
+            color: #ff9900;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">房源点评</div>
+    </header>
+    <section class="aui-content aui-padded-15">
+        <div class="aui-col-xs-4">
+            <img src="../../image/b2.jpg" />
+        </div>
+        <div class="aui-col-xs-8">
+            <div class="stars-item">
+                <div class="stars-title">价格</div>
+                <div class="stars-inner" id="price">
+                    <i class="aui-iconfont aui-icon-star active" stars="1"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="2"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="3"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="4"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="5"></i>
+                </div>
+                <div class="stars-score">
+                    <strong id="price-stars">1</strong>分
+                </div>
+            </div>
+            <div class="stars-item">
+                <div class="stars-title">位置</div>
+                <div class="stars-inner" id="location">
+                    <i class="aui-iconfont aui-icon-star active" stars="1"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="2"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="3"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="4"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="5"></i>
+                </div>
+                <div class="stars-score">
+                    <strong id="location-stars">1</strong>分
+                </div>
+            </div>
+            <div class="stars-item">
+                <div class="stars-title">交通</div>
+                <div class="stars-inner" id="traffic">
+                    <i class="aui-iconfont aui-icon-star active" stars="1"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="2"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="3"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="4"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="5"></i>
+                </div>
+                <div class="stars-score">
+                    <strong id="traffic-stars">1</strong>分
+                </div>
+            </div>
+            <div class="stars-item">
+                <div class="stars-title">配套</div>
+                <div class="stars-inner" id="facility">
+                    <i class="aui-iconfont aui-icon-star active" stars="1"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="2"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="3"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="4"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="5"></i>
+                </div>
+                <div class="stars-score">
+                    <strong id="facility-stars">1</strong>分
+                </div>
+            </div>
+            <div class="stars-item">
+                <div class="stars-title">环境</div>
+                <div class="stars-inner" id="env">
+                    <i class="aui-iconfont aui-icon-star active" stars="1"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="2"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="3"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="4"></i>
+                    <i class="aui-iconfont aui-icon-star" stars="5"></i>
+                </div>
+                <div class="stars-score">
+                    <strong id="env-stars">1</strong>分
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="aui-content aui-padded-15">
+        <div class="impression-title">给我的印象</div>
+        <div class="impression-inner" id="impression">
+            <div class="aui-col-xs-3">
+                <div class="impression-item">非常舒服</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item">交通便利</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item">设施齐全</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item">环境优雅</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="impression-item">地道物业</div>
+            </div>
+        </div>
+    </section>
+    <section class="aui-content aui-padded-15">
+        <textarea rows="3" placeholder="说点什么吧" id="content"></textarea>
+    </section>
+    <section class="aui-content aui-padded-15">
+        <div class="aui-btn aui-btn-block aui-btn-sm aui-btn-danger" tapmode onclick="commentPost()">提交点评</div>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var building_id = $.getUrlParam("building_id");
+    var house_id = $.getUrlParam("house_id");
+
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+
+    function closeWin(){
+        window.history.go(-1);
+    }
+    function commentPost(){
+        document.getElementById("content").blur();
+        var token = $api.getStorage("token");
+        var comment_price_stars = parseInt(document.getElementById("price-stars").textContent);
+        var comment_location_stars = parseInt(document.getElementById("location-stars").textContent);
+        var comment_traffic_stars = parseInt(document.getElementById("traffic-stars").textContent);
+        var comment_facility_stars = parseInt(document.getElementById("facility-stars").textContent);
+        var comment_env_stars = parseInt(document.getElementById("env-stars").textContent);
+        var content = document.getElementById("content").value;
+        if(!content){
+            a.content = "请输入评论内容";
+            layer.open(a);
+            return;
+        }
+        var param = "token="+token+"&building_id="+building_id
+            +"&house_id="+house_id+"&comment_content="+content
+            +"&comment_price_stars="+comment_price_stars+"&comment_location_stars="+comment_location_stars
+            +"&comment_traffic_stars="+comment_traffic_stars+"&comment_facility_stars="+comment_facility_stars
+            +"&comment_env_stars="+comment_env_stars+"&comment_tags="+impression;
+        if(content.length < 10){
+            a.content = "请至少输入10个字符";
+            layer.open(a);
+            return;
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/addComment',
+           data: param,
+           success: function(ret){
+               a.content = ret.msg;
+               layer.open(a);
+               if(ret.code == 1){
+                   window.location.href="room_detail.html?building_id="+building_id+"&house_id="+house_id;
+               }else if(ret.code==0){
+                   setTimeout(function(){
+                       logout();
+                   }, 1000)
+                   return;
+               }else{
+                   return;
+               }
+           }
+        });
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.setStorage("loginFrom","house/house_detail_comment_add.html?building_id="+building_id+"&house_id="+house_id);
+        window.location.href = "../login.html";
+    }
+    selectImpression();
+    function selectImpression(){
+        var impressionItems = document.querySelectorAll("#impression .impression-item");
+        for(var i=0;i<impressionItems.length;i++){
+            impressionItems[i].onclick = function(e){
+                if(this.className.indexOf("active") > -1){
+                    this.classList.remove("active");
+                }else{
+                    this.classList.add("active");
+                }
+                getImpression();
+            }
+        }
+    }
+    function getImpression(){
+        impression = '';
+        var impressionActives = document.querySelectorAll(".impression-item.active");
+        for(var i=0;i<impressionActives.length;i++){
+            impression += impressionActives[i].textContent+",";
+        }
+        impression = impression.substring(0,impression.length-1);
+    }
+    // function openCustom(){
+    //     api.prompt({
+    //         title:"请输入印象内容",
+    //         text:"",
+    //         buttons: ['确定', '取消']
+    //     }, function(ret, err){
+    //         var index = ret.buttonIndex;
+    //         if(index==1){
+    //             var html = '<div class="aui-col-xs-3"><div class="impression-item">'+ret.text+'</div></div>';
+    //             document.getElementById("custom-btn").insertAdjacentHTML('beforebegin', html);
+    //             selectImpression();
+    //         }
+    //     });
+    // }
+    var priceStars = document.querySelectorAll("#price i");
+    var locationStars = document.querySelectorAll("#location i");
+    var trafficStars = document.querySelectorAll("#traffic i");
+    var facilityStars = document.querySelectorAll("#facility i");
+    var envStars = document.querySelectorAll("#env i");
+    for(var i=0;i<priceStars.length;i++){
+        priceStars[i].onclick = function(e){
+            setStarsActive('price',this.getAttribute("stars"));
+        }
+    }
+    for(var i=0;i<locationStars .length;i++){
+        locationStars [i].onclick = function(e){
+            setStarsActive('location',this.getAttribute("stars"));
+        }
+    }
+    for(var i=0;i<trafficStars .length;i++){
+        trafficStars [i].onclick = function(e){
+            setStarsActive('traffic',this.getAttribute("stars"));
+        }
+    }
+    for(var i=0;i<facilityStars .length;i++){
+        facilityStars [i].onclick = function(e){
+            setStarsActive('facility',this.getAttribute("stars"));
+        }
+    }
+    for(var i=0;i<envStars .length;i++){
+        envStars [i].onclick = function(e){
+            setStarsActive('env',this.getAttribute("stars"));
+        }
+    }
+    function setStarsActive(type,stars){
+        switch (type) {
+            case "price":
+                document.getElementById("price-stars").textContent = stars;
+                for(var i=0;i<priceStars.length;i++){
+                    if(stars>i){
+                        priceStars[i].classList.add("active");
+                    }else{
+                        priceStars[i].classList.remove("active");
+                    }
+                }
+                break;
+            case "location":
+                document.getElementById("location-stars").textContent = stars;
+                for(var i=0;i<locationStars.length;i++){
+                    if(stars>i){
+                        locationStars[i].classList.add("active");
+                    }else{
+                        locationStars[i].classList.remove("active");
+                    }
+                }
+                break;
+            case "traffic":
+                document.getElementById("traffic-stars").textContent = stars;
+                for(var i=0;i<trafficStars.length;i++){
+                    if(stars>i){
+                        trafficStars[i].classList.add("active");
+                    }else{
+                        trafficStars[i].classList.remove("active");
+                    }
+                }
+                break;
+            case "facility":
+                document.getElementById("facility-stars").textContent = stars;
+                for(var i=0;i<facilityStars.length;i++){
+                    if(stars>i){
+                        facilityStars[i].classList.add("active");
+                    }else{
+                        facilityStars[i].classList.remove("active");
+                    }
+                }
+                break;
+            case "env":
+                document.getElementById("env-stars").textContent = stars;
+                for(var i=0;i<envStars.length;i++){
+                    if(stars>i){
+                        envStars[i].classList.add("active");
+                    }else{
+                        envStars[i].classList.remove("active");
+                    }
+                }
+                break;
+            default:
+                // statements_def
+                break;
+        }
+
+    }
+</script>
+</html>

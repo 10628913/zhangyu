@@ -1,0 +1,1359 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css" />
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+            z-index: 9999;
+        }
+        .aui-bar +*{
+            padding-top: 2.3rem !important;
+        }
+        .aui-mask1 {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+        .aui-popover-top-right{
+            top:2.75rem;
+            position: fixed;
+            z-index: 99999;
+            display: none;
+        }
+        .aui-popover-top-right.show{
+            display: block;
+        }
+        .aui-popover-bottom{
+            display: none;
+        }
+
+        .aui-popover-bottom.show{
+            display: block;
+            z-index: 99999;
+        }
+		.aui-slide-page-active {
+		    background: #df3031;
+		}
+		.aui-content {
+			background: #ffffff;
+		}
+		.price {
+			line-height: 1.2rem;
+			font-size: 0.7rem !important;
+			color: #ff6600 !important;
+		}
+		.house-address {
+			font-size: 0.6rem;
+			margin: 0.25rem 0;
+		}
+		.house-address .aui-iconfont {
+			font-size: 0.7rem;
+		}
+		.house-tags {
+			width: 100%;
+		}
+		.house-tag {
+			padding: 0.1rem  0.5rem;
+			display: inline-block;
+			font-size: 0.6rem;
+			margin-bottom: 0.2rem;
+		}
+		.house-tag.aui-tag-info {
+			color: #9ccc65;
+		}
+		.aui-border.aui-tag-info:after {
+		    border:1px solid #9ccc65;
+		    border-radius: 0.2rem;
+		}
+		.house-nav {
+			padding: 0.75rem 0;
+			overflow: hidden;
+			text-align: center;
+		}
+		.house-nav .aui-iconfont {
+			width: 2.2rem;
+			height: 2.2rem;
+			color: #ffffff;
+			/*padding: 0.5rem;*/
+			display: block;
+			margin: 0 auto;
+			line-height: 2.2rem;
+			border-radius: 50%;
+			font-size: 1.2rem;
+			margin-bottom: 0.5rem;
+		}
+		.house-nav p {
+			font-size: 0.6rem;
+			color: #666;
+		}
+		.aui-content.room,
+		.aui-content.relation {
+			padding: 0.75rem 0 0 0;
+		}
+		h2.title {
+			color: #d43d3d;
+			/*border-left:2px solid #df3031;*/
+			/*padding-left: 0.5rem;*/
+			font-size: 0.7rem;
+			margin: 0 0.75rem;
+			margin-bottom: 0.5rem;
+            box-sizing: border-box;
+		    display: -webkit-box;
+		    display: -webkit-flex;
+		    display: flex;
+		    -webkit-box-pack: justify;
+		    -webkit-justify-content: space-between;
+		            justify-content: space-between;
+		}
+		.title-left {
+			display: inherit;
+			-webkit-align-items: center;
+		            align-items: center;
+		}
+		h2.title i.aui-iconfont {
+			font-size: 0.9rem !important;
+			margin-right: 0.3rem;
+		}
+		h2.title .title-right .aui-iconfont {
+			color: #999999;
+		}
+		.more {
+			padding: 0.75rem 0;
+			font-size: 0.6rem;
+			text-align: center;
+			color: #999;
+		}
+		.room img {
+			width: 100%;
+			height: auto;
+			height: 5rem;
+		}
+		.room .room-list {
+			width: 100%;
+			padding: 0.75rem 0.5rem;
+			overflow: hidden;
+		}
+		.room-list > div {
+			padding: 0 0.25rem;
+			text-align: center;
+		}
+		.room p {
+			margin-top: 0.25rem;
+		}
+		.room p.room-title {
+			color: #666666;
+			font-size: 0.7rem;
+		}
+		.room p.room-desc {
+			color: #999999;
+			font-size: 0.6rem;
+		}
+		.comment-list .aui-list .aui-list-item-title {
+			font-size: 0.7rem;
+		}
+		.comment-list .aui-list .aui-list-item-text {
+			font-size: 0.6rem;
+		}
+		.comment-list .aui-list p {
+			margin-top: 0.5rem;
+			font-size: 0.8rem;
+			color: #333;
+		}
+		.comment-list .aui-iconfont {
+			font-size: 0.8rem !important;
+		}
+		.bg-1 {
+			background-color: #f080a2;
+		}
+		.bg-2 {
+			background-color: #78909c;
+		}
+		.bg-3 {
+			background-color: #9ccc65;
+		}
+		.bg-4 {
+			background-color: #29b6f6;
+		}
+		.bg-5 {
+			background-color: #ab47bc;
+		}
+
+		.aui-list .aui-list-item-media img {
+			max-width: 6.5rem;
+		}
+		.aui-list .aui-list-item-text {
+			margin-top: 0.25rem;
+			font-size: 0.6rem;
+		}
+		.aui-text-warning {
+            color: #ff6600 !important;
+        }
+		.price {
+			font-size: 0.7rem !important;
+			color: #ff6600 !important;
+		}
+        .aui-mask {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            z-index: 998;
+        }
+        .aui-mask.mask-in {
+            visibility: visible;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .aui-mask.mask-out {
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        .aui-mask1 {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            z-index: 998;
+        }
+        .aui-mask1.mask-in {
+            visibility: visible;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .aui-mask1.mask-out {
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        .collection-success {
+            position: fixed;
+            left: 50%;
+            top: 25%;
+            width: 13rem;
+            z-index: 999;
+            margin-left: -7.5rem;
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100%, 0) scale(1) rotate(-45deg);
+                    transform: translate3d(0, -100%, 0) scale(1) rotate(-45deg);
+            /*-webkit-transform:rotate(-45deg);*/
+                    /*transform:rotate(-45deg);*/
+        }
+        .collection-success-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+        }
+        .collection-success-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 100%, 0) scale(0.5) rotate(45deg);
+                  transform: translate3d(0, 100%, 0) scale(0.5) rotate(45deg);
+        }
+        .collection-success img {
+            width: 100%;
+        }
+                /**/
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+                #collection-btn .aui-iconfont.end{
+                color: #df3031 !important;
+        }
+       #goodclick-btn .aui-iconfont.end{
+            color: #df3031 !important;
+        }
+        .comment-box {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+            display: none;
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 80%, 0) scale(1);
+                  transform: translate3d(0, 80%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+
+
+
+
+        /*share*/
+        .share-box {
+            background: #ffffff;
+            padding: 0.75rem 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                    transform: translate3d(0, 30%, 0) scale(1);
+            display: none;
+        }
+        .share-box.share-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .share-box.share-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                  transform: translate3d(0, 30%, 0) scale(1);
+        }
+        .share-box p {
+            font-size: 0.6rem;
+            color: #666;
+        }
+        .share-box .aui-iconfont {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .share-box .share-inner {
+            width: 100%;
+            overflow: hidden;
+        }
+        .share-box .share-close {
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .share-box .share-close .aui-iconfont {
+            font-size: 1rem;
+            color: #999;
+            padding: 0.5rem;
+            background-color: #f4f4f4;
+            border-radius: 50%;
+        }
+        .share-inner img{
+            width:40%;
+        }
+        .share-inner p{
+            margin-bottom: 0.5rem;
+        }
+
+
+        .aui-popover-bottom,
+        .aui-popover-bottom-left,
+        .aui-popover-bottom-right {
+            bottom: 0.45rem;
+        }
+        .aui-popover-bottom {
+            width: 100%;
+            position: fixed;
+        }
+        .aui-popover-bottom-left {
+            left: 0.45rem;
+        }
+        .aui-popover-bottom-right {
+            right: 0.45rem;
+        }
+        .aui-popover-bottom .aui-popover-arrow,
+        .aui-popover-bottom-left .aui-popover-arrow,
+        .aui-popover-bottom-right .aui-popover-arrow {
+            -webkit-transform: rotate(-45deg);
+                    transform: rotate(-45deg);
+            bottom: 0.2rem;
+        }
+        .aui-popover-bottom .aui-popover-arrow {
+            left: 50%;
+            margin-left: -0.25rem;
+            margin-bottom: -0.4rem;
+        }
+        .aui-popover-bottom-left .aui-popover-arrow {
+            left: 0.25rem;
+            margin-bottom: -0.4rem;
+        }
+        .aui-popover-bottom-right .aui-popover-arrow {
+            right: 0.25rem;
+            margin-bottom: -0.4rem;
+        }
+        .aui-popover-bottom .aui-popover-content{
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        .aui-popover-bottom .aui-popover-content p{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .no-comment-data {
+            width: 100%;
+            text-align: center;
+        }
+        .no-comment-data img {
+            width: 50%;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">详情</div>
+        <a class="aui-pull-right" tapmode onclick="openHousePopover()">
+            <span class="aui-iconfont aui-icon-more"></span>
+        </a>
+    </header>
+    <section id="building-detail"></section>
+	<div class="aui-content house-nav">
+        <div class="aui-col-xs-5" tapmode onclick="openDetailBasic()">
+            <i class="aui-iconfont aui-icon-loupan bg-1"></i>
+            <p>楼盘概况</p>
+        </div>
+        <div class="aui-col-xs-5" tapmode onclick="openReserve()">
+            <i class="aui-iconfont aui-icon-sofa bg-2"></i>
+            <p>预约看房</p>
+        </div>
+        <a class="aui-col-xs-5" tapmode onclick="return phone()" id="tel">
+            <i class="aui-iconfont aui-icon-phone bg-3"></i>
+            <p>电话咨询</p>
+        </a>
+        <div class="aui-col-xs-5" tapmode onclick="openAllpicture()">
+            <i class="aui-iconfont aui-icon-quanjingtupian bg-4"></i>
+            <p>全景看房</p>
+        </div>
+        <div class="aui-col-xs-5" tapmode onclick="openMap()">
+            <i class="aui-iconfont aui-icon-map bg-5"></i>
+            <p>位置周边</p>
+        </div>
+    </div>
+    <div class="aui-content room" style="display:none" id="room">
+    	<h2 class="title">
+    		<div class="title-left"><i class="aui-iconfont aui-icon-huxingtu"></i>主力户型</div>
+    		<div class="title-right" tapmode onclick="openRoomList()">
+    			<i class="aui-iconfont aui-icon-more2"></i>
+    		</div>
+    	</h2>
+    	<div class="aui-line-x"></div>
+    	<div class="room-list" id="house-list"></div>
+    </div>
+    <div class="aui-content relation" id="recommend-list"></div>
+    <div class="aui-content relation" id="like-wrap">
+    	<h2 class="title">
+    		<div class="title-left">
+    			<i class="aui-iconfont aui-icon-like"></i>猜你喜欢
+    		</div>
+    	</h2>
+		<ul class="aui-list aui-media-list" id="like-list"></ul>
+    </div>
+    <!-- 评论列表 -->
+    <div class="aui-content relation comment-list">
+    	<h2 class="title">
+    		<div class="title-left">
+    			<i class="aui-iconfont aui-icon-comment"></i>热门点评
+    		</div>
+    	</h2>
+    	<ul class="aui-list aui-media-list" id="building-comment-list">
+            <div class="no-comment-data">
+                <img src="../../image/no_comment_data.png" />
+            </div>
+        </ul>
+    	<div class="more" id="comment-more" tapmode onclick="openCommentAll()">查看更多</div>
+    </div>
+
+    <div class="aui-mask"></div>
+    <div class="aui-popover aui-popover-top-right">
+        <div class="aui-popover-arrow"></div>
+        <div class="aui-popover-content">
+            <ul class="aui-list aui-list-noborder popover-list">
+                <li class="aui-list-item" data-type="collect"  status="-1" id="collection-btn" onclick="collection()">
+                    <div class="aui-list-item-media aui-list-item-middle">
+                        <i class="aui-iconfont aui-icon-star aui-text-warning"></i>
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-middle">
+                        收藏
+                    </div>
+                </li>
+                <li class="aui-list-item" data-type="follow" status="-1" id="like-btn" onclick="like()">
+                    <div class="aui-list-item-media aui-list-item-middle">
+                        <i class="aui-iconfont aui-icon-like aui-text-danger"></i>
+                    </div>
+                    <div class="aui-list-item-inner">
+                        关注
+                    </div>
+                </li>
+                <li class="aui-list-item" data-type="comment" onclick="comment()">
+                    <div class="aui-list-item-media aui-list-item-middle">
+                        <i class="aui-iconfont aui-icon-comment aui-text-info"></i>
+                    </div>
+                    <div class="aui-list-item-inner">
+                        我要点评
+                    </div>
+                </li>
+                <!-- <li class="aui-list-item" data-type="share" onclick="share()">
+                    <div class="aui-list-item-media aui-list-item-middle">
+                        <i class="aui-iconfont aui-icon-share aui-text-success"></i>
+                    </div>
+                    <div class="aui-list-item-inner">
+                        我要分享
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+     <section class="share-box aui-text-center" id="share-box">
+        <div class="share-inner">
+            <div class="aui-col-xs-5">
+                <img src="../../image/pengyouquan.png">
+                <p>朋友圈</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/weixin.png">
+                <p>微信</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/qq.png">
+                <p>QQ</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/kongjian.png">
+                <p>QQ空间</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/weibo.png">
+                <p>微博</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/duanxin.png">
+                <p>短信分享</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/shequ.png">
+                <p>分享到社区</p>
+            </div>
+        </div>
+        <div class="share-close aui-border-t">
+            <i class="aui-iconfont aui-icon-close" tapmode onclick="closeShare()"></i>
+        </div>
+    </section>
+    <!-- 点击下载app -->
+     <div class="aui-popover aui-popover-bottom">
+        <div class="aui-popover-arrow"></div>
+        <div class="aui-popover-content aui-text-center">
+            <img src="../../image/code.png" width="150px" height="150px">
+            <p>下载app立即体验</p>
+        </div>
+    </div>
+</body>
+<!-- 相关推荐 -->
+    <script id="recommend-list-tpl" type="text/x-dot-template">
+        <h2 class="title">
+            <div class="title-left">
+                <i class="aui-iconfont aui-icon-paper"></i>最新资讯
+            </div>
+        </h2>
+        <ul class="aui-list aui-media-list">
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openNewsDetail('{{=it.news_id}}')">
+                <div class="aui-list-item-inner aui-list-item-middle">
+                    {{=it.news_title}}
+                    <p class="aui-ellipsis-2">{{=it.news_description}}</p>
+                </div>
+            </li>
+        </ul>
+    </script>
+    <script id="building-detail-tpl" type="text/x-dot-template">
+        {{? it.building_photos}}
+        <div id="aui-slide">
+            <div class="aui-slide-wrap" >
+                {{for(var i in it.building_photos){ }}
+                <div class="aui-slide-node">
+                    <img src="../../image/image_loading_2.png" data-echo="{{=it.building_photos[i]}}" />
+                </div>
+                {{ } }}
+            </div>
+            <div class="aui-slide-page-wrap"><!--分页容器--></div>
+        </div>
+        {{?}}
+        <div class="aui-content aui-padded-15 house-info">
+            <h2>
+                {{=it.building_name}}
+                <small class="aui-pull-right price">
+                {{? it.building_price_type == 1}}
+                {{=it.building_price}}万元/套
+                {{?? it.building_price_type == 2}}
+                {{=it.building_price}}元/㎡
+                {{?? it.building_price_type == 3}}
+                待定
+                {{?}}
+                </small>
+            </h2>
+            <p class="house-address">{{=it.building_area_name}}</p>
+            <p class="house-address">{{=it.building_address}}</p>
+            {{? it.tags}}
+            <div class="house-tags">
+                {{for(var ii in it.tags){ }}
+                <div class="house-tag aui-border aui-tag-info">{{=it.tags[ii]}}</div>
+                {{ } }}
+            </div>
+            {{?}}
+        </div>
+    </script>
+    <script id="house-list-tpl" type="text/x-dot-template">
+        {{for(var i in it) { }}
+        <div class="aui-col-xs-4" tapmode onclick="openRoomDetail({{=it[i].house_id}})">
+            <img src="../../image/image_loading_3.png" data-echo="{{=it[i].house_thumb}}">
+            <p class="room-title">{{=it[i].house_name}}</p>
+            <p class="room-desc">{{? it[i].house_style_name}}{{=it[i].house_style_name}}{{?}} {{=it[i].house_acreage}}㎡</p>
+        </div>
+        {{ } }}
+    </script>
+    <!-- 猜你喜欢 -->
+    <script id="like-list-tpl" type="text/x-dot-template">
+        {{for(var i in it) { }}
+        <li class="aui-list-item" tapmode onclick="openHouseDetail({{=it[i].building_id}})">
+            <div class="aui-list-item-media">
+                <img src="../../image/image_loading_3.png" data-echo="{{=it[i].building_thumb}}">
+            </div>
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title-row">
+                    <div class="aui-list-item-title">{{=it[i].building_name}}</div>
+                    <div class="aui-list-item-right price">
+                        {{? it[i].building_price_type == 1}}
+                        {{=it[i].building_price}}万元/套
+                        {{?? it[i].building_price_type == 2}}
+                        {{=it[i].building_price}}元/㎡
+                        {{?? it[i].building_price_type == 3}}
+                        待定
+                        {{?}}
+                    </div>
+                </div>
+                <div class="aui-list-item-text aui-ellipsis-2">
+                    {{=it[i].building_area_name}}
+                </div>
+                {{? it[i].tags}}
+                <div class="aui-list-item-text">
+                    {{for(var ii in it[i].tags){ }}
+                    <div class="house-tag aui-border aui-tag-info">{{=it[i].tags[ii]}}</div>
+                    {{ } }}
+                </div>
+                {{? }}
+                {{? it[i].building_discount}}
+                <div class="aui-list-item-text aui-text-warning aui-ellipsis-2">
+                    {{=it[i].building_discount}}
+                </div>
+                {{? }}
+            </div>
+        </li>
+        {{ } }}
+    </script>
+    <!-- 评论模板 -->
+    <script id="building-comment-tpl" type="text/x-dot-template">
+        {{for(var i in it){}}
+        <li class="aui-list-item" tapmode onclick="openCommentReply({{=it[i].comment_id}})">
+            <div class="aui-list-item-media" >
+                <img src="{{=it[i].avatar}}" class="aui-list-img-round aui-list-img-sm">
+            </div>
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title-row">
+                    <div class="aui-list-item-title aui-text-info">{{=it[i].nickname}}</div>
+                    <div class="aui-list-item-right">
+                        <i class="aui-iconfont aui-icon-laud"></i> {{=it[i].thumbs_count}}
+                    </div>
+                </div>
+                <div class="aui-list-item-text">{{? it.city}}{{=it.city}}{{?}} {{=it[i].comment_time}}</div>
+                <p>{{=it[i].comment_content}}</p>
+                {{? it[i].child}}
+                <div class="aui-list-item-text comment-info">
+                    {{=it[i].childCount}}条回复
+                    <span class="aui-iconfont aui-icon-right"></span>
+                </div>
+                <div class="aui-list-item-text comment-content">
+                    {{ for (var ii in it[i].child){}}
+                    <div class="comment-item">
+                        <span>{{=it[i].child[ii].nickname}}:</span>
+                        <span>{{=it[i].child[ii].comment_content}}</span>
+                    </div>
+                    {{} }}
+                </div>
+                {{?}}
+            </div>
+        </li>
+        {{ } }}
+    </script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var building_id = $.getUrlParam("building_id");
+    var building_consult_phone;
+    var download = false;
+
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+    $(document).ready(function(){
+        getBuildingData();
+        getHouse();
+        getBuildingComment();
+    });
+    // 获取房源基本信息
+    function getBuildingData(){
+        var tpl = document.getElementById("building-detail-tpl").innerHTML;
+        var tempFn = doT.template(tpl);
+        // console.log($api.getStorage("buildingDetailData-"+building_id));
+        if($api.getStorage("buildingDetailData-"+building_id)){
+            var buildingDetailData = $api.getStorage("buildingDetailData-"+building_id);
+            if(buildingDetailData.building_consult_phone){
+
+                document.getElementById("tel").setAttribute("href","tel:"+buildingDetailData.building_consult_phone);
+                building_consult_phone = buildingDetailData.building_consult_phone;
+
+            }
+            document.getElementById("building-detail").innerHTML = tempFn(buildingDetailData);
+            getLike(buildingDetailData.building_tags_ids,buildingDetailData.building_area_name);
+            Echo.init({
+                offset: 0,
+                throttle: 250
+            });
+            if(buildingDetailData.building_consult_phone){
+                document.getElementById("tel").setAttribute("href","tel:"+buildingDetailData.building_consult_phone);
+            }else{
+                document.getElementById("tel").onclick = function(){
+                    a.content = "当前房源暂不提供电话咨询";
+                    layer.open(a);
+                    return;
+                }
+            }
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getBuildDetail',
+           data: "building_id="+building_id,
+           success: function(ret){
+               if(ret.code == '1'){
+                   if(ret.data.building_consult_phone){
+                       building_consult_phone = ret.data.building_consult_phone;
+                   }
+                   getLike(ret.data.building_tags_ids,ret.data.building_area_name);
+                   getNewsRecommend(ret.data.building_name);
+                   if(ret.data.tags){
+                       ret.data.tags = ret.data.tags.split(",");
+                   }
+                   $api.setStorage("buildingDetailData-"+building_id,ret.data);
+                   document.getElementById("building-detail").innerHTML = tempFn(ret.data);
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250
+                   });
+                   if(ret.data.building_consult_phone){
+                       document.getElementById("tel").setAttribute("href","tel:"+ret.data.building_consult_phone);
+                   }else{
+                       document.getElementById("tel").onclick = function(){
+                           a.content = "当前房源暂不提供电话咨询";
+                           layer.open(a);
+                           return;
+                       }
+                   }
+                   var slide = new auiSlide({
+                       container:document.getElementById("aui-slide"),
+                       // "width":300,
+                       "height":200,
+                       "speed":300,
+                       "pageShow":true,
+                       "pageStyle":'dot',
+                       "loop":true,
+                       'dotPosition':'center'
+                   })
+                   // 获取相关推荐
+                   // getNewsRelation(ret.data.classify_id);
+                   // 获取点评
+                   // getNewsComment(ret.data.news_id);
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250,
+                       unload: false
+                   });
+               }
+           }
+        });
+    }
+    //最新资讯详情
+    function openNewsDetail(news_id){
+        window.location.href="../news/news_detail.html?news_id="+news_id;
+    }
+    // 获取房源户型列表
+    function getHouse(){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getHouse',
+           data: "building_id="+building_id+"&limit=3",
+           success: function(ret){
+               if(ret.code == '1'){
+                   document.getElementById("room").style.display = "block";
+                   var tpl = document.getElementById("house-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("house-list").innerHTML = tempFn(ret.data);
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250,
+                       unload: false
+                   });
+               }
+           }
+        });
+    }
+    // 获取新闻相关推荐
+    function getNewsRecommend(building_name){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getNewsRecommend',
+           data: "building_name="+building_name+"&building_id="+building_id,
+           success: function(ret){
+               if(ret.code == '1'){
+                   var tpl = document.getElementById("recommend-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("recommend-list").innerHTML = tempFn(ret.data);
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250,
+                       unload: false
+                   });
+               }else{
+                   document.getElementById("recommend-list").parentNode.removeChild(document.getElementById("recommend-list"));
+               }
+           }
+        });
+    }
+    // 获取猜你喜欢
+    function getLike(building_tags_ids,area_name){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getLikeBuildList',
+           data: "ids="+building_tags_ids+"&area_name="+area_name,
+           success: function(ret){
+               if(ret.code == '1'){
+                   var tpl = document.getElementById("like-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   for(var i =0;i<ret.data.length;i++){
+                       if(ret.data[i].tags){
+                           ret.data[i].tags = ret.data[i].tags.split(",");
+                       }
+                   }
+                   document.getElementById("like-list").innerHTML = tempFn(ret.data);
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250,
+                       unload: false
+                   });
+               }else{
+                   document.getElementById("like-wrap").parentNode.removeChild(document.getElementById("like-wrap"));
+               }
+           }
+        });
+    }
+    // 获取点评数据
+    function getBuildingComment(){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getCommentList',
+           data: "building_id="+building_id+"&pageNum=1&pageSize=3",
+           success: function(ret){
+               if(ret.code == '1'){
+                   var tpl = document.getElementById("building-comment-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("building-comment-list").innerHTML = tempFn(ret.data);
+                   document.querySelector("#comment-more").classList.remove("aui-hide");
+                   document.querySelector("#comment-more").textContent = "查看更多 ("+ret.commentCount+")";
+               }
+           }
+        });
+    }
+	function openHouseDetail(_building_id){
+        window.location.href="house_detail.html?building_id="+_building_id;
+	}
+    function openDetailBasic(){
+        window.location.href="house_detail_basic.html?building_id="+building_id;
+    }
+    // 预约
+    function openReserve(){
+        var token = $api.getStorage("token");
+        if(!token){
+            openLogin();
+            return;
+        }
+        window.location.href="house_reserve.html?building_id="+building_id;
+    }
+    //全景看房
+    function openAllpicture(){
+        a.content = "请下载APP进行查看";
+        layer.open(a);
+    }
+    function openMap(){
+        a.content = "请下载APP进行查看";
+        layer.open(a);
+    }
+    //  户型列表
+    function openRoomList(){
+        window.location.href="room_list.html?building_id="+building_id;
+    }
+    // 户型详情
+    function openRoomDetail(house_id){
+        window.location.href="room_detail.html?building_id="+building_id+"&house_id="+house_id;
+    }
+    function openNewsRelation(){
+        window.location.href="../news/news_relation.html";
+    }
+    function comment(){
+        var token = $api.getStorage("token");
+        if(!token){
+            openLogin();
+            return;
+        }
+        window.location.href='house_comment_all.html?building_id='+building_id;
+    }
+    function openCommentReply(comment_id){
+        window.location.href="house_comment_reply.html?building_id="+building_id+"&comment_id="+comment_id;
+    }
+    // 全部评论
+    function openCommentAll(){
+        window.location.href="house_comment_all.html?building_id="+building_id;
+    }
+    function openLogin(){
+        $api.setStorage("loginFrom","house/house_detail?building_id="+building_id);
+        window.location.href="../login.html";
+    }
+    // //评论列表
+    // function openCommentAll(){
+    //     window.location.href='house_comment_all.html';
+    // }
+    // //房源详情
+    // function openHouseDetail(id){
+    //      window.location.href='house_detail.html'
+    // }
+    // // 评论详情
+    // function openCommentReply(){
+    //      window.location.href='house_comment_reply.html'
+    // }
+    // //房源概况
+    // function openHouseDetailBasic(){
+    //      window.location.href='house_detail_basic.html'
+    // }
+    // // 预约看房
+    // function openHouseReserve(){
+    //      window.location.href='house_reserve.html'
+    // }
+    // // 户型列表
+    // function openRoomList(){
+    //     window.location.href = 'room_list.html'
+    // }
+    // // 户型详情
+    // function openRoomDetail(){
+    //     window.location.href= 'room_detail.html'
+    // }
+    // // 新闻推荐
+    // function openNewsRelation(){
+    //     window.location.href='../news/news_relation.html'
+    //
+    // }
+    function closeWin(){
+        window.history.go(-1);
+    }
+
+    // 左上角选择框
+    function openHousePopover(){
+        var mask = document.querySelector('.aui-mask');
+        var popover = document.querySelector('.aui-popover-top-right');
+        var maskin = document.querySelector('.aui-mask.mask-in');
+        var maskout = document.querySelector('.aui-mask.mask-out');
+        if (download == false) {
+            if (maskin) {
+                mask.classList.remove('mask-in');
+                mask.classList.add('mask-out');
+                popover.classList.remove('show');
+                setTimeout(function(){
+                      mask.classList.remove('mask-out');
+                    }, 100)
+            }else{
+                mask.classList.add('mask-in');
+                popover.classList.add('show');
+                if (maskout) {
+                    mask.classList.remove('.mask-out');
+                }
+            }
+        }
+
+    }
+    function openDownLoad(){
+        var mask = document.querySelector('.aui-mask');
+        var popover = document.querySelector('.aui-popover-bottom');
+        var maskin = document.querySelector('.aui-mask.mask-in');
+        var maskout = document.querySelector('.aui-mask.mask-out');
+        download = true;
+        if (maskin) {
+            mask.classList.remove('mask-in');
+            mask.classList.add('mask-out');
+            popover.classList.remove('show');
+            setTimeout(function(){
+                  mask.classList.remove('mask-out');
+                }, 100)
+        }else{
+            mask.classList.add('mask-in');
+            popover.classList.add('show');
+            if (maskout) {
+                mask.classList.remove('.mask-out');
+            }
+
+
+        }
+    }
+
+
+    //  var popoverItems = document.querySelectorAll(".popover-list > .aui-list-item");
+    //     for(var i in popoverItems){
+    //         popoverItems[i].onclick = function(e){
+    //             var _type = e.target.offsetParent.getAttribute("data-type");
+    //             switch (_type) {
+    //                 case "collect":
+    //                     collection();
+    //                     break;
+    //                 case "comment":
+    //                     window.location.href='house_comment_all.html?building_id='+building_id;
+    //                     break;
+    //                 case "follow":
+    //                     like();
+    //                     break;
+    //                 case "share":
+    //                     // openShare();
+    //                     break;
+    //                 default:
+    //                     // statements_def
+    //                     break;
+    //             }
+    //         }
+    //     }
+    //收藏成功
+    function collectionSuccess(){
+        if(!document.querySelector(".aui-mask1")){
+            var html = '<div id="alert">'+
+                        '<div class="aui-mask1">'+
+                        '</div>'+
+                        '<div class="collection-success">'+
+                        '<img src="../../image/collection_success.png" />'+
+                        '</div>'+
+                        '</div>';
+            document.querySelector("body").insertAdjacentHTML('beforeend', html);
+            document.querySelector(".aui-mask1").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            document.querySelector(".collection-success").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            setTimeout(function(){
+                document.querySelector(".aui-mask1").classList.add("mask-in");
+                document.querySelector(".collection-success").classList.add("collection-success-in");
+            }, 100)
+            setTimeout(function(){
+                document.querySelector(".aui-mask1").classList.remove("mask-in");
+                document.querySelector(".aui-mask1").classList.add("mask-out");
+                document.querySelector(".collection-success").classList.remove("collection-success-in");
+                document.querySelector(".collection-success").classList.add("collection-success-out");
+
+                setTimeout(function(){
+                    document.getElementById("alert").parentNode.removeChild(document.getElementById("alert"));
+                    document.querySelector(".aui-mask").classList.remove("mask-out");
+
+                }, 300)
+            }, 1600)
+        }
+    }
+
+        //点赞时出现的动画效果
+      function likeSuccess(){
+        if(!document.querySelector(".aui-mask1")){
+            var html = '<div id="alert">'+
+                        '<div class="aui-mask1">'+
+                        '</div>'+
+                        '<div class="collection-success">'+
+                        '<img src="../../image/likesuc.png" />'+
+                        '</div>'+
+                        '</div>';
+            document.querySelector("body").insertAdjacentHTML('beforeend', html);
+            document.querySelector(".aui-mask1").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            document.querySelector(".collection-success").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            setTimeout(function(){
+                document.querySelector(".aui-mask1").classList.add("mask-in");
+                document.querySelector(".collection-success").classList.add("collection-success-in");
+            }, 100)
+            setTimeout(function(){
+                document.querySelector(".aui-mask1").classList.remove("mask-in");
+                document.querySelector(".aui-mask1").classList.add("mask-out");
+                document.querySelector(".collection-success").classList.remove("collection-success-in");
+                document.querySelector(".collection-success").classList.add("collection-success-out");
+                setTimeout(function(){
+                    document.getElementById("alert").parentNode.removeChild(document.getElementById("alert"));
+                    document.querySelector(".aui-mask").classList.remove("mask-out");
+
+                }, 300)
+            }, 1600)
+        }
+    }
+
+        // collection
+    /*
+    * @param status -1 未收藏，0 动画正在进行，1=已经收藏
+    *
+    */
+    //关闭分享页面
+    function closeShare(){
+        document.getElementById("share-box").classList.add("share-box-out");
+
+        setTimeout(function(){
+            document.getElementById("share-box").classList.remove("share-box-in");
+        }, 300)
+        var mask = document.querySelector('.aui-mask');
+        var popover = document.querySelector('.aui-popover');
+        mask.classList.remove('mask-in');
+        mask.classList.add('mask-out');
+        popover.classList.remove('show');
+        setTimeout(function(){
+          mask.classList.remove('mask-out');
+        }, 100)
+    }
+
+
+    //关闭对话框
+    function closeAdd(){
+        document.getElementById("comment-box").classList.add("comment-box-out");
+
+        setTimeout(function(){
+            document.getElementById("comment-box").classList.remove("comment-box-in");
+        }, 300)
+    }
+    function openShare(){
+        document.getElementById("share-box").classList.remove("share-box-out");
+        document.getElementById("share-box").classList.add("share-box-in");
+        var popover = document.querySelector('.aui-popover');
+        popover.classList.remove('show');
+    }
+    function openCommentAdd () {
+        document.getElementById("comment-box").classList.remove("comment-box-out");
+        document.getElementById("comment-box").classList.add("comment-box-in");
+    }
+    // collection success
+    function collection(){
+
+        var status = document.getElementById("collection-btn").getAttribute("status");
+        switch (status) {
+            case '-1':
+                document.getElementById("collection-btn").setAttribute("status", 0);
+                openHousePopover();
+                collectionSuccess();
+                setTimeout(function(){
+                    document.getElementById("collection-btn").setAttribute("status", '1');
+                }, 1700)
+                break;
+            case '0':
+                return;
+                break;
+            case '1':
+                alert('取消收藏');
+                document.getElementById("collection-btn").setAttribute("status", '-1');
+                break;
+        }
+    }
+    // //点赞
+    // function goodClick(){
+    //     var status = document.getElementById("like-btn").getAttribute("status");
+    //     switch (status) {
+    //         case '-1':
+    //             document.getElementById("like-btn").setAttribute("status", 0);
+    //             openHousePopover();
+    //             likeSuccess();
+    //             setTimeout(function(){
+    //                 document.getElementById("like-btn").setAttribute("status", '1');
+    //             }, 1700)
+    //             break;
+    //         case '0':
+    //             return;
+    //             break;
+    //         case '1':
+    //             document.getElementById("like-btn").setAttribute("status", '-1');
+    //             break;
+    //     }
+    // }
+
+    document.querySelector(".aui-mask").addEventListener('touchstart', function(){
+        var topPopover = document.querySelector('.aui-popover-top-right.show');
+        var bottomPopover = document.querySelector('.aui-popover-bottom.show');
+        if (topPopover) {
+            openHousePopover();
+        }else {
+            openDownLoad();
+            download = false;
+        }
+
+    })
+    //收藏 点评 关注
+    function collection(){
+        var token = $api.getStorage('token');
+        if(!token){
+            openLogin();
+            return;
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/Build/collectItem',
+           data: "token="+token+"&item_id="+building_id+"&item_type=1",
+           success: function(ret){
+               if(ret.code == 1){
+                   collectionSuccess();
+               }else{
+                   a.content = ret.msg;
+                   layer.open(a);
+                   if(ret.code == 0){
+                       setTimeout(function(){logout();},1500)
+                   }
+               }
+           }
+        });
+        openHousePopover();
+    }
+     function like(){
+        var token = $api.getStorage('token');
+        if(!token){
+            openLogin();
+            return;
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/Build/addAttention',
+           data: "token="+token+"&building_id="+building_id+"&item_type=1",
+           success: function(ret){
+               if(ret.code == 1){
+                   likeSuccess();
+               }else{
+                   a.content = ret.msg;
+                   layer.open(a);
+
+                   if(ret.code == 0){
+                       setTimeout(function(){logout();},1500)
+                   }
+               }
+
+           }
+        });
+        openHousePopover();
+    }
+    function openLogin(){
+        $api.setStorage("loginFrom","house/house_detail.html?building_id="+building_id);
+        window.location.href = "../login.html";
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.setStorage("loginFrom","house/house_detail.html?building_id="+building_id);
+        window.location.href = "../login.html";
+    }
+</script>
+</html>

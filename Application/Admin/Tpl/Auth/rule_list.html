@@ -1,0 +1,93 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-header">
+            规则管理
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+                <a href="javascript:ruleAdd();" class="btn btn-sm btn-info"><i class="fa fa-plus"></i>添加规则</a>
+				<table class="table table-striped" id="dataTable">
+					<thead>
+						<tr>
+							<th>排序</th>
+							<th>ID</th>
+							<th>名称</th>
+							<th>控制器/方法</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="ruleList" item="v">
+						<tr id="data-{$v['id']}">
+							<td>{$v['sort']}</td>
+							<td>{$v['id']}</td>
+							<td>{$v['title']}</td>
+							<td>{$v['name']}</td>
+							<td>
+								<if condition="$v['status'] eq 1">
+								<span class="label label-success">是</span>
+								<else />
+								<span class="label label-danger">否</span>
+								</if>
+							</td>
+							<td>
+								<a href="javascript:ruleAdd({$v['id']})" class="btn btn-manager btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="添加子规则" data-original-title="添加子规则"><i class="fa fa-plus"></i></a>
+								<a href="javascript:ruleEdit({$v['id']})" class="btn btn-manager btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-pencil"></i></a>
+								<a href="javascript:ruleDelete({$v['id']})" class="btn btn-manager btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-trash-o"></i></a>
+							</td>
+						</tr>
+						<php>if($v['children']){</php>
+							<foreach name="v['children']" item="r">
+							<tr id="data-{$r['id']}">
+								<td>{$r['sort']}</td>
+								<td>{$r['id']}</td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├&nbsp;&nbsp;{$r['title']}</td>
+								<td>{$r['name']}</td>
+								<td>
+									<if condition="$r['status'] eq 1">
+									<span class="label label-success">是</span>
+									<else />
+									<span class="label label-danger">否</span>
+									</if>
+								</td>
+								<td>
+									<a href="javascript:ruleEdit({$r['id']})" class="btn btn-manager btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-pencil"></i></a>
+									<a href="javascript:ruleDelete({$r['id']})" class="btn btn-manager btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-trash-o"></i></a>
+								</td>
+							</tr>
+							</foreach>
+						<php>}</php>
+						</foreach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function ruleAdd(pid){
+		if(pid){
+			DMS.ajaxShow("新增规则","__CONTROLLER__/ruleAdd/pid/"+pid);
+		}else{
+			DMS.ajaxShow("新增规则","__CONTROLLER__/ruleAdd");
+		}
+
+	}
+	function ruleEdit(id){
+		DMS.ajaxShow("规则编辑","__CONTROLLER__/ruleEdit/id/"+id);
+	}
+	function ruleDelete(id){
+		DMS.dialog("确定要删除当前规则吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/ruleDelete",{id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

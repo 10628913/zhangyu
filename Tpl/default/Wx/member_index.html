@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>会员中心</title>
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui-flex.css" />
+</head>
+<style>
+.my-header {
+    background-color:#998e78;
+    position: relative;
+    margin-bottom: 0;
+}
+.my-info {
+    position: relative;
+    /*padding: 20px 0;*/
+    width: 100%;
+    bottom: 0;
+    vertical-align: center;
+    color: #ffffff;
+}
+.my-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.my-info p.nickname {
+    color: #ffffff;
+    font-size: 1em;
+}
+.my-info p.mobile {
+    font-size: 0.75em;
+    color: #ffffff;
+}
+.amount-info {
+    background-color: #ffffff;
+    overflow: hidden;
+}
+.amount-info p {
+    font-size: 0.75em;
+}
+.amount-info p strong {
+    font-size: 1.2em !important;
+    font-weight: 700;
+}
+.aui-list-view-cell {
+    line-height: 26px;
+}
+.amount-info .aui-col-xs-6 {
+    padding: 15px 0;
+    position: relative;
+}
+.amount-info .aui-col-xs-6:after {
+    border-left: 1px solid #ddd;
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(1);
+    pointer-events: none;
+}
+.amount-info .aui-col-xs-6:first-child:after {
+    border:none;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+    .amount-info .aui-col-xs-6:after {
+        right: -100%;
+        bottom: -100%;
+        -webkit-transform: scale(0.5);
+    }
+}
+.aui-list-view-cell {
+    padding: 12px 15px;
+    font-size: 0.95em;
+}
+</style>
+<body>
+    <div class="aui-content my-header aui-padded-15">
+        <div class="aui-flex-col aui-flex-middle my-info">
+            <div class="aui-flex-item-3 aui-text-center">
+                <if condition="$avatar">
+                <img src="{$avatar}" id="avatar">
+                <else />
+                <img src="../image/noimg.png" id="avatar">
+                </if>
+            </div>
+            <div class="aui-flex-item-9">
+                <p class="nickname"><i class="aui-iconfont aui-icon-peoplefill"></i><span  id="nickname">{$nickname}</span></p>
+                <p class="mobile"><i class="aui-iconfont aui-icon-mobilefill"></i>
+                    <if condition="$mobile">
+                    <span id="mobile">{$mobile}</span>
+                    <else />
+                    <span id="mobile">未绑定</span>
+                    </if>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="aui-content aui-text-center amount-info">
+        <div class="aui-col-xs-6">
+            <p class="aui-text-danger"><strong id="amount">{$amount}</strong>元</p>
+            <p>我的余额</p>
+        </div>
+        <div class="aui-col-xs-6">
+            <p class="aui-text-success"><strong id="point">{$point}</strong>分</p>
+            <p>我的积分</p>
+        </div>
+    </div>
+    <div class="aui-content aui-clearfix">
+        <ul class="aui-list-view aui-in">
+            <!-- <li class="aui-list-view-cell" tapmode onclick="openPage('my_user_info_win')">
+                <a class="aui-arrow-right"><i class="aui-iconfont aui-icon-people aui-bg-info"></i>个人资料</a>
+            </li> -->
+            <li class="aui-list-view-cell" tapmode onclick="openPage('Wx/Member/mobileBinding')">
+                <a class="aui-arrow-right">
+                    <i class="aui-iconfont aui-icon-mobilefill aui-bg-primary"></i>手机绑定
+                    <if condition="$mobile">
+                    <span class="aui-badge aui-badge-success aui-pull-right">已绑定</span>
+                    <else />
+                    <span class="aui-badge aui-pull-right">未绑定</span>
+                    </if>
+                </a>
+            </li>
+            <li class="aui-list-view-cell" tapmode onclick="openPage('Wx/Member/mobileBinding')">
+                <a class="aui-arrow-right"><i class="aui-iconfont aui-icon-profilefill aui-bg-warning"></i>账号管理</a>
+            </li>
+            <li class="aui-list-view-cell" tapmode onclick="openPage('Wx/Member/recharge')">
+                <a class="aui-arrow-right"><i class="aui-iconfont aui-icon-refund aui-bg-primary"></i>账户充值</a>
+            </li>
+            <!-- <li class="aui-list-view-cell" tapmode onclick="openPage('Wx/Member/withdraw')">
+                <a class="aui-arrow-right"><i class="aui-iconfont aui-icon-sponsorfill aui-bg-danger"></i>提现申请</a>
+            </li> -->
+            <li class="aui-list-view-cell" tapmode onclick="openPage('Wx/Member/myActivityOrder')">
+                <a class="aui-arrow-right"><i class="aui-iconfont aui-icon-sort aui-bg-warning"></i>我的订单</a>
+            </li>
+            <li class="aui-list-view-cell" tapmode onclick="openPage('my_user_info_win')">
+                <a class="aui-arrow-right">
+                    <i class="aui-iconfont aui-icon-people aui-bg-info"></i>赚积分
+                    <span class="aui-badge aui-badge-warning aui-pull-right">推广码：{$spread_code}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+// var siteUrl = "http://localhost:8887/";
+var siteUrl = "http://nixiangyuan.apithink.com/";
+function openPage(pageName){
+    window.location.href = siteUrl+"?s="+pageName;
+}
+function showAlert(title){
+    alert(title);
+}
+</script>
+</html>

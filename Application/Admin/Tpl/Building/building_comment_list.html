@@ -1,0 +1,88 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="paddingTLR-md">
+			<a href="#" class="btn btn-xs btn-info">点评管理</a>
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group col-md-6" id="search-form">
+							<input type="text" name="keywords" class="form-control input-sm" placeholder="请输入关键词查询" value="{$searchInfo['keywords']}">
+							<span class="input-group-btn">
+								<a href="javascript:;" url="__ACTION__" id="search" class="btn btn-sm btn-success">搜索</a>
+							</span>
+						</div>
+					</div>
+				</div>
+				<form action="" method="post">
+				<table class="table table-striped table-hover table-bordered m-top-md" id="dataTable">
+					<thead>
+						<tr>
+							<th width="80">ID</th>
+							<th>用户</th>
+							<th>内容</th>
+							<th>时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+						<tr id="data-{$v['comment_id']}">
+							<td>{$v['comment_id']}</td>
+							<td>{$v['user_nickname']}</td>
+							<td>{$v['comment_content']}</td>
+							<td>{$v['addtime']||date="Y-m-d H:i:s",###}</td>
+							<td class="manager">
+								<a href="javascript:buildingCommentDetail({$v['comment_id']})" class="text-primary">详情</a>
+								<a href="javascript:buildingCommentDelete({$v['comment_id']})" class="text-danger">删除</a>
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table>
+				<div class="content text-right">
+					<ul class="pagination">
+					{$page}
+					</ul>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		//搜索功能
+		$("#search").click(function(){
+			var url = $(this).attr('url');
+	        var query  = $('#search-form').find('.input-sm').serialize();
+	        if(!$('input[name="keywords"]').val()){
+	        	DMS.alert("请输入关键词");
+	        	return;
+	        }
+	        if( url.indexOf('?')>0 ){
+	            url += '&' + query;
+	        }else{
+	            url += '?' + query;
+	        }
+			window.location.href = url;
+		});
+	})
+	function buildingCommentDetail(id){
+		DMS.ajaxShow("点评详情","__CONTROLLER__/buildingCommentDetail/comment_id/"+id);
+	}
+	function buildingCommentDelete(id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/buildingCommentDelete",{comment_id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

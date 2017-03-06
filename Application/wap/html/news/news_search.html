@@ -1,0 +1,396 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css" />
+	<style>
+		.aui-bar{
+	        position: fixed;
+	        top: 0;
+	        left: 0;
+	        width: 100%;
+	        background-color: #df3031;
+	        color: #fff;
+	    }
+	    .demo{
+	    	position: fixed;
+	        top: 2.25rem;
+	        left: 0;
+	        width: 100%;
+	        color: #fff;
+	        z-index: 999;
+	    }
+	    .aui-bar +*+*{
+	        padding-top: 4.7rem !important;
+	    }
+	    html,body{
+	        background-color: #fff;
+	        overflow-x: hidden;
+	        overflow-y:auto;
+	    }
+		.aui-slide-page-active {
+		    background: #df3031;
+		}
+		.slide-title {
+			background-color: rgba(0,0,0,0.7);
+			height: 2.2rem;
+			line-height: 2.2rem;
+			padding: 0 0.4rem;
+			color: #ffffff;
+			font-size: 0.8rem;
+			position: absolute;
+			left: 0;
+			top: 7rem;
+			z-index: 999999;
+			display: inline-block;
+		}
+		.slide-desc {
+			background-color: rgba(0,0,0,0.7);
+			color: #ffffff;
+			font-size: 0.6rem;
+			position: absolute;
+			left: 0;
+			top: 7.2rem;
+			display: inline-block;
+			padding: 0.2rem 0.4rem;
+		}
+		.aui-content {
+			background-color: #ffffff;
+		}
+		#news-list {
+			position: relative;
+			display: box;
+    		display: -webkit-box;
+    		display: inline-block;
+		    display: -webkit-flex;
+
+		    display: flex;
+		    -webkit-flex-wrap: wrap;
+            		flex-wrap: wrap;
+            overflow-x: hidden;
+		}
+		#news-list:after {
+			width: 1px;
+		    height: 100%;
+		    background-color: #eeeeee;
+		    display: block;
+		    content: '';
+		    position: absolute;
+		    z-index: 2;
+		    top: auto;
+		    right: auto;
+		    bottom: 0;
+		    left: 50%;
+		    -webkit-transform-origin: 100% 50%;
+		            transform-origin: 100% 50%;
+		    maller-events: none;
+		}
+		#news-list .news-item {
+			width: 50%;
+			float: left;
+			position: relative;
+			padding: 0.5rem;
+			padding-bottom: 2rem;
+			min-height: 13rem;
+		}
+		#news-list .news-item:after {
+			width: 100%;
+		    height: 1px;
+		    background-color: #eeeeee;
+		    display: block;
+		    content: '';
+		    position: absolute;
+		    z-index: 1;
+		    top: 0;
+		    right: auto;
+		    bottom: auto;
+		    left: 0;
+		    -webkit-transform-origin: 50% 100%;
+		            transform-origin: 50% 100%;
+		}
+		#news-list .news-img img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		#news-list .news-img {
+			margin-bottom: 0.5rem;
+		}
+		#news-list .news-title {
+			font-size: 0.8rem;
+			color: #373737;
+		}
+		#news-list .news-desc {
+			margin-top: 0.5rem;
+			width: 100%;
+			font-size: 0.7rem;
+			color: #666666;
+		}
+		#news-list .news-info {
+			position: absolute;
+			bottom: 0.5rem;
+			width: auto;
+			padding-right: 1rem;
+			margin-top: 0.5rem;
+			width: 100%;
+			font-size: 0.6rem;
+			color: #999999;
+		}
+		#news-list .news-tag {
+			/*margin-top: 0.15rem;*/
+			padding: 0.05rem  0.15rem;
+			display: inline-block;
+			font-size: 0.5rem;
+			box-sizing: border-box;
+            display: box;
+		    display: -webkit-box;
+		    display: -webkit-flex;
+		    display: flex;
+		    -webkit-align-items: center;
+		            align-items: center;
+		}
+		#news-list .news-tag span {
+			margin-top: -0.05rem;
+			margin-bottom: -0.05rem;
+			margin-left: -0.2rem;
+			display: block;
+			float: left;
+			padding: 0.05rem 0.25rem;
+		}
+		#news-list .news-tag span .aui-iconfont {
+			font-size: 0.5rem;
+		}
+		#news-list .news-tag.aui-tag-info {
+			color: #5b9cf5;
+		}
+		#news-list .news-tag.aui-tag-info span {
+			background: #ffffff;
+		}
+		.aui-border.aui-tag-info:after {
+		    border:1px solid #5b9cf5;
+		     border-radius: 0.2rem;
+		}
+		#news-list .news-tag.aui-tag-danger {
+			color: #e74c3c;
+		}
+		.aui-border.aui-tag-danger:after {
+		    border:1px solid #e74c3c;
+		    border-radius: 0.2rem;
+		}
+		#news-list .news-tag.aui-tag-danger span {
+			background: #ffffff;
+		}
+
+		#news-list .news-tag.aui-tag-warning {
+			color: #ff9800;
+		}
+		.aui-border.aui-tag-warning:after {
+		    border:1px solid #ff9800;
+		}
+		#news-list .news-tag.aui-tag-warning span {
+			background: #ff9800;
+		}
+		#news-list .news-tag.aui-tag-success {
+			color: #2ecc71;
+		}
+		.aui-border.aui-tag-success:after {
+		    border:1px solid #2ecc71;
+		}
+		#news-list .news-tag.aui-tag-success span {
+			background: #2ecc71;
+		}
+		input[type="text"]{
+			padding: 0;
+			min-height:32px;
+		}
+        .aui-ellipsis {
+			display: -webkit-box;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			word-wrap: break-word;
+			white-space: normal !important;
+			-webkit-line-clamp: 5;
+			-webkit-box-orient: vertical;
+		}
+		.searching {
+			width: 4rem;
+			height: 4rem;
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			margin-left: -2rem;
+			margin-top: -3rem;
+			font-size: 0.7rem;
+			color: #666;
+		}
+		.no-data {
+        	width: 100%;
+        	margin-top: 30px;
+        	padding: 0.75rem;
+        	text-align: center;
+        }
+        .no-data:after{
+        	width: 0 !important;
+        }
+        .no-data img {
+        	width: 70%;
+        	margin: 0 auto;
+        }
+	</style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">搜索</div>
+    </header>
+
+    <section class="aui-searchbar-wrap demo" id="search">
+        <div class="aui-searchbar aui-border-radius" tapmode onclick="doSearch()">
+            <i class="aui-iconfont aui-icon-search"></i>
+            <div class="aui-searchbar-text">请输入搜索内容</div>
+            <div class="aui-searchbar-input">
+                <form action="javascript:search();">
+                <input type="text" placeholder="请输入搜索内容" id="search-input">
+                </form>
+            </div>
+            <i class="aui-iconfont aui-icon-roundclosefill" tapmode onclick="clearInpu()"></i>
+        </div>
+        <div class="aui-searchbar-cancel aui-text-info" tapmode onclick="cancelSearch()">取消</div>
+    </section>
+
+	<section class="aui-content" id="news-list" style="margin-bottom:0;">
+
+	</section>
+</body>
+<script id="news-list-tpl" type="text/x-dot-template">
+    {{ for(var i in it) { }}
+    <div class="news-item" tapmode onclick="openNewsDetail('{{=it[i].news_id}}','{{=it[i].type_id}}')">
+        {{? it[i].news_thumb}}
+        <div class="news-img">
+            <img src="../../image/image_loading_1.png" data-echo="{{=it[i].news_thumb}}" />
+        </div>
+        {{?}}
+        <div class="news-title">{{=it[i].news_title}}</div>
+        {{? !it[i].news_thumb}}
+        <div class="news-desc aui-ellipsis">
+            {{=it[i].news_description}}
+        </div>
+        {{?}}
+        <div class="news-info">
+            {{=it[i].news_source}} <time>{{=it[i].news_pub_time}}</time>
+            {{? it[i].type_id == 1}}
+            <div class="news-tag aui-border aui-tag-danger aui-pull-right">
+                <span><i class="aui-iconfont aui-icon-edit"></i></span> 文章
+            </div>
+            {{?? it[i].type_id == 2}}
+            <div class="news-tag aui-border aui-tag-danger aui-pull-right">
+                <span><i class="aui-iconfont aui-icon-edit"></i></span> 图集
+            </div>
+            {{?? it[i].type_id == 3}}
+            <div class="news-tag aui-border aui-tag-danger aui-pull-right">
+                <span><i class="aui-iconfont aui-icon-video"></i></span> 视频
+            </div>
+            {{?? it[i].type_id == 4}}
+            <div class="news-tag aui-border aui-tag-danger aui-pull-right">推广</div>
+            {{??}}
+            <div class="news-tag aui-border aui-tag-danger aui-pull-right">
+                <span><i class="aui-iconfont aui-icon-edit"></i></span> 文章
+            </div>
+            {{?}}
+        </div>
+    </div>
+    {{ } }}
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+    apiready = function(){
+
+    };
+    function openNewsDetail(news_id,type_id){
+        switch (type_id) {
+            case "1":
+                var url = "news_detail.html?news_id="+news_id;
+                break;
+            case "2":
+                var url = "news_album_detail.html?news_id="+news_id;
+                break;
+            case "3":
+                var url = "news_video_detail.html?news_id="+news_id;
+                break;
+            case "4":
+                var url = "news_detail.html?news_id="+news_id;
+                break;
+            default:
+                var url = "news_detail.html?news_id="+news_id;
+                break;
+        }
+        window.location.href = url;
+    }
+
+
+	function closeWin(){
+        window.history.go(-1);
+    }
+    function doSearch(){
+        $api.addCls($api.dom(".aui-searchbar-wrap"),"focus");
+        $api.dom('.aui-searchbar-input input').focus();
+    }
+    function cancelSearch(){
+        $api.removeCls($api.dom(".aui-searchbar-wrap.focus"),"focus");
+        $api.val($api.byId("search-input"),'');
+        $api.dom('.aui-searchbar-input input').blur();
+    }
+    function clearInput(){
+        $api.val($api.byId("search-input"),'');
+    }
+    function search(){
+        var content = $api.val($api.byId("search-input"));
+        if(!content){
+            a.content = "请输入搜索内容";
+            layer.oepn(a);
+            return;
+        }
+        cancelSearch();
+    	var searchHtml = '<div class="searching">正在搜索中</div>';
+    	document.body.insertAdjacentHTML('beforeend', searchHtml);
+    	var token = $api.getStorage("token");
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/News/getNewsList',
+           data: "keywords="+content+"&pageNum=1",
+           success: function(ret){
+               if(document.querySelector(".searching"))document.querySelector(".searching").parentNode.removeChild(document.querySelector(".searching"));
+               if(ret.code == '1'){
+                   document.getElementById("news-list").innerHTML = '';
+                   if(document.querySelector("#news-list.no-data"))document.querySelector("#news-list.no-data").classList.remove("no-data");
+                   var tpl = document.getElementById("news-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("news-list").insertAdjacentHTML('beforeend', tempFn(ret.data));
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250
+                   });
+               }else {
+                   document.getElementById("news-list").innerHTML = '<div class="no-data"><img src="../../image/no_search_data.png" /></div>';
+                   document.getElementById("news-list").classList.add("no-data");
+               }
+           }
+        });
+    }
+</script>
+</html>

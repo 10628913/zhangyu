@@ -1,0 +1,703 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/photoswipe.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/photoswipe-ui-default.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css" />
+    <style type="text/css">
+        body,html{
+            background-color: #000;
+        }
+        .aui-bar {
+            background: #000000;
+            z-index: 1501;
+        }
+        .footer-bar {
+            width: 100%;
+            background: #000000;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            z-index: 1501;
+        }
+        .footer-bar .aui-iconfont {
+            color: #eee;
+            font-size: 1rem !important;
+        }
+        .footer-bar .input-bar {
+            width: 90%;
+            margin-top: 0.3rem;
+            margin-left: 0.75rem;
+            min-height: 1.6rem !important;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            font-size: 0.6rem;
+            padding-left: 0.5rem;
+            color: #bbb;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            background: #333;
+        }
+        /*.footer-bar .input-bar.aui-border:after {
+            border-radius: 1.5rem;
+        }*/
+        .footer-bar .input-bar .aui-iconfont {
+            color: #bbb;
+            font-size: 0.6rem !important;
+            line-height: 1.5rem;
+            margin-right: 0.25rem;
+        }
+        .footer-bar .aui-iconfont {
+            font-size: 1rem;
+        }
+        .comment-count {
+            position: absolute;
+            bottom: 0.7rem;
+            right: 0.5rem;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            background: #d43d3d;
+            padding: 0 0.5rem;
+            font-size: 0.6rem;
+            border-radius: 0.4rem;
+            border-top-right-radius: 0;
+        }
+
+
+        /*点赞*/
+
+        #collection-btn .aui-iconfont.end{
+            color: #df3031 !important;
+        }
+       #goodclick-btn .aui-iconfont.end{
+            color: #df3031 !important;
+        }
+        .aui-mask {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        .aui-mask.mask-in {
+            visibility: visible;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .aui-mask.mask-out {
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        .collection-success {
+            position: fixed;
+            left: 50%;
+            top: 25%;
+            width: 13rem;
+            z-index: 9999;
+            margin-left: -7.5rem;
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100%, 0) scale(1) rotate(-45deg);
+                    transform: translate3d(0, -100%, 0) scale(1) rotate(-45deg);
+            /*-webkit-transform:rotate(-45deg);*/
+                    /*transform:rotate(-45deg);*/
+        }
+        .collection-success-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+        }
+        .collection-success-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 100%, 0) scale(0.5) rotate(45deg);
+                  transform: translate3d(0, 100%, 0) scale(0.5) rotate(45deg);
+        }
+        .collection-success img {
+            width: 100%;
+        }
+
+        .footer-bar .aui-iconfont {
+            font-size: 1rem !important;
+        }
+        .footer-bar .input-bar {
+            width: 90%;
+            margin-top: 0.3rem;
+            margin-left: 0.75rem;
+            min-height: 1.6rem !important;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            font-size: 0.6rem;
+            padding-left: 0.5rem;
+            color: #bbb;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid #eee;
+            background: #ffffff;
+        }
+        /*.footer-bar .input-bar.aui-border:after {
+            border-radius: 1.5rem;
+        }*/
+        .footer-bar .input-bar .aui-iconfont {
+            color: #bbb;
+            font-size: 0.6rem !important;
+            line-height: 1.5rem;
+            margin-right: 0.25rem;
+        }
+        .footer-bar .aui-iconfont {
+            font-size: 1rem;
+        }
+
+
+        #collection-btn .aui-iconfont.end{
+                color: #df3031 !important;
+        }
+       #goodclick-btn .aui-iconfont.end{
+            color: #df3031 !important;
+        }
+        .comment-box {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 9999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+            display: none;
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 80%, 0) scale(1);
+                  transform: translate3d(0, 80%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+
+        /*share*/
+        .share-box {
+            background: #ffffff;
+            padding: 0.75rem 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                    transform: translate3d(0, 30%, 0) scale(1);
+            display: none;
+        }
+        .share-box.share-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .share-box.share-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 30%, 0) scale(1);
+                  transform: translate3d(0, 30%, 0) scale(1);
+        }
+        .share-box p {
+            font-size: 0.6rem;
+            color: #666;
+        }
+        .share-box .aui-iconfont {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .share-box .share-inner {
+            width: 100%;
+            overflow: hidden;
+        }
+        .share-box .share-close {
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .share-box .share-close .aui-iconfont {
+            font-size: 1rem;
+            color: #999;
+            padding: 0.5rem;
+            background-color: #f4f4f4;
+            border-radius: 50%;
+        }
+        .share-inner img{
+            width:40%;
+        }
+        .share-inner p{
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <i class="aui-iconfont aui-icon-left"></i>
+        </a>
+        <div class="aui-title">详情</div>
+        <a class="aui-pull-right" tapmode onclick="openComment()">
+            <div class="comment-count">0</div>
+        </a>
+    </header>
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                          <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar aui-flex-col aui-border-t" id="footer">
+        <div class="aui-flex-item-8" tapmode onclick="openCommentAdd()">
+            <div class="input-bar">
+                <i class="aui-iconfont aui-icon-pencil"></i>我要回复
+            </div>
+        </div>
+        <div class="aui-flex-item-4 aui-text-center">
+            <div class="aui-flex-item-6 aui-text-center" tapmode onclick="collection()" status="-1" id="collection-btn">
+                <i class="aui-iconfont aui-icon-star"></i>
+            </div>
+            <div class="aui-flex-item-6  aui-text-center" tapmode onclick="goodClick()" status="-1" id="goodclick-btn">
+                <i class="aui-iconfont aui-icon-laud"></i>
+            </div>
+            <!-- <div class="aui-flex-item-4 aui-text-center" tapmode onclick="openShare()">
+                <i class="aui-iconfont aui-icon-share"></i>
+            </div> -->
+        </div>
+    </div>
+    <section class="comment-box" id="comment-box">
+        <div class="comment-nav">
+            <div class="comment-btn" tapmode onclick="closeAdd()">取消</div>
+            <div class="comment-title">回复</div>
+            <div class="comment-btn disabled" onclick="commentPost()">发送</div>
+        </div>
+        <div class="comment-wrap">
+            <textarea class="aui-border comment-textarea" id="commentContent" rows="4"></textarea>
+        </div>
+    </section>
+    <section class="share-box aui-text-center" id="share-box">
+        <div class="share-inner">
+            <div class="aui-col-xs-5">
+                <img src="../../image/pengyouquan.png">
+                <p>朋友圈</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/weixin.png">
+                <p>微信</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/qq.png">
+                <p>QQ</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/kongjian.png">
+                <p>QQ空间</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/weibo.png">
+                <p>微博</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/duanxin.png">
+                <p>短信分享</p>
+            </div>
+            <div class="aui-col-xs-5">
+                <img src="../../image/shequ.png">
+                <p>分享到社区</p>
+            </div>
+        </div>
+        <div class="share-close aui-border-t">
+            <i class="aui-iconfont aui-icon-close" tapmode onclick="closeShare()"></i>
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/photoswipe.min.js"></script>
+<script type="text/javascript" src="../../script/photoswipe-ui-default.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript">
+    var news_id = $.getUrlParam("news_id");
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var collectStatus=false,thumbsStatus=false;
+    $(function($){
+        getAlbum();
+    })
+    //提示框
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+    function getAlbum(){
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/News/getNewsDetail',
+           data: "news_id="+news_id+"&token="+token,
+           success: function(ret){
+               if(ret.code == 1){
+                   if(ret.data.collectStatus){
+                        collectStatus = true;
+                        document.querySelector('#collection-btn .aui-iconfont').classList.add("end");
+                    }
+                    if(ret.data.thumbsStatus){
+                        thumbsStatus = true;
+                        document.querySelector('#goodclick-btn .aui-iconfont').classList.add("end");
+                    }
+                   var news_comment_count = ret.data.news_comment_count;
+                   document.querySelector(".comment-count").textContent = news_comment_count;
+                   var atlas = ret.data.news_atlas;
+                   var arr = [],item = {};
+                   for(var i in atlas){
+                       item.src = atlas[i].url;
+                       item.w = atlas[i].width;
+                       item.h = atlas[i].height;
+                       item.title = atlas[i].desc;
+                       arr.push(item);
+                       item = {};
+                   }
+                   var pswpElement = document.querySelectorAll('.pswp')[0];
+                   var items = arr;
+                   var options = {
+                       history: false,
+                       focus: false,
+                       showAnimationDuration: 0,
+                       hideAnimationDuration: 0,
+                       pinchToClose:false,
+                       closeOnVerticalDrag:false
+
+                   };
+
+                   var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+                   gallery.init();
+               }
+           }
+        });
+    }
+     // collection success
+     // collectionSuccess();
+       //关闭分享页面
+    function closeShare(){
+        document.getElementById("share-box").classList.add("share-box-out");
+
+        setTimeout(function(){
+            document.getElementById("share-box").classList.remove("share-box-in");
+        }, 300)
+    }
+    //评论提交
+    function commentPost(){
+        // if(status)return;
+        var token = $api.getStorage('token');
+        var comment_content = document.getElementById("commentContent").value;
+        if(comment_content.length < 10) {
+            a.content = "请输入10字以上评论内容";
+            layer.open(a);
+            return;
+        }
+        var values = "token="+token+"&news_id="+news_id+"&comment_content="+comment_content;
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Comment/addComment',
+           data: values,
+           success: function(ret){
+               if(ret) {
+                   status = true;
+                   a.content = ret.msg;
+                   layer.open(a);
+                   if(ret.code == 1){
+                       document.querySelector(".comment-count").textContent = ret.comment_count;
+                       document.getElementById("commentContent").value = "";
+                       setTimeout(function(){
+                           closeAdd();
+                       }, 1000)
+                   }else if(ret.code==0){
+                       setTimeout(function(){
+                           openLogin();
+                       }, 1000)
+                       return;
+                   }else{
+                   }
+               }
+           }
+        });
+    }
+    //查看评论
+    function openComment(){
+        window.location.href='news_comment_all.html?news_id='+news_id;
+    }
+    function collection(){
+        var token = $api.getStorage('token');
+        if(!token){
+            openLogin();
+            return;
+        }
+        if(collectStatus){
+            delCollect();
+        }else{
+            addCollect();
+        }
+    }
+    function addCollect(){
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+"App/Comment/newsCollect",
+           data: "token="+token+"&news_id="+news_id,
+           success: function(ret){
+               if (ret) {
+                   a.content = ret.msg;
+                   layer.open(a);
+                   if(ret.code == 1){
+                       collectStatus = true;
+                       document.querySelector('#collection-btn .aui-iconfont').classList.add("end");
+                   }else{
+                       collectStatus = false;
+                       document.querySelector('#collection-btn .aui-iconfont').classList.remove("end");
+                   }
+               }
+           }
+        });
+    }
+     function delCollect(){
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+"App/Comment/delCollect",
+           data: "token="+token+"&news_id="+news_id,
+           success: function(ret){
+               if (ret) {
+                   a.content = ret.msg;
+                   layer.open(a);
+                   if(ret.code == 1){
+                       collectStatus = false;
+                       document.querySelector('#collection-btn .aui-iconfont').classList.remove("end");
+                   }else{
+                       collectStatus = true;
+                       document.querySelector('#collection-btn .aui-iconfont').classList.add("end");
+                   }
+               }
+           }
+        });
+    }
+    function openLogin(){
+        $api.setStorage("loginFrom","news/news_detail?news_id="+news_id);
+        window.location.href="../login.html";
+    }
+
+    function goodClick(){
+        var token = $api.getStorage('token');
+        if(!token){
+            openLogin();
+            return;
+        }
+        thumbsUp();
+    }
+    function thumbsUp(){
+        var token = $api.getStorage("token");
+        $.ajax({
+           type: "POST",
+           url: siteUrl+"App/Comment/thumbsUp",
+           data: "token="+token+"&item_id="+news_id,
+           success: function(ret){
+               if (ret) {
+                   a.content = ret.msg;
+                   layer.open(a);
+                   if(ret.code == 1){
+                       thumbsStatus = true;
+                       document.querySelector('#goodclick-btn .aui-iconfont').classList.add("end");
+                   }
+                   if(ret.code == 2){
+                       thumbsStatus = false;
+                       document.querySelector('#goodclick-btn .aui-iconfont').classList.remove("end");
+                   }
+               }
+           }
+        });
+    }
+
+    //关闭对话框
+    function closeAdd(){
+        document.getElementById("comment-box").classList.add("comment-box-out");
+
+        setTimeout(function(){
+            document.getElementById("comment-box").classList.remove("comment-box-in");
+        }, 300)
+    }
+    function openShare(){
+        document.getElementById("share-box").classList.remove("share-box-out");
+        document.getElementById("share-box").classList.add("share-box-in");
+    }
+    function openCommentAdd () {
+        var token = $api.getStorage("token");
+        if(!token){
+            openLogin();
+            return;
+        }
+        document.getElementById("comment-box").classList.remove("comment-box-out");
+        document.getElementById("comment-box").classList.add("comment-box-in");
+    }
+    function goodclickBtn () {
+        var goodclickBtn = document.getElementById('goodclick-btn');
+        var goodclickli = goodclickBtn.querySelector('.aui-iconfont');
+        var goodclickend = goodclickBtn.querySelector('.aui-iconfont.end');
+        if (goodclickend){
+            goodclickli.classList.remove('end');
+        }else {
+            goodclickli.classList.add('end');
+        }
+    }
+    function collectionBtn () {
+        var collectionBtn = document.getElementById('collection-btn');
+        var collectionli = collectionBtn.querySelector('.aui-iconfont');
+        var collectionend = collectionBtn.querySelector('.aui-iconfont.end');
+        if (collectionend){
+            collectionli.classList.remove('end');
+        }else {
+            collectionli.classList.add('end');
+        }
+    }
+
+    // collection success
+    function collectionSuccess(){
+        if(!document.querySelector(".aui-mask")){
+            var html = '<div id="alert">'+
+                        '<div class="aui-mask">'+
+                        '</div>'+
+                        '<div class="collection-success">'+
+                        '<img src="../../image/collection_success.png" />'+
+                        '</div>'+
+                        '</div>';
+            document.querySelector("body").insertAdjacentHTML('beforeend', html);
+            document.querySelector(".aui-mask").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            document.querySelector(".collection-success").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            setTimeout(function(){
+                document.querySelector(".aui-mask").classList.add("mask-in");
+                document.querySelector(".collection-success").classList.add("collection-success-in");
+            }, 100)
+            setTimeout(function(){
+                document.querySelector(".aui-mask").classList.remove("mask-in");
+                document.querySelector(".aui-mask").classList.add("mask-out");
+                document.querySelector(".collection-success").classList.remove("collection-success-in");
+                document.querySelector(".collection-success").classList.add("collection-success-out");
+                setTimeout(function(){
+                    document.getElementById("alert").parentNode.removeChild(document.getElementById("alert"));
+                }, 300)
+            }, 1600)
+        }
+    }
+    function goodclickSuccess(){
+        if(!document.querySelector(".aui-mask")){
+            var html = '<div id="alert">'+
+                        '<div class="aui-mask">'+
+                        '</div>'+
+                        '<div class="collection-success">'+
+                        '<img src="../../image/zansuc.png" />'+
+                        '</div>'+
+                        '</div>';
+            document.querySelector("body").insertAdjacentHTML('beforeend', html);
+            document.querySelector(".aui-mask").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            document.querySelector(".collection-success").addEventListener("touchstart", function(){
+                event.preventDefault();
+            })
+            setTimeout(function(){
+                document.querySelector(".aui-mask").classList.add("mask-in");
+                document.querySelector(".collection-success").classList.add("collection-success-in");
+            }, 100)
+            setTimeout(function(){
+                document.querySelector(".aui-mask").classList.remove("mask-in");
+                document.querySelector(".aui-mask").classList.add("mask-out");
+                document.querySelector(".collection-success").classList.remove("collection-success-in");
+                document.querySelector(".collection-success").classList.add("collection-success-out");
+                setTimeout(function(){
+                    document.getElementById("alert").parentNode.removeChild(document.getElementById("alert"));
+                }, 300)
+            }, 1600)
+        }
+    }
+    function closeWin(){
+        window.history.go(-1);
+    }
+    function openWin(name){
+        window.location.href=name+'.html';
+    }
+</script>
+</html>

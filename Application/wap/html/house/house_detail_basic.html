@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+	<style>
+    .aui-content {
+        overflow: hidden;
+        background: #ffffff;
+    }
+    .house-info {
+        padding: 0.75rem 0;
+    }
+    .house-info .house-title {
+        line-height: 1.5rem;
+        font-size: 0.9rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+        padding: 0 0.75rem;
+    }
+    .house-info .house-title small {
+        font-size: 0.7rem;
+        color: #999999;
+    }
+    .house-info .house-param {
+        padding-top: 0.5rem;
+    }
+    .house-param-item {
+        min-height: 1.5rem;
+        line-height: 1.5rem;
+        font-size: 0.7rem;
+        padding: 0 0.75rem;
+        color: #666;
+    }
+    /**/
+    .aui-content.house-desc {
+        background: #ffffff;
+        padding: 0.75rem 0;
+    }
+
+    .house-desc-inner {
+        width: 100%;
+        position: relative;
+        padding-top: 0.5rem;
+    }
+    .house-desc-item {
+        height: 1.5rem;
+        line-height: 1.5rem;
+        padding: 0 0.75rem;
+        font-size: 0.7rem;
+        color: #666;
+    }
+    /**/
+    h2.title {
+        color: #df3031;
+        border-left:2px solid #df3031;
+        padding-left: 0.5rem;
+        font-size: 0.8rem;
+        margin: 0 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    .more {
+        padding: 0.75rem 0;
+        font-size: 0.6rem;
+        text-align: center;
+        color: #999;
+    }
+    .bg-1 {
+        background-color: #f080a2;
+    }
+    .bg-2 {
+        background-color: #78909c;
+    }
+    .bg-3 {
+        background-color: #9ccc65;
+    }
+    .bg-4 {
+        background-color: #29b6f6;
+    }
+    .bg-5 {
+        background-color: #ab47bc;
+    }
+    .aui-bar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #df3031;
+        color: #fff;
+    }
+    .aui-bar +*{
+        padding-top: 2.5rem !important;
+    }
+    html,body{
+        background-color: #fff;
+        overflow-x: hidden;
+        overflow-y:auto;
+    }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">房源概况</div>
+    </header>
+    <div id="building-detail"></div>
+</body>
+<script id="building-detail-tpl" type="text/x-dot-template">
+    <section class="aui-content house-info">
+        <div class="house-title">
+            {{=it.building_name}}
+        </div>
+        <div class="house-param aui-border-t">
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">楼盘均价：</div>
+                <div class="aui-flex-item-9 aui-text-danger">{{? it.building_price_sqm && it.building_price_sqm >0}}{{=it.building_price_sqm}}&nbsp;元/㎡{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">开盘时间：</div>
+                <div class="aui-flex-item-9">{{? it.building_open_date}}{{=it.building_open_date}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">开发商：</div>
+                <div class="aui-flex-item-9">{{? it.building_developer}}{{=it.building_developer}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">楼盘地址：</div>
+                <div class="aui-flex-item-9">
+                    {{? it.building_area_name}}{{=it.building_area_name}}{{??}}-{{?}}
+                    {{? it.building_address}}{{=it.building_address}}{{??}}-{{?}}
+                </div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">售楼地址：</div>
+                <div class="aui-flex-item-9">{{? it.building_sale_address}}{{=it.building_sale_address}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">建筑类型：</div>
+                <div class="aui-flex-item-9">{{? it.building_build_type_name}}{{=it.building_build_type_name}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">产权年限：</div>
+                <div class="aui-flex-item-9">{{? it.building_property_age}}{{=it.building_property_age}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">装修标准：</div>
+                <div class="aui-flex-item-9">{{? it.building_renovate}}{{=it.building_renovate}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">容积率：</div>
+                <div class="aui-flex-item-9">{{? it.building_volume}}{{=it.building_volume}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">绿色率：</div>
+                <div class="aui-flex-item-9">{{? it.building_green}}{{=it.building_green}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">规划户数：</div>
+                <div class="aui-flex-item-9">{{? it.building_family_count}}{{=it.building_family_count}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">物业公司：</div>
+                <div class="aui-flex-item-9">{{? it.building_property}}{{=it.building_property}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">车位数：</div>
+                <div class="aui-flex-item-9">{{? it.building_park_count}}{{=it.building_park_count}}{{??}}-{{?}}</div>
+            </div>
+            <div class="aui-flex-col house-param-item">
+                <div class="aui-flex-item-3">车位配比：</div>
+                <div class="aui-flex-item-9">{{? it.building_park}}{{=it.building_park}}{{??}}-{{?}}</div>
+            </div>
+
+        </div>
+    </section>
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript">
+    var building_id = $.getUrlParam("building_id");
+    getBuildingData();
+    function closeWin(){
+        window.history.go(-1);
+    }
+    function getBuildingData(){
+        var tpl = document.getElementById("building-detail-tpl").innerHTML;
+        var tempFn = doT.template(tpl);
+        if($api.getStorage("buildingDetailData-"+building_id)){
+            var buildingDetailData = $api.getStorage("buildingDetailData-"+building_id);
+            document.getElementById("building-detail").innerHTML = tempFn(buildingDetailData);
+        }
+    }
+</script>
+</html>

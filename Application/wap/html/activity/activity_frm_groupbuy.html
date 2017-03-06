@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+    .topbox{
+        position: relative;
+        background-color: #fff;
+        margin-bottom: 0.75rem;
+    }
+    .topbox >div{
+        margin-bottom: 0.2rem;
+    }
+    .topbox >div > div:first-child >div:nth-child(2){
+        color: #333;
+        font-size: 0.8rem;
+        padding: 0.5rem 0.75rem;
+    }
+    .aui-flex-col{
+        padding: 0.3rem 0.75rem;
+        font-size: 0.7rem;
+        color: #666;
+    }
+    .activity-msg{
+        padding:0.5rem 0.75rem;
+        font-size: 0.7rem;
+        color: #666;
+    }
+    .btn{
+        padding:0.75rem 0 !important;
+    }
+    .btn .aui-flex-item-6 div{
+        width: 80%;
+    }
+    .btn .aui-flex-item-6 div{
+        border-radius: 0.8rem;
+    }
+    .btn .aui-flex-item-6:first-child div{
+        background-color: #aaa;
+        color: #fff;
+        border-radius: 0.8rem;
+        font-size: 0.8rem;
+        height: 1.8rem;
+    }
+    .btn .aui-flex-item-6:last-child div{
+        background-color: #ffcc00;
+        border-radius: 1rem;
+        font-size: 0.9rem;
+        color: #fff;
+        height: 1.8rem;
+        font-size: 0.8rem;
+    }
+    </style>
+</head>
+<body>
+    <section id="activityList">
+
+    </section>
+    <script id="activeityTemplate" type="text/doTtemplate">
+        {{for(var i in it){}}
+            <div class="topbox">
+                <div tapmode onclick="openActivityDetail({{=it[i].activity_id}})">
+                <div style="position: relative;">
+                    <img src="../../image/image_loading_2.png" data-echo="{{=it[i].activity_thumb}}" width="100%" style="display: block;max-height: 200px;">
+                    <div>{{=it[i].activity_title}}</div>
+                </div>
+                <div class="aui-line-x"></div>
+                <div class="aui-flex-col">
+                    <div class="aui-flex-item-10">
+                        <span>团购优惠:</span>
+                        <span style="color: #df3031">{{=it[i].activity_preferential}}</span>
+                    </div>
+                </div>
+                <div class="aui-flex-col">
+                    <div class="aui-flex-item-12">
+                        <span>项目地址:</span>
+                        <span style="color: #FFAD33">{{=it[i].activity_address}}</span>
+                    </div>
+                </div>
+                <div class="aui-flex-col aui-flex-middle">
+                    <div class="aui-flex-item-6 aui-text-left">项目均价</div>
+                    {{? it[i].activity_average_price && it[i].activity_average_price > 0}}
+                    <div class="aui-flex-item-6 aui-text-right">{{=it[i].activity_average_price}}元/平</div>
+                    {{??}}
+                    <div class="aui-flex-item-6 aui-text-right">待定</div>
+                    {{?}}
+                </div>
+                <!-- 数据库字段暂无 -->
+                <!-- <div class="aui-flex-col aui-flex-middle">
+                    <div class="aui-flex-item-6 aui-text-left">在售房源</div>
+                    <div class="aui-flex-item-6 aui-text-right">188套</div>
+                </div> -->
+                </div>
+                <div class="aui-list-item-text aui-flex-col btn aui-border-t">
+                    {{? it[i].activity_consult_phone}}
+                    <a class="aui-flex-item-6 aui-flex-col aui-flex-center aui-flex-middle" href="tel:{{=it[i].activity_consult_phone}}">
+                        <div class="aui-flex-col aui-flex-middle aui-flex-center">活动咨询</div>
+                    </a>
+                    {{??}}
+                    <div class="aui-flex-item-6 aui-flex-col aui-flex-center aui-flex-middle">
+                        <div class="aui-flex-col aui-flex-middle aui-flex-center">暂不支持咨询</div>
+                    </div>
+                    {{?}}
+                    <div class="aui-flex-item-6 aui-flex-col aui-flex-center aui-flex-middle" tapmode onclick="apply({{=it[i].activity_id}})">
+                        <div class="aui-flex-col aui-flex-middle aui-flex-center">立即报名</div>
+                    </div>
+                    <!-- <div class="aui-flex-item-6 aui-flex-col aui-flex-center" >
+                        <div class="aui-flex-col aui-flex-middle aui-flex-center">团购咨询</div>
+                    </div> -->
+                    <!-- <div class="aui-flex-item-12 aui-flex-col aui-flex-center" tapmode onclick="apply({{=it[i].activity_id}})">
+                        <div class="aui-flex-col aui-flex-middle aui-flex-center">立即报名</div>
+                    </div> -->
+                </div>
+            </div>
+        {{}}}
+    </script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/aui-slide.js"></script>
+    <script type="text/javascript" src="../../script/doT.min.js"></script>
+    <script type="text/javascript" src="../../script/echo.min.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+    <!-- <script type="text/javascript" src="../../script/jquery.getParam.js"></script> -->
+    <script type="text/javascript" src="../../script/layer.js"></script>
+    <script type="text/javascript" src="../../script/aui-scroll.js"></script>
+    <script>
+        var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+        var pageNum = 1,pageSize=10,scorllStatus=true;
+        //提示
+        var a={};
+        a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+        a.time = 2;
+
+        var scroll = new auiScroll({
+            listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+            distance:200 //判断到达底部的距离，isToBottom为true
+        },function(ret){
+           if(ret.isToBottom){
+               if(scrollStatus){
+                   getActivityList();
+               }
+           }
+        });
+
+        var scrollStatus = true;
+        var scroll = new auiScroll({
+            listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+            distance:200 //判断到达底部的距离，isToBottom为true
+        },function(ret){
+           if(ret.isToBottom){
+               if(scrollStatus){
+                  getActivityList();
+               }
+           }
+        });
+        $(function($) {
+            getActivityList();
+        });
+        //拉取活动列表
+        function getActivityList(){
+            $.ajax({
+               type: "POST",
+               url: siteUrl+'App/Activity/getActivityList',
+               data: "activity_type=2&pageNum="+pageNum+"&pageSize="+pageSize,
+               success: function(ret){
+                   if(ret.code == 1){
+                       if(pageNum == 1){
+                           document.getElementById("activityList").innerHTML = '';
+                       }
+                       pageNum ++;
+                       scrollStatus = true;
+                       var activeityTemplate = doT.template(document.getElementById("activeityTemplate").innerHTML);
+                       document.getElementById("activityList").insertAdjacentHTML('beforeend', activeityTemplate(ret.data));
+                       Echo.init({offset: 0,throttle: 0});
+                   }else{
+                       scrollStatus = false;
+                   }
+               }
+            });
+        }
+        //活动详情
+        function openActivityDetail(activity_id){
+            window.top.location.href = "activity_detail_groupbuy.html?activity_id="+activity_id;
+        }
+
+        function apply(activity_id){
+            event.stopPropagation();
+            var token = $api.getStorage('token');
+            if(!token){
+                openLogin();
+                return;
+            }
+            window.top.location.href = "activity_enroll.html?activity_id="+activity_id;
+        }
+        function openLogin(){
+            $api.setStorage("loginFrom","activity/activity_win.html");
+            window.top.location.href = "../login.html";
+        }
+         function closeWin(){
+            window.history.go(-1);
+        }
+</script>
+</body>
+</html>

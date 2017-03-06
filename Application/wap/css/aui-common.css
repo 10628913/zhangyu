@@ -1,0 +1,458 @@
+/*
+ * =========================================================================
+ * APIClud - AUI UI 框架    流浪男  QQ：343757327  http://www.auicss.com
+ * Verson 2.0.0
+ * =========================================================================
+ */
+ /*初始化类*/
+@charset "UTF-8";
+@import url("iconfont.css");
+html{
+	font-family: sans-serif;
+	font-size: 20px;
+}
+html,body {
+	-webkit-touch-callout:none;
+	-webkit-text-size-adjust:none;
+	-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+	-webkit-user-select:none;
+	width: 100%;
+}
+body {
+	line-height: 1.5;
+	font-size: 0.8rem;
+	color: #000;
+	background-color: #f4f4f4;
+	outline: 0;
+}
+html,body,header,section,footer,div,ul,ol,li,img,a,span,em,del,legend,center,strong,var,fieldset,form,label,dl,dt,dd,cite,input,hr,time,mark,code,figcaption,figure,textarea,h1,h2,h3,h4,h5,h6,p{
+	margin:0;
+	border:0;
+	padding:0;
+	font-style:normal;
+}
+@media only screen and (min-width: 400px) {
+  html {
+    font-size: 21.33333333px !important;
+  }
+}
+@media only screen and (min-width: 410.2rem) {
+  html {
+    font-size: 21px !important;
+  }
+}
+@media only screen and (min-width: 480px) {
+  html {
+    font-size: 25.6px !important;
+  }
+}
+ul, li {
+	list-style: none;
+}
+b,strong {
+	font-weight: 700;
+}
+pre {
+	overflow: auto;
+}
+img {
+	border: 0;
+}
+p {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 0.7rem;
+	color: #8f8f94;
+}
+a {
+	color: #0062cc;
+	text-decoration: none;
+	background-color: transparent;
+}
+a:hover {
+	outline: 0;
+}
+textarea {
+	overflow: hidden;
+	resize: none;
+}
+button {
+	overflow: visible;
+}
+button,select {
+	text-transform: none;
+}
+button,input,optgroup,select,textarea {
+	margin: 0;
+	font: inherit;
+	color: inherit;
+}
+hr {
+	height: 0;
+	-webkit-box-sizing: content-box;
+	      box-sizing: content-box;
+}
+pre {
+	overflow: auto;
+}
+.aui-inline {
+    display: inline-block;
+    vertical-align: top;
+}
+.aui-block {
+    display: block !important;
+}
+.aui-visibility {
+    visibility: visible !important;
+}
+.aui-hidden {
+    display: none !important;
+}
+/*自动隐藏文字*/
+.aui-ellipsis-1 {
+	padding-right: 0.75rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.aui-ellipsis-2 {
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	white-space: normal !important;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+* {
+	-webkit-box-sizing: border-box;
+	      	box-sizing: border-box;
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+/*水平线*/
+.aui-line-x {
+	width: 100%;
+	position: relative;
+	height: 1px;
+}
+.aui-line-x:after {
+	height: 1px;
+    background-color: #dddddd;
+    display: block;
+    content: '';
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    pointer-events: none;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+    .aui-line-x:after {
+        -webkit-transform: scale(0.5);
+                transform: scaleY(0.5);
+    }
+}
+/*内边距*/
+.aui-row-5 {
+	margin-right: -0.25rem;
+	margin-left: -0.25rem;
+}
+.aui-row-10 {
+	margin-right: -0.5rem;
+	margin-left: -0.5rem;
+}
+.aui-row-15 {
+	margin-right: -0.75rem;
+	margin-left: -0.75rem;
+}
+.aui-row-20 {
+	margin-right: -1rem;
+	margin-left: -1rem;
+}
+.aui-padded-0-5 {
+	padding: 0 0.25rem;
+}
+.aui-padded-0-10 {
+	padding: 0 0.5rem;
+}
+.aui-padded-0-15 {
+	padding: 0 0.75rem;
+}
+.aui-padded-0-20 {
+	padding: 0 1rem;
+}
+.aui-padded-5 {
+	overflow: hidden;
+	padding: 0.25rem;
+}
+.aui-padded-10 {
+	overflow: hidden;
+	padding: 0.5rem;
+}
+.aui-padded-15 {
+	overflow: hidden;
+	padding: 0.75rem;
+}
+.aui-padded-20 {
+	overflow: hidden;
+	padding: 1rem;
+}
+.aui-margin-0-10 {
+	margin: 0 0.5rem !important;
+}
+.aui-clearfix {
+	clear: both;
+}
+.aui-clearfix:before {
+	display: table;
+	content: " ";
+}
+.aui-clearfix:after {
+	clear: both;
+}
+/*文字对齐*/
+.aui-text-left {
+	text-align: left !important;
+}
+.aui-text-center {
+	text-align: center !important;
+}
+.aui-text-justify {
+	text-align: justify !important;
+}
+.aui-text-right {
+	text-align: right !important;
+}
+/*文字、背景颜色*/
+h1,h2,h3,h4,h5,h6 {
+	font-weight: 400;
+}
+h1 {
+	font-size: 1rem;
+}
+h2 {
+	font-size: 0.8rem;
+}
+h3 {
+	font-size: 0.7rem;
+}
+h4 {
+	font-size: 0.6rem;
+}
+h5 {
+	font-size: 0.6rem;
+	font-weight: normal;
+	color: #8f8f94;
+}
+h6 {
+	font-size: 0.6rem;
+	font-weight: normal;
+	color: #8f8f94;
+}
+h1 small,h2 small,h3 small,h4 small {
+	font-weight: normal;
+	line-height: 1;
+	color: #777777;
+}
+h5 small,h6 small {
+	font-weight: normal;
+	line-height: 1;
+	color: #8f8f94;
+}
+h1 small,h2 small,h3 small {
+	font-size: 65%;
+}
+h4 small,h5 small,h6 small {
+	font-size: 75%;
+}
+.aui-text-default {
+	color: #666666 !important;
+}
+.aui-text-primary {
+	color: #1abc9c !important;
+}
+.aui-text-success {
+	color: #2ecc71 !important;
+}
+.aui-text-info {
+	color: #3492e9 !important;
+}
+.aui-text-warning {
+	color: #f1c40f !important;
+}
+.aui-text-danger {
+	color: #e74c3c !important;
+}
+.aui-text-blue {
+	color: #a1d4cf !important;
+}
+.aui-text-pink {
+	color: #fbb8af !important;
+}
+.aui-bg-default {
+	background-color: #f4f4f4 !important;
+}
+.aui-bg-primary {
+	background-color: #1abc9c !important;
+}
+.aui-bg-success {
+	background-color: #2ecc71 !important;
+}
+.aui-bg-info {
+	background-color: #3492e9 !important;
+}
+.aui-bg-warning {
+	background-color: #f1c40f !important;
+}
+.aui-bg-danger {
+	background-color: #e74c3c !important;
+}
+.aui-bg-blue {
+	background-color: #a1d4cf !important;
+}
+.aui-bg-pink {
+	background-color: #fbb8af !important;
+}
+/*对齐,显示，隐藏等*/
+.aui-pull-right {
+	float: right !important;
+}
+.aui-pull-left {
+	float: left !important;
+}
+.aui-hide {
+	display: none !important;
+}
+.aui-show {
+	display: block !important;
+}
+.aui-invisible {
+	visibility: hidden;
+}
+.aui-inline {
+	display: inline-block;
+	vertical-align: top;
+}
+/*基本容器*/
+.aui-content {
+	-webkit-overflow-scrolling: touch;
+	margin-bottom: 0.75rem;
+}
+.aui-content-title {
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	line-height: 1;
+	color: #6d6d72;
+	padding: 20.25rem 0.75rem 0.5rem;
+}
+.aui-content-padded {
+  	margin: 0 0.5rem;
+  	-webkit-overflow-scrolling: touch;
+  	margin-bottom: 0.75rem;
+}
+.aui-card {
+    margin: 0 0.5rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    background: #ffffff;
+}
+.aui-card:after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: auto;
+    left: 0;
+    right: auto;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(1);
+    pointer-events: none;
+    border: 1px solid #dddddd;
+}
+.aui-card .aui-list:before {
+    height: 0;
+}
+.aui-card .aui-list:after {
+    height: 0;
+}
+@media screen and (-webkit-min-device-pixel-ratio:1.5) {
+    .aui-card:after {
+        right: -100%;
+        bottom: -100%;
+        -webkit-transform: scale(0.5);
+    }
+}
+/*边框样式*/
+.aui-border-t,
+.aui-border-b,
+.aui-border-l,
+.aui-border-r,
+.aui-border-tb,
+.aui-border {
+    position: relative;
+}
+.aui-border-t:after,
+.aui-border-b:after,
+.aui-border-l:after,
+.aui-border-r:after,
+.aui-border-tb:after,
+.aui-border:after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    -webkit-transform-origin: 0 0;
+    		transform-origin: 0 0;
+    -webkit-transform: scale(1);
+    		transform: scale(1);
+    pointer-events: none;
+}
+.aui-border-l:after {
+    border-left: 1px solid #dddddd;
+}
+.aui-border-r:after {
+    border-right: 1px solid #dddddd;
+}
+.aui-border-t:after {
+    border-top: 1px solid #dddddd;
+}
+.aui-border-b:after {
+    border-top: 1px solid #dddddd;
+}
+.aui-border-tb:after {
+	border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+}
+.aui-border:after {
+    border:1px solid #dddddd;
+}
+.aui-border.aui-border-radius:after {
+    border-radius: 6px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:1.5) {
+    .aui-border-t:after,
+    .aui-border-b:after,
+    .aui-border-l:after,
+    .aui-border-r:after,
+    .aui-border-tb:after,
+    .aui-border:after {
+        right: -100%;
+        bottom: -100%;
+        -webkit-transform: scale(0.5);
+        		transform: scale(0.5);
+    }
+}

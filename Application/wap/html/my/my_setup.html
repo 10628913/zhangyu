@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+	<style>
+        section{
+            margin-bottom: 0.5rem;
+        }
+        section li{
+            padding:0.5rem 0.75rem;
+            font-size: 0.8rem;
+            color: #323232;
+            background-color: #fff;
+        }
+        .footbtn{
+            margin-top: 2rem;
+        }
+        .footbtn .aui-btn{
+            background-color: #df3031;
+            width: 90%;
+            margin-left: 5%;
+            color: #fff;
+            padding:0.6rem 0;
+        }
+        div{
+            font-size: 0.8rem;
+        }
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">设置</div>
+    </header>
+    <section class="footbtn">
+        <div class="aui-btn" tapmode onclick="openWin('../login')">退出登录</div>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function closeWin(){
+        window.history.go(-1);
+    }
+
+    function openWin(name){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.rmStorage("signature");
+        window.location.href = "../main.html";
+    }
+</script>
+</html>

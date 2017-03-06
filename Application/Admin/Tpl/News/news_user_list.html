@@ -1,0 +1,196 @@
+<div class="smart-widget widget-dark-blue">
+	<!-- <div class="paddingTLR-md">
+		<a href="#" class="btn btn-xs btn-info" id="demo">用户投稿管理</a>
+	</div> -->
+	<div class="smart-widget-inner">
+		<div class="smart-widget-body">
+			<div class="row">
+				<div class="col-md-6">
+	                <a href="javascript:manager('pass')" class="btn btn-sm btn-success">审核通过</a>
+	                <a href="javascript:manager('unpass')" class="btn btn-sm btn-danger">拒绝</a>
+				</div>
+				<div class="col-md-6">
+					<div class="input-group" id="search-form">
+						<input type="text" name="keywords" class="form-control input-sm" placeholder="请输入新闻关键词" value="{$searchInfo['keywords']}">
+						<input type="hidden" name="classify_id" class="form-control input-sm" placeholder="请输入新闻关键词" value="{$classify_id}">
+						<span class="input-group-btn">
+							<a href="javascript:;" url="__ACTION__" id="search" class="btn btn-sm btn-success">搜索</a>
+						</span>
+					</div>
+				</div>
+			</div>
+			<form action="" method="post">
+			<table class="table table-striped table-hover table-bordered m-top-md" id="dataTable">
+				<thead>
+					<tr>
+						<th>
+							<input type="checkbox" id="checkall" class="check-all" >
+						</th>
+						<th width="80">ID</th>
+						<th>名称</th>
+						<th>用户</th>
+						<th>浏览量</th>
+						<th>评论量</th>
+						<!-- <th>推荐</th> -->
+						<th>状态</th>
+						<th>发布时间</th>
+						<th width="80">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="v">
+					<tr id="data-{$v['news_id']}">
+						<td>
+							<input type="checkbox" value="{$v['news_id']}" name="news_ids[]" id="news-{$v['news_ids']}" class="ids" >
+						</td>
+						<td>{$v['news_id']}</td>
+						<td>
+							<strong>{$v['news_title']}</strong>
+						</td>
+						<td>{$v['nickname']}</td>
+						<td>{$v['news_view_count']}</td>
+						<th>{$v['news_comment_count']}</th>
+						<!-- <th>
+							<if condition="$v['recommend'] eq 0">
+							<span class="label label-danger">未推荐</span>
+							<elseif condition="$v['recommend'] eq 1" />
+							<span class="label label-success">已推荐</span>
+							</if>
+						</th> -->
+						<th>
+							<if condition="$v['news_status'] eq 1">
+							<span class="label label-default">投稿</span>
+							<elseif condition="$v['news_status'] eq '-1'" />
+							<span class="label label-danger">退回</span>
+							<elseif condition="$v['news_status'] eq 2" />
+							<span class="label label-warning">草稿</span>
+							<elseif condition="$v['news_status'] eq 3" />
+							<span class="label label-warning">待审</span>
+							<elseif condition="$v['news_status'] eq 99" />
+							<span class="label label-success">发布</span>
+							<else/>
+							<span class="label label-warning">待审</span>
+							</if>
+						</th>
+						<td>{$v['addtime']||date="Y-m-d H:i:s",###}</td>
+						<td class="manager">
+							<a href="javascript:newsPush('{$v['news_id']}')" class="text-info" id="push-{$v['news_id']}">推送</a>
+							<a href="javascript:openwinx('__CONTROLLER__/newsEdit/news_id/{$v['news_id']}')" class="text-primary">编辑</a>
+							<a href="javascript:newsDelete({$v['news_id']})" class="text-danger">删除</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="content text-right">
+				<ul class="pagination">
+				{$page}
+				</ul>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- </div> -->
+<script type="text/javascript">
+	$(function(){
+		//搜索功能
+		$("#search").click(function(){
+			var url = $(this).attr('url');
+	        var query  = $('#search-form').find('.input-sm').serialize();
+	        if(!$('input[name="keywords"]').val()){
+	        	DMS.alert("请输入关键词");
+	        	return;
+	        }
+	        if( url.indexOf('?')>0 ){
+	            url += '&' + query;
+	        }else{
+	            url += '?' + query;
+	        }
+			window.location.href = url;
+		});
+	})
+	function newsDelete(id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/newsDelete",{news_id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+	$(".check-all").click(function(){
+		$(".ids").prop("checked", this.checked);
+	});
+	$(".ids").click(function(){
+		var option = $(".ids");
+		option.each(function(i){
+			if(!this.checked){
+				$(".check-all").prop("checked", false);
+				return false;
+			}else{
+				$(".check-all").prop("checked", true);
+			}
+		});
+	});
+	function manager(type){
+		var news_ids='';
+		$("input[name='news_ids[]']:checked").each(function(i, n){
+			news_ids += $(n).val() + ',';
+		});
+		news_ids = news_ids.substring(0,news_ids.length-1);
+		if(news_ids=='') {
+			DMS.alert("请先选择新闻！")
+			return false;
+		}else{
+			switch (type) {
+				case 'pass':
+					var url = "__CONTROLLER__/newsPassByUser";
+					break;
+				case 'unpass':
+					var url = "__CONTROLLER__/newsUnpassByUser";
+					break;
+			}
+			if(url){
+				DMS.dialog("确定要执行当前操作吗?",function(){
+					DMS.ajaxPost(url,{news_ids:news_ids},function(ret){
+						if(ret.status==1){
+							DMS.success(ret.info,0,function(){
+		                		window.location.href = window.location.href;
+							});
+		                }else{
+		                	DMS.error(ret.info,0);
+		                }
+					})
+				});
+			}
+		}
+	}
+	function newsPush(id){
+		DMS.dialog("确定要推送当前新闻吗?",function(){
+			document.getElementById("push-"+id).textContent = "推送中";
+			DMS.ajaxPost("__CONTROLLER__/newsPush",{news_id:id},function(ret){
+				if(ret.status==1){
+					document.getElementById("push-"+id).textContent = "推送成功";
+                	DMS.success(ret.info,0);
+                }else{
+                	document.getElementById("push-"+id).textContent = "推送失败";
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+	setcookie('refersh_time', 0);
+	function refersh_window() {
+		var refersh_time = getcookie('refersh_time');
+		if(refersh_time==1) {
+			window.location.reload();
+		}
+	}
+	setInterval("refersh_window()", 3000);
+</script>

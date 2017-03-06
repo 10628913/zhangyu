@@ -1,0 +1,59 @@
+<div class="padding-md">
+	<div class="row">
+		<div class="col-xs-2">
+			<iframe name="center_frame" src="__CONTROLLER__/newsClassifyTree" frameborder="false" scrolling="auto" style="border:none;" width="100%" height="100%" frameborder="0" id="menuMain"></iframe>
+		</div>
+		<div class="col-xs-10">
+			<iframe name="center_frame" src="__CONTROLLER__/newsList" frameborder="false" scrolling="auto" style="border:none; overflow-x:hidden" width="100%" height="100%" frameborder="0" id="rightMain"></iframe>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		//搜索功能
+		$("#search").click(function(){
+			var url = $(this).attr('url');
+	        var query  = $('#search-form').find('.input-sm').serialize();
+	        if(!$('input[name="keywords"]').val()){
+	        	DMS.alert("请输入关键词");
+	        	return;
+	        }
+	        if( url.indexOf('?')>0 ){
+	            url += '&' + query;
+	        }else{
+	            url += '?' + query;
+	        }
+			window.location.href = url;
+		});
+		var getWindowSize = function(){
+			return ["Height","Width"].map(function(name){
+			  return window["inner"+name] ||
+				document.compatMode === "CSS1Compat" && document.documentElement[ "client" + name ] || document.body[ "client" + name ]
+			});
+			}
+		var str=getWindowSize();
+		var strs= new Array(); //定义一数组
+		strs=str.toString().split(","); //字符分割
+		var heights = strs[0]-45,Body = $('body');
+		$('#menuMain').height(heights);
+		$('#rightMain').height(heights);
+        if(strs[1]<980){
+            Body.attr('scroll','');
+        }else{
+            Body.attr('scroll','no');
+        }
+	})
+	function newsDelete(id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/newsDelete",{news_id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

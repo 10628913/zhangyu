@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>商家登录</title>
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+</head>
+<style>
+body {
+    background: #ffffff;
+}
+.aui-btn-row {
+    overflow: hidden;
+}
+.aui-input-row {
+    padding: 0;
+}
+input[type="number"],
+input[type="password"] {
+    line-height: auto;
+    padding: 18px 15px;
+}
+.aui-input-row .aui-input-addon {
+    padding: 20px 25px;
+}
+.aui-btn-block {
+    padding: 10px 0;
+}
+.aui-bg-light {
+    background-color: #f0f0f0;
+}
+</style>
+<body>
+    <div class="aui-form">
+        <div class="aui-input-row">
+            <span class="aui-input-addon aui-border-r">手机</span>
+           <input type="number" class="aui-input" id="mobile" placeholder="请输入您的手机号"/>
+        </div>
+        <div class="aui-input-row">
+            <span class="aui-input-addon aui-border-r">密码</span>
+            <input type="password" class="aui-input" id="password" placeholder="请输入登录"/>
+        </div>
+        <div class="aui-btn-row">
+            <div class="aui-btn aui-btn-block aui-btn-success" onclick="login()">登录</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="{:C('JS_PATH')}/aui/api.js" ></script>
+<script type="text/javascript">
+// var siteUrl = "http://localhost:8887/";
+var siteUrl = "http://nixiangyuan.apithink.com/";
+function login(){
+    var mobile = $api.val($api.byId("mobile"));
+    var password = $api.val($api.byId("password"));
+    var partten = /^1[3-9]\d{9}$/;
+    if(!partten.test(mobile)){
+        alert("请输入正确的手机号码");
+        return;
+    }
+    if(!password){
+        alert("请输入密码");
+        return
+    }
+    $.ajax({
+        type : "POST",
+        url: siteUrl+"?s=Wx/Store/login",
+        data : {
+            mobile:mobile,
+            password:password
+        },
+        dataType: 'json',
+        cache: false,
+        success : function(ret, status) {
+            if(ret){
+                if(ret.status == 1){
+                    if(ret.url){
+                        window.location.href = ret.url;
+                    }else{
+                        window.location.href = window.location.href;
+                    }
+                }else{
+                    alert(ret.info);
+                }
+            }
+        },
+        error: function(){
+            alert("登录失败");
+        }
+    });
+}
+</script>
+</html>

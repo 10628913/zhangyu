@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+        body {
+            background: transparent;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: end;
+            -webkit-align-items: flex-end;
+                    align-items: flex-end;
+        }
+        .aui-mask {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        .aui-mask.mask-in {
+            visibility: visible;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .aui-mask.mask-out {
+            background: rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+        }
+        .comment-box {
+            width: 100%;
+            background: #f4f4f4;
+            position: relative;
+            z-index: 999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                  transform: translate3d(0, 100%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="aui-mask" id="mask" tapmode onclick="closeFrm()"></div>
+    <section class="comment-box" id="comment-box">
+        <div class="comment-nav">
+            <div class="comment-btn" tapmode onclick="closeFrm()">取消</div>
+            <div class="comment-title">回复</div>
+            <div class="comment-btn disabled">发送</div>
+        </div>
+        <div class="comment-wrap">
+            <textarea class="aui-border comment-textarea" id="content" rows="4"></textarea>
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+    };
+    // setTimeout(function(){
+    //     try{
+    //         document.getElementById("content").focus();
+    //     } catch(e){}
+    // }, 350)
+    function showIn(){
+        document.getElementById("comment-box").classList.remove("comment-box-out");
+        document.getElementById("comment-box").classList.add("comment-box-in");
+        document.getElementById("mask").classList.remove("mask-out");
+        document.getElementById("mask").classList.add("mask-in");
+    }
+    function closeFrm(){
+        document.getElementById("comment-box").classList.add("comment-box-out");
+        document.getElementById("content").blur();
+        document.getElementById("mask").classList.add("mask-out");
+
+        setTimeout(function(){
+            document.getElementById("mask").classList.remove("mask-in");
+            document.getElementById("comment-box").classList.remove("comment-box-in");
+            api.setFrameAttr({
+                name: 'activity_comment_add_frm',
+                rect: {
+                x: 0,
+                y: 0,
+                w: 0,
+                h: 0
+            },
+                hidden: true
+            });
+        }, 300)
+    }
+    function focus(){
+        setTimeout(function(){
+            try{
+                document.getElementById("content").focus();
+            } catch(e){}
+        }, 350)
+    }
+</script>
+</html>

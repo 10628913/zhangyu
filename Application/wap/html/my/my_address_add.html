@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css">
+    <style type="text/css">
+    body {
+        background-color: #fff;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+    }
+    textarea {
+        margin-bottom: 0;
+        border: none;
+        font-size: 0.875em;
+    }
+    .aui-btn-block {
+        padding: 10px 0;
+    }
+    .aui-input-row img {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+        border-radius: 50%;
+    }
+    .aui-card {
+        margin-top: 15px;
+    }
+    .aui-btn{ 
+        background-color: #df3031;
+        color: #fff;
+    }
+    .aui-bar {
+        background-color: #df3031;
+        color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-info" id="aui-header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">新增地址</div>
+    </header>
+    <section class="aui-card aui-noborder">
+        <ul class="aui-form">
+            <div class="aui-input-row">
+                <span class="aui-input-addon">联系人&nbsp;</span>
+                <input type="text" id="name" name="name" class="aui-input " placeholder="你的姓名" value="" />
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon">联系电话</span>
+                <input type="number" id="mobile" name="mobile" class="aui-input " placeholder="你的手机号" value="" />
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon">收货地址</span>
+                <input type="text" id="address" name="address" class="aui-input" placeholder="小区/写字楼/学校等" value="" readonly="" />
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon"></span>
+                <textarea id="address_detail" name="address_detail" placeholder="详细地址(如门牌号等)"></textarea>
+                <input type="hidden" name="lat" id="lat">
+                <input type="hidden" name="lon" id="lon">
+            </div>
+            <div class="aui-btn-row">
+                <div class="aui-btn aui-btn-block" tapmode onclick="confirm()">确定</div>
+            </div>
+        </ul>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+    function openWin(name){
+        window.location.href=name+'.html'; 
+
+    }
+</script>
+</html>

@@ -1,0 +1,447 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+        li{
+            background-color: #fff;
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+        .comment li{
+            padding: 0.6rem 0;
+        }
+        .activity-title{
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.1rem;
+            width: 100%;
+        }
+        .activity-info{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .aui-list .aui-list-item-media img {
+            max-width: 6.5rem;
+        }
+        .aui-list .aui-list-item-text {
+            margin-top: 0.25rem;
+        }
+        .aui-text-warning {
+            color: #ff6600 !important;
+        }
+        .price {
+            font-size: 0.7rem !important;
+            color: #ff6600 !important;
+        }
+        .house-tag {
+            padding: 0.1rem  0.3rem;
+            display: inline-block;
+            font-size: 0.6rem;
+            margin-bottom: 0.2rem;
+        }
+        .house-tag.aui-tag-info {
+            color: #df3031;
+        }
+        .aui-border.aui-tag-info:after {
+            border:1px solid #df3031;
+            border-radius: 0.2rem;
+        }
+        .house{
+            padding: 0.5rem 0;
+        }
+
+        .aui-flex-item-6.hrmsg >div{
+            margin-bottom: 0.8rem;
+        }
+        .aui-list:after{
+            height: 0;
+        }
+        .house .title .aui-pull-right .aui-iconfont{
+            color: #666;
+        }
+        .activity{
+            background-color: #fff;
+        }
+        .activity-title{
+            font-size: 0.7rem;
+            color: #333;
+        }
+        .aui-flex-item-1{
+            display: flex;
+        }
+        .aui-flex-item-1.hid{
+            display: none;
+        }
+        .aui-list-item-media img{
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            min-height: 2rem;
+        }
+        .btnbox{
+            padding: 0.4rem 0;
+        }
+        .btnbox .btn{
+            padding: 0.25rem;
+            color: #66CCFF;
+            font-size: 0.6rem;
+        }
+        .btn.aui-border:after{
+            border-color: #66CCFF;
+        }
+        .nonebox{
+            padding: 0.5rem 0;
+            text-align: center;
+            background-color: #fff;
+        }
+        .nonebox .none{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .star img{
+            width: 3.2rem;
+        }
+        .aui-flex-item-1{
+            padding-top:1rem;
+        }
+        .time{
+            padding: 0.5rem 0.75rem;
+            color: #666;
+        }
+        .news-info{
+            font-size: 0.7rem;
+            color: #333;
+            margin-top: 0.2rem;
+        }
+        .comment{
+            padding:0.5rem 0.75rem 0.2rem;
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .hide{
+            display: none;
+        }
+        .news .title{
+            font-size: 0.8rem;
+            color: #333;
+            width: 100%;
+        }
+        .news .content{
+            font-size: 0.6rem;
+            color: #999;
+            margin-top: 0.2rem;
+        }
+        .news li{
+            padding:0.5rem 0;
+        }
+        .news li img{
+            width: 95%;
+        }
+        .news .aui-flex-item-8{
+            padding-left: 0.5rem;
+        }
+        #list .news-tag {
+            /*margin-top: 0.15rem;*/
+            padding: 0.05rem  0.15rem;
+            display: inline-block;
+            font-size: 0.5rem;
+            box-sizing: border-box;
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+                    align-items: center;
+            width: 2.4rem;
+            margin-top:0.15rem;
+        }
+        #list .news-tag span {
+            margin-top: -0.05rem;
+            margin-bottom: -0.05rem;
+            margin-left: -0.2rem;
+            display: block;
+            float: left;
+            padding: 0.05rem 0.25rem;
+        }
+        #list .news-tag span .aui-iconfont {
+            font-size: 0.5rem;
+        }
+        #list .news-tag.aui-tag-info {
+            color: #df3031;
+        }
+        #list .news-tag.aui-tag-info span {
+            background: #ffffff;
+        }
+        .aui-border.aui-tag-info:after {
+            border:1px solid #df3031;
+             border-radius: 0.2rem;
+        }
+        #list .news-tag.aui-tag-danger {
+            color: #e74c3c;
+        }
+        .aui-border.aui-tag-danger:after {
+            border:1px solid #e74c3c;
+            border-radius: 0.2rem;
+        }
+        #list .news-tag.aui-tag-danger span {
+            background: #ffffff;
+        }
+
+        #list .news-tag.aui-tag-warning {
+            color: #ff9800;
+        }
+        .aui-border.aui-tag-warning:after {
+            border:1px solid #ff9800;
+        }
+        #list .news-tag.aui-tag-warning span {
+            background: #ff9800;
+        }
+        #list .news-tag.aui-tag-success {
+            color: #2ecc71;
+        }
+        .aui-border.aui-tag-success:after {
+            border:1px solid #2ecc71;
+        }
+        #list .news-tag.aui-tag-success span {
+            background: #2ecc71;
+        }
+        .news-info .status-1{
+            color: #e74c3c;
+        }
+        .news-info .status-2{
+            color: #ff9800;
+        }
+        .news-info .status-3{
+            color: #5b9cf5;
+        }
+        .news-info .status-4{
+            color: #2ecc71;
+        }
+        .loading-data,
+        .no-data {
+            width: 100%;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .loading-data img,
+        .no-data img {
+            width: 60%;
+            margin: 2rem auto;
+        }
+        ul{
+            padding: 0 0.75rem;
+        }
+        li.aui-row {
+            min-height: 4rem;
+            overflow: hidden;
+            position: relative;
+        }
+        li .aui-col-xs-8{
+            min-height: 5rem;
+            padding-left: 0.3rem;
+        }
+        .title +.time{
+            margin: 0.2rem 0;
+            font-size:0.6rem;
+            color: #999;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar" id="header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">我的投稿</div>
+    </header>
+    <div class="aui-content news aui-border-t">
+        <ul id="list">
+            <div class="loading-data">
+                <img src="../../image/loading.png" />
+            </div>
+        </ul>
+    </div>
+<script id="listTemplate" type="text/x-dot-template">
+    {{ for(var i in it) { }}
+        <li class="aui-row" tapmode onclick="openNewsDetail({{=it[i].news_id}},{{=it[i].type_id}})">
+            {{? it[i].type_id == 2 || it[i].type_id == 3}}
+               <div class="aui-col-xs-4">
+                   <img src="../../image/image_loading_3.png" data-echo="{{=it[i].news_thumb}}">
+               </div>
+               <div class="aui-col-xs-8">
+                   <div class="title aui-ellipsis-2">{{=it[i].news_title}}</div>
+                   <span class="time">{{=it[i].time}}</span>
+                   <div class="news-tag aui-border aui-tag-info">
+                        {{? it[i].type_id == 1}}
+                            <span><i class="aui-iconfont aui-icon-edit"></i></span>文章
+                        {{?? it[i].type_id == 2}}
+                            <span><i class="aui-iconfont aui-icon-image"></i></span>图集
+                        {{?}}
+                    </div>
+
+                   <div class="news-info aui-pull-right">
+                        {{?it[i].news_status == 1}}
+                        <span class="status-3">投稿</span>
+                        {{??it[i].news_status == 3}}
+                        <span class="status-2">待审核</span>
+                        {{??it[i].news_status == 99}}
+                        <span class="status-4">已通过</span>
+                        {{??it[i].news_status == -1}}
+                        <span class="status-1">未通过</span>
+                        {{?}}
+
+                    </div>
+               </div>
+           {{??}}
+               <div class="title aui-ellipsis-2">{{=it[i].news_title}}</div>
+               <div class="time">{{=it[i].time}}</div>
+               <div class="news-tag aui-border aui-tag-info ">
+                    {{? it[i].type_id == 1}}
+                        <span><i class="aui-iconfont aui-icon-edit"></i></span>文章
+                    {{?? it[i].type_id == 2}}
+                        <span><i class="aui-iconfont aui-icon-image"></i></span>图集
+                    {{?}}
+                </div>
+               <div class="news-info aui-pull-right">
+                    {{?it[i].news_status == 1}}
+                    <span class="status-3">投稿</span>
+                    {{??it[i].news_status == 3}}
+                    <span class="status-2">待审核</span>
+                    {{??it[i].news_status == 99}}
+                    <span class="status-4">已通过</span>
+                    {{??it[i].news_status == -1}}
+                    <span class="status-1">未通过</span>
+                    {{?}}
+               </div>
+           {{?}}
+       </li>
+       <div class="aui-line-x"></div>
+    {{ } }}
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/aui-dialog.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script>
+        var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+        var pageNum=0,scrollStatus=true;
+        var dialog = new auiDialog();
+        var a={};
+    	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+    	a.time = 2;
+
+        $(function(){
+            addEvent();
+            getContribute();
+        });
+        function addEvent(){
+            //上拉加载
+            var scroll = new auiScroll({
+                listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+                distance:200 //判断到达底部的距离，isToBottom为true
+            },function(ret){
+               if(ret.isToBottom){
+                   if(scrollStatus){
+                       getContribute();
+                   }
+               }
+            });
+        }
+    function getContribute(){
+        var token = $api.getStorage('token');
+        pageNum ++;
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/News/getContribute',
+           data: "token="+token+"&pageNum="+pageNum+"&pageSize=10",
+           success: function(ret){
+               if(ret.code == 1){
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '';
+                   }
+                   if(document.querySelector("#list.no-data")){
+                      document.querySelector("#list.no-data").classList.remove("no-data");
+                   }
+                   var listTemplate = doT.template(document.getElementById("listTemplate").innerHTML);
+                   document.getElementById("list").insertAdjacentHTML('beforeend', listTemplate(ret.data));
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250
+                   });
+               }else{
+                   scrollStatus = false;
+                   if(pageNum == 1){
+                       document.getElementById("list").innerHTML = '<div class="no-data"><img src="../../image/no_data.png" /></div>';
+                       document.getElementById("list").classList.add("no-data");
+                   }
+                   if(ret.code == 0){
+                       a.content = ret.msg;
+                       layer.open(a);
+                       setTimeout(function(){logout();},1000);
+                   }
+               }
+           }
+        });
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.rmStorage("signature");
+        $api.setStorage("loginFrom","my/my_draft_list.html");
+        window.location.href = "../login.html";
+    }
+    function openNewsDetail(news_id,type_id){
+        switch (type_id) {
+        	case "1":
+                var url = "news/news_detail.html?news_id="+news_id;
+        		break;
+        	case "2":
+                var url = "news/news_album_detail.html?news_id="+news_id;
+                break;
+        	case "3":
+                var url = "news/news_video_detail.html?news_id="+news_id;
+        		break;
+        	case "4":
+                var url = "news/news_detail.html?news_id="+news_id;
+        		break;
+        	default:
+                var url = "news/news_detail.html?news_id="+news_id;
+        		break;
+        }
+        window.location.href = url;
+	}
+    function closeWin(){
+        window.history.go(-1);
+    }
+</script>
+</body>
+</html>

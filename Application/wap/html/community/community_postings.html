@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        body,html{
+            background-color: #f2f2f2;
+        }
+        .contentbox{
+            padding: 0.75rem;
+            background-color: #f2f2f2;
+            font-size: 0.7rem;
+            margin-top: 2.3rem;
+        }
+        textarea{
+            font-size: 0.7rem;
+        }
+        .aui-content{
+            padding: 0.5rem 0.75rem;
+            background-color: #fff;
+            color: #666;
+            overflow: hidden;
+        }
+        .triangle{
+            background-color: #f2f2f2;
+            width: 0.6rem;
+            height: 0.6rem;
+            position: absolute;
+            bottom: -1rem;
+            left: 40%;
+            transform:rotate(45deg);
+            -webkit-transform:rotate(45deg);
+        }
+        .topic{
+            color: #999;
+            font-size:1rem;
+            font-weight: bold;
+        }
+        .aui-flex-item-8 div{
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .addbox{
+            height:7rem;
+            width: 5rem;
+            margin: 0 auto;
+
+        }
+        .addbox .aui-iconfont{
+            color: #aaa;
+            font-weight: 100;
+        }
+        .addbox:after{
+            border-style: dashed;
+            border-color: #aaa;
+        }
+        .num{
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">发帖</div>
+    </header>
+    <section class="contentbox">
+        <textarea placeholder="说点什么....." rows="12"></textarea>
+    </section>
+    <section class="aui-content">
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-2 aui-text-center photo">
+                <span class="aui-iconfont aui-icon-image"></span>
+                <div class="triangle"></div>
+            </div>
+            <div class="aui-flex-item-2 aui-text-center topic" tapmode onclick="openWin('community_postings_topic')">
+                #
+            </div>
+            <div class="aui-flex-item-8 aui-text-right">
+                <div class="">发送</div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="aui-text-center" style="padding-top:0.5rem;">
+            <div class="addbox aui-border aui-flex-col aui-flex-center aui-flex-middle">
+                <span class="aui-iconfont aui-icon-plus"></span>
+            </div>
+            <div class="num">已选0张图片</div>
+        </div>
+    </section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+    function openWin(name){
+        window.location.href=name+'.html'; 
+
+    }
+</script>
+</body>
+</html>

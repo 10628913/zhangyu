@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            margin-top: 2.25rem !important;
+        }
+		.my-info {
+			height: 8rem;
+			background: url('../../image/my-bg.png') no-repeat;
+			background-position: center;
+			background-size: cover;
+			overflow: hidden;
+            margin-bottom: 0;
+            position: relative;
+		}
+		img.avatar {
+			width: 3.8rem;
+			height: 3.8rem;
+			border-radius: 1.9rem;
+			display: block;
+			margin: 0 auto;
+			margin-top: 1rem;
+		}
+		.nickname {
+			color: #ffffff;
+			font-size: 0.8rem;
+			margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+		}
+        .my_info{
+            color: #ffffff;
+            font-size:0.6rem;
+            margin-top: 0.5rem;
+
+        }
+        .my-msg{
+            padding: 0.5rem 0.75rem;
+            background-color: #fff;
+            font-size: 0.7rem;
+            color: #666;
+        }
+		.my-btn {
+			position: absolute;
+			top: 0.5rem;
+			right: 0.5rem;
+		}
+		.my-btn .aui-iconfont {
+			font-size: 1rem;
+			color: #d43d3d;
+			margin-left: 0.5rem;
+		}
+		.aui-list .aui-list-item-inner {
+			padding-left: 0.5rem;
+		}
+		.aui-list .aui-list-item i.aui-iconfont {
+			font-size: 0.9rem;
+		}
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="openWin('../main')">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">我的</div>
+    </header>
+    <div class="aui-content my-info">
+		<img src="../../image/noavatar.gif" class="avatar" id="avatar"/>
+		<div class="aui-text-center nickname" id="nickname"></div>
+        <div class="aui-text-center my_info" id="signature"></div>
+		<div class="my-btn">
+			<i class="aui-iconfont aui-icon-gear" tapmode onclick="openWin('my_setup')"></i>
+			<i class="aui-iconfont aui-icon-mail" tapmode onclick="openWin('my_msg')"></i>
+		</div>
+	</div>
+    <div class="aui-flex-col aui-flex-middle aui-border-t aui-content my-msg">
+            <div class="aui-flex-item-4 aui-border-r aui-text-center" tapmode onclick="openPoint()">
+                <p class="aui-text-danger">0</p>
+                <span>积分</span>
+            </div>
+            <div class="aui-flex-item-4 aui-border-r aui-text-center" tapmode onclick="openWin('my_friend')">
+                <p class="aui-text-danger" id="attentionCount">0<p>
+                <span class="">关注</span>
+            </div>
+            <div class="aui-flex-item-4  aui-text-center" tapmode onclick="openWin('my_fans')">
+                <p class="aui-text-danger" id="fansCount">0</p>
+                <span>粉丝 </span>
+            </div>
+        </div>
+	<div class="aui-content">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_account')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-my aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    账户管理
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="aui-content">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_draft')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-edit aui-text-primary"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    我要投稿
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_activity_frm')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-flag aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    我报名的活动
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_collect')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-star aui-text-danger"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    我的收藏
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_concern')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-like aui-text-warning"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    我的关注
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_comment')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-comment aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    我的评论
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_draft_list')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-pencil aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    我的投稿
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="aui-content">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_suggest')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-edit aui-text-danger"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    意见反馈
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="logout()">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-out aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    切换账号
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow" tapmode onclick="openWin('my_aboutus')">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-loupan aui-text-primary"></i>
+                </div>
+                <div class="aui-list-item-inner">
+                    关于房客
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tap.js" ></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+    $(function(){
+        var token = $api.getStorage("token");
+        if(!token){
+            $api.setStorage("loginFrom","my.html");
+            window.location.href = "../login.html";
+            return;
+        }
+        getUserInfo();
+        getCount();
+    });
+    //获取用户信息下各种数量
+    function getCount(){
+        var token = $api.getStorage('token');
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/User/getCount',
+           data: "token="+token,
+           success: function(ret){
+               if (ret && ret.code == 1) {
+                   document.getElementById("fansCount").textContent = ret.fansCount;
+                   document.getElementById("attentionCount").textContent = ret.attentionCount;
+               }
+           }
+        });
+    }
+
+    function getUserInfo(){
+        var userid = $api.getStorage("userid");
+        var mobile = $api.getStorage("mobile");
+        var nickname = $api.getStorage("nickname");
+        var avatar = $api.getStorage("avatar");
+        var signature = $api.getStorage("signature");
+        avatar ? document.getElementById("avatar").setAttribute("src",avatar) : document.getElementById("avatar").setAttribute("src","../../image/noavatar.gif");
+        document.getElementById("nickname").textContent = nickname ? nickname : "还木有昵称";
+        document.getElementById("signature").textContent = signature ? signature : "还木有签名"
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.rmStorage("signature");
+        $api.setStorage("loginFrom","my/my.html");
+        window.location.href = "../login.html";
+    }
+    function openWin(url){
+        if(url == "my_draft"){
+            a.content = "请下载房客APP进行投稿";
+            layer.open(a);
+            return;
+        }
+        window.location.href = url+".html";
+    }
+    function closeWin(){
+        window.history.go(-1);
+    }
+</script>
+</html>

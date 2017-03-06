@@ -1,0 +1,57 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="paddingTLR-md">
+			<a href="#" class="btn btn-xs btn-info">关注管理</a>
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<form action="" method="post">
+				<table class="table table-striped table-bordered m-top-md" id="dataTable">
+					<thead>
+						<tr>
+							<th width="80">ID</th>
+							<th>用户</th>
+							<th>新闻</th>
+							<th>时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+						<tr id="data-{$v['attention_id']}">
+							<td>{$v['attention_id']}</td>
+							<td>{$v['user_nickname']}</td>
+							<td>{$v['news_title']}</td>
+							<td>{$v['addtime']||date="Y-m-d H:i:s",###}</td>
+							<td class="manager">
+								<a href="javascript:newsAttentionDelete({$v['attention_id']})" class="text-danger">删除</a>
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table>
+				<div class="content text-right">
+					<ul class="pagination">
+					{$page}
+					</ul>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function newsAttentionDelete(id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/newsAttentionDelete",{attention_id:id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

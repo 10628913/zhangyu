@@ -1,0 +1,881 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css" />
+	<style>
+       .search-bar {
+            width: 90%;
+            margin-top: 0.4rem;
+            margin-left: 0.5rem;
+            min-height: 1.5rem !important;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 0.6rem;
+            padding-left: 0.5rem;
+            background: #ffffff;
+            color: #bbb;
+            text-align: left;
+            z-index: 1;
+        }
+        .search-bar .aui-iconfont {
+            color: #bbb;
+            font-size: 0.6rem;
+            line-height: 1.5rem;
+            margin-right: 0.25rem;
+        }
+        .aui-bar .aui-pull-right{
+            font-size: 0.6rem;
+            /*line-height: 2.25rem;*/
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            color: #fff;
+        }
+        .screen{
+            position: fixed;
+            top: 2.3rem;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+        }
+        .content{
+            padding-top: 5rem;
+        }
+        html,body{
+            background-color: #fff;
+        }
+        .aui-content {
+            margin-bottom: 0;
+        }
+		.aui-list .aui-list-item-media img {
+			max-width: 6.5rem;
+		}
+		.aui-list .aui-list-item-text {
+			margin-top: 0.25rem;
+			font-size: 0.6rem;
+		}
+        .aui-text-warning {
+            color: #ff6600 !important;
+        }
+		.price {
+			font-size: 0.7rem !important;
+			color: #ff6600 !important;
+		}
+		.house-tag {
+			padding: 0.1rem  0.3rem;
+			display: inline-block;
+			font-size: 0.6rem;
+			margin-bottom: 0.2rem;
+		}
+		.house-tag.aui-tag-info {
+			color: #9ccc65;
+		}
+		.aui-border.aui-tag-info:after {
+		    border:1px solid #9ccc65;
+		    border-radius: 0.2rem;
+		}
+
+         .screen-item { font-size: 12px; color: #666; }
+        .screen-item .aui-iconfont { color: #ccc; }
+        .screen-item > i:before {
+            display: inline-block;
+            -webkit-transition: all .3s;
+                transition: all .3s;
+            -webkit-transform: rotate(0);
+                transform: rotate(0);
+        }
+        .screen-item.fold > i:before {
+            -webkit-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+        }
+        .aui-btn.active { border: 1px solid #00bcd4;}
+        .aui-btn:active { background-color: #ffffff; color: #666666; }
+        button, .aui-btn { padding: 6px 12px;font-size: 12px; color: #666666; margin-bottom: 5px; }
+        .screen-show {
+            width: 100%;
+            position: fixed;
+            top: 4.4rem;/*Hardcoding */
+            left: 0;
+            background: #ffffff;
+            padding: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .mark {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9;
+            display: none;
+        }
+        .screen-show.in,
+        .mark.in{
+            display: block;
+            -webkit-transform: translateY(0%);
+                transform: translateY(0%);
+        }
+        .screen-show p {
+            font-size: 0.75em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .screen-show .aui-list-view {
+            font-size: 0.75em;
+            color: #666;
+        }
+        .screen-show .aui-list-view-cell {
+            padding-left: 0;
+        }
+        .screen-show .aui-list-view-cell.sub{
+            color: #00bcd4;
+        }
+        .aui-content > div{
+            overflow-x: hidden;
+            position: relative;
+        }
+        .aui-list  {
+            /*width: 120%;*/
+            /*height: 500px;*/
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .aui-list .aui-list-item.active {
+            background: #eee;
+        }
+
+        .aui-mask {
+            -webkit-animation: fadeIn .3s ease both;
+                    animation: fadeIn .3s ease both;
+        }
+        .level-child .aui-list {
+            background: #eeeeee;
+            display: none;
+        }
+        .level-child .aui-list.show {
+            display: block;
+        }
+        .aui-content > div {
+            padding: 0 0.125rem;
+        }
+        .room-item {
+            width: 96%;
+            padding: 0.4rem  0.5rem;
+            display: block;
+            float: left;
+            font-size: 0.7rem;
+            margin-bottom: 0.25rem;
+            background: #ffffff;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .loading-data,
+        .no-data {
+            width: 100%;
+            margin-top: 30px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .loading-data img,
+        .no-data img {
+            width: 60%;
+            margin: 0 auto;
+        }
+	</style>
+</head>
+<body>
+
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">
+            <div class="search-bar" tapmode onclick="openHouseSearch()">
+                <i class="aui-iconfont aui-icon-search1"></i>请输入房源关键词
+            </div>
+        </div>
+        <a class="aui-pull-right" tapmode onclick="openHousearea()">
+            <span class="aui-iconfont aui-icon-location"></span><span id="city">北京</span>
+        </a>
+    </header>
+    <div class="aui-tab screen" id="screen-classify">
+        <div class="aui-tab-item screen-item" data-tag="area" tapmode>区域<i class="aui-iconfont aui-icon-down"></i></div>
+        <div class="aui-tab-item screen-item" data-tag="room" tapmode>户型<i class="aui-iconfont aui-icon-down"></i></div>
+        <div class="aui-tab-item screen-item" data-tag="price"  tapmode>价格<i class="aui-iconfont aui-icon-down"></i></div>
+        <div class="aui-tab-item screen-item" data-tag="more" tapmode>更多<i class="aui-iconfont aui-icon-down"></i></div>
+    </div>
+   <!--  <section class="aui-content screen" id="screen-classify">
+        <div class="aui-col-5 aui-text-center screenlist aui-border-r" data-tag="order">排序 <i class="aui-iconfont aui-icon-unfold"></i></div>
+        <div class="aui-col-5 aui-text-center screenlist aui-border-r" data-tag="type">类型 <i class="aui-iconfont aui-icon-unfold"></i></div>
+        <div class="aui-col-5 aui-text-center screenlist aui-border-r" data-tag="brand">品牌 <i class="aui-iconfont aui-icon-unfold"></i></div>
+        <div class="aui-col-5 aui-text-center screenlist aui-border-r" data-tag="price">价格 <i class="aui-iconfont aui-icon-unfold"></i></div>
+        <div class="aui-col-5 aui-text-center screenlist" data-tag="screen">筛选 <i class="aui-iconfont aui-icon-unfold"></i></div>
+    </section>-->
+    <div class="mark"></div>
+    <!-- 地区 -->
+    <div class="screen-show" id="area">
+        <ul class="aui-list aui-list-noborder area-list" id="areaList">
+        </ul>
+    </div>
+    <!-- 户型 -->
+    <div class="screen-show" id="room">
+
+    </div>
+    </div>
+    <div class="screen-show" id="price">
+       <div class="aui-col-xs-6">
+           <ul class="aui-list aui-list-noborder more-list checkPirce">
+               <li class="aui-list-item active" tapmode for="unitPrice">
+                   <div class="aui-list-item-inner">
+                       每平价格
+                   </div>
+               </li>
+               <li class="aui-list-item" tapmode for="totalPrice">
+                   <div class="aui-list-item-inner">
+                       每套价格
+                   </div>
+               </li>
+           </ul>
+        </div>
+
+        <div class="aui-col-xs-6  level-child">
+            <ul class="aui-list aui-list-noborder itemprice show" id="unitPrice">
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="" maxPrice=''>
+                    <div class="aui-list-item-inner">
+                        不限
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="0" maxPrice='10000'>
+                    <div class="aui-list-item-inner">
+                        0-10000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="10000" maxPrice="15000">
+                    <div class="aui-list-item-inner">
+                        10000-20000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="20000" maxPrice="30000">
+                    <div class="aui-list-item-inner">
+                        20000-30000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="30000" maxPrice="40000">
+                    <div class="aui-list-item-inner">
+                        30000-40000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="40000" maxPrice="50000">
+                    <div class="aui-list-item-inner">
+                        40000-50000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="50000" maxPrice="60000">
+                    <div class="aui-list-item-inner">
+                        50000-60000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="60000" maxPrice="70000">
+                    <div class="aui-list-item-inner">
+                        60000-70000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="70000" maxPrice="80000">
+                    <div class="aui-list-item-inner">
+                        70000-80000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="80000" maxPrice="100000">
+                    <div class="aui-list-item-inner">
+                        80000-100000元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="unitPrice" tapmode minPrice="100000以上">
+                    <div class="aui-list-item-inner">
+                        100000元以上
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-list-noborder itemprice" id="totalPrice">
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="" maxPrice=''>
+                    <div class="aui-list-item-inner">
+                        不限
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode maxPrice='50'>
+                    <div class="aui-list-item-inner">
+                        50万元以下
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="50" maxPrice="80">
+                    <div class="aui-list-item-inner">
+                        50-80万元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="80" maxPrice="100">
+                    <div class="aui-list-item-inner">
+                        80-100万元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="100" maxPrice="120">
+                    <div class="aui-list-item-inner">
+                        100-120万元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="120" maxPrice="150">
+                    <div class="aui-list-item-inner">
+                        120-150万元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="150" maxPrice="200">
+                    <div class="aui-list-item-inner">
+                        150-200万元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="200" maxPrice="250">
+                    <div class="aui-list-item-inner">
+                        200-250万元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="250" maxPrice="300">
+                    <div class="aui-list-item-inner">
+                        250-300万元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="300" maxPrice="500">
+                    <div class="aui-list-item-inner">
+                        300-500万元
+                    </div>
+                </li>
+                <li class="aui-list-item screen-item item-pirce" type="totalPrice" tapmode minPrice="500">
+                    <div class="aui-list-item-inner">
+                        500万元以上
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    </div>
+    <div class="screen-show" id="more">
+       <div class="aui-col-xs-6">
+            <ul class="aui-list aui-list-noborder more-list checkmore">
+                <li class="aui-list-item active" tapmode for="house-type">
+                    <div class="aui-list-item-inner">
+                        房屋类型
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="aui-col-xs-6 level-child">
+
+            <ul class="more aui-list aui-list-noborder moreitem show" id="house-type">
+            </ul>
+        </div>
+    </section>
+    </div>
+	<div class="aui-content content" style="margin-bottom:0;">
+        <ul class="aui-list aui-media-list aui-list-noborder" id="building-list">
+            <div class="loading-data">
+                <img src="../../image/loading.png" />
+            </div>
+        </ul>
+    </div>
+</body>
+<script id="areaListTemplate" type="text/x-dot-template">
+    {{ for(var i in it) { }}
+        <li class="aui-list-item" tapmode onclick="chooseArea(this)" area="{{=it[i].name}}">
+            <div class="aui-list-item-inner">
+                {{=it[i].name}}
+            </div>
+        </li>
+    {{ } }}
+</script>
+<script id="building-list-tpl" type="text/x-dot-template">
+    {{ for(var i in it) { }}
+    <li class="aui-list-item" tapmode onclick="openHouseDetail({{=it[i].building_id}})">
+        <div class="aui-list-item-media">
+            <img src="../../image/image_loading_3.png" data-echo="{{=it[i].building_thumb}}">
+        </div>
+        <div class="aui-list-item-inner">
+            <div class="aui-list-item-title-row">
+                <div class="aui-list-item-title">{{=it[i].building_name}}</div>
+                <div class="aui-list-item-right price">
+                    {{? it[i].building_price_type == 1}}
+                    {{=it[i].building_price}}万元/套
+                    {{?? it[i].building_price_type == 2}}
+                    {{=it[i].building_price}}元/㎡
+                    {{?? it[i].building_price_type == 3}}
+                    待定
+                    {{?}}
+                </div>
+            </div>
+            <div class="aui-list-item-text aui-ellipsis-2">
+                {{=it[i].building_area_name}}
+            </div>
+            {{? it[i].tags}}
+            <div class="aui-list-item-text">
+                {{for(var ii in it[i].tags){ }}
+                <div class="house-tag aui-border aui-tag-info">{{=it[i].tags[ii]}}</div>
+                {{ } }}
+            </div>
+            {{? }}
+            <div class="aui-list-item-text aui-text-warning aui-ellipsis-2">
+                {{=it[i].building_discount}}
+            </div>
+        </div>
+    </li>
+    {{ } }}
+</script>
+<script id="houseTypeTemplate" type="text/doTtemplate">
+    {{for(var i in it){}}
+        <li class="aui-list-item screen-item more-item" tapmode type="building" building-type-id="{{=it[i].type_id}}">
+            <div class="aui-list-item-inner">
+                {{=it[i].type_name}}
+            </div>
+        </li>
+    {{}}}
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tap.js" ></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js"></script>
+<script type="text/javascript">
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var page=1;
+    var building_area_name = "北京",
+        minPrice = "",
+        maxPrice = "",
+        minAge = "",
+        maxAge = "",
+        minAcreage = "",
+        maxAcreage = "",
+        building_type_id = "",
+        building_house_style_ids = "" ;
+        priceType = "";
+    var scrollStatus = true;
+    var scroll = new auiScroll({
+        listen:false, //是否监听滚动高度，开启后将实时返回滚动高度
+        distance:200 //判断到达底部的距离，isToBottom为true
+    },function(ret){
+       if(ret.isToBottom){
+           if(scrollStatus){
+               getBuildingListData();
+           }
+       }
+    });
+    $(function($) {
+        //获取城市
+        if($.getUrlParam("building_area_name")){
+            building_area_name = $.getUrlParam("building_area_name");
+            document.getElementById("city").textContent = building_area_name;
+        }
+        getArea();
+        //获取户型
+        getBuildingScreenHouseStyle();
+        //初始化价格
+        initPrice();
+        //初始化更多
+        initMore();
+        //获取房源类型
+        getHouseType();
+        getBuildingListData();
+    });
+    //地区处理
+    function chooseArea(obj){
+        var area = obj.getAttribute("area");
+        building_area_name = area;
+        document.getElementById("building-list").innerHTML = '';
+        page = 1;
+        removeMark();
+        getBuildingListData();
+    }
+    function getArea(){
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/Build/getAreaByCity',
+           data: "city="+building_area_name,
+           success: function(ret){
+               if(ret.code == 1){
+                   var areaListTemplate = doT.template(document.getElementById("areaListTemplate").innerHTML);
+                   document.getElementById("areaList").innerHTML = areaListTemplate(ret.data);
+               }
+           }
+        });
+    }
+    //户型
+    function getBuildingScreenHouseStyle(){
+        var styleHtml = '';
+        var _styleHtml = '';
+        var buildingScreeenHouseStyleData = $api.getStorage("buildingScreeenHouseStyleData");
+        if(buildingScreeenHouseStyleData){
+            for(var i=0;i<buildingScreeenHouseStyleData.length;i++){
+                styleHtml += '<div class="aui-col-xs-4"><div class="room-item" house-style-id="'+buildingScreeenHouseStyleData[i].house_style_id+'">'+buildingScreeenHouseStyleData[i].house_style_name+'</div></div>';
+            }
+            document.getElementById("room").innerHTML = styleHtml;
+            selectItems();
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getHouseStyle',
+           success: function(ret){
+               if(ret.code == '1'){
+                   for(var i=0;i<ret.data.length;i++){
+                       _styleHtml += '<div class="aui-col-xs-4"><div class="room-item" house-style-id="'+ret.data[i].house_style_id+'">'+ret.data[i].house_style_name+'</div></div>';
+                   }
+                   document.getElementById("room").innerHTML = _styleHtml;
+                   selectItems();
+               }
+           },
+           error:function(err){
+           }
+        });
+    }
+    function selectItems(){
+        var items = document.querySelectorAll("#room .room-item");
+        for(var i = 0; i < items.length; i++){
+            items[i].onclick = function(e){
+                this.classList.add("active");
+                building_house_style_ids = this.getAttribute("house-style-id");
+                document.getElementById("building-list").innerHTML = '';
+                page = 1;
+                removeMark();
+                getBuildingListData();
+
+            }
+        }
+    }
+    function initPrice(){
+        var moreItem = document.querySelectorAll(".checkPirce > li");
+           if(moreItem.length){
+               for(var i = 0; i < moreItem.length; i++){
+                   moreItem[i].onclick = function(e){
+                       document.querySelector(".checkPirce > li.active").classList.remove("active");
+                       this.classList.add("active");
+                       var _active = this.getAttribute("for");
+                       document.querySelector(".itemprice.show").classList.remove("show");
+                       document.getElementById(_active).classList.add("show");
+                   }
+               }
+           }
+           var screenItems = document.querySelectorAll(".item-pirce");
+           for(var ii = 0; ii < screenItems.length; ii++){
+               screenItems[ii].onclick = function(e){
+                   switch (this.getAttribute("type")) {
+                       case "unitPrice":
+                           minPrice = "";
+                           maxPrice = "";
+                           this.classList.add("active");
+                           if(this.getAttribute("minPrice") && !this.getAttribute("maxPrice")){
+                               minPrice =  this.getAttribute("minPrice");
+                           }else if (!this.getAttribute("minPrice") && this.getAttribute("maxPrice")) {
+                               maxPrice = this.getAttribute("maxPrice");
+                           }else{
+                               minPrice =  this.getAttribute("minPrice");
+                               maxPrice = this.getAttribute("maxPrice");
+                           };
+                           priceType = 2;
+                           break;
+                       case "totalPrice":
+                           minPrice = "";
+                           maxPrice = "";
+                           this.classList.add("active");
+                           if(this.getAttribute("minPrice") && !this.getAttribute("maxPrice")){
+                               minPrice =  this.getAttribute("minPrice");
+                           }else if (!this.getAttribute("minPrice") && this.getAttribute("maxPrice")) {
+                               maxPrice = this.getAttribute("maxPrice");
+                           }else{
+                               minPrice =  this.getAttribute("minPrice");
+                               maxPrice = this.getAttribute("maxPrice");
+                           };
+                           priceType = 1;
+                           break;
+                   }
+                   document.getElementById("building-list").innerHTML = '';
+                   page = 1;
+                   removeMark();
+                   getBuildingListData();
+               }
+           }
+        // var items = document.querySelectorAll(".price-list .aui-list-item");
+        // for(var i = 0; i < items.length; i++){
+        //     items[i].onclick = function(e){
+        //         minPrice = "";
+        //         maxPrice = "";
+        //         this.classList.add("active");
+        //         if(this.getAttribute("minPrice") && !this.getAttribute("maxPrice")){
+        //             minPrice =  this.getAttribute("minPrice");
+        //         }else if (!this.getAttribute("minPrice") && this.getAttribute("maxPrice")) {
+        //             maxPrice = this.getAttribute("maxPrice");
+        //         }else{
+        //             minPrice =  this.getAttribute("minPrice");
+        //             maxPrice = this.getAttribute("maxPrice");
+        //         }
+        //         document.getElementById("building-list").innerHTML = '';
+        //         page = 1;
+        //         removeMark();
+        //         getBuildingListData();
+        //     }
+        // }
+    }
+    function getHouseType(){
+        if($api.getStorage('houseType')){
+            var houseTypeTemplate = doT.template(document.getElementById("houseTypeTemplate").innerHTML);
+            document.getElementById("house-type").innerHTML = houseTypeTemplate($api.getStorage('houseType'));
+            initMore();
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'/App/Build/getBuildingType',
+           success: function(ret){
+               if(ret.code == 1){
+                   $api.setStorage('houseType', ret.data);
+                   var houseTypeTemplate = doT.template(document.getElementById("houseTypeTemplate").innerHTML);
+                   document.getElementById("house-type").innerHTML = houseTypeTemplate(ret.data);
+                   initMore();
+               }
+           }
+        });
+    }
+    function initMore(){
+        setTimeout(function(){
+            var moreItem = document.querySelectorAll(".checkmore > li");
+            if(moreItem.length){
+                for(var i = 0; i < moreItem.length; i++){
+                    moreItem[i].onclick = function(e){
+                        document.querySelector(".checkmore > li.active").classList.remove("active");
+                        this.classList.add("active");
+                        var _active = this.getAttribute("for");
+                        document.querySelector(".moreitem > .aui-list.show").classList.remove("show");
+                        document.getElementById(_active).classList.add("show");
+                    }
+                }
+            }
+            // document.querySelector(".aui-mask").addEventListener("touchstart", function(event){
+            //     event.preventDefault();
+            // })
+            var screenItems = document.querySelectorAll(".more-item");
+            for(var ii = 0; ii < screenItems.length; ii++){
+                screenItems[ii].onclick = function(e){
+                    switch (this.getAttribute("type")) {
+                        case "acreage":
+                            if(this.getAttribute("minAcreage") && !this.getAttribute("maxAcreage")){
+                                minAcreage = this.getAttribute("minAcreage");
+                            }else if (!this.getAttribute("minAcreage") && this.getAttribute("maxAcreage")) {
+                                maxAcreage = this.getAttribute("maxAcreage");
+                            }else{
+                                minAcreage = this.getAttribute("minAcreage");
+                                maxAcreage = this.getAttribute("maxAcreage");
+                            }
+                            document.getElementById("building-list").innerHTML = '';
+                            page = 1;
+                            removeMark();
+                            getBuildingListData();
+                            break;
+                        case "age":
+                            if(this.getAttribute("minAge") && !this.getAttribute("maxAge")){
+                                minAge = this.getAttribute("minAge");
+                            }else if (!this.getAttribute("minAge") && this.getAttribute("maxAge")) {
+                                maxAge = this.getAttribute("maxAge");
+                            }else{
+                                minAge = this.getAttribute("minAge");
+                                maxAge = this.getAttribute("maxAge");
+                            }
+                            document.getElementById("building-list").innerHTML = '';
+                            page = 1;
+                            removeMark();
+                            getBuildingListData();
+
+                            break;
+                        case "building":
+                            building_type_id = this.getAttribute("building-type-id");
+                            document.getElementById("building-list").innerHTML = '';
+                            page = 1;
+                            removeMark();
+                            getBuildingListData();
+                            break;
+
+                    }
+
+                }
+            }
+        }, 300)
+    }
+
+    function getBuildingListData(){
+        scrollStatus = false;
+        var param = "building_area_name="+building_area_name
+            +"&minPrice="+minPrice
+            +"&maxPrice="+maxPrice
+            +"&priceType="+priceType
+            +"&minAge="+minAge
+            +"&maxAge="+maxAge
+            +"&minAcreage="+minAcreage
+            +"&maxAcreage="+maxAcreage
+            +"&building_type_id="+building_type_id
+            +"&building_house_style_id="+building_house_style_ids
+            +"&pageNum="+page
+            +"&pageSize=20";
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Build/getBuilding',
+           data: param,
+           success: function(ret){
+            //    console.log(ret);
+               if(ret.code == '1'){
+                   scrollStatus = true;
+                   if(page == 1){
+                       document.getElementById("building-list").innerHTML = '';
+                   }
+                   var tpl = document.getElementById("building-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   for(var i =0;i<ret.data.length;i++){
+                       if(ret.data[i].tags){
+                           ret.data[i].tags = ret.data[i].tags.split(",");
+                       }
+                   }
+                   document.getElementById("building-list").insertAdjacentHTML('beforeend', tempFn(ret.data));
+                   Echo.init({
+                       offset: 0,
+                       throttle: 250
+                   });
+                   page++;
+               }else {
+                   if(page == 1){
+                       document.getElementById("building-list").innerHTML = '<div class="no-data"><img src="../../image/no_building_data.png" /></div>';
+                   }
+               }
+           }
+        });
+    }
+
+    function closeWin(){
+        window.history.go(-1);
+    }
+    function openHouseSearch(){
+        window.location.href = 'house_search.html';
+    }
+    function openHouseDetail(building_id){
+        window.location.href = 'house_detail.html?building_id='+building_id;
+    }
+    function openHousearea(){
+        window.location.href = 'house_area.html';
+    }
+
+
+   var screenList = document.querySelectorAll("#screen-classify > div");
+    for (var i = 0; i < screenList.length; i++) {
+        screenList[i].addEventListener('tap', function(){
+            var tag = document.querySelector(".screen-item.fold");
+
+            if(tag){
+                var tageName = tag.getAttribute("data-tag");
+                if(tageName == this.getAttribute("data-tag")){
+                    hideMark();
+
+                    return;
+                }
+            }
+
+            obj=this;
+            //查询其他筛选窗口有没有展开,并隐藏
+            if(document.querySelector(".screen-show.in")){
+                document.querySelector(".screen-show.in").classList.remove("in");
+            }
+            //指示箭头切换
+            if(document.querySelector(".screen-item.fold")){
+                document.querySelector(".screen-item.fold").classList.remove("fold");
+            }
+            this.classList.add("fold");
+            //筛选页面展开
+            document.getElementById(""+this.getAttribute("data-tag")+"").classList.add("in");
+            if(!document.querySelector(".mark")){
+                setTimeout(function(){
+                    document.querySelector(".mark").classList.add("in");
+                    removeMark();
+                },100)
+            }else{
+                document.querySelector(".mark").classList.add("in");
+            }
+            //禁用touchmove事件
+            document.querySelector(".screen-show.in").addEventListener('touchmove', function(event){
+                event.preventDefault();
+            },false)
+
+        },false)
+    }
+    //关闭遮罩及筛选内容
+    function removeMark(){
+        // document.querySelector(".mark").addEventListener('touchstart', function(event){
+        //     event.preventDefault();
+            if(document.querySelector(".screen-show.in")){
+                document.querySelector(".screen-show.in").classList.remove("in");
+            }
+            //箭头还原
+            if(document.querySelector(".screen-item.fold")){
+                document.querySelector(".screen-item.fold").classList.remove("fold");
+            }
+            //关闭遮罩
+            if (document.querySelector('.mark.in')) {
+                document.querySelector('.mark').classList.remove('in');
+            }
+
+        // },false)
+    }
+
+    function hideMark(){
+        //关闭筛选
+        if(document.querySelector(".screen-show.in")){
+            document.querySelector(".screen-show.in").classList.remove("in");
+        }
+        //箭头还原
+        if(document.querySelector(".screen-item.fold")){
+            document.querySelector(".screen-item.fold").classList.remove("fold");
+        }
+        //关闭遮罩
+        if (document.querySelector('.mark.in')) {
+            document.querySelector('.mark').classList.remove('in');
+        }
+
+    }
+
+    //  // more选择
+    //  var domList = document.querySelectorAll(".morelist");
+    //     for(var i = 0;i<domList.length; i++){
+    //         domList[i].style.width = ((screen.width/2)+10)+"px";
+    //         domList[i].style.height = (screen.height-90)+"px";
+    //     }
+    //     setTimeout(function(){
+    //         var moreItem = document.querySelectorAll(".more-list > li");
+    //         if(moreItem.length){
+    //             for(var i = 0; i < moreItem.length; i++){
+    //                 moreItem[i].onclick = function(e){
+    //                     document.querySelector(".more-list > li.active").classList.remove("active");
+    //                     this.classList.add("active");
+    //                     var _active = this.getAttribute("for");
+    //                     document.querySelector(".level-child > .aui-list.show").classList.remove("show");
+    //                     document.getElementById(_active).classList.add("show");
+     //
+    //                 }
+    //             }
+    //         }
+    //         // document.querySelector(".aui-mask").addEventListener("touchstart", function(event){
+    //         //     event.preventDefault();
+    //         // })
+    //     }, 300)
+</script>
+</html>

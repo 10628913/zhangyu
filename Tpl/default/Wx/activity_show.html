@@ -1,0 +1,193 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>{$title}</title>
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui-flex.css" />
+    <style type="text/css">
+        .body-bg {
+            position: relative;
+            background: url('{:C('IMAGE_PATH')}/bg.png') no-repeat #f4f4f4;
+            background-position: bottom;
+            background-size: 100%;
+            padding-bottom: 120px;
+        }
+        .aui-bar {
+            background-color: #998e78;
+            position: fixed;
+        }
+        .aui-bar .aui-btn,
+        .aui-bar .aui-btn:active {
+            background-color: #998e78;
+        }
+        img.thumb {
+            width: 100%;
+            max-height: 220px;
+            display: inherit;
+        }
+        .activity-info {
+            background: #ffffff;
+            padding: 15px;
+            font-size: 16px;
+            color: #666666;
+            overflow: hidden;
+        }
+        .activity-info p {
+            font-size: 12px;
+        }
+        .activity-schedule-list {
+            font-size: 14px;
+            color: #666;
+        }
+        .aui-list-view.activity-schedule-list:after {
+            border:none;
+        }
+        .activity-schedule-list p {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+        .activity-badge {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #998e78;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+        }
+        .aui-btn-success {
+            background-color: #7bbb5e;
+            border-color: #7bbb5e;
+            border-top-left-radius: 75%;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 65%;
+            border-top-right-radius: 0;
+            font-size: 12px;
+        }
+        .aui-btn-default {
+            background-color: #f0f0f0;
+            border-color: #f0f0f0;
+            border-top-left-radius: 75%;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 65%;
+            border-top-right-radius: 0;
+            font-size: 12px;
+            color: #666;
+        }
+        .activity-content,
+        .activity-explain {
+            background-color: #ffffff;
+            font-size: 14px;
+            line-height: 24px;
+            color: #333;
+        }
+        .activity-content p {
+            color: #666;
+        }
+        .activity-content img {
+            width: 100% !important;
+            height: auto !important;
+        }
+        .activity-content a.amap-logo img {
+            width: 40px !important;
+        }
+        h3 {
+            border-left: 2px solid #eee;
+            padding-left: 10px;
+            color: #998e78;
+            margin: 5px 0;
+        }
+        .activity-explain p {
+            background-color: #f4f4f4;
+            padding: 3px 10px;
+            overflow: hidden;
+            color: #666;
+        }
+    </style>
+</head>
+<body class="body-bg">
+    <!-- <header class="aui-bar aui-bar-nav" id="aui-header">
+        <a class="aui-btn aui-pull-left">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">活动详情<div>
+    </header> -->
+    <section class="aui-content">
+        <div class="activity-thumb">
+            <img class="thumb" src="{$thumb}">
+        </div>
+        <div class="activity-info aui-col-xs-12">
+            {$title}
+            <p>{$destination_area_name}</p>
+            <p>{$destination_address}</p>
+        </div>
+    </section>
+    <section class="aui-content">
+        <div class="aui-tab aui-tab-warning">
+            <ul class="aui-tab-nav">
+                <li class="active" data-id="1">活动介绍</li>
+                <li data-id="2">活动报名</li>
+                <li data-id="3">活动说明</li>
+            </ul>
+        </div>
+        <div class="aui-content aui-padded-15 activity-content tab-box" for-id="1">
+            {$content}
+            <!-- <div id="map" style="width:100%; height:180px;"></div> -->
+        </div>
+        <ul class="aui-list-view aui-in activity-schedule-list tab-box aui-hidden" for-id="2">
+            <foreach name="scheduleData" item="v">
+            <li class="aui-list-view-cell aui-flex-col aui-flex-middle">
+                <div class="aui-flex-item-2">
+                    <div class="activity-badge">{$key+1}</div>
+                </div>
+                <div class="aui-flex-item-8">
+                    活动时间：{$v['start_time']||date="Y-m-d",###}<br />
+                    结束时间：{$v['end_time']||date="Y-m-d",###}
+                    <p>
+                        成人价：￥<strong class="aui-text-primary">{$v['adult_price']}</strong>
+                        儿童价：￥<strong class="aui-text-primary">{$v['children_price']}</strong>
+                    </p>
+                </div>
+                <div class="aui-flex-item-2 aui-text-center">
+                    <if condition="$v['start_time'] elt time()">
+                    <div class="aui-btn aui-btn-default">结束</div>
+                    <else />
+                    <div class="aui-btn aui-btn-success" onclick="activityApply({$id},{$v['schedule_id']})">报名</div>
+                    </if>
+                </div>
+            </li>
+            </foreach>
+        </ul>
+        <div class="aui-content aui-padded-15 activity-explain tab-box aui-hidden" for-id="3">
+            <h3>费用说明</h3>
+            <p>{$activity_cost}</p>
+            <h3>报名流程</h3>
+            <p>{$registration_process}</p>
+            <h3>注意事项</h3>
+            <p>{$activity_attention}</p>
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+// var siteUrl = "http://localhost:8887/";
+var siteUrl = "http://nixiangyuan.apithink.com/";
+$(function(){
+    $(".aui-tab-nav li").click(function(){
+        var tabId = $(this).attr('data-id');
+        $(".aui-tab-nav li.active").removeClass("active");
+        $(this).addClass("active");
+        $(".tab-box").addClass("aui-hidden");
+        $('[for-id="'+tabId+'"]').removeClass("aui-hidden");
+    });
+})
+
+function activityApply(activityId,scheduleId){
+    window.location.href = siteUrl+"?s=Wx/Activity/activityApply/activityId/"+activityId+"/scheduleId/"+scheduleId;
+}
+</script>
+</html>

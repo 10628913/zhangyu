@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+	<style>
+		.my-info {
+			height: 8rem;
+			background: url('../../image/my-bg.png') no-repeat;
+			background-position: center;
+			background-size: cover;
+			overflow: hidden;
+            margin-bottom: 0;
+		}
+		img.avatar {
+			width: 3.8rem;
+			height: 3.8rem;
+			border-radius: 1.9rem;
+			display: block;
+			margin: 0 auto;
+			margin-top: 1rem;
+		}
+		.nickname {
+			color: #ffffff;
+			font-size: 0.8rem;
+			margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+		}
+        .my_info{
+            color: #ffffff;
+            font-size:0.6rem;
+            margin-top: 0.5rem; 
+        }
+        .my-msg{
+            padding: 0.5rem 0.75rem;
+            background-color: #fff;
+            font-size: 0.7rem;
+            color: #666;
+        }
+		.aui-list .aui-list-item-inner {
+			padding-left: 0.5rem;
+		}
+		.aui-list .aui-list-item i.aui-iconfont {
+			font-size: 0.9rem;
+		}
+
+        /**/
+
+        li{
+            background-color: #fff;
+        }
+        .comment li{
+            padding: 0.6rem 0;
+        }
+        .activity-title{
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.1rem;
+            width: 100%;
+        }
+        .activity-info{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .aui-list .aui-list-item-media img {
+            max-width: 6.5rem;
+        }
+        .aui-list .aui-list-item-text {
+            margin-top: 0.25rem;
+        }
+        .aui-text-warning {
+            color: #ff6600 !important;
+        }
+        .price {
+            font-size: 0.7rem !important;
+            color: #ff6600 !important;
+        }
+        .house-tag {
+            padding: 0.1rem  0.3rem;
+            display: inline-block;
+            font-size: 0.6rem;
+            margin-bottom: 0.2rem;
+        }
+        .house-tag.aui-tag-info {
+            color: #9ccc65;
+        }
+        .aui-border.aui-tag-info:after {
+            border:1px solid #9ccc65;
+            border-radius: 0.2rem;
+        }
+        .house{
+            padding: 0.5rem 0;
+        }
+
+        .aui-flex-item-6.hrmsg >div{
+            margin-bottom: 0.8rem;
+        }
+        .aui-list:after{
+            height: 0;
+        }
+        .house .title .aui-pull-right .aui-iconfont{
+            color: #666;
+        }
+        .activity{
+            background-color: #fff;
+        }
+        .activity-title{
+            font-size: 0.7rem;
+            color: #333;
+        }
+        .aui-flex-item-1{
+            display: flex;
+        }
+        .aui-flex-item-1.hid{
+            display: none;
+        }
+        .aui-list-item-media img{
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            min-height: 2rem;
+        }
+        .btnbox{
+            padding: 0.4rem 0;
+        }
+        .btnbox .btn{
+            padding: 0.25rem;
+            color: #66CCFF;
+            font-size: 0.6rem;
+        }
+        .btn.aui-border:after{
+            border-color: #66CCFF;
+        }
+        .nonebox{
+            padding: 0.5rem 0;
+            text-align: center;
+            background-color: #fff;
+        }
+        .nonebox .none{
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .star img{
+            width: 3.2rem;
+        }
+        .aui-flex-item-1{
+            padding-top:1rem;
+        }
+        .time{
+            padding: 0.5rem 0.75rem;
+            color: #666;
+        }
+        .news-info{
+            background-color: #f2f2f2;
+            font-size: 0.7rem;
+            color: #333;
+        }
+        .news-info .aui-flex-item-2 img{
+            display: block;
+            width: 2.2rem;
+            height: 2.2rem;
+        }
+        .news-info .aui-flex-item-10{
+            font-size: 0.8rem;
+            color: #333;
+            padding-left: 0.2rem;
+        }
+        .comment{
+            padding:0.5rem 0.75rem 0.2rem;
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .trends ul{
+            background-color: transparent;
+        }
+        .aui-text-right.aui-flex-item-6{
+            font-size: 0.6rem;
+            color: #666;
+        }
+        .trends .title{
+            padding: 0.5rem 0.75rem;
+            background-color: #fff;
+            color: #666;
+        }
+        .trends .title .aui-iconfont{
+            color: #df3031;
+            margin-right: 0.3rem;
+        }
+        /**/
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .conment-t{
+            margin-top: 46px;
+        }
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <a class="aui-pull-right">
+            关注
+        </a>
+        <div class="aui-title">某人的个人中心</div>
+    </header>
+	<div class="aui-content my-info conment-t">
+		<img src="../../image/u2.png" class="avatar" />
+		<div class="aui-text-center nickname">流浪的小猫咪</div>
+        <div class="aui-text-center my_info">这家伙很懒,什么都没有留下</div>
+
+	</div>
+    <div class="aui-flex-col aui-flex-middle aui-border-t aui-content my-msg">
+            <div class="aui-flex-item-4 aui-border-r aui-text-center" >
+                <div>动态 0</div>
+            </div>
+            <div class="aui-flex-item-4 aui-border-r aui-text-center" tapmode onclick="openWin('my_friend')">
+                <div class="">关注 0</div>
+            </div>
+            <div class="aui-flex-item-4  aui-text-center" tapmode onclick="openWin('my_fans')">
+                <div class="">粉丝 0</div>
+            </div>
+        </div>
+    <div class="aui-content trends">
+        <div class="title aui-flex-col aui-flex-middle">
+            <span class="aui-iconfont aui-icon-edit"></span>
+            <div class="">最近回帖</div>
+        </div>
+        <ul class="aui-list aui-list-in">
+            <li class="activity aui-flex-col aui-border-b">
+                <div class=" aui-list aui-media-list aui-flex-item-12 activitylist active-item">
+                    <div class="aui-list-item">
+                        <div class="aui-list-item-media aui-flex-col aui-flex-middle">
+                            <img src="../../image/u2.png">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-flex-col aui-flex-middle">
+                                <div class="aui-text-left activity-title aui-flex-col aui-flex-middle">
+                                    <span class="aui-flex-item-6">流浪的小猫咪</span>
+                                    <span class="aui-flex-item-6 aui-text-right">3小时前</span>
+                                </div>
+                            </div>
+                            <div class="aui-list-item-text">
+                                很不错的户型,地理位置比较好,周边也不错
+                            </div>
+                            <div class="aui-list-item-text aui-flex-col aui-flex-middle news-info">
+                                <div class="aui-flex-item-2">
+                                    <img src="../../image/1.png" width="100%">
+                                </div>
+                                <div class="aui-flex-item-10 aui-ellipsis-1">
+                                    均价不到5千元越秀可逸豪苑元越秀可逸豪苑元越秀可逸豪苑
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="activity aui-flex-col aui-border-b">
+                <div class=" aui-list aui-media-list aui-flex-item-12 activitylist active-item">
+                    <div class="aui-list-item">
+                        <div class="aui-list-item-media aui-flex-col aui-flex-middle">
+                            <img src="../../image/u2.png">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-flex-col aui-flex-middle">
+                                <div class="aui-text-left activity-title aui-flex-col aui-flex-middle">
+                                    <span class="aui-flex-item-6">流浪的小猫咪</span>
+                                    <span class="aui-flex-item-6 aui-text-right">一月前</span>
+                                </div>
+                            </div>
+                            <div class="aui-list-item-text">
+                                很不错的户型,地理位置比较好,周边也不错
+                            </div>
+                            <div class="aui-list-item-text aui-flex-col aui-flex-middle news-info">
+                                <div class="aui-flex-item-2">
+                                    <img src="../../image/2.png" width="100%">
+                                </div>
+                                <div class="aui-flex-item-10 aui-ellipsis-1">
+                                    均价不到5千元越秀可逸豪苑元越秀可逸豪苑元越秀可逸豪苑
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>  
+        </ul>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+    function openWin(name){
+        window.location.href=name+'.html'; 
+
+    }
+</script>
+</html>

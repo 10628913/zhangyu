@@ -1,0 +1,46 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-header">
+            管理组权限设置
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<div class="alert alert-success alert-custom alert-dismissible" role="alert">
+			    	当前管理组:<strong class="text-danger">{$title}</strong>
+			    </div>
+				<a class="btn btn-success marginTB-xs" onclick="confirm()">提交</a>
+			    <foreach name="ruleList" item="v">
+			    	<h5>{$v['title']}</h5>
+			    	<foreach name="v['children']" item="r">
+			    		<div class="custom-checkbox m-right-xs">
+							<input type="checkbox" id="id-{$r['id']}" name="ids[]" value="{$r['id']}" <php>if(in_array($r['id'], $rules)){</php>checked<php>}</php> >
+							<label for="id-{$r['id']}"></label>
+						</div>
+						<div class="inline-block vertical-top text-primary">{$r['title']}</div>&nbsp;&nbsp;&nbsp;&nbsp;
+			    	</foreach>
+			    </foreach>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+function confirm(){
+	var ids='';
+	$("input[name='ids[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+	ids = ids.substring(0,ids.length-1);
+	if(ids=='') {
+		DMS.alert("请至少选择一个规则");
+		return false;
+	}else{
+		DMS.ajaxPost("__CONTROLLER__/groupSettingRule",{groupId:'{$id}',ids:''+ids+''},function(ret){
+			if(ret.status==1){
+            	DMS.success("提交成功",0);
+            }else{
+            	DMS.error("提交失败",0);
+            }
+		})
+	}
+}
+</script>

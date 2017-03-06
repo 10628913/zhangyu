@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+		h1 {
+			font-size: 1.2rem;
+		}
+		.aui-content {
+			background-color: #ffffff;
+		}
+		h2.title {
+			color: #df3031;
+			border-left:2px solid #df3031;
+			padding-left: 0.5rem;
+			font-size: 0.7rem;
+			margin: 0 0.75rem;
+			margin-bottom: 0.5rem;
+		}
+		.more {
+			padding: 0.75rem 0 2.5rem;
+			font-size: 0.6rem;
+			text-align: center;
+			color: #999;
+		}
+		.comment-list .aui-list .aui-list-item-title {
+			font-size: 0.7rem;
+		}
+		.comment-list .aui-list .aui-list-item-text {
+			font-size: 0.6rem;
+		}
+		.comment-list .aui-list p {
+			margin-top: 0.5rem;
+			font-size: 0.8rem;
+			color: #333;
+		}
+		.comment-list .aui-iconfont {
+			font-size: 0.8rem !important;
+		}
+
+
+        /**/
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+        .footer-bar {
+            width: 100%;
+            background: #f4f5f7;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            z-index: 999;
+        }
+        .footer-bar .aui-iconfont {
+            color: #333;
+            font-size: 1rem !important;
+        }
+        .footer-bar .input-bar {
+            /*width: 90%;*/
+            margin-top: 0.3rem;
+            margin-left: 0.75rem;
+            margin-right: 0.75rem;
+            min-height: 1.6rem !important;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            font-size: 0.6rem;
+            padding-left: 0.5rem;
+            background: #ffffff;
+            color: #bbb;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid #eee;
+        }
+        /*.footer-bar .input-bar.aui-border:after {
+            border-radius: 1.5rem;
+        }*/
+        .footer-bar .input-bar .aui-iconfont {
+            color: #bbb;
+            font-size: 0.6rem !important;
+            line-height: 1.5rem;
+            margin-right: 0.25rem;
+        }
+        .footer-bar .aui-iconfont {
+            font-size: 1rem;
+        }
+
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+
+                .comment-box {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+            display: none;        
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;     
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 80%, 0) scale(1);
+                  transform: translate3d(0, 80%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">全部评论</div>
+    </header>
+    <div class="aui-content relation comment-list">
+    	<!-- <h2 class="title">热门点评</h2> -->
+    	<ul class="aui-list aui-media-list">
+            <li class="aui-list-item" tapmode onclick="openRoomCommentReply()">
+                <div class="aui-list-item-media">
+                    <img src="../../image/u1.png" class="aui-list-img-round aui-list-img-sm">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-middle">
+                    <div class="aui-list-item-title-row">
+                        <div class="aui-list-item-title aui-text-info">流浪的小猫咪</div>
+                        <div class="aui-list-item-right">
+                        	<i class="aui-iconfont aui-icon-laud"></i>
+                            <span>888</span>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-text">北京朝阳区 1小时前</div>
+                    <p>对于外国人推高房价的说法，一些加拿大经济学家不以为然。他们认为，人口增长和就业增长迅猛、可开发土地越来越少，以及贷款率偏低是多伦多和温哥华房价走高的主要推手。</p>
+                    <div class="aui-list-item-text comment-info">
+                        15条回复
+                        <span class="aui-iconfont aui-icon-right"></span>
+                    </div>
+                    <div class="aui-list-item-text comment-content">
+                        <div class="comment-item">
+                            <span>用户500dsfa:</span>
+                            <span>别提那些垃圾专家了.</span>
+                        </div>
+                        <div class="comment-item">
+                            <span>龙行天下:</span>
+                            <span>快行了吧,怎么说都是官方有理</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item" tapmode onclick="openRoomCommentReply()">
+                <div class="aui-list-item-media">
+                    <img src="../../image/u1.png" class="aui-list-img-round aui-list-img-sm">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-middle">
+                    <div class="aui-list-item-title-row">
+                        <div class="aui-list-item-title aui-text-info">流浪的小猫咪</div>
+                        <div class="aui-list-item-right">
+                        	<i class="aui-iconfont aui-icon-laud"></i>
+                            <span>8</span>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-text">北京朝阳区 1小时前</div>
+                    <p>联邦政府正在就房产泡沫问题深入调研，之后将决定是否着手控制房价，以及是否限制境外投资者</p>
+                </div>
+            </li>
+            <li class="aui-list-item" tapmode onclick="openRoomCommentReply()">
+                <div class="aui-list-item-media">
+                    <img src="../../image/u1.png" class="aui-list-img-round aui-list-img-sm">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-middle">
+                    <div class="aui-list-item-title-row">
+                        <div class="aui-list-item-title aui-text-info">流浪的小猫咪</div>
+                        <div class="aui-list-item-right">
+                            <i class="aui-iconfont aui-icon-laud"></i>
+                            <span>8</span>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-text">北京朝阳区 1小时前</div>
+                    <p>联邦政府正在就房产泡沫问题深入调研，之后将决定是否着手控制房价，以及是否限制境外投资者</p>
+                </div>
+            </li>
+            <li class="aui-list-item" tapmode onclick="openRoomCommentReply()">
+                <div class="aui-list-item-media">
+                    <img src="../../image/u1.png" class="aui-list-img-round aui-list-img-sm">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-middle">
+                    <div class="aui-list-item-title-row">
+                        <div class="aui-list-item-title aui-text-info">流浪的小猫咪</div>
+                        <div class="aui-list-item-right">
+                            <i class="aui-iconfont aui-icon-laud"></i>
+                            <span>19</span>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-text">北京朝阳区 1小时前</div>
+                    <p>联邦政府正在就房产泡沫问题深入调研，之后将决定是否着手控制房价，以及是否限制境外投资者</p>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-media">
+                    <img src="../../image/u1.png" class="aui-list-img-round aui-list-img-sm">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-middle">
+                    <div class="aui-list-item-title-row">
+                        <div class="aui-list-item-title aui-text-info">流浪的小猫咪</div>
+                        <div class="aui-list-item-right">
+                            <i class="aui-iconfont aui-icon-laud"></i>
+                            <span>8</span>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-text">北京朝阳区 1小时前</div>
+                    <p>联邦政府正在就房产泡沫问题深入调研，之后将决定是否着手控制房价，以及是否限制境外投资者</p>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-media">
+                    <img src="../../image/u1.png" class="aui-list-img-round aui-list-img-sm">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-middle">
+                    <div class="aui-list-item-title-row">
+                        <div class="aui-list-item-title aui-text-info">流浪的小猫咪</div>
+                        <div class="aui-list-item-right">
+                            <i class="aui-iconfont aui-icon-laud"></i>
+                            <span>0</span>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-text">北京朝阳区 1小时前</div>
+                    <p>联邦政府正在就房产泡沫问题深入调研，之后将决定是否着手控制房价，以及是否限制境外投资者</p>
+                </div>
+            </li>
+    	</ul>
+    	<div class="more">暂无更多</div>
+    </div>
+    <div class="footer-bar aui-flex-col aui-border-t" id="footer">
+        <div class="aui-flex-item-12">
+            <div class="input-bar" tapmode onclick="openCommentAdd()">
+                <i class="aui-iconfont aui-icon-pencil"></i>我要评论
+            </div>
+        </div>
+    </div>
+    <section class="comment-box" id="comment-box">
+        <div class="comment-nav">
+            <div class="comment-btn" tapmode onclick="closeAdd()">取消</div>
+            <div class="comment-title">回复</div>
+            <div class="comment-btn disabled">发送</div>
+        </div>
+        <div class="comment-wrap">
+            <textarea class="aui-border comment-textarea" id="content" rows="4"></textarea>
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function openRoomCommentReply(){
+        window.location.href='room_comment_reply.html';
+    }
+    function openCommentAdd () {
+        document.getElementById("comment-box").classList.remove("comment-box-out");
+        document.getElementById("comment-box").classList.add("comment-box-in");
+    }
+    function closeAdd(){
+        document.getElementById("comment-box").classList.add("comment-box-out");
+
+        setTimeout(function(){
+            document.getElementById("comment-box").classList.remove("comment-box-in");
+        }, 300)
+    }
+    function closeWin(){
+        window.history.go(-1); 
+    }
+</script>
+</html>

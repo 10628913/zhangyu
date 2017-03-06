@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>my_data</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        html,body{
+            background-color: #fff;
+        }
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.25rem !important;
+        }
+        .user{
+            color: #666;
+            padding-top: 1rem;
+            font-size: 0.6rem;
+        }
+        .userimg{
+            height: 4rem;
+            margin-bottom: 1rem;
+        }
+        .userimg img{
+            border-radius: 50%;
+            width: 4rem;
+            height: 4rem;
+        }
+        section >div{
+            font-size: 0.7rem;
+            color:#666;
+            padding: 0.6rem 0.75rem;
+        }
+        input[type="text"]{
+            border:none;
+            height: 1rem;
+            line-height: 1rem;
+            margin-bottom: 0;
+            background-color: transparent;
+        }
+        .sexy input,
+        .sexy div{
+           margin-right: 0.2rem;
+        }
+        .aui-line-x{
+            display: block;
+        }
+        .footbtn{
+            margin-top: 2rem;
+        }
+        .footbtn .aui-btn{
+            width: 90%;
+            margin-left: 5%;
+            color: #fff;
+            font-size: 16px;
+            padding:0.5rem 0;
+        }
+        .aui-btn{
+            margin:0 0.5rem;
+            background-color: #df3031;
+            border:1px solid #df3031;
+            border-radius: 0.3rem;
+            padding:0.2rem 0.3rem;
+            color: #fff;
+        }
+        .aui-btn:active {
+            background-color: #df3031;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">个人资料</div>
+    </header>
+    <section class="user">
+        <div class="userimg aui-flex-col aui-flex-center">
+            <img src="../../image/noavatar.gif" id="avatar" onclick="getPicture()">
+        </div>
+    </section>
+    <span class="aui-line-x"></span>
+    <section>
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-2">
+                <span>昵称</span>
+            </div>
+            <div class="aui-flex-item-10">
+                <input type="text"  id="nickname"/>
+            </div>
+        </div>
+        <span class="aui-line-x"></span>
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-2">
+                <span>性别</span>
+            </div>
+             <div class="aui-pull-right aui-flex-item-10 aui-flex-col aui-flex-middle sexy">
+                <input class="aui-radio" type="radio" value="0" name="sex" checked="true"/>
+                <div class="aui-radio-name">男</div>
+                <input class="aui-radio" type="radio" value="1" name="sex"/>
+                <div class="aui-radio-name">女</div>
+            </div>
+        </div>
+        <span class="aui-line-x"></span>
+        <div class="aui-flex-col aui-flex-middle">
+            <div class="aui-flex-item-2">
+                <span>签名</span>
+            </div>
+            <div class="aui-flex-item-10">
+                <input type="text" maxlength="40" id="signature" />
+            </div>
+        </div>
+        <span class="aui-line-x"></span>
+        <div class="footbtn">
+            <div class="aui-btn" tapmode onclick="subChange()">确认修改</div>
+        </div>
+    </section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript" src="../../script/ajaxupload.js"></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script>
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var a={};
+    a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+    a.time = 2;
+    var toast = new auiToast();
+    $(function(){
+        getUserInfo();
+    });
+    function getUserInfo(){
+        var avatar =  $api.getStorage('avatar');;
+        var nickname = $api.getStorage('nickname');;
+        var signature = $api.getStorage('signature');;
+        var sex = $api.getStorage('sex');;
+        avatar ? document.getElementById("avatar").setAttribute("src",avatar) : "";
+        document.getElementById("nickname").value = nickname;
+        signature ? document.getElementById("signature").value = signature : "";
+        var sexList = document.getElementsByName("sex");
+        for(var i=0;i<sexList.length;i++){
+            // console.log(sexList[i].value);
+            if(sex == sexList[i].value){
+                sexList[i].checked = true;
+            }
+        }
+    }
+    var uploadOption =
+    {
+        action: siteUrl+'Attachment/Index/appUpload',    // 提交目标
+        name: "file",            // 服务端接收的名称
+        autoSubmit: true,        // 是否自动提交
+
+        // 选择文件之后…
+        onChange: function (file, extension)
+        {
+            if (!(extension && /^(jpg|JPG|png|PNG|gif|GIF)$/.test(extension))) {
+                a.content = "您上传的图片格式不对，请重新选择!";
+                layer.open(a);
+                return false;
+            }
+        },
+
+        // 开始上传文件
+        onSubmit: function (file, extension)
+        {
+            toast.loading({
+                title:"头像上传中",
+                duration:2000
+            },function(ret){
+            });
+        },
+
+        // 上传完成之后
+        onComplete: function (file, response)
+        {
+            var ret = response.replace(/<[^>]+>/g,"");
+            ret = JSON.parse(ret);
+            $api.setStorage("avatar",ret.thumb);
+            toast.hide();
+            $api.attr($api.byId('avatar'),'src',ret.thumb);
+        }
+    }
+    var au = new AjaxUpload(document.getElementById("avatar"), uploadOption);
+    function getPicture(){
+        au.submit();
+    }
+    function subChange(){
+        var token = $api.getStorage('token');
+        var nickname = document.getElementById("nickname").value;
+        var signature = document.getElementById("signature").value;
+        var sexList = document.getElementsByName("sex");
+        var sex;
+        if(!nickname){
+            a.content = "请输入昵称";
+            layer.open(a);
+            return;
+        }
+        for(var i=0;i<sexList.length;i++){
+            if(sexList[i].checked){
+                sex = sexList[i].value;
+            }
+        }
+        $.ajax({
+           type: "POST",
+           url: siteUrl+"App/User/changeUserInfo",
+           data: "token="+token+"&nickname="+nickname+"&signature"+signature+"&sex="+sex,
+           success: function(ret){
+               a.content = ret.msg;
+               layer.open(a);
+               if(ret.code == 1){
+                   var data = ret.data;
+                   $api.setStorage('nickname', data.nickname);
+                   $api.setStorage('signature', data.signature);
+                   $api.setStorage('sex', data.sex);
+               }
+               if(ret.code == 0){
+                   setTimeout(function(){logout();},1000);
+               }
+           }
+        });
+    }
+    function logout(){
+        $api.rmStorage("userid");
+        $api.rmStorage("mobile");
+        $api.rmStorage("nickname");
+        $api.rmStorage("avatar");
+        $api.rmStorage("token");
+        $api.rmStorage("sex");
+        $api.rmStorage("signature");
+        $api.setStorage("loginFrom","my/my.html");
+        window.location.href = "../login.html";
+    }
+   function closeWin(){
+        window.history.go(-1);
+    }
+</script>
+</body>
+</html>

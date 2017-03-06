@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/loading.css" />
+    <style type="text/css">
+    body {
+        background-color: #ffffff;
+    }
+    textarea {
+        margin-bottom: 0;
+        border: none;
+        font-size: 0.875em;
+    }
+    .aui-btn-block {
+        padding: 10px 0;
+    }
+    .aui-input-row img {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+        border-radius: 50%;
+    }
+    .aui-card {
+        margin-top: 15px;
+    }
+    #tap {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 999;
+    }
+    #list {
+        position: relative;
+        width: 100%;
+        top: 45px;
+    }
+    .aui-user-view:after{
+        border-top: none;
+    }
+    </style>
+</head>
+<body>
+    <div class="aui-tab aui-tab-info">
+        <ul class="aui-tab-nav" id="tap">
+            <li class="active" data-keyword="街道|写字楼|小区|学校|酒店|餐厅|加油站|餐饮|购物|体育|休闲|医院|风景|政府|交通|银行|道路">全部</li>
+            <li data-keyword="写字楼">写字楼</li>
+            <li data-keyword="小区">小区</li>
+            <li data-keyword="学校">学校</li>
+        </ul>
+    </div>
+    <section class="aui-content">
+        <ul class="aui-user-view" id="list"></ul>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tap.js"></script>
+<script type="text/javascript" src="../../script/aui-loading.js"></script>
+<script type="text/javascript">
+    var aMap;
+    var myLat,myLon;
+    var page=1;
+    var loading = new auiLoading({
+        style:2
+    });
+
+    apiready = function(){
+        api.parseTapmode();
+        aMap = api.require('aMap');
+        mapOpen();
+        var tapList = document.querySelectorAll("#tap > li");
+        for (var i = 0; i < tapList.length; i++) {
+            tapList[i].addEventListener('tap', function(){
+                if(document.querySelector("#tap > li.active")){
+                    document.querySelector("#tap > li.active").classList.remove("active");
+                }
+                this.classList.add("active");
+                var keyword = this.getAttribute("data-keyword");
+                page = 1;
+                loading.show();
+
+                nearyBy(keyword);
+            })
+        }
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra:{
+                threshold:80
+            }
+        }, function( ret, err ){
+            page ++;
+            var keyword2 = document.querySelector("#tap > li.active").getAttribute("data-keyword");
+            nearyBy(keyword2);
+        });
+        api.addEventListener({
+            name: 'userAddressGetNameFromCoords'
+        }, function(ret, err){
+            if(ret){
+                page = 1;
+                loading.show();
+                myLat = ret.value.lat;
+                myLon = ret.value.lon;
+                var keyword2 = document.querySelector("#tap > li.active").getAttribute("data-keyword");
+                loading.show();
+                nearyBy(keyword2);
+            }
+        });
+        // document.getElementById("list").style.height = (api.frameHeight-45)+"px";
+    }
+    function mapOpen(){
+        aMap.open({
+            rect: {
+                x: 0,
+                y: 0,
+                w: 0,
+                h: 0
+            },
+            showUserLocation: true,
+            zoomLevel: 16,
+            center: {
+               lon: 116.4021310000,
+               lat: 39.9994480000
+            },
+            fixedOn: api.frameName,
+            fixed: true
+        }, function(ret){
+            if(ret.status){
+                mapGetLocation();
+            }
+        });
+    }
+    function mapGetLocation(){
+        // 获取用户位置
+        setTimeout(function(){
+            aMap.getLocation(function(ret, err){
+                if(ret.status){
+                    // 设置用户中心
+                    myLat = ret.lat;
+                    myLon = ret.lon;
+                    aMap.setCenter({
+                        coords: {
+                            lon: ret.lon,
+                            lat: ret.lat
+                        },
+                        animation:false
+                    });
+                    loading.show();
+                    nearyBy('街道|写字楼|小区|学校|酒店|餐厅|加油站|餐饮|购物|体育|休闲|医院|风景|政府|交通|银行|道路');
+                    // getMapCenter();
+                }
+            });
+        }, 1000)
+    }
+
+    function nearyBy(keyword,lat,lon){
+
+        if(!lat){
+            lat = myLat;
+        }
+        if(!lon){
+            lon = myLon;
+        }
+        aMap.searchNearby({
+            keyword: keyword,
+            lon: lon,
+            lat: lat,
+            radius: 50000,
+            offset: 50,
+            page: page,
+            sortrule: 0
+        },function(ret,err){
+            if(ret.status){
+                var html = '';
+                for (var i = 0; i < ret.pois.length; i++) {
+                    if(ret.pois[i].distance>1000){
+                        var distance = ((ret.pois[i].distance)/1000).toFixed(2)+" km";
+                    }else{
+                        var distance = ret.pois[i].distance+" m";
+                    }
+                    html += '<li class="aui-user-view-cell" data-lat="'+ret.pois[i].lat+'" data-lon="'+ret.pois[i].lon+'" data-name="'+ret.pois[i].name+'" data-address="'+ret.pois[i].address+'">';
+                        html += '<div class="aui-img-body">';
+                        html += '<span>'+ret.pois[i].name;
+                        html += '<em>'+distance+'</em></span>';
+                        if(ret.pois[i].address){
+                            html += '<p>'+ret.pois[i].address+'</p>';
+                        }
+                        html += '</div>';
+                    html += '</li>';
+                }
+                if(page==1){
+                    document.getElementById("list").innerHTML = '';
+                }
+                document.getElementById("list").insertAdjacentHTML('beforeend', html);
+                loading.hide();
+                selectAddress();
+            }else{
+                if(page==1){
+                    var html = '<p class="aui-text-center aui-padded-15">未查询到您要搜索的地点</p>';
+                    document.getElementById("list").innerHTML = html;
+                }else{
+                    var html = '<p class="aui-text-center aui-padded-15">没有更多了</p>';
+                    document.getElementById("list").insertAdjacentHTML('beforeend', html);
+                }
+                loading.hide();
+            }
+
+        });
+    }
+    function selectAddress(){
+        var list = document.querySelectorAll("#list > li");
+        if(list){
+            for (var i = 0; i < list.length; i++) {
+                list[i].addEventListener('tap', function(){
+                    var data = {
+                        lat: ''+this.getAttribute("data-lat")+'',
+                        lon: ''+this.getAttribute("data-lon")+'',
+                        name: ''+this.getAttribute("data-name")+'',
+                        address: ''+this.getAttribute("data-address")+''
+                    }
+                    api.sendEvent({
+                        name: 'updateMyUserAddressFromMapEvent',
+                        extra: data
+                    });
+                    api.closeWin({
+                        name: 'house_map_win'
+                    });
+                })
+            }
+        }
+
+    }
+</script>
+</html>

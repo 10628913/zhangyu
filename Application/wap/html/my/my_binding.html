@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <style>
+        .aui-content{
+            overflow: hidden;
+        }
+        .nickname {
+            color: #ffffff;
+            font-size: 0.8rem;
+            margin-top: 0.75rem;
+        }
+        .my-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+        .my-btn .aui-iconfont {
+            font-size: 1rem;
+            color: #d43d3d;
+            margin-left: 0.5rem;
+        }
+        .aui-list .aui-list-item-inner {
+            padding-left: 0.5rem;
+        }
+        .aui-list .aui-list-item i.aui-iconfont {
+            font-size: 0.9rem;
+        }
+        .state{
+            font-size: 0.7rem;
+        }
+        .state.active{
+            color: #df3031;
+        }
+        .aui-list{
+            font-size: 0.9rem;
+        }
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar" id="header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">账号绑定</div>
+    </header>
+    <div class="aui-content">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-weixin aui-text-primary"></i>
+                </div>
+                <div class="aui-list-item-inner aui-flex-col aui-flex-middle">
+                   <span class="aui-flex-item-6">微信绑定</span>
+                   <span class="aui-flex-item-6 aui-text-right state active">已绑定</span>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-qq aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner aui-flex-col aui-flex-middle">
+                    <span class="aui-flex-item-6">QQ绑定</span>
+                    <span class="aui-flex-item-6 aui-text-right state">未绑定</span>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-media aui-list-item-middle">
+                    <i class="aui-iconfont aui-icon-weibo aui-text-danger"></i>
+                </div>
+                <div class="aui-list-item-inner aui-flex-col aui-flex-middle">
+                    <span class="aui-flex-item-6">微博绑定</span>
+                    <span class="aui-flex-item-6 aui-text-right state">未绑定</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function closeWin(){
+        window.history.go(-1); 
+    }
+</script>
+</html>

@@ -1,0 +1,32 @@
+            <footer class="footer">
+                <img src="{:C('ADMIN_IMAGE_PATH')}/logo_common.png" />
+                <p class="no-margin">
+                    &copy; 2016 <strong>房客系统管理后台</strong>. ALL Rights Reserved.
+                </p>
+            </footer>
+        </div>
+    </body>
+    <script type="text/javascript">
+        $(function(){
+            var getWindowSize = function(){
+                return ["Height","Width"].map(function(name){
+                  return window["inner"+name] ||
+                    document.compatMode === "CSS1Compat" && document.documentElement[ "client" + name ] || document.body[ "client" + name ]
+                });
+            }
+            var str = getWindowSize();
+            var strs = new Array();
+                strs = str.toString().split(",");
+            var heights = strs[0],Body = $('body');
+            var headerH = $('.top-nav').outerHeight();
+            var currentH = $('#breadcrumb').outerHeight();
+            var footerH = $('.footer').outerHeight();
+            $('#content-wrapper').attr("height",""+window.innerHeight-headerH-currentH-footerH-5+"");
+            if(strs[1]<980){
+                Body.attr('scroll','');
+            }else{
+                Body.attr('scroll','no');
+            }
+        })
+    </script>
+</html>

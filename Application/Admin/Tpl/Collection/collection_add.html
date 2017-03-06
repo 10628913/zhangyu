@@ -1,0 +1,183 @@
+<form class="form-horizontal no-margin" method="post" id="form">
+	<input type="hidden" name="id" value="{$id}" />
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">站点名称</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[fname]" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">采集编码</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[fcode]" required >
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">站点域名</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[domain]" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">采集页数</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[pagenum]" required>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">种子地址</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[seedurl]" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">列表规则</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[listurl]" required>
+			</div>
+		</div>
+	</div>
+	<div class="form-group col-md-12">
+		<label class="control-label col-md-2">缩略图规则</label>
+		<div class="col-md-9">
+			<input type="text" class="form-control input-sm" name="info[thumb_pattern]" value="{$thumb_pattern}" required>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">内容规则</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[contenturl]" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">标题规则</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[title_pattern]" required>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">摘要规则</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[summary_pattern]" value="{$summary_pattern}" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">关键词规则</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[keywords_pattern]" value="{$keywords_pattern}" required>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">作者规则</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[author_pattern]" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">发布时间</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[pubtime_pattern]" required>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">文章内容</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[content_pattern]" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">分页规则</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[footer_pattern]" required>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">正文链接</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[contenturl_pattern]" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">时间格式</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[pubtime_format]" required>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">触发规则</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[cron]" required>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-md-3">入库栏目分类ID</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control input-sm" name="info[channelid]">
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-md-2">特征状态</label>
+		<div class="col-md-5">
+			<div class="radio inline-block">
+				<div class="custom-radio m-right-xs">
+					<input type="radio" id="display1" name="info[status]" value="1" checked>
+					<label for="display1"></label>
+				</div>
+				<div class="inline-block vertical-top">正常</div>
+				<div class="custom-radio m-right-xs">
+					<input type="radio" id="display2" name="info[status]" value="0">
+					<label for="display2"></label>
+				</div>
+				<div class="inline-block vertical-top">停用</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center m-top-md">
+		<button type="submit" class="btn btn-info">提交保存</button>
+	</div>
+</form>
+<script src="{:C('ADMIN_JS_PATH')}/jquery.validate.min.js" type="text/javascript"></script>
+<script src="{:C('ADMIN_JS_PATH')}/ajaxupload.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+        $("#form").validate({
+	        submitHandler:function(form){
+	            collectionSave();
+	        }
+	    });
+    })
+	function collectionSave() {
+		DMS.ajaxPost("__CONTROLLER__/collectionAdd",$('#form').serialize(),function(ret){
+			if(ret.status==1){
+            	DMS.success("提交成功",0,function(){
+					if(ret.url){
+            			window.location.href = ret.url;
+            		}else{
+            			window.location.href = window.location.href;
+            		}
+				});
+            }else{
+            	DMS.error(''+ret.info+'',0);
+            }
+		})
+    }
+</script>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>my_data</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        .aui-bar {
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar .aui-iconfont span{
+            width: 1rem;
+        }
+        .aui-bar .aui-iconfont{
+            color: #fff !important;
+        }
+        .aui-tab-nav li {
+            height: 45px;
+            line-height: 45px;
+            box-flex: 1;
+            -webkit-box-flex: 1;
+            box-sizing: border-box;
+            text-align: center;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            width: 100%;
+        }
+        .aui-tab-nav li.active {
+            color: #df3031;
+            border-bottom: 2px #df3031 solid;
+        }
+        input[type='text']{
+            border: none;
+            margin-bottom: 0;
+            padding:0.3rem 0;
+        }
+        .searchbox{
+            background-color: #fff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar" id="header">
+    <span class="aui-pull-left" tapmode onclick="closeWin()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </span>
+    <div class="aui-title">搜索</div>
+</header>
+<section style="padding: 0.5rem 0.75rem; background-color: #eeeeee">
+    <div class="aui-flex-col aui-flex-center searchbox aui-icon-middle">
+        <div class="aui-flex-item-1 aui-flex-col aui-flex-middle aui-flex-center">
+            <span class="aui-iconfont aui-icon-search1"></span>
+        </div>
+        <div class="aui-flex-item-11">
+            <input type="text" placeholder="请输入搜索内容" />
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    apiready = function () {
+        api.parseTapmode();
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        header_h = $api.offset(header).h;
+        var body_h = $api.offset($api.dom('header')).h;
+        var search_h = $api.offset($api.dom('section')).h;
+        api.addEventListener({
+            name:'viewappear'
+        }, function(ret, err){        
+            api.openFrame({
+                name: 'community_search_frm',
+                url: 'community_search_frm.html',
+                rect: {
+                    x: 0,
+                    y: header_h+search_h,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                bounces: true,
+                bgColor: '#ffffff',
+                vScrollBarEnabled: false,
+                hScrollBarEnabled: false
+            });
+        });
+       
+    };
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+    function openWin(name){
+        var delay = 0;
+        if(api.systemType != 'ios'){
+            delay = 300;
+        }
+        api.openWin({
+            name: name,
+            url: name+'.html',
+            bounces: false,
+            delay:delay
+            // pageParam: {key : 'value'}
+            })
+    }
+</script>
+</body>
+</html>

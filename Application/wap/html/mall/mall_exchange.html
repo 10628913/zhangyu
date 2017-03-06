@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css"/>
+    <style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.3rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+        img{
+            display: block;
+        }
+        .aui-flex-item-9 div{
+            margin-bottom: 0.3rem;
+        }
+        .topbox{
+            margin-bottom: 0.5rem;
+        }
+        section{
+            background-color: #fff;
+        }
+        .topbox >.aui-flex-col{
+           padding: 0.6rem 0.75rem; 
+        }
+        .aui-flex-item-9 >div:first-child{
+            color: #333;
+            font-size: 0.8rem;
+        }
+        .aui-flex-item-9 >div:last-child{
+            color: #E51C23;
+            font-size: 0.6rem;
+        }
+        .aui-flex-item-3{
+            color:#FF9800;
+        }
+        .title{
+            padding: 0.5rem 0rem;
+            font-size: 0.7rem;
+            color: #666;
+           
+        }
+        .title div{
+             border-left: 2px solid #E51C23;
+             padding-left: 0.2rem;
+        }
+        .goodscontent{
+            font-size: 0.7rem;
+            padding: 0.5rem 0;
+            color: #666;
+        }
+        .goods-info{
+            padding: 0.5rem 0.75rem 2.5rem;
+        }
+        footer{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.4rem;
+            background-color: #fff;
+        }
+        footer .aui-flex-item-8{
+            border-radius: 1.5rem;
+            padding-left: 0.6rem;
+        }
+        footer .aui-flex-item-8:after{
+            border-radius: 1.5rem;
+            border:1px solid #333;
+        }
+       input[type="text"]{
+            margin-bottom: 0;
+            border: none;
+            padding:0.2rem;
+       }
+        footer .aui-iconfont{
+            color: #666;
+        }
+        footer{
+            text-align: center;
+            height: 3rem;
+            line-height: 1.5rem;
+        }
+        footer .aui-btn{
+            width: 90%;
+            background-color: #df3031;
+            color: #fff;
+            border-radius: 0.3rem;
+            line-height: 1.6rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar header">
+        <span class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </span>
+        <div class="aui-title">积分商城</div>
+    </header>
+    <section class="topbox">
+        <img src="../../image/jf03.jpg" width="100%">
+        <div class="aui-flex-col">
+            <div class="aui-flex-item-9 aui-flex-row">
+                <div>畅享夏日美食诱惑</div>
+                <div>300积分</div>
+            </div>
+            <div class="aui-flex-item-3 aui-flex-col aui-flex-middle aui-flex-center aui-border-l">
+                进行中
+            </div>
+        </div>
+    </section>
+    <section class="aui-border-b goods-info">
+        <div class="title">
+            <div>商品介绍</div>
+        </div>
+        <div class="goodscontent">
+            会计学中商品的定义是商品流通企业外购或委托加工完成，验收入库用于销售的各种商品。在人教版必修一政治书中的定义是用于交换的劳动产品。商品的基本属性是价值和使用价值。价值是商品的本质属性，使用价值是商品的自然属性。
+        </div>
+        <div>
+            <img src="../../image/jf03.jpg" width="100%">
+        </div>
+    </section>
+    <footer class="aui-footer" id="footer" tapmode onclick="openMallAddress()">
+        <div class="aui-btn">立即兑换</div>
+    </footer>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+     function openMallAddress(){
+        window.location.href='mall_address.html'; 
+    }
+</script>
+</body>
+</html>

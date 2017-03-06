@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>商城系统-点萌科技</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	    <link href="{:C('CSS_PATH')}/bootstrap.min.css" rel="stylesheet">
+	    <link href="{:C('CSS_PATH')}/common.css" rel="stylesheet">
+	    <link href="{:C('CSS_PATH')}/goods_add.css" rel="stylesheet">
+		<link href="{:C('CSS_PATH')}/font-awesome.min.css" rel="stylesheet">
+		<script src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+	    <script src="{:C('JS_PATH')}/bootstrap.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+		<header class="c">
+			<div class="top-nav-inner">
+				<div class="nav-header">
+				</div>
+			</div>
+		</header>
+		<section class="container">
+			<div class="row  m-top-sm">
+				<aside class="col-md-2">
+					<ul class="list-group">
+						<li class="list-group-item active">发布商品</li>
+						<li class="list-group-item">出售中的商品</li>
+						<li class="list-group-item">仓库中的商品</li>
+						<li class="list-group-item">商品规格</li>
+						<li class="list-group-item">图片空间</li>
+					</ul>
+				</aside>
+				<div class="col-md-10">
+					<div class="breadcrumb">商家中心 > 商品 > 商品发布</div>
+					<div class="panel panel-default m-top-md">
+						<div class="panel-heading">
+							<div class="step row">
+								<div class="col-md-4">
+									<i class="fa fa-bars"></i>
+									<p>STEP.1</p>
+									<strong>选择商品分类</strong>
+								</div>
+								<div class="col-md-4 active">
+									<i class="fa  fa-pencil-square-o"></i>
+									<p>STEP.2</p>
+									<strong>填写商品基本信息</strong>
+								</div>
+								<div class="col-md-4">
+									<i class="fa fa-check"></i>
+									<p>STEP.3</p>
+									<strong>发布成功</strong>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" id="classifyId">
+						<div class="panel-body" style="background: #fff;">
+							<form id="formToggleLine" class="form-horizontal no-margin form-border">
+								<div class="form-group">
+									<label class="col-md-2 control-label">商品分类</label>
+									<div class="col-md-10">
+										<span class="help-block"><php>echo currentClassify(I('classifyId'))</php></span>
+										<input class="form-control" type="hidden" value="{:I('classifyId')}" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">商品名称</label>
+									<div class="col-md-10">
+										<input class="form-control" type="text" required>
+										<span class="help-block">商品标题名称长度至少3个字符，最长50个汉字</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">商品热点</label>
+									<div class="col-md-10">
+										<textarea class="form-control" style="resize: none;" rows="4"></textarea>
+										<span class="help-block">商品卖点最长不能超过140个汉字</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">商品价格</label>
+									<div class="col-md-10">
+										<div class="input-group col-md-3">
+											<input class="form-control" type="text" required>
+											<span class="input-group-addon">元</span>
+										</div>
+										<p class="help-block">
+											价格必须是0.01~9999999之间的数字，且不能高于市场价。<br />此价格为商品实际销售价格，如果商品存在规格，该价格显示最低价格。
+										</p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">市场价格</label>
+									<div class="col-md-10">
+										<div class="input-group col-md-3">
+											<input class="form-control" type="text" required>
+											<span class="input-group-addon">元</span>
+										</div>
+										<p class="help-block">
+											价格必须是0.01~9999999之间的数字，此价格仅为市场参考售价，请根据该实际情况认真填写。
+										</p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">成本价格</label>
+									<div class="col-md-10">
+										<div class="input-group col-md-3">
+											<input class="form-control" type="text" required>
+											<span class="input-group-addon">元</span>
+										</div>
+										<p class="help-block">
+											价格必须是0.00~9999999之间的数字，此价格为商户对所销售的商品实际成本价格进行备注记录，非必填选项，不会在前台销售页面中显示。
+										</p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">折扣</label>
+									<div class="col-md-10">
+										<div class="input-group col-md-3">
+											<input class="form-control" type="text" required readonly>
+											<span class="input-group-addon">%</span>
+										</div>
+										<p class="help-block">
+											根据销售价与市场价比例自动生成，不需要编辑。
+										</p>
+									</div>
+								</div>
+								<if condition="specList">
+								<volist name="specList" id="v">
+								<div class="form-group">
+									<label class="col-md-2 control-label">{$v['spec_name']}</label>
+									<div class="col-md-10 spec-box row"  data-param="{classifyId:'{:I('classifyId')}'}">
+										<div class="col-xs-12 spec-list row" data-type="spec_list">
+
+										</div>
+										<div class="col-xs-12">
+											<div class="input-group input-group-sm" data-type="specAdd2">
+												<span class="input-group-addon">名称</span>
+												<input type="text" class="form-control" placeholder="请输入名称（必填）" name="spec_name" required>
+												<span class="input-group-addon">备注</span>
+												<input type="text" class="form-control" placeholder="请输入描述（选填）" name="spec_remarks" >
+												<span class="input-group-btn">
+													<div class="btn btn-info" data-type="specAddSubmit">确定</div>
+												</span>
+												<span class="input-group-btn">
+													<div class="btn btn-danger" data-type="specAddCancel">取消</div>
+												</span>
+											</div>
+											<div data-type="specAdd1">
+												<div class="btn btn-info btn-info btn-sm" data-type="specAdd"><i class="fa fa-plus"></i>添加规格值</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								</volist>
+								</if>
+								<div class="form-group">
+									<label class="col-md-2 control-label">商品库存</label>
+									<div class="col-md-10">
+										<div class="input-group col-md-3">
+											<input class="form-control" type="text" required>
+										</div>
+										<p class="help-block">
+											商铺库存数量必须为0~999999999之间的整数。<br />
+											若启用了库存配置，则系统自动计算商品的总数，此处无需卖家填写
+										</p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">库存预警值</label>
+									<div class="col-md-10">
+										<div class="input-group col-md-3">
+											<input class="form-control" type="text" required>
+										</div>
+										<p class="help-block">
+											设置最低库存预警值。当库存低于预警值时商家中心商品列表页库存列红字提醒。请填写0~255的数字，0为不预警。
+										</p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">商家货号</label>
+									<div class="col-md-10">
+										<div class="input-group col-md-3">
+											<input class="form-control" type="text" required>
+										</div>
+										<p class="help-block">
+											商家货号是指商家管理商品的编号，买家不可见最多可输入20个字符，支持输入中文、字母、数字、_、/、-和小数点
+										</p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">商品描述（电脑端）</label>
+									<div class="col-md-10">
+										<textarea id="content"></textarea>
+										{$editor->editor("content",500)}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">商品描述（手机端）</label>
+									<div class="col-md-10">
+										<input type="text" name="m_body" class="form-control">
+										<div class="smart-widget">
+											<div class="smart-widget-inner">
+												<div class="smart-widget-body bg-light">
+													<div class="pannel mobile-wrap">
+														<div class="mobile-wrap-body" m-type="mobile_pannel">
+															<!-- 编辑显示区域 -->
+														</div>
+														<div class="mobile-wrap-footer text-center">
+															<div class="col-xs-6" m-type="mobile_add_image_btn">
+																<i class="fa fa-image"></i>
+																<p>图片</p>
+															</div>
+															<div class="col-xs-6" m-type="mobile_add_txt_btn">
+																<i class="fa fa-font"></i>
+																<p>文字</p>
+															</div>
+														</div>
+														<div class="mobile-add-box" m-type="mobile_txt_box">
+															<textarea m-type="mobile_txt_content"></textarea>
+															<div class="row text-center paddingTB-sm">
+																<div class="col-xs-6">
+																	<div class="btn btn-info btn-xs" m-type="mobile_add_txt_submit">确定</div>
+																</div>
+																<div class="col-xs-6">
+																	<div class="btn btn-danger btn-xs" m-type="mobile_add_txt_cancel">取消</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- 图片选择容器 S -->
+											<div class="mobile-add-box" m-type="mobile_image_box">
+												<div class="panel panel-default image-box no-border">
+													<div class="panel-heading">
+														用户相册
+														<div class="btn btn-danger btn-xs pull-right" m-type="mobile_add_image_cancel">关闭相册</div>
+													</div>
+													<div class="panel-body">
+														<div class="row" id="album-image-list">
+
+														</div>
+													</div>
+													<div class="panel-box"></div>
+												</div>
+											</div>
+											<!-- 图片选择容器 E -->
+										</div>
+									</div>
+								</div>
+							</form>
+							<div class="text-center clearfix m-top-md">
+								<div class="btn btn-info disabled" id="nextBtn">下一步，填写商品信息</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+	<script src="{:C('JS_PATH')}/mobile_editor.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function(){
+			// 规格添加
+			$('div[data-type="specAdd"]').click(function(){
+				var _parent = $(this).parents('.spec-box:first');
+				_parent.find('div[data-type="specAdd1"]').hide();
+    			_parent.find('div[data-type="specAdd2"]').css("display","table");
+			})
+			// 规格取消
+		    $('div[data-type="specAddCancel"]').click(function(){
+		        var _parent = $(this).parents('.spec-box:first');
+		        _parent.find('div[data-type="specAdd1"]').show();
+		        _parent.find('div[data-type="specAdd2"]').hide();
+		        _parent.find('input[name="spec_name"]').val('');
+		        _parent.find('input[name="spec_remarks"]').val('');
+		    });
+		    // 规格提交
+		    $('div[data-type="specAddSubmit"]').click(function(){
+		        var _parent = $(this).parents('.spec-box:first');
+		        eval('var data_str = ' + _parent.attr('data-param'));
+		        var _specName = _parent.find('input[name="spec_name"]');
+		        var _specRemarks = _parent.find('input[name="spec_remarks"]');
+		        if(!_specName.val()) return false;
+		        _parent.find('div[data-type="specAdd1"]').show();
+		        _parent.find('div[data-type="specAdd2"]').hide();
+		       	_parent.find(".spec-list").append('<div class="col-xs-3 m-bottom-sm"><input type="checkbox" data-type="input_checkbox"> <span class="">'+_specName.val()+'</span></div>');
+		       	_parent.find('input[name="spec_name"]').val('');
+		        _parent.find('input[name="spec_remarks"]').val('');
+		    });
+		    $('div[data-type="spec_list"]').on('click', 'input[type="checkbox"]',function(){
+		    	console.log('<php>echo 1;</php>');
+
+				// into_array();
+				// goods_stock_set();
+			});
+		})
+		// 将选中的规格放入数组
+		function into_array(){
+
+				spec_group_checked_0 = new Array();
+				$('dl[nc_type="spec_group_dl_0"]').find('input[type="checkbox"]:checked').each(function(){
+					i = $(this).attr('nc_type');
+					v = $(this).val();
+					c = null;
+					if ($(this).parents('dl:first').attr('spec_img') == 't') {
+						c = 1;
+					}
+					spec_group_checked_0[spec_group_checked_0.length] = [v,i,c];
+				});
+
+				spec_group_checked[0] = spec_group_checked_0;
+
+
+				spec_group_checked_1 = new Array();
+				$('dl[nc_type="spec_group_dl_1"]').find('input[type="checkbox"]:checked').each(function(){
+					i = $(this).attr('nc_type');
+					v = $(this).val();
+					c = null;
+					if ($(this).parents('dl:first').attr('spec_img') == 't') {
+						c = 1;
+					}
+					spec_group_checked_1[spec_group_checked_1.length] = [v,i,c];
+				});
+
+				spec_group_checked[1] = spec_group_checked_1;
+
+
+				spec_group_checked_2 = new Array();
+				$('dl[nc_type="spec_group_dl_2"]').find('input[type="checkbox"]:checked').each(function(){
+					i = $(this).attr('nc_type');
+					v = $(this).val();
+					c = null;
+					if ($(this).parents('dl:first').attr('spec_img') == 't') {
+						c = 1;
+					}
+					spec_group_checked_2[spec_group_checked_2.length] = [v,i,c];
+				});
+
+				spec_group_checked[2] = spec_group_checked_2;
+
+
+				spec_group_checked_3 = new Array();
+				$('dl[nc_type="spec_group_dl_3"]').find('input[type="checkbox"]:checked').each(function(){
+					i = $(this).attr('nc_type');
+					v = $(this).val();
+					c = null;
+					if ($(this).parents('dl:first').attr('spec_img') == 't') {
+						c = 1;
+					}
+					spec_group_checked_3[spec_group_checked_3.length] = [v,i,c];
+				});
+
+				spec_group_checked[3] = spec_group_checked_3;
+
+		}
+	</script>
+</html>

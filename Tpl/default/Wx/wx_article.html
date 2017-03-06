@@ -1,0 +1,48 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>{$seo_title}</title>
+    <link rel="stylesheet" type="text/css" href="{:C('CSS_PATH')}/aui/aui.css" />
+    <style type="text/css">
+        .aui-bar {
+            background-color: #998e78;
+            position: fixed;
+        }
+        .content {
+            background-color: #ffffff;
+            color: #666666;
+        }
+        .content p {
+            color: #666666;
+        }
+        .content img {
+            width: 100% !important;
+            height: auto !important;
+            margin: 10px 0;
+        }
+        .title {
+            border-left: 2px solid #998e78;
+            padding-left: 10px;
+            margin-bottom: 15px;
+            display: block;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <section class="aui-content content aui-padded-15">
+        <div class="title">{$seo_title}</div>
+        {$content}
+    </section>
+</body>
+<script type="text/javascript" src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+var siteUrl = "http://nixiangyuan.apithink.com/";
+function openShow(id){
+    window.location.href = siteUrl+"?s=Wx/Activity/show/id/"+id;
+}
+</script>
+</html>

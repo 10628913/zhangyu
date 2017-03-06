@@ -1,0 +1,71 @@
+<div class="padding-md">
+    <div class="smart-widget widget-dark-blue">
+        <div class="smart-widget-inner">
+            <div class="smart-widget-body row">
+                <div class="col-sm-3">
+                    <div class="statistic-box bg-light m-bottom-md">
+                        <div class="statistic-title">会员</div>
+                        <div class="statistic-value text-danger">{$memberCount}</div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="statistic-box bg-light m-bottom-md">
+                        <div class="statistic-title">新闻</div>
+                        <div class="statistic-value text-info">{$newsCount}</div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="statistic-box bg-light m-bottom-md">
+                        <div class="statistic-title">房源</div>
+                        <div class="statistic-value">
+                            <span class="text-success">{$buildingCount}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-3">
+                    <div class="statistic-box bg-light m-bottom-md">
+                        <div class="statistic-title">成交金额</div>
+                        <div class="statistic-value text-danger">{$orderAmount} <small class="price">元</small></div>
+                        <p>-</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="smart-widget widget-dark-blue">
+                <div class="smart-widget-header">最新新闻</div>
+                <div class="smart-widget-inner table-responsive">
+                    <table class="table table-striped no-margin">
+                        <tbody>
+                        <foreach name="newsList" item="v">
+                            <tr>
+                                <td>{$v['news_title']}</td>
+                                <td>{$v['addtime']||date="Y-m-d H:i:s",###}</td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="smart-widget widget-dark-blue">
+                <div class="smart-widget-header">最新房源</div>
+                <div class="smart-widget-inner table-responsive">
+                    <table class="table table-striped no-margin">
+                        <tbody>
+                        <foreach name="buildingList" item="v">
+                            <tr>
+                                <td>{$v['building_name']}</td>
+                                <td>{$v['addtime']||date="Y-m-d H:i:s",###}</td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css">
+    <style type="text/css">
+    body {
+        background-color: #fff;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+    }
+    .aui-bar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #df3031;
+        color: #fff;
+    }
+    .aui-bar +*{
+        padding-top: 2.5rem !important;
+    }
+    html,body{
+        background-color: #fff;
+        overflow-x: hidden;
+        overflow-y:auto;
+    }
+    textarea {
+        margin-bottom: 0;
+        border: none;
+        font-size: 0.875em;
+    }
+    .aui-btn-block {
+        padding: 10px 0;
+    }
+    .aui-input-row img {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+        border-radius: 50%;
+    }
+    .aui-card {
+        margin-top: 15px;
+    }
+    .aui-btn{ 
+        background-color: #df3031;
+        color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-info" id="aui-header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">新增地址</div>
+    </header>
+    <section class="aui-card aui-noborder">
+        <ul class="aui-form">
+            <div class="aui-input-row">
+                <span class="aui-input-addon">联系人&nbsp;</span>
+                <input type="text" id="name" name="name" class="aui-input " placeholder="你的姓名" value="" />
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon">联系电话</span>
+                <input type="number" id="mobile" name="mobile" class="aui-input " placeholder="你的手机号" value="" />
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon">收货地址</span>
+                <input type="text" id="address" name="address" class="aui-input" placeholder="小区/写字楼/学校等" value="" readonly="" />
+            </div>
+            <div class="aui-input-row">
+                <span class="aui-input-addon"></span>
+                <textarea id="address_detail" name="address_detail" placeholder="详细地址(如门牌号等)"></textarea>
+                <input type="hidden" name="lat" id="lat">
+                <input type="hidden" name="lon" id="lon">
+            </div>
+            <div class="aui-btn-row">
+                <div class="aui-btn aui-btn-block" tapmode onclick="confirm()">确定</div>
+            </div>
+        </ul>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function closeWin(){
+        window.history.go(-1); 
+    }
+
+     function openWin(name){
+        window.location.href=name+'.html'; 
+    }
+    var siteUrl = "http://peisong.apithink.com/?s=";
+    apiready = function(){
+        api.parseTapmode();
+        // api.addEventListener({
+        //     name: 'updateMyUserAddressFromMapEvent'
+        // }, function(ret, err){
+        //     if(ret){
+        //         document.getElementById("address").value = ret.value.name;
+        //         if(ret.value.address){document.getElementById("address_detail").value = ret.value.address;}
+        //         document.getElementById("lat").value = ret.value.lat;
+        //         document.getElementById("lon").value = ret.value.lon;
+        //     }
+        // });
+    }
+    // function confirm(){
+    //     var addressData = {};
+    //     var valueList = document.querySelectorAll("input[name]");
+    //     for (var i = 0; i < valueList.length; i++) {
+    //         var name = valueList[i].getAttribute("name").toString();
+    //         addressData[name] = ''+valueList[i].value+'';
+    //     }
+    //     addressData['userid'] = $api.getStorage('userid');
+    //     addressData['address_detail'] = document.getElementById("address_detail").value;
+    //     if(!addressData['name'] || !addressData['mobile'] || !addressData['userid'] || !addressData['address_detail'] || !addressData['address']){
+    //         api.toast({
+    //             msg: '请输入完整信息',
+    //             duration: 2000,
+    //             location: 'middle'
+    //         });
+    //         return;
+    //     }
+    //     var partten = /^1[3-9]\d{9}$/;
+    //     if(!partten.test(addressData['mobile'])){
+    //         api.toast({
+    //             msg: '请输入正确的手机号码',
+    //             duration: 2000,
+    //             location: 'top'
+    //         });
+    //         return;
+    //     }
+    //     api.showProgress({
+    //         title: '',
+    //         text: ' ',
+    //         modal:  true
+    //     });
+
+    //     api.ajax({
+    //         url: siteUrl+"/App/Member/addressInsert",
+    //         method: 'post',
+    //         timeout: 30,
+    //         dataType: 'json',
+    //         data:{
+    //             values:addressData
+    //         },
+    //         returnAll:false
+    //     },function(ret,err){
+
+    //         if (ret && ret.status) {
+    //             api.sendEvent({
+    //                 name: 'updateMyAddressEvent',
+    //                 extra: {status:'success'}
+    //             });
+    //             api.hideProgress();
+    //             api.alert({
+    //                 title: '极速配送提示',
+    //                 msg: '提交成功',
+    //                 buttons: ['确定']
+    //             },function( ret, err ){
+    //                 if( ret && ret.buttonIndex ==1 ){
+    //                     api.closeWin({
+    //                         name: 'house_win'
+    //                     });
+    //                 }
+    //             });
+    //         } else {
+    //             api.hideProgress();
+    //             api.alert({
+    //                 title: '极速配送提示',
+    //                 msg: '提交失败'
+    //             });
+    //         };
+    //     });
+    // }
+    // function openMap(){
+    //     var delay = 0;
+    //     if(api.systemType != 'ios'){
+    //         delay = 300;
+    //     }
+    //     api.openWin({
+    //         name: 'house_map_win',
+    //         url: 'house_map_win.html',
+    //         bounces: false,
+    //         delay:delay
+    //     });
+    // }
+</script>
+</html>

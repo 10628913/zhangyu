@@ -1,0 +1,366 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css" />
+	<style>
+        .aui-bar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #df3031;
+            color: #fff;
+        }
+        .aui-bar +*{
+            padding-top: 2.5rem !important;
+        }
+        html,body{
+            background-color: #fff;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+		h1 {
+			font-size: 1.2rem;
+		}
+		.aui-content {
+			background-color: #ffffff;
+		}
+		h2.title {
+			color: #df3031;
+			border-left:2px solid #df3031;
+			padding-left: 0.5rem;
+			font-size: 0.7rem;
+			margin: 0 0.75rem;
+			margin-bottom: 0.5rem;
+		}
+		.more {
+			padding: 0.75rem 0 2.5rem;
+			font-size: 0.6rem;
+			text-align: center;
+			color: #999;
+		}
+		.comment-list .aui-list .aui-list-item-title {
+			font-size: 0.7rem;
+		}
+		.comment-list .aui-list .aui-list-item-text {
+			font-size: 0.6rem;
+		}
+		.comment-list .aui-list p {
+			margin-top: 0.5rem;
+			font-size: 0.8rem;
+			color: #333;
+		}
+		.comment-list .aui-iconfont {
+			font-size: 0.8rem !important;
+		}
+
+
+        /**/
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+        .footer-bar {
+            width: 100%;
+            background: #f4f5f7;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            z-index: 999;
+        }
+        .footer-bar .aui-iconfont {
+            color: #333;
+            font-size: 1rem !important;
+        }
+        .footer-bar .input-bar {
+            /*width: 90%;*/
+            margin-top: 0.3rem;
+            margin-left: 0.75rem;
+            margin-right: 0.75rem;
+            min-height: 1.6rem !important;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            font-size: 0.6rem;
+            padding-left: 0.5rem;
+            background: #ffffff;
+            color: #bbb;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid #eee;
+        }
+        /*.footer-bar .input-bar.aui-border:after {
+            border-radius: 1.5rem;
+        }*/
+        .footer-bar .input-bar .aui-iconfont {
+            color: #bbb;
+            font-size: 0.6rem !important;
+            line-height: 1.5rem;
+            margin-right: 0.25rem;
+        }
+        .footer-bar .aui-iconfont {
+            font-size: 1rem;
+        }
+
+        .comment-info{
+            color: #666;
+            font-size: 0.6rem;
+            margin: 0.3rem 0;
+        }
+        .comment-info .aui-iconfont{
+            font-size: 0.6rem !important;
+        }
+        .comment-content {
+            background-color: #f2f2f2;
+            display: block !important;
+        }
+        .comment-item{
+            padding: 0.1rem 0.3rem;
+            font-size: 0.7rem;
+        }
+        .comment-item span:first-child{
+            color: #3492e9;
+        }
+        .comment-more{
+            color: #3492e9;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            padding: 0.1rem 0.3rem;
+            text-align: center;
+        }
+
+                .comment-box {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            padding: 0.75rem;
+            margin-bottom: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100%, 0) scale(1);
+                    transform: translate3d(0, 100%, 0) scale(1);
+            display: none;
+        }
+        .comment-box.comment-box-in {
+            opacity: 1;
+             -webkit-transition-duration: 300ms;
+                    transition-duration: 300ms;
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+                    transform: translate3d(0, 0, 0) scale(1);
+            display: block;
+        }
+        .comment-box.comment-box-out {
+          opacity: 0;
+          -webkit-transition-duration: 300ms;
+                  transition-duration: 300ms;
+          -webkit-transform: translate3d(0, 80%, 0) scale(1);
+                  transform: translate3d(0, 80%, 0) scale(1);
+        }
+        .comment-nav {
+            display: box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            -webkit-align-items: center;
+                    align-items: center;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .comment-nav .comment-btn {
+            font-size: 0.8rem;
+        }
+        .comment-nav .comment-btn.disabled {
+            color: #999;
+        }
+        .comment-nav .comment-title {
+            font-size: 0.9rem;
+        }
+        .wrap {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+        }
+        .hide{
+            display: none;
+        }
+        .aui-list .aui-list-item-inner.rightbox{
+            width: 20%;
+            min-width: 0;
+            padding-left: 0;
+        }
+
+	</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">全部评论</div>
+    </header>
+    <div class="aui-content relation comment-list">
+    	<ul class="aui-list aui-media-list" id="comment-list">
+    	</ul>
+    	<div class="more hide">暂无更多</div>
+    </div>
+</body>
+<script id="comment-list-tpl" type="text/x-dot-template">
+    {{ for(var i in it) { }}
+    <li class="aui-list-item" >
+        {{? {{=it[i].avatar}}}}
+        <div class="aui-list-item-media" tapmode onclick="openComment({{=it[i].news_id}},{{=it[i].comment_id}})" >
+            <img  src="{{=it[i].avatar}}" class="aui-list-img-round aui-list-img-sm">
+        </div>
+        {{?}}
+        <div class="aui-list-item-inner aui-list-item-middle" tapmode onclick="openComment({{=it[i].news_id}},{{=it[i].comment_id}})">
+            <div class="aui-list-item-title-row">
+                <div class="aui-list-item-title aui-text-info">{{=it[i].nickname}}</div>
+
+            </div>
+            <div class="aui-list-item-text">{{? it[i].city}}{{=it[i].city}}{{?}} {{=it[i].comment_time}}</div>
+            <p>{{=it[i].comment_content}}</p>
+            {{? it[i].child}}
+                <div class="aui-list-item-text comment-info">
+                    {{=it[i].childCount}}条回复
+                    <span class="aui-iconfont aui-icon-right"></span>
+                </div>
+                {{ for (var ii in it[i].child){}}
+                <div class="aui-list-item-text comment-content">
+                    <div class="comment-item">
+                        <span>{{=it[i].child[ii].nickname}}:</span>
+                        <span>{{=it[i].child[ii].thumbs_count}}</span>
+                    </div>
+                </div>
+                {{ } }}
+                {{?}}
+        </div>
+        <div class="aui-list-item-inner rightbox">
+            <div class="aui-list-item-right">
+                <i class="aui-iconfont aui-icon-laud" onclick="commentLaud({{=it[i].comment_id}})"></i>
+                <span id="laud-count-{{=it[i].comment_id}}">{{=it[i].thumbs_count}}</span>
+            </div>
+        </div>
+
+    </li>
+    {{ } }}
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.getParam.js"></script>
+<script type="text/javascript" src="../../script/layer.js"></script>
+<script type="text/javascript">
+    function closeWin(){
+        window.history.go(-1);
+    }
+    var a={};
+	a.style = 'background-color:RGBA(0,0,0,0.6); color:#fff; border:none;';
+	a.time = 2;
+
+    var siteUrl = "http://fangshi.apithink.com/index.php?s=";
+    var news_id,pageNum=0;
+    $(document).ready(function(){
+        news_id = $.getUrlParam("news_id");
+        getCommentListData();
+    });
+
+    function getCommentListData(){
+        var token = $api.getStorage("token");
+        pageNum++;
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Comment/getCommentList',
+           data: "news_id="+news_id+"&pageNum="+pageNum+"&pageSize=20",
+           success: function(ret){
+               if(ret.code == '1'){
+                   if(pageNum == 1){
+                       document.getElementById("comment-list").innerHTML = '';
+                   }
+                   var tpl = document.getElementById("comment-list-tpl").innerHTML;
+                   var tempFn = doT.template(tpl);
+                   document.getElementById("comment-list").insertAdjacentHTML('beforeend', tempFn(ret.data));
+               }else {
+                   if(pageNum == 1){
+                       document.getElementById("comment-list").innerHTML = '';
+                   }
+               }
+           }
+        });
+    }
+    function commentLaud(comment_id){
+        var userid = $api.getStorage("userid");
+        var token = $api.getStorage("token");
+        if(!userid || !token){
+            openLogin();
+            return;
+        }
+        var laudCount = parseInt(document.getElementById("laud-count-"+comment_id).textContent);
+        $.ajax({
+           type: "POST",
+           url: siteUrl+'App/Comment/thumbsUp',
+           data: "item_id="+comment_id+"&token="+token+"&thumbs_type=2&parent_id="+comment_id,
+           success: function(ret){
+               if(ret.code == 1){
+                   document.getElementById("laud-count-"+comment_id).textContent = ret.count;
+               }else if(ret.code == 2){
+                   document.getElementById("laud-count-"+comment_id).textContent = ret.count;
+               }else if(ret.code == 0){
+                   a.content = ret.msg;
+                   layer.open(a);
+                   setTimeout(function(){
+                       openLogin();
+                   }, 2000)
+                   return;
+               }else{
+                   a.content = ret.msg;
+                   layer.open(a);
+                   return;
+               }
+           }
+        });
+    }
+    function openComment(news_id,comment_id){
+        window.location.href="news_comment_reply.html?news_id="+news_id+"&comment_id="+comment_id;
+    }
+    function openLogin(){
+        $api.setStorage("loginFrom","news/news_comment_all.html?news_id="+news_id);
+        window.location.href="../login.html";
+    }
+</script>
+</html>

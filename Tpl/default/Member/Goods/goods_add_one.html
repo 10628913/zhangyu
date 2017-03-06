@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>商城系统-点萌科技</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	    <link href="{:C('CSS_PATH')}/bootstrap.min.css" rel="stylesheet">
+	    <link href="{:C('CSS_PATH')}/common.css" rel="stylesheet">
+	    <link href="{:C('CSS_PATH')}/goods_add.css" rel="stylesheet">
+		<link href="{:C('CSS_PATH')}/font-awesome.min.css" rel="stylesheet">
+		<script src="{:C('JS_PATH')}/jquery-1.11.1.min.js"></script>
+	    <script src="{:C('JS_PATH')}/bootstrap.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+		<header class="c">
+			<div class="top-nav-inner">
+				<div class="nav-header">
+				</div>
+			</div>
+		</header>
+		<section class="container">
+			<div class="row  m-top-sm">
+				<aside class="col-md-2">
+					<ul class="list-group">
+						<li class="list-group-item active">发布商品</li>
+						<li class="list-group-item">出售中的商品</li>
+						<li class="list-group-item">仓库中的商品</li>
+						<li class="list-group-item">商品规格</li>
+						<li class="list-group-item">图片空间</li>
+					</ul>
+				</aside>
+				<div class="col-md-10">
+					<div class="breadcrumb">商家中心 > 商品 > 商品发布</div>
+					<div class="panel panel-default m-top-md">
+						<div class="panel-heading">
+							<div class="step row">
+								<div class="col-md-4 active">
+									<i class="fa fa-bars"></i>
+									<p>STEP.1</p>
+									<strong>选择商品分类</strong>
+								</div>
+								<div class="col-md-4">
+									<i class="fa  fa-pencil-square-o"></i>
+									<p>STEP.2</p>
+									<strong>填写商品基本信息</strong>
+								</div>
+								<div class="col-md-4">
+									<i class="fa fa-check"></i>
+									<p>STEP.3</p>
+									<strong>发布成功</strong>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" id="classifyId">
+						<div class="panel-body">
+							<div class="row classfiy-box">
+								<ul class="col-md-4 list-group nobrder classify" id="deep-1">
+								</ul>
+								<ul class="col-md-4 list-group nobrder classify classify-list" id="deep-2">
+								</ul>
+								<ul class="col-md-4 list-group nobrder classify classify-list" id="deep-3">
+								</ul>
+							</div>
+							<div class="text-center clearfix">
+								<div class="btn btn-info disabled" id="nextBtn">下一步，填写商品信息</div>
+							</div>
+							<div class=" alert alert-warning alert-custom m-top-md">
+						     	<i class="fa fa-exclamation-circle m-right-xs"></i> <strong>当前已选择分类：</strong>
+						     	<span id="checkedClassify" class="text-danger"></span>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+	<script type="text/javascript">
+
+		$(function(){
+			getClassify();
+			$("#nextBtn").click(function(){
+				if($(".classify > li.active").length == 3){
+					var classifyId = $("#classifyId").val();
+					$.post("__ACTION__",{step:'two',classifyId:classifyId},function(data){
+						window.location.href = "__ACTION__/step/two/classifyId/"+classifyId;
+					});
+				}
+			})
+		})
+		function getClassify($this){
+			if($this){
+				var parentId = $this.attr('data-id');
+				$this.parent().children("li.active").removeClass("active");
+				$this.addClass("active");
+				deep = parseInt($this.attr("deep"))+1;
+			}else{
+				var deep = 1;
+				var parentId = 0;
+			}
+			if(deep == 4){
+				$("#nextBtn").removeClass("disabled");
+			}else{
+				$("#nextBtn").addClass("disabled");
+			}
+			$("#classifyId").val(parentId);
+			$.getJSON('__CONTROLLER__/getGoodsClassify', {parentId : parentId}, function(data) {
+				if(data){
+					$("#deep-"+deep).html('');
+					$("#deep-"+(deep+1)).html('');
+					$.each(data, function(i, n){
+						html = '<li class="list-group-item select" data-id="'+n.id+'" deep="'+deep+'">'+n.classify_name+'</li>';
+                		$("#deep-"+deep).append(html).find('li:last').click(function(){
+					        getClassify($(this));
+					    });
+					})
+					showCheckClass();
+				}else{
+					$this.parent().next().html('');
+				}
+		    });
+	    }
+	    // 显示选中的分类
+		function showCheckClass(){
+		    var str = "";
+		    $.each($('.classify > li.active'), function(i) {
+		        str += $(this).text() + '/';
+		    });
+		    str = str.substring(0, str.length - 1);
+		    $('#checkedClassify').text(str);
+		}
+	</script>
+</html>
