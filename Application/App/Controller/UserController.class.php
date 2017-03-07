@@ -4,13 +4,13 @@ use Think\Controller;
 class UserController extends Controller {
     public function __construct(){
         parent::__construct();
-        $this->memberDb = M('Member');
+        $this->adminDb = M('Admin');
         $this->smsDb = M('Sms');
         $this->configDb = M("Module_extend");
-        $this->connectDb = M("Member_connect");
-        $this->suggestDb = M("Member_suggest");
-        $this->attentionDb = M("Member_attention");
-        $this->letterDb = M("Member_letter");
+        $this->suggestDb = M("Admin_suggest");
+        $this->letterDb = M("Admin_letter");
+        $this->registerDb = M('Register');
+        $this->adminAddressDb = M('Admin_address');
     }
     public function _initialize() {
         vendor('Ucpaas.Ucpaas');
@@ -20,6 +20,19 @@ class UserController extends Controller {
         if(IS_POST){
             $mobile = $_POST['mobile'];
             $code = $_POST['code'];
+
+            $partten = "/^1[3-9]\d{9}$/";
+            if(!$mobile || !preg_match($partten,$mobile)){
+                $returnData['code'] = -1;
+                $returnData['msg'] = "请输入正确手机号码";
+                $this->ajaxReturn($returnData);
+            }
+            if(!$code){
+                $returnData['code'] = -1;
+                $returnData['msg'] = "请输入验证码";
+                $this->ajaxReturn($returnData);
+            }
+
             $whereCode['mobile'] = $mobile;
             $whereCode['code'] = $code;
             $result = $this->smsDb->where($whereCode)->find();
@@ -29,28 +42,29 @@ class UserController extends Controller {
                 $sendtime = $result["sendtime"];
                 $diff = time() - (int) substr($sendtime,0,10);
                 $min = floor($diff/60);
-                if($result["status"] == 1){
+                if($result["status"] == 3){
                     if($min > 5){
                         $returnData["code"] = -1;
                         $returnData["msg"] = "验证码超时";
                         $this->ajaxReturn($returnData);
                     }else{
-                        $whereMember['mobile'] = $mobile;
+                        $whereAdmin['mobile'] = $mobile;
                         $password = password($_POST['password']);
                         $passwordData['password'] = $password['password'];
                         $passwordData['encrypt'] = $password['encrypt'];
-                        if($this->memberDb->where($whereMember)->save($passwordData)){
+                        if($this->adminDb->where($whereAdmin)->save($passwordData)){
                             $returnData['code'] = 1;
                             $returnData['msg'] = "密码修改成功";
                             $upWhere["id"] = $result["id"];
-                            $upWhere["status"] = 0;
+                            $upWhere["status"] = 4;
                             $this->smsDb->save($upWhere);
                         }else{
                             $returnData["code"] = -1;
                             $returnData["msg"] = "密码修改失败";
                         }
                     }
-                }else{
+                }
+                else{
                     $returnData["code"] = -1;
                     $returnData["msg"] = "验证码失效";
                 }
@@ -62,7 +76,7 @@ class UserController extends Controller {
             $this->ajaxReturn($returnData);
         }
     }
-    // 忘记密码
+    // 发送忘记密码验证码
     public function sendSmsByForgetPassword(){
         if(IS_POST){
             $info = $this->configDb->find();
@@ -74,21 +88,38 @@ class UserController extends Controller {
             $code = random(4,'123456789');
             $ucpass = new \Ucpaas($options);
             $to = "".$mobile."";
-            $templateId = "25050";
+            $templateId = "38152";
             $param="".$code.",5";
 
+            $whereMobile['mobile'] = $mobile;
+            $whereMobile['status'] = 1;
+            $result = $this->smsDb->where($whereMobile)->find();
+            if($result){
+                $sendtime = $result["sendtime"];
+                $diff = time() - (int) substr($sendtime,0,10);
+                $min = floor($diff/60);
+                if($min < 1){
+                    $returnData["code"] = -1;
+                    $returnData["msg"] = "60s内请勿重复发送";
+                    $this->ajaxReturn($returnData);
+                }
+            }
+
+
             //检查手机号是否存在
-            $memberInfo = $this->memberDb->where("mobile=".$mobile)->find();
-            if($memberInfo){
+            $adminInfo = $this->adminDb->where("mobile=".$mobile)->find();
+            if($adminInfo){
                 $resultArr = $ucpass->templateSMS($appId,$to,$templateId,$param);
                 $resultArr = json_decode($resultArr);
                 $smsCode = $resultArr->resp->respCode;
                 if($smsCode=='000000'){
+                    $data['code'] = 1;
                     $data['msg'] = "发送成功";
                     //写入短信记录
                     $smsData['mobile'] = $mobile;
                     $smsData['code'] = $code;
                     $smsData['sendtime'] = time();
+                    $smsData['status'] = 2;
                     $this->smsDb->data($smsData)->add();
                 }else if($smsCode=='105122'){
                     $data['msg'] = "发送数量超出限制";
@@ -109,17 +140,31 @@ class UserController extends Controller {
         if(IS_POST){
             $mobile = $_POST['mobile'];
             $password = $_POST['password'];
-            $whereMember['mobile'] = $mobile;
+
+            $partten = "/^1[3-9]\d{9}$/";
+            if(!$mobile || !preg_match($partten,$mobile)){
+                $data['code'] = -1;
+                $data['msg'] = "请输入正确手机号码";
+                $this->ajaxReturn($data);
+            }
+            if(!$password){
+                $data['code'] = -1;
+                $data['msg'] = "请输入密码";
+                $this->ajaxReturn($data);
+            }
+
+            $whereAdmin['mobile'] = $mobile;
             //根据用户名检查用户是否存在
-            $info = $this->memberDb->where($whereMember)->find();
-            $userid = $info['userid'];
+            $info = $this->adminDb->where($whereAdmin)->find();
+            $uid = $info['uid'];
             $data = array();
             if(!$info){
                 $data['code'] = -1;
-                $data['msg'] = "用户不存在";
+                $data['msg'] = "用户不存在或未审核通过";
+                $this->ajaxReturn($data);
             }else{
                 //存在、验证密码是否正确
-                $where["userid"] = $info["userid"];
+                $where["uid"] = $info["uid"];
                 $password = password($_POST['password'],$info['encrypt']);
                 if($password==$info['password']){
                     $random = rand(0,1000);
@@ -127,25 +172,28 @@ class UserController extends Controller {
                     $updateData['token'] = $token;
                     $updateData['last_date'] = time();
                     $updateData['last_ip'] = ip();
-                    $this->memberDb->where($whereMember)->save($updateData);
-                    $infoData = $this->memberDb->where($where)->field("password,encrypt",true)->find();
+                    $this->adminDb->where($whereAdmin)->save($updateData);
+                    $infoData = $this->adminDb->where($where)->field("password,encrypt",true)->find();
 
-                    $connectResult = $this->connectDb->where("userid=".$infoData["userid"])->find();
+                    // $connectResult = $this->connectDb->where("userid=".$infoData["userid"])->find();
 
-                    $infoData["bindQQ"] = false;
-                    $infoData["bindWechat"] = false;
-                    $infoData["bindSina"] = false;
+                    // $infoData["bindQQ"] = false;
+                    // $infoData["bindWechat"] = false;
+                    // $infoData["bindSina"] = false;
 
-                    $connectResult["wechat_openid"] ? $infoData["bindQQ"] = true : "";
-                    $connectResult["qq_openid"] ? $infoData["bindWechat"] = true : "";
-                    $connectResult["sina_openid"] ? $infoData["bindSina"] = true : "";
+                    // $connectResult["wechat_openid"] ? $infoData["bindQQ"] = true : "";
+                    // $connectResult["qq_openid"] ? $infoData["bindWechat"] = true : "";
+                    // $connectResult["sina_openid"] ? $infoData["bindSina"] = true : "";
 
                     $data['code'] = 1;
                     $data['msg'] = "登录成功";
                     $data['data'] = $infoData;
+                    $data['token'] = $token;
+                    $this->ajaxReturn($data);
                 }else{
                     $data['code'] = -1;
                     $data['msg'] = "密码错误";
+                    $this->ajaxReturn($data);
                 }
             }
             $this->ajaxReturn($data);
@@ -155,12 +203,51 @@ class UserController extends Controller {
     public function register(){
         if(IS_POST){
             $data = array();
-            $data['mobile'] = $_POST['mobile'];
+            $returnData = array();
+            $mobile = $_POST['mobile'];
+            $realname = $_POST['realname'];
+            $password = $_POST['password'];
+            $data['mobile'] = $mobile;
+            $code = $_POST['code'];
+            $partten = "/^1[3-9]\d{9}$/";
+            if(!$mobile || !preg_match($partten,$mobile)){
+                $returnData['code'] = -1;
+                $returnData['msg'] = "请输入正确手机号码";
+                $this->ajaxReturn($returnData);
+            }
+
+            $whereCode['mobile'] = $mobile;
+            $whereCode['code'] = $code;
+            $codeinfo = $this->smsDb->where($whereCode)->find();
+            if(!$code || $codeinfo['status'] != '3'){
+                $returnData['code'] = -1;
+                $returnData['msg'] = "请输入验证码/验证码失效";
+                $this->ajaxReturn($returnData);
+            }
+
+            if(!$realname){
+                $returnData['code'] = -1;
+                $returnData['msg'] = "请输入昵称";
+                $this->ajaxReturn($returnData);
+            }
+            if(!$password){
+                $returnData['code'] = -1;
+                $returnData['msg'] = "请输入密码";
+                $this->ajaxReturn($returnData);
+            }
+            $whereMobile['mobile'] = $mobile;
+            $isInto = $this->registerDb->where($whereMobile)->find();
+            if($isInto['is_register'] == '0'){
+                $returnData['code'] = -1;
+                $returnData['msg'] = "已注册，请等待管理员审核";
+                $this->ajaxReturn($returnData);
+            }
             //判断用户名是否存在
-            $isIn = $this->memberDb->where("mobile = '".$data['mobile']."'")->find();
+            $isIn = $this->adminDb->where($whereMobile)->find();
             if(!$isIn){
                 //不存在
-                $data['nickname'] = $_POST['nickname'];
+                $data['realname'] = $realname;
+                $data['is_register'] = 0;
                 $data['sex'] = $_POST['sex'];
                 $data['birthday'] = $_POST['birthday'];
                 $data['signature'] = $_POST['signature'];
@@ -168,35 +255,40 @@ class UserController extends Controller {
                 $data['password'] = $password['password'];
                 $data['encrypt'] = $password['encrypt'];
                 $data['avatar'] = $_POST['avatar'];
-                $data['reg_date'] = $data['last_date'] = $data["update_time"] = time();
+                $data['reg_date'] = $data['last_date'] = $data["update_date"] = time();
                 $data['reg_ip']  = $data['last_ip'] = ip();
                 $random = rand(0,1000);
                 $token = md5('NONO'.$random.$data['mobile'].time());
                 $data['token'] = $token;
-                $result = $this->memberDb->data($data)->add();
+                $result = $this->registerDb->data($data)->add();
                 if($result){
                     //数据返回
-                    $where["userid"] = $result;
-                    $returnData = array();
+                    $where["id"] = $result;
                     $returnData['code'] = 1;
-                    $returnData['msg'] = "注册成功";
-                    $userData = $this->memberDb->where($where)->field("password,encrypt",true)->find();
+                    $returnData['msg'] = "注册完成";
+                    $smsData['code'] = $code;
+                    $smsData['status'] = '4';
+                    $this->smsDb ->where($whereMobile)->save($smsData);
+                    $userData = $this->registerDb->where($where)->field("password,encrypt",true)->find();
                     $returnData["data"] = $userData;
+                    $this->ajaxReturn($returnData);
                 }else{
-                    $returnData = array();
                     $returnData['code'] = -1;
                     $returnData['msg'] = "注册失败";
+                    $this->ajaxReturn($returnData);
                 }
             }else{
-                $returnData = array();
                 $returnData['code'] = -1;
                 $returnData['msg'] = "用户名已经存在";
+                $this->ajaxReturn($returnData);
             }
             $this->ajaxReturn($returnData);
         }
     }
+    // 发送注册验证码
     public function sendSms(){
         if(IS_POST){
+            $returnData = array();
             $info = $this->configDb->find();
             $options['accountsid'] = $info["ucpaas_account_sid"];
             $options['token'] = $info["ucpaas_auth_token"];
@@ -206,31 +298,50 @@ class UserController extends Controller {
             $ucpass = new \Ucpaas($options);
             $appId = $info["ucpaas_app_id"];
             $to = "".$mobile."";
-            $templateId = "25050";
+            $templateId = "38152";
             $param="".$code.",5";
 
+            $whereMobile['mobile'] = $mobile;
+            $whereMobile['status'] = 2;
+            $result = $this->smsDb->where($whereMobile)->find();
+            if($result){
+                $sendtime = $result["sendtime"];
+                $diff = time() - (int) substr($sendtime,0,10);
+                $min = floor($diff/60);
+                if($min < 1){
+                    $data["code"] = -1;
+                    $data["msg"] = "60s内请勿重复发送";
+                    $this->ajaxReturn($data);
+                }
+            }
+
             //检查手机号是否被注册
-            $memberInfo = $this->memberDb->where("mobile=".$mobile)->find();
-            if($memberInfo){
+            $adminInfo = $this->adminDb->where("mobile=".$mobile)->find();
+            if($adminInfo){
                 $data['code'] = -1;
                 $data['msg'] = "手机号码已经注册";
+                $this->ajaxReturn($data);
             }else{
                 $resultArr = $ucpass->templateSMS($appId,$to,$templateId,$param);
                 $resultArr = json_decode($resultArr);
                 $smsCode = $resultArr->resp->respCode;
                 if($smsCode=='000000'){
+                    $data['code'] = "1";
                     $data['msg'] = "发送成功";
                     //写入短信记录
                     $smsData['mobile'] = $mobile;
                     $smsData['code'] = $code;
                     $smsData['sendtime'] = time();
+                    $smsData['status'] = 2;
                     $this->smsDb->data($smsData)->add();
                 }else if($smsCode=='105122'){
                     $data['msg'] = "发送数量超出限制";
+                    $this->ajaxReturn($data);
                 }else{
                     $data['msg'] = "发送失败";
+                    $this->ajaxReturn($data);
                 }
-                $data['code'] = $smsCode;
+                $data['data'] = $smsCode;
             }
             $this->ajaxReturn($data);
         }
@@ -243,11 +354,11 @@ class UserController extends Controller {
 
             $result = $this->smsDb->where($where)->find();
             if($result){
-                if($result["status"] == 0){
-                    $ret["code"] = -1;
-                    $ret["msg"] = "验证码失效";
-                    $this->ajaxReturn($ret);
-                }
+                // if($result["status"] == 0){
+                //     $ret["code"] = -1;
+                //     $ret["msg"] = "验证码失效";
+                //     $this->ajaxReturn($ret);
+                // }
                 $sendtime = $result["sendtime"];
                 $diff = time() - (int) substr($sendtime,0,10);
                 $min = floor($diff/60);
@@ -258,7 +369,7 @@ class UserController extends Controller {
                     $data['code'] = 1;
                     $data['msg'] = "成功";
                     $upWhere["id"] = $result["id"];
-                    $upWhere["status"] = 0;
+                    $upWhere["status"] = 3;
                     $this->smsDb->save($upWhere);
                 }
             }else{
@@ -269,18 +380,18 @@ class UserController extends Controller {
         }
     }
 
-    //修改信息
+    //修改用户信息
     public function changeUserInfo(){
         if(IS_POST){
             $token = $_POST["token"];
             $info = checkUser($token);
             if($info){
-                $where["userid"] = $saveData["userid"] = $info["userid"];
-                $nickname = $_POST["nickname"];
+                $where["uid"] = $saveData["uid"] = $info["uid"];
+                $realname = $_POST["realname"];
                 $sex = $_POST["sex"];
                 $birthday = $_POST["birthday"];
                 $signature = $_POST["signature"];
-                $nickname ? $saveData["nickname"] = $nickname : "";
+                $realname ? $saveData["realname"] = $realname : "";
                 $_POST["avatar"] ? $saveData["avatar"] = $_POST["avatar"] : "";
                 $sex ? $saveData["sex"] = $sex : "";
                 $signature ? $saveData["signature"] = $signature : "";
@@ -291,10 +402,10 @@ class UserController extends Controller {
                 $_POST["city"] ? $saveData["city"] = $_POST["city"] : "";
                 $_POST["area"] ? $saveData["area"] = $_POST["area"]  : "";
                 $saveData["update_time"] = time();
-                if($this->memberDb->save($saveData)){
+                if($this->adminDb->save($saveData)){
                     $ret["code"] = 1;
                     $ret["msg"] = "修改成功";
-                    $info = $this->memberDb->where($where)->field("password,encrypt",true)->find();
+                    $info = $this->adminDb->where($where)->field("password,encrypt",true)->find();
                     $ret["data"] = $info;
                 }else{
                     $ret["code"] = -1;
@@ -314,7 +425,7 @@ class UserController extends Controller {
             $token = $_POST["token"];
             $user = checkUser($token);
             if($user){
-                $data["userid"] = $user["userid"];
+                $data["uid"] = $user["uid"];
                 $upload = new \Think\Upload();
                 $upload->maxSize = 5242880 ;
                 $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
@@ -329,7 +440,7 @@ class UserController extends Controller {
                     $path = str_replace(C('SITE_URL'),"",$imageUrl);
                     unlink($path);
                     $data["avatar"] = $thumb;
-                    if($this->memberDb->save($data)){
+                    if($this->adminDb->save($data)){
                         $ret["code"] = 1;
                         $ret["msg"] = "头像修改成功";
                         $ret["url"] = $thumb;
@@ -339,10 +450,109 @@ class UserController extends Controller {
                     }
                 }
             }else{
-                $ret["code"] = 0;
+                $ret["code"] = -1;
                 $ret["msg"] = "用户已在其他终端登录";
             }
             $this->ajaxReturn($ret);
+        }
+    }
+
+    // 用户发货地址添加
+    public function addressAdd(){
+        if(IS_POST){
+            $token = $_POST["token"];
+            $user = checkUser($token);
+            if($user){
+                $data["uid"] = $user["uid"];
+                $data = $_POST;
+                if(!$data['consignee']){
+                    $returnData['code'] = -1;
+                    $returnData['msg'] = '发货人不能为空';
+                    $this->ajaxReturn($returnData);
+                }
+                if(!$data['mobile']){
+                    $returnData['code'] = -1;
+                    $returnData['msg'] = '发货人不能为空';
+                    $this->ajaxReturn($returnData);
+                }
+                $result = $this->adminAddressDb->add($data);
+                if($result){
+                    $returnData['status'] = "success";
+                    $returnData['code'] = 1;
+                    $returnData['id'] = $result;
+                    $this->ajaxReturn($returnData);
+                }else{
+                    $returnData['code'] = -1;
+                    $returnData["msg"] = "添加失败";
+                    $this->ajaxReturn($returnData);
+                }
+            }
+            else{
+                $ret["code"] = -1;
+                $ret["msg"] = "用户已在其他终端登录";
+            }
+            
+        }
+        // if (IS_POST) {
+        //     $client_id = intval($_POST['client_id']);
+        //     $data['consignee'] = $_POST['consignee'];
+        //     $data['mobile'] = $_POST['mobile'];
+        //     $data['consignee'] = $_POST['consignee'];
+        //     $data['consignee'] = $_POST['consignee'];
+        // }
+    }
+
+    // 用户发货地址列表
+    public function userAddressList(){
+        if(IS_POST){
+            $token = $_POST["token"];
+            $user = checkUser($token);
+            $this->ajaxReturn($user);
+            if($user){
+                $where['uid'] = $user["uid"];
+                $data = $this->adminAddressDb->where($where)->order('address_id')->select();
+                if($data){
+                    $returnData['status'] = "success";
+                    $returnData['code'] = 1;
+                    $returnData['data'] = $data;
+                    $this->ajaxReturn($returnData);
+                }else{
+                    $returnData['code'] = -1;
+                    $this->ajaxReturn($returnData);
+                }
+            }else{
+                $returnData["code"] = -1;
+                $returnData["msg"] = "用户已在其他终端登录";
+                $this->ajaxReturn($returnData);
+            }
+            
+        }
+    }
+
+    // 客户收货地址编辑
+    public function userAddressEdit(){
+        if(IS_POST){
+            $token = $_POST["token"];
+            $user = checkUser($token);
+            if($user){
+                $where['uid'] = $user["uid"];
+                $data = $_POST;
+                $result = $this->clientAddressDb->save($data);
+                if($result){
+                    $returnData['status'] = "success";
+                    $returnData['code'] = 1;
+                    $returnData["msg"] = "修改成功";
+                    $this->ajaxReturn($returnData);
+                }else{
+                    $returnData['code'] = -1;
+                    $returnData["msg"] = "未修改信息";
+                    $this->ajaxReturn($returnData);
+                }
+            }else{
+                $ret["code"] = -1;
+                $ret["msg"] = "用户已在其他终端登录";
+            }
+            
         }
     }
     //第三方登录通用接口
@@ -375,8 +585,8 @@ class UserController extends Controller {
 
             $result = $this->connectDb->where($where)->find();
             if($result){
-                $memberWhere["userid"] = $result["userid"];
-                $userInfo = $this->memberDb->where($memberWhere)->find();
+                $adminWhere["userid"] = $result["userid"];
+                $userInfo = $this->adminDb->where($adminWhere)->find();
                 if($userInfo){
                     $random = rand(0,1000);
                     $token = md5('NONO'.$random.$mobile.time());
@@ -384,9 +594,9 @@ class UserController extends Controller {
                     $updateData['last_date'] = time();
                     $updateData['last_ip'] = ip();
                     //更新登录信息
-                    $this->memberDb->where($memberWhere)->save($updateData);
+                    $this->adminDb->where($adminWhere)->save($updateData);
                     //重新获取用户信息
-                    $infoData = $this->memberDb->where($memberWhere)->field("password,encrypt",true)->find();
+                    $infoData = $this->adminDb->where($adminWhere)->field("password,encrypt",true)->find();
                     if($infoData){
                         $connectInfo = $this->connectDb->where("userid=".$infoData["userid"])->find();
                         $infoData["bindQQ"] = false;
@@ -446,7 +656,7 @@ class UserController extends Controller {
         }
     }
     //用户绑定
-    public function bindMember(){
+    public function bindAdmin(){
         if(IS_POST){
             $wechat_openid = $_POST["wechat_openid"];
             $qq_openid = $_POST["qq_openid"];
@@ -538,115 +748,6 @@ class UserController extends Controller {
                 $ret["msg"] = "获取成功";
                 $ret["fansCount"] = $fansCount;
                 $ret["attentionCount"] = $attentionCount;
-            }else{
-                $ret["code"] = 0;
-                $ret["msg"] = "用户已在其他终端登录";
-            }
-            $this->ajaxReturn($ret);
-        }
-    }
-    //我的关注
-    public function getAttention(){
-        if(IS_POST){
-            $token = $_POST["token"];
-
-            $pageSize = $_POST["pageSize"] ? $_POST["pageSize"] : 20;
-            $pageNum = $_POST["pageNum"] ? $_POST["pageNum"] : 1;
-            $startCount = ($pageNum - 1) * $pageSize;
-
-            $user = checkUser($token);
-            if($user){
-                $attentionList = $this->attentionDb
-                    ->table("__MEMBER_ATTENTION__ t,__MEMBER__ m")
-                    ->where("t.attention_userid = m.userid and t.userid=".$user["userid"])
-                    ->field("m.userid,m.nickname,m.avatar,m.signature")
-                    ->limit($startCount,$pageSize)
-                    ->select();
-                    // $atentionList = $this->attentionDb
-                    //     ->join("left join __MEMBER__ m on m.userid = __MEMBER_ATTENTION__.attention_userid")
-                    //     ->where("fs_member_attention.userid=".$user["userid"])
-                    //     ->field("m.userid,m.nickname,m.avatar")
-                    //     ->limit($startCount,$pageSize)
-                    //     ->select();
-                if($attentionList){
-                    $ret["code"] = 1;
-                    $ret["msg"] = "我的关注好友列表获取成功";
-                    $ret["data"] = $attentionList;
-                }else{
-                    $ret["code"] = -1;
-                    $ret["msg"] = $pageNum == 1 ? "无关注好友" : "已无更多关注好友";
-                }
-            }else{
-                $ret["code"] = 0;
-                $ret["msg"] = "用户已在其他终端登录";
-            }
-            $this->ajaxReturn($ret);
-        }
-    }
-    //我的粉丝
-    public function getFansList(){
-        if(IS_POST){
-            $token = $_POST["token"];
-
-            $pageSize = $_POST["pageSize"] ? $_POST["pageSize"] : 20;
-            $pageNum = $_POST["pageNum"] ? $_POST["pageNum"] : 1;
-            $startCount = ($pageNum - 1) * $pageSize;
-
-            $user = checkUser($token);
-            if($user){
-                $attentionList = $this->attentionDb
-                    ->table("__MEMBER_ATTENTION__ t,__MEMBER__ m")
-                    ->where("t.userid = m.userid and t.attention_userid=".$user["userid"])
-                    ->field("m.userid,m.nickname,m.avatar,m.signature")
-                    ->limit($startCount,$pageSize)
-                    ->select();
-                if($attentionList){
-
-                    foreach ($attentionList as $i => $v) {
-                        $attentionList[$i]["attentionStatus"] = false;
-                        if($this->attentionDb->where("userid=".$user["userid"]." and attention_userid=".$v["userid"])){
-                            $attentionList[$i]["attentionStatus"] = true;
-                        }
-                    }
-                    $ret["code"] = 1;
-                    $ret["msg"] = "我的粉丝列表获取成功";
-                    $ret["data"] = $attentionList;
-                }else{
-                    $ret["code"] = -1;
-                    $ret["msg"] = $pageNum == 1 ? "还木有粉丝" : "已无更多粉丝";
-                }
-            }else{
-                $ret["code"] = 0;
-                $ret["msg"] = "用户已在其他终端登录";
-            }
-            $this->ajaxReturn($ret);
-        }
-    }
-    //关注好友
-    public function attentionFriend(){
-        if(IS_POST){
-            $token = $_POST["token"];
-            $user = checkUser($token);
-            if($user){
-                $data["attention_userid"] = $_POST["userid"];
-                $data["userid"] = $user["userid"];
-                if($this->attentionDb->where($data)->find()){
-                    if($this->attentionDb->where($data)->delete()){
-                        $ret["code"] = 2;
-                        $ret["msg"] = "取消关注成功";
-                    }else{
-                        $ret["code"] = -1;
-                        $ret["msg"] = "取消关注失败";
-                    }
-                }else{
-                    if($this->attentionDb->add($data)){
-                        $ret["code"] = 1;
-                        $ret["msg"] = "关注成功";
-                    }else{
-                        $ret["code"] = -1;
-                        $ret["msg"] = "关注失败";
-                    }
-                }
             }else{
                 $ret["code"] = 0;
                 $ret["msg"] = "用户已在其他终端登录";
