@@ -48,15 +48,15 @@ function getfirstchar($s0) {
 * @param $token
 * @return $info
 */
-function checkUser($token){
-    $memberDb = M("Member");
-    $info = $memberDb->where('token="'.$token.'"')->field("userid,mobile,token,avatar,nickname")->find();
-    if($info){
-        return $info;
-    }else{
-        return false;
-    }
-}
+// function checkUser($token){
+//     $memberDb = M("Admin");
+//     $info = $memberDb->where('token="'.$token.'"')->field("uid,username,token,avatar,realname")->find();
+//     if($info){
+//         return $info;
+//     }else{
+//         return false;
+//     }
+// }
 /**
 * 时间差计算
 * @param $diff
