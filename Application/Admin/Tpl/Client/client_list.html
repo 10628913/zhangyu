@@ -1,0 +1,175 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<div class="row">
+					<div class="col-md-6">
+						<a href="javascript:clientAdd();" class="btn btn-sm btn-info">增加客户
+			            </a>
+		                <a href="javascript:manager('delete');" class="btn btn-sm btn-danger">删除</a>
+					</div>
+					<div class="col-md-6">
+						<div class="input-group pull-right col-md-6" id="search-form">
+							<input type="text" name="keyword" class="form-control input-sm" placeholder="用户昵称" value="{$searchInfo['keyword']}">
+							<span class="input-group-btn">
+								<a href="javascript:;" url="__ACTION__" id="search" class="btn btn-sm btn-success">搜索</a>
+							</span>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-bordered m-top-sm" id="dataTable">
+					<thead>
+						<tr>
+							<th>
+								<!-- <input type="checkbox" class="check-all" /> -->
+								<div class="custom-checkbox">
+									<input type="checkbox" id="checkall" class="check-all" >
+									<label for="checkall"></label>
+								</div>
+							</th>
+							<th>ID</th>
+							<th>昵称</th>
+							<th>手机号</th>
+							<th>所属上级</th>
+							<th>所属上级类型</th>
+							<th class="hidden-xs">注册时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+
+						<tr id="data-{$v['client_id']}">
+							<td>
+								<div class="custom-checkbox">
+									<input type="checkbox" value="{$v['client_id']}" name="clientids[]" id="client_id-{$v['client_id']}" class="ids" >
+									<label for="client_id-{$v['client_id']}"></label>
+								</div>
+							</td>
+							<td>{$v['client_id']}</td>
+							<td>
+								<if condition="$v['client_avatar']"><img src="{$v['client_avatar']}" class="avatar" />&nbsp;</if>{$v['client_name']}
+							</td>
+							<td>{$v['client_mobile']}</td>
+							<td>
+								<if condition="$v['parent_type'] eq 0">
+									{$v['parent_id']||getClientAdminName}
+									<else />{$v['parent_id']||getClientMemberName}
+								</if>
+							</td>
+							<td>
+								<if condition="$v['parent_type'] eq 0">一手
+									<else />代理
+								</if>
+							</td>
+							<td class="hidden-xs">{$v['client_addtime']|date="Y-m-d H:i:s",###}</td>
+							<td>
+								<a href="javascript:showInfo({$v['client_id']})" class="btn btn-manager btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="详情" data-original-title="详情"><i class="fa fa-info"></i></a>
+								<a href="javascript:clientEdit({$v['client_id']})" class="btn btn-manager btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="编辑"><i class="fa fa-pencil"></i></a>
+								<a href="javascript:clientDelete({$v['client_id']});" class="btn btn-manager btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-trash-o"></i></a>
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table>
+				<div class="content text-right">
+					<ul class="pagination">
+						{$page}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('#search-form').find('.input-sm').serialize();
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	$(".check-all").click(function(){
+		$(".ids").prop("checked", this.checked);
+	});
+	$(".ids").click(function(){
+		var option = $(".ids");
+		option.each(function(i){
+			if(!this.checked){
+				$(".check-all").prop("checked", false);
+				return false;
+			}else{
+				$(".check-all").prop("checked", true);
+			}
+		});
+	});
+	function manager(type){
+		var clientids='';
+		$("input[name='clientids[]']:checked").each(function(i, n){
+			clientids += $(n).val() + ',';
+		});
+		clientids = clientids.substring(0,clientids.length-1);
+
+		if(clientids=='') {
+			DMS.alert("请先选择用户")
+			return false;
+		}else{
+			var url = "__CONTROLLER__/clientsDelete";
+			// switch (type) {
+			// 	case 'lock':
+			// 		var url = "__CONTROLLER__/clientLock";
+			// 		break;
+			// 	case 'unlock':
+			// 		var url = "__CONTROLLER__/clientUnLock";
+			// 		break;
+			// 	case 'delete':
+			// 		var url = "__CONTROLLER__/clientDelete";
+			// 		break;
+			// }
+			if(url){
+				DMS.dialog("确定要执行当前操作吗?",function(){
+					DMS.ajaxPost(url,{clientids:clientids},function(ret){
+						if(ret.status==1){
+							DMS.success(ret.info,0,function(){
+		                		window.location.href = window.location.href;
+							});
+		                }else{
+		                	DMS.error(ret.info,0);
+		                }
+					})
+				});
+			}
+		}
+	};
+	function clientAdd(){
+		DMS.ajaxShow("新增客户","__CONTROLLER__/clientAdd");
+	}
+	function clientEdit(client_id){
+		DMS.ajaxShow("编辑用户","__CONTROLLER__/clientEdit/client_id/"+client_id);
+	}
+	// function clientAdd(){
+	// 	DMS.ajaxShow("编辑用户","__CONTROLLER__/clientAdd");
+	// }
+	// function clientEdit(client_id){
+	// 	DMS.ajaxShow("编辑用户","__CONTROLLER__/clientEdit/client_id/"+client_id);
+	// }
+	function showInfo(client_id){
+		DMS.loadUrl("用户详情","__CONTROLLER__/clientInfo/client_id/"+client_id);
+	}
+	function clientDelete(client_id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/clientDelete",{client_id:client_id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+client_id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

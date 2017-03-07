@@ -30,7 +30,7 @@ class AppController extends RestController {
         }
     }
     //通用ajax返回
-    function httpResponse($code,$msg,$data = [],$type = "json"){
+    function httpResponse($code,$msg,$data = array(),$type = "json"){
         $ret["code"] = $code;
         $ret["msg"] = $msg;
         if($data){

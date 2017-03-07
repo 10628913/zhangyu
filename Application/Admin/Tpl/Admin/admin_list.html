@@ -13,7 +13,8 @@
 							<th>UID</th>
 							<th>账号</th>
 							<th>姓名</th>
-							<th class="hidden-xs">用户组</th>
+							<!-- <th class="hidden-xs">用户组</th> -->
+							<th class="hidden-xs">管理组</th>
 							<th class="hidden-xs">注册时间</th>
 							<th class="hidden-xs">最后登录</th>
 							<th class="hidden-xs">状态</th>
@@ -26,6 +27,11 @@
 							<td>{$v['uid']}</td>
 							<td><if condition="$v['avatar']"><img src="{$v['avatar']}" class="avatar" />&nbsp;</if>{$v['username']}</td>
 							<td>{$v['realname']}</td>
+							<!-- <td>
+								<if condition="$v['user_group_id'] eq 1">一手
+									<else />代理
+								</if>
+							</td> -->
 							<td class="hidden-xs">{$v['group_name']}</td>
 							<td class="hidden-xs">{$v['reg_date']|date="Y-m-d H:i:s",###}</td>
 							<td class="hidden-xs">{$v['last_date']|date="Y-m-d H:i:s",###}</td>

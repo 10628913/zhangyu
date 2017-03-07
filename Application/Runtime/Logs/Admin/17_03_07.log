@@ -1,0 +1,510 @@
+[ 2017-03-07T23:30:43+08:00 ] ::1 /manager.php?m=Admin&c=index&a=getCurrentPos&menuId=96
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000401s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000475s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000583s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0018s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Index/getCurrentPos' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0021s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0016s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0018s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0019s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 96 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 95 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-03-07T23:30:43+08:00 ] ::1 /manager.php?s=/Goods/index/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000037s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000697s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000695s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000849s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Goods/index' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0015s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0011s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `zy_goods` [ RunTime:0.0015s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0020s ]
+NOTIC: [8] Undefined variable: searchInfo E:\wamp\www\zhangyu_admin\Application\Admin\Controller\GoodsController.class.php 第 21 行.
+NOTIC: [8] Undefined variable: whereSearch E:\wamp\www\zhangyu_admin\Application\Admin\Controller\GoodsController.class.php 第 22 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_goods` LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined variable: whereSearch E:\wamp\www\zhangyu_admin\Application\Admin\Controller\GoodsController.class.php 第 25 行.
+SQL: SELECT * FROM `zy_goods` ORDER BY goods_id desc LIMIT 0,20   [ RunTime:0.0002s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000083s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000175s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 46 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 46 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 46 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `username` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.013995s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.014088s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000300s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000371s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000447s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000524s ]
+
+[ 2017-03-07T23:30:46+08:00 ] ::1 /manager.php?m=Admin&c=index&a=getCurrentPos&menuId=94
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000037s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000581s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000754s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000890s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Index/getCurrentPos' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0018s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0018s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 94 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 93 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-03-07T23:30:46+08:00 ] ::1 /manager.php?s=/Client/index/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000033s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000594s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001535s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001703s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0027s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Client/index' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0023s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `zy_client` [ RunTime:0.0017s ]
+SQL: SHOW COLUMNS FROM `zy_client_address` [ RunTime:0.0028s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0019s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0020s ]
+NOTIC: [8] Undefined variable: searchInfo E:\wamp\www\zhangyu_admin\Application\Admin\Controller\ClientController.class.php 第 24 行.
+NOTIC: [8] Undefined variable: whereSearch E:\wamp\www\zhangyu_admin\Application\Admin\Controller\ClientController.class.php 第 25 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_client` LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined variable: whereSearch E:\wamp\www\zhangyu_admin\Application\Admin\Controller\ClientController.class.php 第 28 行.
+SQL: SELECT * FROM `zy_client` ORDER BY client_id desc LIMIT 0,20   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000105s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000205s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 49 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 46 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 40 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 40 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 40 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 40 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 40 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 40 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `nickname` FROM `zy_member` WHERE `userid` = 47 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `realname` FROM `zy_admin` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0001s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.015135s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015213s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000336s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000410s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000551s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000644s ]
+
+[ 2017-03-07T23:30:50+08:00 ] ::1 /manager.php?m=Admin&c=index&a=getCurrentPos&menuId=102
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000398s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000430s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000525s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Index/getCurrentPos' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0017s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0017s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0025s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0019s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 5 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2017-03-07T23:30:50+08:00 ] ::1 /manager.php?s=/Admin/registerList/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000487s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000450s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000551s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0015s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Admin/registerList' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0015s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `zy_site_setting` [ RunTime:0.0019s ]
+SQL: SHOW COLUMNS FROM `zy_register` [ RunTime:0.0017s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_register` LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_register` ORDER BY is_register,id desc LIMIT 0,20   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000060s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000156s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009611s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009714s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000312s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000400s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000519s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000602s ]
+
+[ 2017-03-07T23:31:00+08:00 ] ::1 /manager.php?m=Admin&c=index&a=getCurrentPos&menuId=102
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000383s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000575s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000693s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Index/getCurrentPos' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0018s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 5 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-03-07T23:31:00+08:00 ] ::1 /manager.php?s=/Admin/registerList/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000360s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000424s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000539s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0015s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Admin/registerList' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0014s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0019s ]
+SQL: SHOW COLUMNS FROM `zy_site_setting` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_register` [ RunTime:0.0018s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_register` LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_register` ORDER BY is_register,id desc LIMIT 0,20   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000062s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000157s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008158s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008243s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000240s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000312s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000451s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000545s ]
+
+[ 2017-03-07T23:31:01+08:00 ] ::1 /manager.php?m=Admin&c=index&a=getCurrentPos&menuId=102
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000042s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000673s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000777s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000935s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Index/getCurrentPos' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0016s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0018s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 5 LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2017-03-07T23:31:01+08:00 ] ::1 /manager.php?s=/Admin/registerList/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000037s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000663s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000442s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000547s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Admin/registerList' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0012s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0014s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0019s ]
+SQL: SHOW COLUMNS FROM `zy_site_setting` [ RunTime:0.0015s ]
+SQL: SHOW COLUMNS FROM `zy_register` [ RunTime:0.0016s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_register` LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_register` ORDER BY is_register,id desc LIMIT 0,20   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000058s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000150s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007602s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007688s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000240s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000310s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000443s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000538s ]
+
+[ 2017-03-07T23:31:02+08:00 ] ::1 /manager.php?m=Admin&c=index&a=getCurrentPos&menuId=102
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000029s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000489s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000550s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000664s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Index/getCurrentPos' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0015s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0017s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 5 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-03-07T23:31:02+08:00 ] ::1 /manager.php?s=/Admin/registerList/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000470s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000550s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000680s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0015s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Admin/registerList' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0012s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `zy_site_setting` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_register` [ RunTime:0.0017s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_register` LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_register` ORDER BY is_register,id desc LIMIT 0,20   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000072s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000178s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007400s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007492s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000242s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000316s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000462s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000538s ]
+
+[ 2017-03-07T23:31:02+08:00 ] ::1 /manager.php?m=Admin&c=index&a=getCurrentPos&menuId=102
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000030s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000483s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000846s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001084s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0023s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Index/getCurrentPos' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0017s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0019s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0018s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 5 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-03-07T23:31:02+08:00 ] ::1 /manager.php?s=/Admin/registerList/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000489s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000589s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000743s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Admin/registerList' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0017s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0015s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0021s ]
+SQL: SHOW COLUMNS FROM `zy_site_setting` [ RunTime:0.0017s ]
+SQL: SHOW COLUMNS FROM `zy_register` [ RunTime:0.0018s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_register` LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_register` ORDER BY is_register,id desc LIMIT 0,20   [ RunTime:0.0006s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000059s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000150s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007919s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008015s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000326s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000401s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000493s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000575s ]
+
+[ 2017-03-07T23:34:52+08:00 ] ::1 /manager.php?m=Admin&c=index&a=getCurrentPos&menuId=102
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000033s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000549s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000537s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000675s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Index/getCurrentPos' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0012s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0018s ]
+SQL: SHOW COLUMNS FROM `zy_member` [ RunTime:0.0015s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `id` = 5 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2017-03-07T23:34:52+08:00 ] ::1 /manager.php?s=/Admin/registerList/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000331s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000421s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000507s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Admin/registerList' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0017s ]
+SQL: SHOW COLUMNS FROM `zy_site_setting` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `zy_register` [ RunTime:0.0016s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_register` LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `zy_register` ORDER BY is_register,id desc LIMIT 0,20   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000064s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000167s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007679s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007767s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000255s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000329s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000449s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000523s ]
+
+[ 2017-03-07T23:34:57+08:00 ] ::1 /manager.php?s=/Admin/checkRegister
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000886s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000461s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000559s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0015s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Admin/checkRegister' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0017s ]
+SQL: SHOW COLUMNS FROM `zy_site_setting` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `zy_register` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_register` WHERE `id` = 89 LIMIT 1   [ RunTime:0.0002s ]
+SQL: INSERT INTO `zy_admin` (`mobile`,`username`,`realname`,`password`,`encrypt`,`token`,`reg_date`,`last_date`,`last_ip`,`update_date`,`user_group_id`,`group_id`) VALUES ('15054461599','15054461599','xinxin','4113188a4f96ae9f42f0895ab635bded','S8jnCE','402d05817d79aa8a68a51b186169118f','1488900812','1488900812','0','1488900812','1','7') [ RunTime:0.0002s ]
+SQL: UPDATE `zy_register` SET `is_register`='1' WHERE `id` = 89 [ RunTime:0.0001s ]
+SQL: INSERT INTO `zy_auth_group_access` (`uid`,`group_id`) VALUES ('56','7') [ RunTime:0.1230s ]
+
+[ 2017-03-07T23:35:00+08:00 ] ::1 /manager.php?s=/Admin/registerList/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000061s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000979s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000554s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000726s ]
+SQL: SHOW COLUMNS FROM `zy_auth_rule` [ RunTime:0.0016s ]
+SQL: SELECT * FROM `zy_auth_rule` WHERE `name` = 'Admin/registerList' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `zy_admin_menu` [ RunTime:0.0035s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group` [ RunTime:0.0029s ]
+SQL: SHOW COLUMNS FROM `zy_auth_group_access` [ RunTime:0.0013s ]
+SQL: SELECT `group_id` FROM `zy_auth_group_access` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `menu_ids` FROM `zy_auth_group` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `zy_admin_menu` WHERE `display` = 1 ORDER BY sort asc,id asc  [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `zy_admin` [ RunTime:0.0021s ]
+SQL: SHOW COLUMNS FROM `zy_site_setting` [ RunTime:0.0016s ]
+SQL: SHOW COLUMNS FROM `zy_register` [ RunTime:0.0022s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `zy_register` LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `zy_register` ORDER BY is_register,id desc LIMIT 0,20   [ RunTime:0.0009s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000071s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000179s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009081s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009219s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000247s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000323s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000552s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000632s ]
+

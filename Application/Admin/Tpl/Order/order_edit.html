@@ -1,0 +1,145 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="paddingTLR-md">
+			<a href="__CONTROLLER__/index" class="btn btn-xs">管理</a>
+			<a href="__CONTROLLER__/goodsAdd" class="btn btn-xs">新增商品</a>
+			<a href="#" class="btn btn-xs btn-info">编辑商品</a>
+		</div>
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<form class="form-horizontal m-top-sm" method="post" id="goodsEditForm">
+					<input type="hidden" class="form-control input-sm" name="goods_id" value="{$goods_id}" required />
+					<div class="form-group">
+						<label class="control-label col-md-3">商品名称</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control input-sm" name="info[goods_name]" value="{$goods_name}" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">商品编号</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control input-sm" name="info[goods_sn]" value="{$goods_sn}" required />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">头像</label>
+						<div class="col-md-5">
+							<button type="button" class="btn btn-success btn-sm" id="selector">选取图片</button>
+							<button type="button" class="btn btn-warning btn-sm hide" id="upload">上传</button>
+							<span id="filepath"></span>
+							<input type="hidden" name="info[goods_original_img]" value="{$goods_original_img}" />
+							<p class="m-top-sm"><img src="<if condition='$goods_original_img'>{$goods_original_img}<else />{:C('ADMIN_IMAGE_PATH')}/noimg.png</if>" width="20%" id="avatar"/></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">商品简介</label>
+						<div class="col-md-5">
+							<textarea type="text" class="form-control input-sm" name="info[goods_remark]">{$goods_remark}</textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">是否上架</label>
+						<div class="col-md-5">
+							<div class="radio inline-block">
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="sale1" name="info[is_on_sale]" value="1" <if condition="$is_on_sale eq 1">checked</if> />
+									<label for="sale1"></label>
+								</div>
+								<div class="inline-block vertical-top">上架</div>
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="sale2" name="info[is_on_sale]" value="0" <if condition="$is_on_sale eq 0">checked</if> />
+									<label for="sale2"></label>
+								</div>
+								<div class="inline-block vertical-top">下架</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">是否可以下单</label>
+						<div class="col-md-5">
+							<div class="radio inline-block">
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="commit1" name="info[is_commit]" value="1" <if condition="$is_commit eq 1">checked</if> />
+									<label for="commit1"></label>
+								</div>
+								<div class="inline-block vertical-top">是</div>
+								<div class="custom-radio m-right-xs">
+									<input type="radio" id="commit2" name="info[is_commit]" value="0" <if condition="$is_commit eq 0">checked</if> />
+									<label for="commit2"></label>
+								</div>
+								<div class="inline-block vertical-top">否</div>
+							</div>
+						</div>
+					</div>
+					<div class="text-center m-top-md">
+						<button type="submit" class="btn btn-info">提交</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{:C('ADMIN_JS_PATH')}/jquery.validate.min.js" type="text/javascript"></script>
+<script src="{:C('ADMIN_JS_PATH')}/ajaxupload.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+        $("#goodsEditForm").validate({
+	        submitHandler:function(form){
+	            confirm();
+	        }
+	    });
+        // 创建一个上传参数
+        var uploadOption = {
+            // 提交目标
+            action: "/index.php?m=Attachment&c=Index&a=adminUploadOne",
+			// 服务端接收的名称
+			name: "file",
+            // 自动提交
+            autoSubmit: true,
+            // 选择文件之后…
+            onChange: function (file, extension) {
+                if (new RegExp(/(jpg)|(jpeg)|(gif)|(png)/i).test(extension)) {
+                	$("#upload").removeClass("hide");
+                    $("#filepath").text(file);
+                } else {
+                    DMS.alert("只限上传图片文件，请重新选择！");
+                }
+            },
+            // 开始上传文件
+            onSubmit: function (file, extension) {
+                $("#upload").text("正在上传");
+            },
+            // 上传完成之后
+            onComplete: function (file, response) {
+            	var response = JSON.parse(jQuery(response).text());
+            	if(response.status == 'success'){
+            		$("#upload").text("上传完成");
+            		$("[name='info[goods_original_img]']").val(response.path);
+            		$("#avatar").attr("src",response.path);
+            	}
+            }
+        }
+
+        // 初始化图片上传框
+        var oAjaxUpload = new AjaxUpload('#selector', uploadOption);
+        // 给上传按钮增加上传动作
+        $("#upload").click(function (){
+            oAjaxUpload.submit();
+        });
+    })
+    function confirm() {
+		DMS.ajaxPost("__CONTROLLER__/goodsEdit",$('#goodsEditForm').serialize(),function(ret){
+			if(ret.status==1){
+            	DMS.success("提交成功",0,function(){
+					if(ret.url){
+            			window.location.href = ret.url;
+            		}else{
+            			window.location.href = window.location.href;
+            		}
+				});
+            }else{
+            	DMS.error(''+ret.info+'',0);
+            }
+		})
+    }
+</script>

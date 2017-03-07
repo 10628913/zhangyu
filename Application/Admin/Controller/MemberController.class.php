@@ -7,8 +7,8 @@ class MemberController extends BaseController {
         $this->groupDb = M("Member_group");
         $this->gradeSettingDb = M('Grade_setting');
         $this->memberGradeDb = M('Member_grade');
-        $this->pointSettingDb = M('Point_setting');
-        $this->pointDetailDb = M('Point_detail');
+        // $this->pointSettingDb = M('Point_setting');
+        // $this->pointDetailDb = M('Point_detail');
     }
     // 会员列表
     public function index(){
@@ -70,9 +70,9 @@ class MemberController extends BaseController {
     // 会员编辑
     public function memberEdit(){
     	if(IS_POST){
+            $data = $_POST['info'];
     		$userid = $where['userid'] = intval($_POST['userid']);
             $data['userid'] = $userid;
-            $data = $_POST['info'];
             if(isset($_POST['password']) && !empty($_POST['password'])){
                 $password = password($_POST['password']);
                 $passwordData['password'] = $password['password'];

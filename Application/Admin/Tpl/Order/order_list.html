@@ -1,0 +1,185 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<div class="row">
+					<div class="col-md-6">
+		                <a href="javascript:manager('lock')" class="btn btn-sm btn-success">禁止</a>
+		                <a href="javascript:manager('unlock')" class="btn btn-sm btn-success">解除禁止</a>
+		                <a href="javascript:manager('delete')" class="btn btn-sm btn-danger">删除</a>
+					</div>
+					<div class="col-md-6">
+						<div class="input-group pull-right col-md-6" id="search-form">
+							<input type="text" name="keyword" class="form-control input-sm" placeholder="待定" value="{$searchInfo['keyword']}">
+							<span class="input-group-btn">
+								<a href="javascript:;" url="__ACTION__" id="search" class="btn btn-sm btn-success">搜索</a>
+							</span>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-bordered m-top-sm" id="dataTable">
+					<thead>
+						<tr>
+							<th>
+								<!-- <input type="checkbox" class="check-all" /> -->
+								<div class="custom-checkbox">
+									<input type="checkbox" id="checkall" class="check-all" >
+									<label for="checkall"></label>
+								</div>
+							</th>
+							<th>订单编号</th>
+							<th>收货人</th>
+							<th>购货人</th>
+							<th>订单状态</th>
+							<th>发货状态</th>
+							<th class="hidden-xs">下单时间</th>
+							<th>商家</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+
+						<tr id="data-{$v['order_id']}">
+							<td>
+								<div class="custom-checkbox">
+									<input type="checkbox" value="{$v['order_id']}" name="orderids[]" id="order_id-{$v['order_id']}" class="ids" >
+									<label for="order_id-{$v['order_id']}"></label>
+								</div>
+							</td>
+							<td>{$v['order_sn']}</td>
+							<td>{$v['uid']||get_admin_name}</td>
+							<td>{$v['uid']||get_admin_name}</td>
+							<td>{$v['order_status']}</td>
+							<td>发货状态</td>
+							<!-- <td>
+								<if condition="$v['goods_original_img']"><img src="{$v['goods_original_img']}" class="avatar" />&nbsp;</if>
+							</td>
+							<td class="hidden-xs">{$v['goods_ontime']|date="Y-m-d H:i:s",###}</td>
+							<td>
+								<if condition="$v['is_on_sale'] eq 1">
+									<span class="label label-success">上架</span>
+								<else />
+								<span class="label label-danger">下架</span>
+								</if>
+							</td>
+							<td>
+								<if condition="$v['is_commit'] eq 1">
+								<span class="label label-success">是</span>
+								<else />
+								<span class="label label-danger">否</span>
+								</if>
+							</td> -->
+							<td class="hidden-xs">{$v['order_addtime']|date="Y-m-d H:i:s",###}</td>
+							<td>商家</td>
+							<td>
+								<a href="javascript:showInfo({$v['order_id']})" class="btn btn-manager btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="详情" data-original-title="详情"><i class="fa fa-info"></i></a>
+								<!-- <a href="__CONTROLLER__/goodsEdit/goods_id/{$v['goods_id']}" class="btn btn-manager btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="编辑"><i class="fa fa-pencil"></i></a> -->
+								<!-- <a href="javascript:goodsDelete({$v['goods_id']});" class="btn btn-manager btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-trash-o"></i></a> -->
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table>
+				<div class="content text-right">
+					<ul class="pagination">
+						{$page}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('#search-form').find('.input-sm').serialize();
+        // if(!$('input[name="keyword"]').val()){
+        // 	DMS.alert("请输入关键词关键词");
+        // 	return;
+        // }
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	$(".check-all").click(function(){
+		$(".ids").prop("checked", this.checked);
+	});
+	$(".ids").click(function(){
+		var option = $(".ids");
+		option.each(function(i){
+			if(!this.checked){
+				$(".check-all").prop("checked", false);
+				return false;
+			}else{
+				$(".check-all").prop("checked", true);
+			}
+		});
+	});
+	function manager(type){
+		var orderids='';
+		$("input[name='orderids[]']:checked").each(function(i, n){
+			goodsids += $(n).val() + ',';
+		});
+		orderids = orderids.substring(0,goodsids.length-1);
+
+		if(orderids=='') {
+			DMS.alert("请先选择用户")
+			return false;
+		}else{
+			switch (type) {
+				case 'lock':
+					var url = "__CONTROLLER__/memberLock";
+					break;
+				case 'unlock':
+					var url = "__CONTROLLER__/memberUnLock";
+					break;
+				case 'delete':
+					var url = "__CONTROLLER__/membersDelete";
+					break;
+			}
+			if(url){
+				DMS.dialog("确定要执行当前操作吗?",function(){
+					DMS.ajaxPost(url,{goodsids:goodsids},function(ret){
+						if(ret.status==1){
+							DMS.success(ret.info,0,function(){
+		                		window.location.href = window.location.href;
+							});
+		                }else{
+		                	DMS.error(ret.info,0);
+		                }
+					})
+				});
+			}
+		}
+	}
+	// function goodsAdd(){
+	// 	DMS.ajaxShow("添加商品","__CONTROLLER__/goodsAdd");
+	// }
+	// function goodsEdit(goods_id){
+	// 	DMS.ajaxShow("编辑商品","__CONTROLLER__/goodsEdit/goods_id/"+goods_id);
+	// }
+	// function reSearch(){
+	// 	window.location.href = "__ACTION__";
+	// }
+	function showInfo(order_id){
+		DMS.loadUrl("用户详情","__CONTROLLER__/orderInfo/order_id/"+order_id);
+	}
+	function goodsDelete(goods_id){
+		DMS.dialog("确定要删除吗?",function(){
+			DMS.ajaxPost("__CONTROLLER__/goodsDelete",{goods_id:goods_id},function(ret){
+				if(ret.status==1){
+                	DMS.success(ret.info,0,function(){
+                		$("#data-"+goods_id).remove();
+					});
+                }else{
+                	DMS.error(ret.info,0);
+                }
+			})
+		});
+	}
+</script>

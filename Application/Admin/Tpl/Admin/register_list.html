@@ -1,0 +1,68 @@
+<div class="padding-md">
+	<div class="smart-widget widget-dark-blue">
+		<div class="smart-widget-inner">
+			<div class="smart-widget-body">
+				<table class="table table-striped table-bordered" id="dataTable">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>账号</th>
+							<th>昵称</th>
+							<th class="hidden-xs">注册时间</th>
+							<th class="hidden-xs">状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="v">
+						<tr id="data-{$v['id']}">
+							<td>{$v['id']}</td>
+							<td>{$v['mobile']}</td>
+							<td>{$v['realname']}</td>
+							<td class="hidden-xs">{$v['reg_date']|date="Y-m-d H:i:s",###}</td>
+							<td class="hidden-xs">
+								<if condition="$v['is_register'] eq 1">
+								<span class="label label-success">已审核</span>
+								<else />
+								<span class="label label-danger">未审核</span>
+								</if>
+							</td>
+							<td>
+								<a href="javascript:checkRegister({$v['id']},{$v['is_register']});" class="btn btn-manager btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="审核"><i class="fa fa-pencil"></i></a>
+							</td>
+						</tr>
+						</foreach>
+					</tbody>
+				</table>
+				<div class="content text-right">
+					<ul class="pagination">
+						{$page}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function checkRegister(id,is_register){
+		if (is_register == 1) {return};
+		DMS.dialog("通过审核?",function(){
+			DMS.ajaxPost("__CONTROLLER__/checkRegister",{id:id},function(ret){
+				if(ret.status==1){
+	            	DMS.success("审核成功",0,function(){
+						if(ret.url){
+	            			window.location.href = ret.url;
+	            		}else{
+	            			window.location.href = window.location.href;
+	            		}
+					});
+	            }else{
+	            	DMS.error(ret.info,0);
+	            }
+			})
+		});
+
+		
+
+	}
+</script>

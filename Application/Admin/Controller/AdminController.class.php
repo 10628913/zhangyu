@@ -8,14 +8,61 @@ class AdminController extends BaseController {
         $this->siteSettingDb = M('Site_setting');
         $this->groupDb = M("Auth_group");
         $this->groupAccessDb = M("Auth_group_access");
+        // $this->adminGroupDb = M("Admin_group");
+        $this->registerDb = M("Register");
     }
+    /**
+    * 注册列表
+    */
+    public function registerList(){
+        $count = $this->registerDb->count();
+        $Page = new \Think\Page($count,20);
+        $list = $this->registerDb->limit($Page->firstRow.','.$Page->listRows)->order('is_register,id desc')->select();
+        $show = $Page->show();
+        $this->assign('page',$show);
+        $this->assign('list',$list);
+        $this->display("register_list");
+    }
+
+    /**
+    *注册用户审核
+    */
+    public function checkRegister(){
+        $id = intval($_POST['id']);
+        $where['id'] = $id;
+        $list = $this->registerDb->where($where)->find();
+        $data['username'] = $data['mobile'] = $list['mobile'];
+        $data['realname'] = $list['realname'];
+        $data['password'] = $list['password'];
+        $data['encrypt'] = $list['encrypt'];
+        $data['token'] = $list['token'];
+        $data['reg_date'] = $list['reg_date'];
+        $data['last_date'] = $list['last_date'];
+        $data['last_ip'] = $list['last_ip'];
+        $data['update_date'] = $list['update_date'];
+        $data['user_group_id'] = 1;
+        $data['group_id'] = 7;
+        $result = $this->adminDb->data($data)->add();
+        if($result){        
+            $reg['is_register'] = 1;
+            $this->registerDb->where($where)->save($reg);
+            // 审核通过后 默认分到管理组id为7
+            $groupAccessData['uid'] = $result;
+            $groupAccessData['group_id'] = $data['group_id'];
+            $res = $this->groupAccessDb->data($groupAccessData)->add();
+            $this->success('通过审核');                
+        }else{
+            $this->error('操作失败');
+        }
+    }
+
     /**
     * 管理员列表
     */
     public function index(){
         $count = $this->adminDb->count();
         $Page = new \Think\Page($count,20);
-        $list = $this->adminDb->limit($Page->firstRow.','.$Page->listRows)->order('uid desc')->select();
+        $list = $this->adminDb->limit($Page->firstRow.','.$Page->listRows)->order('uid')->select();
         foreach ($list as $key => $v) {
             $whereGroup['id'] = $v['group_id'];
             $list[$key]['group_name'] = $this->groupDb->where($whereGroup)->getField("title");
@@ -41,7 +88,6 @@ class AdminController extends BaseController {
             $isIn = $this->adminDb->where($where)->find();
             if($isIn){
                 $this->error('账号已存在');
-                return false;
             }
             if(!$data['username'] || !$data['password']){
                 $this->error('操作失败');
@@ -59,7 +105,7 @@ class AdminController extends BaseController {
             }
         }else{
             $whereData['status'] = 1;
-            $groupInfo = $this->groupDb->where($whereData)->select();
+            $groupInfo = $this->groupDb->where($whereData)->select();            
             $this->assign("groupInfo",$groupInfo);
             layout(false);
             $this->display("admin_add");
@@ -83,6 +129,7 @@ class AdminController extends BaseController {
                 $passwordData['encrypt'] = $password['encrypt'];
                 $this->adminDb->where($whereData)->save($passwordData);
             }
+
             //管理组判断更新
             if(get_auth_group($uid,1) !=  $data['group_id']){
                 $this->groupAccessDb->where($whereData)->setField("group_id",$data['group_id']);
@@ -104,6 +151,7 @@ class AdminController extends BaseController {
             $adminInfo = $this->adminDb->where($whereData)->find();
             $adminInfo['group_id'] = get_auth_group($uid,1);
             $this->assign($adminInfo);
+
 
             //全部用户组获取
             $whereData['status'] = 1;
@@ -170,6 +218,7 @@ class AdminController extends BaseController {
         $whereData['status'] = 1;
         $groupInfo = $this->groupDb->where($whereData)->select();
         $this->assign("groupInfo",$groupInfo);
+        
         layout(false);
         $this->display("admin_info");
     }
@@ -229,6 +278,61 @@ class AdminController extends BaseController {
             $this->success('解除禁止成功');
         }
     }
+
+    // // 会员组列表
+    // public function groupLists(){
+    //     $list = $this->adminGroupDb->order('id desc')->select();
+    //     foreach ($list as $key => $v) {
+    //         $where['group_id'] = $v['id'];
+    //         $list[$key]['member_count'] = $this->adminDb->where($where)->count();
+    //     }
+    //     $this->assign('list',$list);
+    //     $this->display("group_list");
+    // }
+    // // 会员组增加
+    // public function groupAdd(){
+    //     if(IS_POST){
+    //         $data = $_POST['info'];
+    //         $result = $this->adminGroupDb->data($data)->add();
+    //         if($result){
+    //             $this->success("操作成功");
+    //         }else{
+    //             $this->error("操作失败");
+    //         }
+    //     }else{
+    //         layout(false);
+    //         $this->display("group_add");
+    //     }
+    // }
+    
+    // public function groupEdit(){
+    //     if(IS_POST){
+    //         $id = $where['id'] = I('id');
+    //         $data = $_POST['info'];
+    //         $this->adminGroupDb->where($where)->save($data);
+    //         $this->success("操作成功");
+    //     }else{
+    //         $id = $where['id'] = I('id');
+    //         $groupInfo = $this->adminGroupDb->where($where)->find();
+    //         $this->assign($groupInfo);
+    //         layout(false);
+    //         $this->display("group_edit");
+    //     }
+    // }
+    // public function groupDelete(){
+    //     if(IS_POST){
+    //         $id = I('id');
+    //         $where['id'] = $id;
+    //         $result = $this->adminGroupDb->where($where)->delete();
+    //         if($result){
+    //             $this->success("操作成功");
+    //         }else{
+    //             $this->error("操作失败");
+    //         }
+    //     }
+    // }
+
+
     // 站点配置
     public function siteSetting(){
         if(IS_POST){

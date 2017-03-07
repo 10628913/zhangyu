@@ -366,6 +366,43 @@
         }
 
     }
+
+        // 获取客户上级代理名称
+    function getClientMemberName($parent_id){
+        if(!$parent_id)return;
+        $db = M('Member');
+        $where['userid'] = $parent_id;
+        $parentName = $db->where($where)->getField("nickname");
+        if($parentName){
+            return $parentName;
+        }
+
+    }
+    // 获取客户上级boss名称
+    function getClientAdminName($parent_id){
+        if(!$parent_id)return;
+        $db = M('Admin');
+        $where['uid'] = $parent_id;
+        $parentName = $db->where($where)->getField("realname");
+        if($parentName){
+            return $parentName;
+        }
+
+    }
+    // 获取商品发布人名称
+    function getGoodsAdminName($uid){
+        if(!$parent_id)return;
+        $db = M('Admin');
+        $where['uid'] = $parent_id;
+        $parentName = $db->where($where)->getField("realname");
+        if($parentName){
+            return $parentName;
+        }
+
+    }
+
+
+
     /**
     * 检查用户等级并更新
     * @param $userid

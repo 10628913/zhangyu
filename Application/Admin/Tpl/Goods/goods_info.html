@@ -1,0 +1,41 @@
+<div class="row user-profile-wrapper text-left">
+	<div class="col-md-3 user-profile-sidebar m-bottom-md">
+		<div class="row">
+			<div class="col-sm-4 col-md-12">
+				<div class="user-profile-pic">
+					<img src="{$goods_original_img}" alt="">
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-12">
+				<div class="user-name m-top-sm">{$goods_name}</div>
+			</div>
+		</div><!-- ./row -->
+	</div><!-- ./col -->
+	<div class="col-md-9">
+		<div class="smart-widget">
+			<div class="smart-widget-inner">
+				<div class="smart-widget-header">
+	                其他信息
+				</div>
+				<div class="smart-widget-body">
+					<p>商品名：{$goods_name}</p>
+					<p>商品编号：{$goods_sn}</p>
+					<p>商品简介：{$goods_remark}</p>
+					<p>所属商户：{$uid||get_admin_name}</p>
+					<if condition ="$is_on_sale eq 1">
+						<p>是否上架：已上架</p>
+						<p>商品上架时间{$goods_ontime|date="Y-m-d H:i:s",###}</p>
+						<p>是否可以下单：
+						<if condition ="$is_commit eq 1">可下单
+							<else />不能下单
+						</if>
+						<else />
+						<p>是否上架：未上架</p>
+						<p>是否可以下单:不能下单</p>
+					</if>					
+					<p>商品更新时间：{$goods_update_time|date="Y-m-d H:i:s",###}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

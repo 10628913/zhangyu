@@ -1,0 +1,32 @@
+<div class="row user-profile-wrapper text-left">
+	<div class="col-md-3 user-profile-sidebar m-bottom-md">
+		<div class="row">
+			<div class="col-sm-4 col-md-12">
+				<div class="user-profile-pic">
+					<img src="{$client_avatar}" alt="">
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-12">
+				<div class="user-name m-top-sm">{$client_name}</div>
+			</div>
+		</div><!-- ./row -->
+	</div><!-- ./col -->
+	<div class="col-md-9">
+		<div class="smart-widget">
+			<div class="smart-widget-inner">
+				<div class="smart-widget-header">
+	                其他信息
+				</div>
+				<div class="smart-widget-body">
+					<p>昵称：{$client_name}</p>
+					<p>手机：{$client_mobile}</p>
+					<p>上级名称：{$parent_id}</p>
+					<p>上级所属类型：{$parent_type}</p>
+					<p>备注：{$client_remark}</p>
+					<p>注册时间：{$client_addtime|date="Y-m-d H:i:s",###}</p>
+					<p>地址：{$client_mobile}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

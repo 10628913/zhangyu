@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-md-3">真实姓名</label>
+		<label class="control-label col-md-3">昵称</label>
 		<div class="col-md-5">
 			<input type="text" class="form-control input-sm" name="info[realname]" value="" required>
 		</div>
@@ -39,6 +39,16 @@
 			<p class="m-top-sm"><img src="{:C('ADMIN_IMAGE_PATH')}/noimg.png" width="20%" id="avatar"/></p>
 		</div>
 	</div>
+	<!-- <div class="form-group">
+		<label class="control-label col-md-3">用户组</label>
+		<div class="col-md-5">
+			<select class="form-control" name="info[user_group_id]" required>
+              	<foreach name="adminGroupInfo" item="v">
+				<option value="{$v['id']}">{$v['title']}</option>
+				</foreach>
+            </select>
+        </div>
+	</div -->>
 	<div class="form-group">
 		<label class="control-label col-md-3">管理组</label>
 		<div class="col-md-5">
