@@ -19,8 +19,14 @@ class AppController extends RestController {
     //验证用户token
     protected function validateAdmin($token = null){
         $adminDb = M("Admin");
-        $adminInfo = $adminDb->where("token = '".$token."'")->field("uid,username,token,avatar,realname")->find();
+        $adminInfo = $adminDb->where("token = '".$token."'")->field("password,encrypt",true)->find();
         if($adminInfo){
+            if($adminInfo["status"] == 0){
+                $ret["code"] = "0";
+                $ret["msg"] = "用户已被锁定";
+                $this->response($ret,"json");
+                exit;
+            }
             return $adminInfo;
         }else{
             $ret["code"] = "0";
