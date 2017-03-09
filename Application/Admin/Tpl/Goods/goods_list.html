@@ -7,13 +7,13 @@
 						<a href="__CONTROLLER__/goodsAdd" class="btn btn-sm btn-info">
 		                    <i class="fa fa-plus"></i>增加商品
 		                </a>
-		                <a href="javascript:manager('lock')" class="btn btn-sm btn-success">禁止</a>
-		                <a href="javascript:manager('unlock')" class="btn btn-sm btn-success">解除禁止</a>
+		                <!-- <a href="javascript:manager('lock')" class="btn btn-sm btn-success">禁止</a>
+		                <a href="javascript:manager('unlock')" class="btn btn-sm btn-success">解除禁止</a> -->
 		                <a href="javascript:manager('delete')" class="btn btn-sm btn-danger">删除</a>
 					</div>
 					<div class="col-md-6">
 						<div class="input-group pull-right col-md-6" id="search-form">
-							<input type="text" name="keyword" class="form-control input-sm" placeholder="用户昵称" value="{$searchInfo['keyword']}">
+							<input type="text" name="keyword" class="form-control input-sm" placeholder="商品名称" value="{$searchInfo['keyword']}">
 							<span class="input-group-btn">
 								<a href="javascript:;" url="__ACTION__" id="search" class="btn btn-sm btn-success">搜索</a>
 							</span>
@@ -30,10 +30,10 @@
 									<label for="checkall"></label>
 								</div>
 							</th>
-							<th>商品ID</th>
-							<th>所属商户</th>
+							<th>商品ID</th>							
 							<th>商品名称</th>
 							<th>商品编号</th>
+							<th>所属商户</th>
 							<th>商品图片</th>
 							<th class="hidden-xs">商品上架时间</th>
 							<th>是否上架</th>
@@ -53,9 +53,9 @@
 								</div>
 							</td>
 							<td>{$v['goods_id']}</td>
-							<td>{$v['uid']||get_admin_name}</td>
 							<td>{$v['goods_name']}</td>
 							<td>{$v['goods_sn']}</td>
+							<td>{$v['uid']||get_admin_name}</td>							
 							<td>
 								<if condition="$v['goods_original_img']"><img src="{$v['goods_original_img']}" class="avatar" />&nbsp;</if>
 							</td>

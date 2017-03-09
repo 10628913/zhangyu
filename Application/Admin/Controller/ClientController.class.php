@@ -21,6 +21,7 @@ class ClientController extends BaseController {
         if($uid != 1){
             $whereSearch['parent_id'] = $uid;
         }
+        $whereSearch['is_show'] = 1;
         $this->assign('searchInfo',$searchInfo);
         $count = $this->clientDb->where($whereSearch)->count();
 
@@ -122,15 +123,14 @@ class ClientController extends BaseController {
     }
     // 客户删除操作
     public function clientDelete(){
-        $client_id = $where['client_id'] = I("client_id");
-        $clientInfo = $this->clientDb->where($where)->find();
-        if($clientInfo){
-            $result = $this->clientDb->where($where)->delete();
-        }
+        $where['client_id'] = I("client_id");
+        $data['is_show'] = 0;
+        $result = $this->clientDb->where($where)->data($data)->save();
+
         if($result){
-            $this->success("操作成功");
+            $this->success("删除成功成功");
         }else{
-            $this->error("操作失败");
+            $this->error("删除失败");
         }
     }
     /**
@@ -139,10 +139,11 @@ class ClientController extends BaseController {
     public function clientsDelete(){
         if(IS_POST){
             $clientids = explode(",",$_POST['clientids']);
+            $data['is_show'] =0;
             foreach ($clientids as $key => $v) {
-                $this->clientDb->where(array("client_id"=>$v))->delete();
+                $this->clientDb->where(array("client_id"=>$v))->data($data)->save();
             }
-            $this->success('操作成功');
+            $this->success('删除成功');
         }
     }
 

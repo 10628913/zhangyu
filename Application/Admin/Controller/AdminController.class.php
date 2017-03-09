@@ -8,7 +8,6 @@ class AdminController extends BaseController {
         $this->siteSettingDb = M('Site_setting');
         $this->groupDb = M("Auth_group");
         $this->groupAccessDb = M("Auth_group_access");
-        // $this->adminGroupDb = M("Admin_group");
         $this->registerDb = M("Register");
     }
     /**
@@ -60,7 +59,8 @@ class AdminController extends BaseController {
     * 管理员列表
     */
     public function index(){
-        $count = $this->adminDb->count();
+        $where['is_show'] = 1;
+        $count = $this->adminDb->where($where)->count();
         $Page = new \Think\Page($count,20);
         $list = $this->adminDb->limit($Page->firstRow.','.$Page->listRows)->order('uid')->select();
         foreach ($list as $key => $v) {
@@ -83,6 +83,7 @@ class AdminController extends BaseController {
             $data['encrypt'] = $password['encrypt'];
             $data['reg_date'] = $data['last_date'] = $data['update_time'] = time();
             $data['reg_ip'] = $data['last_ip'] = ip();
+            $data['mobile'] = $data['username'];
             //判断用户名是否存在
             $where['username'] = $data['username'];
             $isIn = $this->adminDb->where($where)->find();
@@ -234,8 +235,9 @@ class AdminController extends BaseController {
             $this->error("当前管理员不允许删除");
         }
         $where['uid'] = $uid;
-        $this->adminDb->data($where)->delete();
-        $this->groupAccessDb->data($where)->delete();
+        $data['is_show'] = 0;
+        $this->adminDb->where($where)->save($data);
+        $this->groupAccessDb->where($where)->delete();
         $this->success('删除成功');
     }
     /**
@@ -244,9 +246,10 @@ class AdminController extends BaseController {
     public function adminsDelete(){
         if(IS_POST){
             $uids = $_POST['uids'];
+            $data['is_show'] = 0;
             if(in_array('1',$uids) || $uids==1) $this->error("存在不允许禁止的管理员");
             foreach ($uids as $key => $v) {
-                $this->adminDb->where(array("uid"=>$v))->delete();
+                $this->adminDb->where(array("uid"=>$v))->data($data)->save();
             }
             $this->success('删除成功');
         }

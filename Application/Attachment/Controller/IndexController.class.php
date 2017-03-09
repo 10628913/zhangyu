@@ -102,7 +102,7 @@ class IndexController extends Controller {
 	    	$key = 'file';
 	    	$info['path'] = "http://".$_SERVER['HTTP_HOST']."/".C('UPLOAD_PATH').$info[''.$key.'']['savepath'].$info[''.$key.'']['savename'];
 	    	// 插入附件表
-	    	$data['userid'] = session('userid');
+	    	$data['admin_uid'] = session('admin_uid');
 	    	$data['name'] = $info[$key]['name'];
 	    	$data['savename'] = $info[$key]['savename'];
 	    	$data['size'] = $info[$key]['size'];
