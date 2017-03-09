@@ -90,7 +90,7 @@ function get_admin_name($uid){
 	if(!$uid){
 		$uid = 1;
 	}
-	$admin_name = M('Admin')->where(array('uid'=>$uid))->getField("username");
+	$admin_name = M('Admin')->where(array('uid'=>$uid))->getField("realname");
 	if($admin_name){
 		return $admin_name;
 	}
